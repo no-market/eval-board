@@ -1,0 +1,1072 @@
+{
+  "schema_version": 1,
+  "flow": "receipt-lines",
+  "date": "2026-10-28T16:25:41.581185Z",
+  "commit": "03ce510151d5011fe23740ac1e46656cb89049f1",
+  "configuration": "v1-gemini-flash-json",
+  "flow_version": "V1",
+  "steps": {
+    "read": {
+      "model": "google/gemini-2.5-flash",
+      "options": {
+        "output": "tool",
+        "max_side": null
+      }
+    },
+    "choose_kinds": {
+      "model": "google/gemini-2.5-flash",
+      "options": {
+        "output": "json_schema"
+      }
+    }
+  },
+  "scenario": "lines",
+  "look_up": true,
+  "metrics": {
+    "f1": 0.9382716049382716,
+    "kind_f1": 0.9382716049382716,
+    "purchases": {
+      "true_positives": 38,
+      "false_positives": 3,
+      "false_negatives": 2
+    },
+    "kinds": {
+      "true_positives": 38,
+      "false_positives": 3,
+      "false_negatives": 2
+    },
+    "choose_kinds": {
+      "lines": 45,
+      "errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 2,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 1,
+        "no_result": 0,
+        "pack_size": 0
+      },
+      "noise_recognised": 1.0,
+      "unknown_rate": 0.022222222222222223,
+      "names_differ": [
+        {
+          "label": "Ryba wędzona",
+          "created": "Makrela wędzona"
+        },
+        {
+          "label": "Sałata",
+          "created": "Mieszanka sałat"
+        }
+      ]
+    },
+    "catalog": {
+      "lines": 45,
+      "hits": 0,
+      "hit_rate": 0.0,
+      "carried_errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      }
+    },
+    "write": {
+      "kind_conflicts": 1,
+      "catalog_conflicts": 0,
+      "quantities_checked": 11,
+      "purchase_quantity": 1.0
+    },
+    "calls": {
+      "calls": 3,
+      "input_tokens": 15902,
+      "output_tokens": 1921,
+      "cost_usd": 0.00632014,
+      "unpriced_calls": 0,
+      "latency_p50_s": 3.184650162000004,
+      "latency_p95_s": 3.649807269,
+      "cost_per_receipt_usd": 0.0021067133333333332,
+      "cost_per_month_usd": 0.1896042
+    },
+    "calls_by_step": {
+      "choose_kinds": {
+        "calls": 3,
+        "input_tokens": 15902,
+        "output_tokens": 1921,
+        "cost_usd": 0.00632014,
+        "unpriced_calls": 0,
+        "latency_p50_s": 3.184650162000004,
+        "latency_p95_s": 3.649807269,
+        "cost_per_receipt_usd": 0.0021067133333333332,
+        "cost_per_month_usd": 0.1896042
+      }
+    },
+    "reading": null
+  },
+  "skipped": [],
+  "cases": [
+    {
+      "receipt": "receipt 1",
+      "lines": [
+        {
+          "text": "Makr wędz tusz kg",
+          "label": {
+            "name": "Ryba wędzona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "new",
+          "kind": "Makrela wędzona",
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": true,
+          "error": "new_instead_of_existing",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Jaja ściółk L 10szt",
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 10.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Jaja",
+          "quantity": {
+            "amount": 10.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "ParówKurNatTarcz160g",
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.16,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Parówki",
+          "quantity": {
+            "amount": 0.16,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PalusSurimiVic250g",
+          "label": {
+            "name": "Paluszki surimi",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Paluszki surimi",
+          "quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Lego Minecraft",
+          "label": {
+            "name": "noise",
+            "alternatives": []
+          },
+          "expected": "noise",
+          "expected_quantity": null,
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "MixSałWłosVF120g",
+          "label": {
+            "name": "Sałata",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.12,
+            "unit": "kg"
+          },
+          "outcome": "new",
+          "kind": "Mieszanka sałat",
+          "quantity": {
+            "amount": 0.12,
+            "unit": "kg"
+          },
+          "kind_correct": false,
+          "quantity_correct": true,
+          "error": "new_instead_of_existing",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "TwarógWieKlin 250g",
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Twaróg",
+          "quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "OPUST",
+          "label": {
+            "name": "noise",
+            "alternatives": []
+          },
+          "expected": "noise",
+          "expected_quantity": null,
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Ser Camembert 200g",
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.2,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Ser",
+          "quantity": {
+            "amount": 0.2,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Kiełb Krakow 400g",
+          "label": {
+            "name": "Kiełbasa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.4,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Kiełbasa",
+          "quantity": {
+            "amount": 0.4,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "OPUSTY łącznie",
+          "label": {
+            "name": "noise",
+            "alternatives": []
+          },
+          "expected": "noise",
+          "expected_quantity": null,
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "C_SMAKI VIKTORII SO",
+          "label": {
+            "name": "?",
+            "alternatives": []
+          },
+          "expected": "unknown",
+          "expected_quantity": null,
+          "outcome": "unknown",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Pom MiniMalin 300g",
+          "label": {
+            "name": "Pomidory",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.3,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Pomidory",
+          "quantity": {
+            "amount": 0.3,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "KrewetkiGotowane250g",
+          "label": {
+            "name": "Krewetki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Krewetki",
+          "quantity": {
+            "amount": 0.25,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Cukinia luz",
+          "label": {
+            "name": "Cukinia",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Cukinia",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": null,
+      "calls": [
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash",
+          "latency_s": 3.649807269,
+          "input_tokens": 5318,
+          "output_tokens": 745,
+          "cost_usd": 0.00206308
+        }
+      ],
+      "error": null
+    },
+    {
+      "receipt": "receipt 2",
+      "lines": [
+        {
+          "text": "Kapusta biała luz",
+          "label": {
+            "name": "Kapusta biała",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Kapusta biała",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Pom malin Pols luz",
+          "label": {
+            "name": "Pomidory",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Pomidory",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Fasolka Szpar luz",
+          "label": {
+            "name": "Fasolka szparagowa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Fasolka szparagowa",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Arbuz",
+          "label": {
+            "name": "Arbuz",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Arbuz",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Lody Salte",
+          "label": {
+            "name": "Lody",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Lody",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Lody Macar",
+          "label": {
+            "name": "Lody",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Lody",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Ziemniaki",
+          "label": {
+            "name": "Ziemniaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Ziemniaki",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Jaja Ściół",
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Jaja",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Twaróg Ilu",
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Twaróg",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Cukier Biały",
+          "label": {
+            "name": "Cukier biały",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Cukier biały",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Kawa Miel.",
+          "label": {
+            "name": "Kawa mielona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Kawa mielona",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Kawa Zbożo",
+          "label": {
+            "name": "Kawa zbożowa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Kawa zbożowa",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Wino Camden",
+          "label": {
+            "name": "Wino",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Wino",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Wino Białe",
+          "label": {
+            "name": "Wino",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Wino",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Pomidor Mal",
+          "label": {
+            "name": "Pomidory",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Pomidory",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": null,
+      "calls": [
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash",
+          "latency_s": 2.498792862000002,
+          "input_tokens": 5280,
+          "output_tokens": 499,
+          "cost_usd": 0.0019027
+        }
+      ],
+      "error": null
+    },
+    {
+      "receipt": "receipt 3",
+      "lines": [
+        {
+          "text": "Truskawka",
+          "label": {
+            "name": "Truskawki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Truskawki",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Czereśnia",
+          "label": {
+            "name": "Czereśnie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Czereśnie",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Olej Słone",
+          "label": {
+            "name": "Olej słonecznikowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Olej słonecznikowy",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Camembert",
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Ser",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Cebula",
+          "label": {
+            "name": "Cebula",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Cebula",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Proszek do P",
+          "label": {
+            "name": "Proszek/płyn/kapsułki do prania",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Proszek/płyn/kapsułki do prania",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Czereśnie Luz",
+          "label": {
+            "name": "Czereśnie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Czereśnie",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Winogrono Jas",
+          "label": {
+            "name": "Winogrona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Winogrona",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Śmiet18 Piątnica400g",
+          "label": {
+            "name": "Śmietana",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.4,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Śmietana",
+          "quantity": {
+            "amount": 0.4,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Kalafior Luz",
+          "label": {
+            "name": "Kalafior",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Kalafior",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "CzeskiMięKlasen150g",
+          "label": {
+            "name": "?",
+            "alternatives": []
+          },
+          "expected": "unknown",
+          "expected_quantity": {
+            "amount": 0.15,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Ser topiony",
+          "quantity": {
+            "amount": 0.15,
+            "unit": "kg"
+          },
+          "kind_correct": false,
+          "quantity_correct": true,
+          "error": "not_unknown",
+          "source": "model",
+          "kind_existed": true,
+          "catalog_conflict": false
+        },
+        {
+          "text": "KiełKrKransyst240g",
+          "label": {
+            "name": "Kiełbasa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.24,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Kiełbasa",
+          "quantity": {
+            "amount": 0.24,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Jabł Jonagold Luz",
+          "label": {
+            "name": "Jabłka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Jabłka",
+          "quantity": null,
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Borówka Ameryk 500g",
+          "label": {
+            "name": "Borówki amerykańskie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Borówki amerykańskie",
+          "quantity": {
+            "amount": 0.5,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PapQueenPremi100r",
+          "label": {
+            "name": "Papier toaletowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": null,
+          "outcome": "existing",
+          "kind": "Papier toaletowy",
+          "quantity": {
+            "amount": 100.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": null,
+      "calls": [
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash",
+          "latency_s": 3.184650162000004,
+          "input_tokens": 5304,
+          "output_tokens": 677,
+          "cost_usd": 0.00235436
+        }
+      ],
+      "error": null
+    }
+  ]
+}

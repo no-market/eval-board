@@ -1,0 +1,1509 @@
+{
+  "schema_version": 1,
+  "flow": "receipt-lines",
+  "date": "2026-10-28T16:36:23.901096Z",
+  "commit": "03ce510151d5011fe23740ac1e46656cb89049f1",
+  "configuration": "v1-gemini-flash-lite-json",
+  "flow_version": "V1",
+  "steps": {
+    "read": {
+      "model": "google/gemini-2.5-flash-lite",
+      "options": {
+        "output": "tool",
+        "max_side": null
+      }
+    },
+    "choose_kinds": {
+      "model": "google/gemini-2.5-flash-lite",
+      "options": {
+        "output": "json_schema"
+      }
+    }
+  },
+  "scenario": "photos-partial",
+  "look_up": false,
+  "metrics": {
+    "f1": 0.5714285714285714,
+    "kind_f1": 0.5714285714285714,
+    "purchases": {
+      "true_positives": 18,
+      "false_positives": 4,
+      "false_negatives": 23
+    },
+    "kinds": {
+      "true_positives": 18,
+      "false_positives": 4,
+      "false_negatives": 23
+    },
+    "choose_kinds": {
+      "lines": 41,
+      "errors": {
+        "wrong_existing": 2,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 2,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 4,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 15,
+        "pack_size": 0
+      },
+      "noise_recognised": null,
+      "unknown_rate": 0.0,
+      "names_differ": []
+    },
+    "catalog": {
+      "lines": 41,
+      "hits": 0,
+      "hit_rate": 0.0,
+      "carried_errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      }
+    },
+    "write": {
+      "kind_conflicts": 0,
+      "catalog_conflicts": 0,
+      "quantities_checked": 18,
+      "purchase_quantity": 1.0
+    },
+    "calls": {
+      "calls": 6,
+      "input_tokens": 19100,
+      "output_tokens": 5081,
+      "cost_usd": 0.0038783199999999998,
+      "unpriced_calls": 0,
+      "latency_p50_s": 2.7300542529999348,
+      "latency_p95_s": 5.976069028999973,
+      "cost_per_receipt_usd": 0.0012927733333333333,
+      "cost_per_month_usd": 0.1163496
+    },
+    "calls_by_step": {
+      "read": {
+        "calls": 3,
+        "input_tokens": 2826,
+        "output_tokens": 2698,
+        "cost_usd": 0.00129772,
+        "unpriced_calls": 0,
+        "latency_p50_s": 2.8708557300000166,
+        "latency_p95_s": 5.976069028999973,
+        "cost_per_receipt_usd": 0.00043257333333333333,
+        "cost_per_month_usd": 0.0389316
+      },
+      "choose_kinds": {
+        "calls": 3,
+        "input_tokens": 16274,
+        "output_tokens": 2383,
+        "cost_usd": 0.0025805999999999997,
+        "unpriced_calls": 0,
+        "latency_p50_s": 1.4215914249999742,
+        "latency_p95_s": 3.6691922739998972,
+        "cost_per_receipt_usd": 0.0008601999999999999,
+        "cost_per_month_usd": 0.07741799999999999
+      }
+    },
+    "reading": {
+      "counts": {
+        "receipts": 3,
+        "truth_lines": 41,
+        "read_lines": 42,
+        "aligned": 41,
+        "missed": 0,
+        "extra": 1,
+        "text_right": 14,
+        "quantity_right": 36,
+        "price_right": 25,
+        "discounts": 3,
+        "discounts_right": 0,
+        "discounts_extra": 1,
+        "chain_right": 3,
+        "date_right": 3,
+        "self_checked": 3,
+        "self_check_passed": 1
+      },
+      "line_text": 0.34146341463414637,
+      "quantity": 0.8780487804878049,
+      "price": 0.6097560975609756,
+      "discount_pairing": 0.0,
+      "chain": 1.0,
+      "date": 1.0,
+      "self_check_pass_rate": 0.3333333333333333,
+      "missed_lines": 0.0,
+      "extra_lines": 0.023809523809523808
+    }
+  },
+  "skipped": [],
+  "cases": [
+    {
+      "receipt": "aldi/2026-09-23 12.50.png",
+      "lines": [
+        {
+          "text": "SOK POMIDOR 1L C",
+          "label": {
+            "name": "Sok pomidorowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Sok pomidorowy",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G A",
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Batony czekoladowe",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": false,
+          "quantity_correct": true,
+          "error": "existing_instead_of_new",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 0.864,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 0.86,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "MAKRELA WEDZONA KG C",
+          "label": {
+            "name": "Ryba wędzona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Ryba wędzona",
+          "quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 5,
+          "read_lines": 5,
+          "aligned": 5,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 4,
+          "quantity_right": 5,
+          "price_right": 5,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "MAKRELA WEDZONA KG C",
+            "read": "MAKRELA WĘDZONA KG C"
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 2.8708557300000166,
+          "input_tokens": 942,
+          "output_tokens": 371,
+          "cost_usd": 0.00017852
+        },
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 1.4215914249999742,
+          "input_tokens": 5135,
+          "output_tokens": 324,
+          "cost_usd": 0.0006431
+        }
+      ],
+      "error": null
+    },
+    {
+      "receipt": "aldi/2026-10-23 15.55.26.jpg",
+      "lines": [
+        {
+          "text": "CHUSTECZKI KOSM 150SZT A",
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Chusteczki higieniczne",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE C",
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Jaja",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE C",
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Jaja",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G C",
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Twaróg",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G C",
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Twaróg",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "CHAŁKA Z KRUSZONKĄ 165G C",
+          "label": {
+            "name": "Chałka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Chałka",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "KAKI C",
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 5.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 7,
+          "read_lines": 8,
+          "aligned": 7,
+          "missed": 0,
+          "extra": 1,
+          "text_right": 7,
+          "quantity_right": 7,
+          "price_right": 7,
+          "discounts": 1,
+          "discounts_right": 0,
+          "discounts_extra": 1,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            null,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "missed": [],
+        "extra": [
+          "OPUST JAJA 10L ŚCIÓŁKOWE C"
+        ],
+        "misread": []
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 2.7300542529999348,
+          "input_tokens": 942,
+          "output_tokens": 596,
+          "cost_usd": 0.0003326
+        },
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 1.4198284169999624,
+          "input_tokens": 5249,
+          "output_tokens": 431,
+          "cost_usd": 0.0006973
+        }
+      ],
+      "error": null
+    },
+    {
+      "receipt": "biedronka/2026-10-24 17.15.13.jpg",
+      "lines": [
+        {
+          "text": "ChustQueeClassicX150",
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Chusteczki nawilżane",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": false,
+          "quantity_correct": true,
+          "error": "wrong_existing",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "LodyMarAlmPat6x120ml",
+          "label": {
+            "name": "Lody",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Lody",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "MlekoWiejPiąt2 1l",
+          "label": {
+            "name": "Mleko",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PatyczBeBeaut300sz",
+          "label": {
+            "name": "Patyczki kosmetyczne",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PrzyCzosKamis16-20g",
+          "label": {
+            "name": "Czosnek granulowany",
+            "alternatives": [
+              "Mieszanka przypraw"
+            ]
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "DoveŻelHydrate450",
+          "label": {
+            "name": "Żel pod prysznic",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Balsam do ciała",
+          "quantity": {
+            "amount": 0.805,
+            "unit": "kg"
+          },
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "wrong_existing",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "ĆwKurChoB Anty kg",
+          "label": {
+            "name": "Kurczak",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 0.805,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Cukier trzcinowy",
+          "quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "existing_instead_of_new",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Krewetki całe 400g",
+          "label": {
+            "name": "Krewetki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "noise",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "TortillaPszenn306g",
+          "label": {
+            "name": "Tortille",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "SalamiKraWedMix300g",
+          "label": {
+            "name": "Kiełbasa",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "TicTacTwoRaspberr39g",
+          "label": {
+            "name": "Cukierki",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "SerWłoszczowski400g",
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Ser",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Mandarynka luz",
+          "label": {
+            "name": "Mandarynki",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.258,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "BurakiGotowane500 g",
+          "label": {
+            "name": "Buraki gotowane",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "JogurtTypuGreck 1kg",
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "ŚmietMlDol 12 400g",
+          "label": {
+            "name": "Śmietana",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Śmietana",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Kaki szt",
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 3.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PopcornSłodki250g",
+          "label": {
+            "name": "Popcorn",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Popcorn",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PapQueenPremi10rol",
+          "label": {
+            "name": "Papier toaletowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Papier toaletowy",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "WorkiNŚmieci35lx15sz",
+          "label": {
+            "name": "Worki na śmieci",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Worki na śmieci",
+          "quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PizSupCiagForm0,424g",
+          "label": {
+            "name": "Pizza mrożona",
+            "alternatives": [
+              "Pizza"
+            ]
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "noise",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Cebula 1kg opak",
+          "label": {
+            "name": "Cebula",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "noise",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Jabł Jonagold luz",
+          "label": {
+            "name": "Jabłka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.568,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Jabłka",
+          "quantity": {
+            "amount": 0.568,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Granat szt",
+          "label": {
+            "name": "Granaty",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "Twaróg Półtł 250g",
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Twaróg",
+          "quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "SerdelkizIndyk300g",
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Parówki",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "PreDurexClassic12szt",
+          "label": {
+            "name": "Prezerwatywy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "noise",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "noise",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "ŚledźPoKołobrz800g",
+          "label": {
+            "name": "Śledzie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Śledzie",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "ActimelOwLeśn12x100g",
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "new",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 29,
+          "read_lines": 29,
+          "aligned": 29,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 3,
+          "quantity_right": 24,
+          "price_right": 13,
+          "discounts": 2,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "ChustQueeClassicX150",
+            "read": "ChustQeeClassicX150"
+          },
+          {
+            "truth": "LodyMarAlmPat6x120ml",
+            "read": "LodyMarAlnPatex120ml"
+          },
+          {
+            "truth": "MlekoWiejPiąt2 1l",
+            "read": "MlekoiniejPiatt2 1l"
+          },
+          {
+            "truth": "PatyczBeBeaut300sz",
+            "read": "PatyczkBeBeaut300szc"
+          },
+          {
+            "truth": "PrzyCzosKamis16-20g",
+            "read": "PrzyczosKanis16-20g"
+          },
+          {
+            "truth": "DoveŻelHydrate450",
+            "read": "DoveZeHydrate450"
+          },
+          {
+            "truth": "ĆwKurChoB Anty kg",
+            "read": "Cukurchob Anty kg"
+          },
+          {
+            "truth": "Krewetki całe 400g",
+            "read": "Kremetki cate 400g"
+          },
+          {
+            "truth": "TortillaPszenn306g",
+            "read": "TortillaPszenna306g"
+          },
+          {
+            "truth": "SalamiKraWedMix300g",
+            "read": "SalaniKrakedMix300g"
+          },
+          {
+            "truth": "TicTacTwoRaspberr39g",
+            "read": "TicTacTuoRaspberry39g"
+          },
+          {
+            "truth": "SerWłoszczowski400g",
+            "read": "Serkoszkouski1400g"
+          },
+          {
+            "truth": "Mandarynka luz",
+            "read": "Mandarynka Luz"
+          },
+          {
+            "truth": "BurakiGotowane500 g",
+            "read": "Burak/Gotowane500 g"
+          },
+          {
+            "truth": "JogurtTypuGreck 1kg",
+            "read": "Yogurt Typu Grek 1kg"
+          },
+          {
+            "truth": "ŚmietMlDol 12 400g",
+            "read": "SmietMiDol 12 400g"
+          },
+          {
+            "truth": "PopcornSłodki250g",
+            "read": "Popcorn Słodki 250g"
+          },
+          {
+            "truth": "PapQueenPremi10rol",
+            "read": "PapQueenPreni10rol"
+          },
+          {
+            "truth": "WorkiNŚmieci35lx15sz",
+            "read": "WorkiNSnieci35Lx15sz"
+          },
+          {
+            "truth": "PizSupCiagForm0,424g",
+            "read": "PizSupClingform0,424g"
+          },
+          {
+            "truth": "Cebula 1kg opak",
+            "read": "Leputa rky opak"
+          },
+          {
+            "truth": "Jabł Jonagold luz",
+            "read": "Jabit Jonagold luz"
+          },
+          {
+            "truth": "Twaróg Półtł 250g",
+            "read": "Tuarog Pöttt 250g"
+          },
+          {
+            "truth": "SerdelkizIndyk300g",
+            "read": "Serdelkizindyuk300g"
+          },
+          {
+            "truth": "ŚledźPoKołobrz800g",
+            "read": "SledzPokoloibrz800g"
+          },
+          {
+            "truth": "ActimelOwLeśn12x100g",
+            "read": "Actinelowlesn12x100g"
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 5.976069028999973,
+          "input_tokens": 942,
+          "output_tokens": 1731,
+          "cost_usd": 0.0007866
+        },
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 3.6691922739998972,
+          "input_tokens": 5890,
+          "output_tokens": 1628,
+          "cost_usd": 0.0012402
+        }
+      ],
+      "error": null
+    }
+  ]
+}
