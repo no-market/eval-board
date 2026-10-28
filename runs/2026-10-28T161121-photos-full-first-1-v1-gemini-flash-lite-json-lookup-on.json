@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "flow": "receipt-lines",
+  "date": "2026-10-28T16:11:21.431673Z",
+  "commit": "cf9744e8db57b1c5f877a4dd8bf5e263695e9d69",
+  "configuration": "v1-gemini-flash-lite-json",
+  "flow_version": "V1",
+  "steps": {
+    "read": {
+      "model": "google/gemini-2.5-flash-lite",
+      "options": {
+        "output": "tool",
+        "max_side": null
+      }
+    },
+    "choose_kinds": {
+      "model": "google/gemini-2.5-flash-lite",
+      "options": {
+        "output": "json_schema"
+      }
+    }
+  },
+  "scenario": "photos-full-first-1",
+  "look_up": true,
+  "metrics": {
+    "f1": 1.0,
+    "kind_f1": 1.0,
+    "purchases": {
+      "true_positives": 5,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    "kinds": {
+      "true_positives": 5,
+      "false_positives": 0,
+      "false_negatives": 0
+    },
+    "choose_kinds": {
+      "lines": 5,
+      "errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      },
+      "noise_recognised": null,
+      "unknown_rate": 0.0,
+      "names_differ": []
+    },
+    "catalog": {
+      "lines": 5,
+      "hits": 0,
+      "hit_rate": 0.0,
+      "carried_errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      }
+    },
+    "write": {
+      "kind_conflicts": 0,
+      "catalog_conflicts": 0,
+      "quantities_checked": 5,
+      "purchase_quantity": 1.0
+    },
+    "calls": {
+      "calls": 2,
+      "input_tokens": 6167,
+      "output_tokens": 634,
+      "cost_usd": 0.0008703000000000001,
+      "unpriced_calls": 0,
+      "latency_p50_s": 1.1719612969999957,
+      "latency_p95_s": 3.3330108099999975,
+      "cost_per_receipt_usd": 0.0008703000000000001,
+      "cost_per_month_usd": 0.07832700000000001
+    },
+    "calls_by_step": {
+      "read": {
+        "calls": 1,
+        "input_tokens": 942,
+        "output_tokens": 385,
+        "cost_usd": 0.0002482,
+        "unpriced_calls": 0,
+        "latency_p50_s": 3.3330108099999975,
+        "latency_p95_s": 3.3330108099999975,
+        "cost_per_receipt_usd": 0.0002482,
+        "cost_per_month_usd": 0.022338
+      },
+      "choose_kinds": {
+        "calls": 1,
+        "input_tokens": 5225,
+        "output_tokens": 249,
+        "cost_usd": 0.0006221,
+        "unpriced_calls": 0,
+        "latency_p50_s": 1.1719612969999957,
+        "latency_p95_s": 1.1719612969999957,
+        "cost_per_receipt_usd": 0.0006221,
+        "cost_per_month_usd": 0.055989
+      }
+    },
+    "reading": {
+      "counts": {
+        "receipts": 1,
+        "truth_lines": 5,
+        "read_lines": 5,
+        "aligned": 5,
+        "missed": 0,
+        "extra": 0,
+        "text_right": 4,
+        "quantity_right": 5,
+        "price_right": 5,
+        "discounts": 0,
+        "discounts_right": 0,
+        "discounts_extra": 0,
+        "chain_right": 0,
+        "date_right": 1,
+        "self_checked": 1,
+        "self_check_passed": 1
+      },
+      "line_text": 0.8,
+      "quantity": 1.0,
+      "price": 1.0,
+      "discount_pairing": null,
+      "chain": 0.0,
+      "date": 1.0,
+      "self_check_pass_rate": 1.0,
+      "missed_lines": 0.0,
+      "extra_lines": 0.0
+    }
+  },
+  "skipped": [],
+  "cases": [
+    {
+      "receipt": "aldi/2026-09-23 12.50.png",
+      "lines": [
+        {
+          "text": "SOK POMIDOR 1L C",
+          "label": {
+            "name": "Sok pomidorowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Sok pomidorowy",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G A",
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "existing",
+          "kind": "Czekolada",
+          "quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.864,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Indyk",
+          "quantity": {
+            "amount": 0.864,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.86,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Indyk",
+          "quantity": {
+            "amount": 0.86,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "MAKRELA WEDZONA KG C",
+          "label": {
+            "name": "Ryba wędzona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "outcome": "existing",
+          "kind": "Ryba wędzona",
+          "quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "kind_correct": true,
+          "quantity_correct": true,
+          "error": null,
+          "source": "model",
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 5,
+          "read_lines": 5,
+          "aligned": 5,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 4,
+          "quantity_right": 5,
+          "price_right": 5,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 0,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "MAKRELA WEDZONA KG C",
+            "read": "MAKRELA WĘDZONA KG C"
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 3.3330108099999975,
+          "input_tokens": 942,
+          "output_tokens": 385,
+          "cost_usd": 0.0002482
+        },
+        {
+          "step": "choose_kinds",
+          "model": "google/gemini-2.5-flash-lite",
+          "latency_s": 1.1719612969999957,
+          "input_tokens": 5225,
+          "output_tokens": 249,
+          "cost_usd": 0.0006221
+        }
+      ],
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "flow": "receipt-lines",
+  "date": "2026-10-28T16:11:33.016487Z",
+  "commit": "cf9744e8db57b1c5f877a4dd8bf5e263695e9d69",
+  "configuration": "v1-nemotron-free-json",
+  "flow_version": "V1",
+  "steps": {
+    "read": {
+      "model": "nvidia/nemotron-3.5-super-vl:free",
+      "options": {
+        "output": "tool",
+        "max_side": null
+      }
+    },
+    "choose_kinds": {
+      "model": "nvidia/nemotron-3.5-super-vl:free",
+      "options": {
+        "output": "json_schema"
+      }
+    }
+  },
+  "scenario": "photos-full-first-1",
+  "look_up": true,
+  "metrics": {
+    "f1": 0.0,
+    "kind_f1": 0.0,
+    "purchases": {
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 5
+    },
+    "kinds": {
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 5
+    },
+    "choose_kinds": {
+      "lines": 5,
+      "errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 5,
+        "pack_size": 0
+      },
+      "noise_recognised": null,
+      "unknown_rate": 0.0,
+      "names_differ": []
+    },
+    "catalog": {
+      "lines": 5,
+      "hits": 0,
+      "hit_rate": 0.0,
+      "carried_errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      }
+    },
+    "write": {
+      "kind_conflicts": 0,
+      "catalog_conflicts": 0,
+      "quantities_checked": 0,
+      "purchase_quantity": null
+    },
+    "calls": {
+      "calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "unpriced_calls": 0,
+      "latency_p50_s": null,
+      "latency_p95_s": null,
+      "cost_per_receipt_usd": 0.0,
+      "cost_per_month_usd": 0.0
+    },
+    "calls_by_step": {},
+    "reading": {
+      "counts": {
+        "receipts": 1,
+        "truth_lines": 5,
+        "read_lines": 0,
+        "aligned": 0,
+        "missed": 5,
+        "extra": 0,
+        "text_right": 0,
+        "quantity_right": 0,
+        "price_right": 0,
+        "discounts": 0,
+        "discounts_right": 0,
+        "discounts_extra": 0,
+        "chain_right": 0,
+        "date_right": 0,
+        "self_checked": 0,
+        "self_check_passed": 0
+      },
+      "line_text": null,
+      "quantity": null,
+      "price": null,
+      "discount_pairing": null,
+      "chain": 0.0,
+      "date": 0.0,
+      "self_check_pass_rate": null,
+      "missed_lines": 1.0,
+      "extra_lines": null
+    }
+  },
+  "skipped": [],
+  "cases": [
+    {
+      "receipt": "aldi/2026-09-23 12.50.png",
+      "lines": [
+        {
+          "text": "SOK POMIDOR 1L C",
+          "label": {
+            "name": "Sok pomidorowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": null,
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G A",
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": null,
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.864,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": null,
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG C",
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.86,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": null,
+          "kind_existed": false,
+          "catalog_conflict": false
+        },
+        {
+          "text": "MAKRELA WEDZONA KG C",
+          "label": {
+            "name": "Ryba wędzona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "outcome": "no_result",
+          "kind": null,
+          "quantity": null,
+          "kind_correct": false,
+          "quantity_correct": false,
+          "error": "no_result",
+          "source": null,
+          "kind_existed": false,
+          "catalog_conflict": false
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 5,
+          "read_lines": 0,
+          "aligned": 0,
+          "missed": 5,
+          "extra": 0,
+          "text_right": 0,
+          "quantity_right": 0,
+          "price_right": 0,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 0,
+          "date_right": 0,
+          "self_checked": 0,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            null
+          ],
+          [
+            1,
+            null
+          ],
+          [
+            2,
+            null
+          ],
+          [
+            3,
+            null
+          ],
+          [
+            4,
+            null
+          ]
+        ],
+        "missed": [
+          "SOK POMIDOR 1L C",
+          "RITTER SPORT CZEK.100G A",
+          "GOLONKA Z INDYKA KG C",
+          "GOLONKA Z INDYKA KG C",
+          "MAKRELA WEDZONA KG C"
+        ],
+        "extra": [],
+        "misread": []
+      },
+      "calls": [],
+      "error": "UserError: Native structured output is not supported by this model."
+    }
+  ]
+}
