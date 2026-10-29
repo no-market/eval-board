@@ -1,0 +1,31 @@
+name: Clear runs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clear-runs
+  cancel-in-progress: false
+
+jobs:
+  clear-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Clear the runs
+        run: |
+          find runs -mindepth 1 ! -path runs/.gitkeep -delete
+          git add --all -- runs/
+          if git diff --cached --quiet; then
+            echo "No runs to clear."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Clear eval runs"
+          git push origin HEAD:main
