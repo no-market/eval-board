@@ -1,0 +1,1462 @@
+{
+  "$defs": {
+    "CallMetrics": {
+      "properties": {
+        "calls": {
+          "title": "Calls",
+          "type": "integer"
+        },
+        "input_tokens": {
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "title": "Output Tokens",
+          "type": "integer"
+        },
+        "cost_usd": {
+          "title": "Cost Usd",
+          "type": "number"
+        },
+        "unpriced_calls": {
+          "title": "Unpriced Calls",
+          "type": "integer"
+        },
+        "latency_p50_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Latency P50 S"
+        },
+        "latency_p95_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Latency P95 S"
+        },
+        "cost_per_receipt_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Per Receipt Usd"
+        },
+        "cost_per_month_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Per Month Usd"
+        }
+      },
+      "required": [
+        "calls",
+        "input_tokens",
+        "output_tokens",
+        "cost_usd",
+        "unpriced_calls",
+        "latency_p50_s",
+        "latency_p95_s",
+        "cost_per_receipt_usd",
+        "cost_per_month_usd"
+      ],
+      "title": "CallMetrics",
+      "type": "object"
+    },
+    "CallUsage": {
+      "properties": {
+        "step": {
+          "title": "Step",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "latency_s": {
+          "title": "Latency S",
+          "type": "number"
+        },
+        "input_tokens": {
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "output_tokens": {
+          "title": "Output Tokens",
+          "type": "integer"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Usd"
+        }
+      },
+      "required": [
+        "step",
+        "model",
+        "latency_s",
+        "input_tokens",
+        "output_tokens",
+        "cost_usd"
+      ],
+      "title": "CallUsage",
+      "type": "object"
+    },
+    "CaseResult": {
+      "description": "One receipt of the run.",
+      "properties": {
+        "receipt": {
+          "title": "Receipt",
+          "type": "string"
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/Line"
+          },
+          "title": "Lines",
+          "type": "array"
+        },
+        "reading": {
+          "$ref": "#/$defs/ReadingScore"
+        },
+        "numbers": {
+          "$ref": "#/$defs/ReceiptNumbers"
+        },
+        "calls": {
+          "items": {
+            "$ref": "#/$defs/CallUsage"
+          },
+          "title": "Calls",
+          "type": "array"
+        },
+        "times": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StepTimes"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "receipt",
+        "lines",
+        "reading",
+        "numbers",
+        "calls"
+      ],
+      "title": "CaseResult",
+      "type": "object"
+    },
+    "CatalogMetrics": {
+      "properties": {
+        "lines": {
+          "title": "Lines",
+          "type": "integer"
+        },
+        "hits": {
+          "title": "Hits",
+          "type": "integer"
+        },
+        "hit_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hit Rate"
+        },
+        "carried_errors": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/ErrorKind"
+          },
+          "title": "Carried Errors",
+          "type": "object"
+        }
+      },
+      "required": [
+        "lines",
+        "hits",
+        "hit_rate",
+        "carried_errors"
+      ],
+      "title": "CatalogMetrics",
+      "type": "object"
+    },
+    "Cost": {
+      "description": "The reported cost of the model calls, by model step and in total; calls with no\nreported cost add nothing.",
+      "properties": {
+        "total_usd": {
+          "title": "Total Usd",
+          "type": "number"
+        },
+        "read_usd": {
+          "title": "Read Usd",
+          "type": "number"
+        },
+        "choose_kinds_usd": {
+          "title": "Choose Kinds Usd",
+          "type": "number"
+        }
+      },
+      "required": [
+        "total_usd",
+        "read_usd",
+        "choose_kinds_usd"
+      ],
+      "title": "Cost",
+      "type": "object"
+    },
+    "Count": {
+      "properties": {
+        "count": {
+          "title": "Count",
+          "type": "integer"
+        },
+        "share": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Share"
+        }
+      },
+      "required": [
+        "count",
+        "share"
+      ],
+      "title": "Count",
+      "type": "object"
+    },
+    "Counts": {
+      "properties": {
+        "true_positives": {
+          "default": 0,
+          "title": "True Positives",
+          "type": "integer"
+        },
+        "false_positives": {
+          "default": 0,
+          "title": "False Positives",
+          "type": "integer"
+        },
+        "false_negatives": {
+          "default": 0,
+          "title": "False Negatives",
+          "type": "integer"
+        }
+      },
+      "title": "Counts",
+      "type": "object"
+    },
+    "Detail": {
+      "enum": [
+        "text",
+        "unit_price",
+        "total",
+        "discounts"
+      ],
+      "type": "string"
+    },
+    "Discount": {
+      "properties": {
+        "text": {
+          "description": "The discount line exactly as printed.",
+          "title": "Text",
+          "type": "string"
+        },
+        "amount": {
+          "description": "How much it takes off, as a positive number.",
+          "title": "Amount",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text",
+        "amount"
+      ],
+      "title": "Discount",
+      "type": "object"
+    },
+    "ErrorKind": {
+      "enum": [
+        "wrong_existing",
+        "new_instead_of_existing",
+        "existing_instead_of_new",
+        "duplicate",
+        "wrong_fit",
+        "name_differs",
+        "noise",
+        "not_noise",
+        "unknown",
+        "not_unknown",
+        "no_result",
+        "pack_size"
+      ],
+      "type": "string"
+    },
+    "ExpectedOutcome": {
+      "enum": [
+        "existing",
+        "new",
+        "noise",
+        "unknown"
+      ],
+      "type": "string"
+    },
+    "FlowStep": {
+      "enum": [
+        "read",
+        "choose_kinds",
+        "database"
+      ],
+      "type": "string"
+    },
+    "JsonValue": {},
+    "KindChoiceMetrics": {
+      "properties": {
+        "lines": {
+          "title": "Lines",
+          "type": "integer"
+        },
+        "errors": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/ErrorKind"
+          },
+          "title": "Errors",
+          "type": "object"
+        },
+        "noise_recognised": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Noise Recognised"
+        },
+        "unknown_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unknown Rate"
+        },
+        "names_differ": {
+          "items": {
+            "$ref": "#/$defs/NameDiff"
+          },
+          "title": "Names Differ",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lines",
+        "errors",
+        "noise_recognised",
+        "unknown_rate",
+        "names_differ"
+      ],
+      "title": "KindChoiceMetrics",
+      "type": "object"
+    },
+    "Label": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "alternatives": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Alternatives",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Label",
+      "type": "object"
+    },
+    "Line": {
+      "description": "One line of the run, scored. An extra line has no text as printed and no label.",
+      "properties": {
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Text"
+        },
+        "read": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReadLine"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Label"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExpectedOutcome"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected_quantity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recorded": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Recorded"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "step": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FlowStep"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mistake": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorKind"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "misread": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/evals__lines__Misread"
+          },
+          "title": "Misread",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text",
+        "read",
+        "label",
+        "expected",
+        "expected_quantity",
+        "recorded",
+        "verdict",
+        "step"
+      ],
+      "title": "Line",
+      "type": "object"
+    },
+    "Metrics": {
+      "description": "The metrics of schema version 1 the run still keeps; the run is read by its\nnumbers.",
+      "properties": {
+        "f1": {
+          "title": "F1",
+          "type": "number"
+        },
+        "kind_f1": {
+          "title": "Kind F1",
+          "type": "number"
+        },
+        "purchases": {
+          "$ref": "#/$defs/Counts"
+        },
+        "kinds": {
+          "$ref": "#/$defs/Counts"
+        },
+        "choose_kinds": {
+          "$ref": "#/$defs/KindChoiceMetrics"
+        },
+        "catalog": {
+          "$ref": "#/$defs/CatalogMetrics"
+        },
+        "write": {
+          "$ref": "#/$defs/WriteMetrics"
+        },
+        "calls": {
+          "$ref": "#/$defs/CallMetrics"
+        },
+        "calls_by_step": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CallMetrics"
+          },
+          "title": "Calls By Step",
+          "type": "object"
+        },
+        "reading": {
+          "$ref": "#/$defs/ReadingMetrics"
+        }
+      },
+      "required": [
+        "f1",
+        "kind_f1",
+        "purchases",
+        "kinds",
+        "choose_kinds",
+        "catalog",
+        "write",
+        "calls",
+        "calls_by_step",
+        "reading"
+      ],
+      "title": "Metrics",
+      "type": "object"
+    },
+    "NameDiff": {
+      "description": "A new kind made for a label and named otherwise.",
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "created": {
+          "title": "Created",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "created"
+      ],
+      "title": "NameDiff",
+      "type": "object"
+    },
+    "Numbers": {
+      "description": "The run's numbers, from its receipts'.",
+      "properties": {
+        "receipts": {
+          "title": "Receipts",
+          "type": "integer"
+        },
+        "failed": {
+          "title": "Failed",
+          "type": "integer"
+        },
+        "lines": {
+          "title": "Lines",
+          "type": "integer"
+        },
+        "errors": {
+          "$ref": "#/$defs/StepCounts"
+        },
+        "warnings": {
+          "$ref": "#/$defs/StepCounts"
+        },
+        "seconds": {
+          "$ref": "#/$defs/RunSeconds"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Cost"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "receipts",
+        "failed",
+        "lines",
+        "errors",
+        "warnings",
+        "seconds",
+        "cost"
+      ],
+      "title": "Numbers",
+      "type": "object"
+    },
+    "Outcome": {
+      "enum": [
+        "existing",
+        "new",
+        "unknown",
+        "noise",
+        "no_result"
+      ],
+      "type": "string"
+    },
+    "Pair": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      ],
+      "type": "array"
+    },
+    "Quantity": {
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/Unit"
+        }
+      },
+      "required": [
+        "amount",
+        "unit"
+      ],
+      "title": "Quantity",
+      "type": "object"
+    },
+    "ReadLine": {
+      "properties": {
+        "text": {
+          "description": "The product line exactly as printed, with its spelling and spacing.",
+          "title": "Text",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The quantity or weight printed for the line, such as 2 szt or 0.512 kg; null when none is printed. Never a pack size read from the product name."
+        },
+        "unit_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Price"
+        },
+        "total": {
+          "description": "The line's total before its discounts.",
+          "title": "Total",
+          "type": "number"
+        },
+        "vat": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The VAT letter, such as A or C.",
+          "title": "Vat"
+        },
+        "discounts": {
+          "description": "The discount lines (rabat, promocja, obniżka) that reduce this line. A discount is never a line of its own.",
+          "items": {
+            "$ref": "#/$defs/Discount"
+          },
+          "title": "Discounts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text",
+        "total"
+      ],
+      "title": "ReadLine",
+      "type": "object"
+    },
+    "ReadingCounts": {
+      "description": "What reading got right, counted over one receipt or summed over a run.",
+      "properties": {
+        "receipts": {
+          "default": 0,
+          "title": "Receipts",
+          "type": "integer"
+        },
+        "truth_lines": {
+          "default": 0,
+          "title": "Truth Lines",
+          "type": "integer"
+        },
+        "read_lines": {
+          "default": 0,
+          "title": "Read Lines",
+          "type": "integer"
+        },
+        "aligned": {
+          "default": 0,
+          "title": "Aligned",
+          "type": "integer"
+        },
+        "missed": {
+          "default": 0,
+          "title": "Missed",
+          "type": "integer"
+        },
+        "extra": {
+          "default": 0,
+          "title": "Extra",
+          "type": "integer"
+        },
+        "text_right": {
+          "default": 0,
+          "title": "Text Right",
+          "type": "integer"
+        },
+        "quantity_right": {
+          "default": 0,
+          "title": "Quantity Right",
+          "type": "integer"
+        },
+        "price_right": {
+          "default": 0,
+          "title": "Price Right",
+          "type": "integer"
+        },
+        "discounts": {
+          "default": 0,
+          "title": "Discounts",
+          "type": "integer"
+        },
+        "discounts_right": {
+          "default": 0,
+          "title": "Discounts Right",
+          "type": "integer"
+        },
+        "discounts_extra": {
+          "default": 0,
+          "title": "Discounts Extra",
+          "type": "integer"
+        },
+        "chain_right": {
+          "default": 0,
+          "title": "Chain Right",
+          "type": "integer"
+        },
+        "date_right": {
+          "default": 0,
+          "title": "Date Right",
+          "type": "integer"
+        },
+        "self_checked": {
+          "default": 0,
+          "title": "Self Checked",
+          "type": "integer"
+        },
+        "self_check_passed": {
+          "default": 0,
+          "title": "Self Check Passed",
+          "type": "integer"
+        }
+      },
+      "title": "ReadingCounts",
+      "type": "object"
+    },
+    "ReadingMetrics": {
+      "description": "The reading step's metrics over a run, as rates from 0 to 1; None when there is\nnothing to rate.",
+      "properties": {
+        "counts": {
+          "$ref": "#/$defs/ReadingCounts"
+        },
+        "line_text": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line Text"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Quantity"
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Price"
+        },
+        "discount_pairing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Discount Pairing"
+        },
+        "chain": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Chain"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Date"
+        },
+        "self_check_pass_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Self Check Pass Rate"
+        },
+        "missed_lines": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Missed Lines"
+        },
+        "extra_lines": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Extra Lines"
+        }
+      },
+      "required": [
+        "counts",
+        "line_text",
+        "quantity",
+        "price",
+        "discount_pairing",
+        "chain",
+        "date",
+        "self_check_pass_rate",
+        "missed_lines",
+        "extra_lines"
+      ],
+      "title": "ReadingMetrics",
+      "type": "object"
+    },
+    "ReadingScore": {
+      "description": "One receipt's reading: its counts, the alignment, and the lines behind the errors.",
+      "properties": {
+        "counts": {
+          "$ref": "#/$defs/ReadingCounts"
+        },
+        "pairs": {
+          "items": {
+            "$ref": "#/$defs/Pair"
+          },
+          "title": "Pairs",
+          "type": "array"
+        },
+        "missed": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missed",
+          "type": "array"
+        },
+        "extra": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Extra",
+          "type": "array"
+        },
+        "misread": {
+          "items": {
+            "$ref": "#/$defs/evals__reading__Misread"
+          },
+          "title": "Misread",
+          "type": "array"
+        }
+      },
+      "required": [
+        "counts",
+        "pairs",
+        "missed",
+        "extra",
+        "misread"
+      ],
+      "title": "ReadingScore",
+      "type": "object"
+    },
+    "ReceiptNumbers": {
+      "properties": {
+        "lines": {
+          "title": "Lines",
+          "type": "integer"
+        },
+        "errors": {
+          "$ref": "#/$defs/StepCounts"
+        },
+        "warnings": {
+          "$ref": "#/$defs/StepCounts"
+        },
+        "seconds": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReceiptSeconds"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Cost"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "lines",
+        "errors",
+        "warnings",
+        "seconds",
+        "cost"
+      ],
+      "title": "ReceiptNumbers",
+      "type": "object"
+    },
+    "ReceiptSeconds": {
+      "description": "A receipt's seconds: end to end, the flow's whole time, the sum of its steps'.",
+      "properties": {
+        "total_s": {
+          "title": "Total S",
+          "type": "number"
+        },
+        "read_s": {
+          "title": "Read S",
+          "type": "number"
+        },
+        "choose_kinds_s": {
+          "title": "Choose Kinds S",
+          "type": "number"
+        },
+        "database_s": {
+          "title": "Database S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "total_s",
+        "read_s",
+        "choose_kinds_s",
+        "database_s"
+      ],
+      "title": "ReceiptSeconds",
+      "type": "object"
+    },
+    "Recorded": {
+      "description": "What the flow recorded for a read line.",
+      "properties": {
+        "outcome": {
+          "$ref": "#/$defs/Outcome"
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Kind"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "outcome",
+        "kind",
+        "quantity",
+        "source"
+      ],
+      "title": "Recorded",
+      "type": "object"
+    },
+    "RunSeconds": {
+      "properties": {
+        "total": {
+          "$ref": "#/$defs/Spread"
+        },
+        "read": {
+          "$ref": "#/$defs/Spread"
+        },
+        "choose_kinds": {
+          "$ref": "#/$defs/Spread"
+        },
+        "database": {
+          "$ref": "#/$defs/Spread"
+        }
+      },
+      "required": [
+        "total",
+        "read",
+        "choose_kinds",
+        "database"
+      ],
+      "title": "RunSeconds",
+      "type": "object"
+    },
+    "Source": {
+      "enum": [
+        "catalog",
+        "model"
+      ],
+      "type": "string"
+    },
+    "Spread": {
+      "description": "Seconds per receipt over the receipts that didn't fail, nearest rank; None when\nevery receipt failed.",
+      "properties": {
+        "median_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Median S"
+        },
+        "p95_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "P95 S"
+        }
+      },
+      "required": [
+        "median_s",
+        "p95_s"
+      ],
+      "title": "Spread",
+      "type": "object"
+    },
+    "StepCounts": {
+      "description": "Errors or warnings, in total and by the step they belong to.",
+      "properties": {
+        "total": {
+          "$ref": "#/$defs/Count"
+        },
+        "read": {
+          "$ref": "#/$defs/Count"
+        },
+        "choose_kinds": {
+          "$ref": "#/$defs/Count"
+        },
+        "database": {
+          "$ref": "#/$defs/Count"
+        }
+      },
+      "required": [
+        "total",
+        "read",
+        "choose_kinds",
+        "database"
+      ],
+      "title": "StepCounts",
+      "type": "object"
+    },
+    "StepRun": {
+      "properties": {
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "options": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Options",
+          "type": "object"
+        }
+      },
+      "required": [
+        "model",
+        "options"
+      ],
+      "title": "StepRun",
+      "type": "object"
+    },
+    "StepTimes": {
+      "description": "The seconds the flow spent on each step for one receipt, measured around the step:\nreading and kind choice, their model calls with every retry and wait; database, the\nduplicate check, the catalog lookup and the write. A step that didn't run took 0.",
+      "properties": {
+        "read_s": {
+          "title": "Read S",
+          "type": "number"
+        },
+        "choose_kinds_s": {
+          "title": "Choose Kinds S",
+          "type": "number"
+        },
+        "database_s": {
+          "title": "Database S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "read_s",
+        "choose_kinds_s",
+        "database_s"
+      ],
+      "title": "StepTimes",
+      "type": "object"
+    },
+    "Unit": {
+      "enum": [
+        "kg",
+        "l",
+        "szt"
+      ],
+      "type": "string"
+    },
+    "Verdict": {
+      "enum": [
+        "right",
+        "warning",
+        "error"
+      ],
+      "type": "string"
+    },
+    "WriteMetrics": {
+      "properties": {
+        "kind_conflicts": {
+          "title": "Kind Conflicts",
+          "type": "integer"
+        },
+        "quantities_checked": {
+          "title": "Quantities Checked",
+          "type": "integer"
+        },
+        "purchase_quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Purchase Quantity"
+        }
+      },
+      "required": [
+        "kind_conflicts",
+        "quantities_checked",
+        "purchase_quantity"
+      ],
+      "title": "WriteMetrics",
+      "type": "object"
+    },
+    "evals__lines__Misread": {
+      "description": "A detail of a line read other than printed, both as text for a person to read.",
+      "properties": {
+        "detail": {
+          "$ref": "#/$defs/Detail"
+        },
+        "printed": {
+          "title": "Printed",
+          "type": "string"
+        },
+        "read": {
+          "title": "Read",
+          "type": "string"
+        }
+      },
+      "required": [
+        "detail",
+        "printed",
+        "read"
+      ],
+      "title": "Misread",
+      "type": "object"
+    },
+    "evals__reading__Misread": {
+      "properties": {
+        "truth": {
+          "title": "Truth",
+          "type": "string"
+        },
+        "read": {
+          "title": "Read",
+          "type": "string"
+        }
+      },
+      "required": [
+        "truth",
+        "read"
+      ],
+      "title": "Misread",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": 2,
+      "default": 2,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "flow": {
+      "const": "receipt-lines",
+      "default": "receipt-lines",
+      "title": "Flow",
+      "type": "string"
+    },
+    "date": {
+      "format": "date-time",
+      "title": "Date",
+      "type": "string"
+    },
+    "commit": {
+      "title": "Commit",
+      "type": "string"
+    },
+    "flow_version": {
+      "title": "Flow Version",
+      "type": "string"
+    },
+    "steps": {
+      "additionalProperties": {
+        "$ref": "#/$defs/StepRun"
+      },
+      "title": "Steps",
+      "type": "object"
+    },
+    "receipts": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Receipts"
+    },
+    "reviewed": {
+      "title": "Reviewed",
+      "type": "integer"
+    },
+    "numbers": {
+      "$ref": "#/$defs/Numbers"
+    },
+    "metrics": {
+      "$ref": "#/$defs/Metrics"
+    },
+    "skipped": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Skipped",
+      "type": "array"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/CaseResult"
+      },
+      "title": "Cases",
+      "type": "array"
+    }
+  },
+  "required": [
+    "date",
+    "commit",
+    "flow_version",
+    "steps",
+    "receipts",
+    "reviewed",
+    "numbers",
+    "metrics",
+    "cases"
+  ],
+  "title": "RunResult",
+  "type": "object"
+}
