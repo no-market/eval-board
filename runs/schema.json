@@ -727,7 +727,7 @@
     "ReadLine": {
       "properties": {
         "text": {
-          "description": "The product line exactly as printed, with its spelling and spacing.",
+          "description": "The product line as printed, with its spelling and spacing, but never the VAT letter, wherever it is printed; that letter goes only in vat.",
           "title": "Text",
           "type": "string"
         },
