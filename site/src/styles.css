@@ -1,0 +1,74 @@
+/* The look of the design: system fonts only, nothing loaded from other hosts.
+   `--flow` is set to the flow's colour on each element that uses it. */
+:root {
+  --bg: #F6F6F4;
+  --surface: #FFFFFF;
+  --text: #1B1B1A;
+  --muted: #5E5E5A;
+  --border: #E2E2DE;
+  --rule: #ECECE8;
+  --link: #0F5E5E;
+  --link-hover: #0A4242;
+  --better: #1D5FA8;
+  --worse: #A8480A;
+  --same: #5E5E5A;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.nowrap { white-space: nowrap; }
+.loading, .empty { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+.empty { padding: 0; }
+
+header.site { background: var(--surface); border-bottom: 1px solid var(--border); }
+header.site .bar,
+header.site nav { max-width: 1200px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+header.site .bar {
+  padding-top: 18px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;
+}
+header.site .brand { display: flex; align-items: baseline; gap: 10px; }
+header.site .name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+header.site .org { color: var(--muted); font-size: 13px; }
+header.site nav { display: flex; gap: 4px; margin-top: 14px; }
+header.site nav a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; min-height: 44px; box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+  color: var(--text); text-decoration: none; font-weight: 600;
+}
+header.site nav a[aria-current="page"] { border-bottom-color: var(--flow); }
+header.site nav .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--flow); }
+
+main {
+  max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.heading { display: flex; flex-direction: column; gap: 4px; }
+h1 { margin: 0; font-size: 26px; letter-spacing: -0.015em; }
+h2 { margin: 0; font-size: 16px; }
+.heading p, main p { margin: 0; }
+
+.runs { display: flex; flex-direction: column; gap: 10px; }
+.table-wrap {
+  overflow-x: auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th { text-align: left; color: var(--muted); font-size: 13px; font-weight: 600; padding: 12px 8px; }
+td { padding: 10px 8px; border-top: 1px solid var(--rule); vertical-align: top; }
+th:first-child, td:first-child { padding-left: 16px; }
+th:last-child, td:last-child { padding-right: 16px; }
+.num { text-align: right; }

@@ -1,0 +1,15 @@
+{
+  "name": "eval-board-site",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0"
+  }
+}

@@ -1,5 +1,9 @@
 # eval-board
 
+**The eval board: https://no-market.github.io/eval-board/** — a static site
+built from `runs/` by the `site.yml` workflow on every push of a run, and
+after Clear runs. Its code is in `site/` (`npm test`, `npm run build`).
+
 Public eval results of [no-market](https://github.com/no-market): one JSON file
 per eval run in `runs/`, with the current `schema.json` beside them.
 
