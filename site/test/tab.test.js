@@ -31,6 +31,7 @@ test('the table shows the cells of the real fixture run', () => {
       '48.9% (22 of 45)',
       '14.9 s',
       '0.55¢',
+      'Set as baseline',
     ],
   ]);
 });
@@ -56,6 +57,54 @@ test('a flow with no runs says there are no runs yet', () => {
   const html = renderTab({ flow: 'receipt-lines', runs: [] });
   assert.match(html, /No eval runs yet/);
   assert.doesNotMatch(html, /<table/);
+});
+
+// The real run, and an older one to set as the baseline: 9 of 45 errors,
+// 20 of 43 warnings, 7.8 s and 0.66¢ per receipt.
+const older = {
+  ...entry,
+  run: 'older',
+  date: '2026-10-29T22:32:00Z',
+  lines: 43,
+  errors: { count: 9, share: 9 / 43 },
+  warnings: { count: 20, share: 20 / 43 },
+  seconds: { median: 7.8, p95: 9 },
+  costUsd: 0.0066,
+};
+
+// The differences under the numbers of each body row, as [mark, text].
+function differences(html) {
+  const tbody = html.match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<div class="diff (\w+)">([^<]*)<\/div>/g)].map(([, mark, text]) => [mark, text]),
+  );
+}
+
+test('with no baseline, no differences show and a hint says how to set one', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older] });
+  assert.deepEqual(differences(html), [[], []]);
+  assert.match(html, /Set a baseline/);
+  assert.match(html, /<a class="base-button" href="#\/receipt-lines\?base=older"[^>]*>Set as baseline<\/a>/);
+});
+
+test('under each number of a non-baseline row, its difference from the baseline', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older], base: 'older' });
+  assert.deepEqual(differences(html), [
+    [
+      ['better', '▼ −5 lines · −12.0 pts'],
+      ['worse', '▲ +2 lines · +2.4 pts'],
+      ['worse', '▲ +7.1 s · +91%'],
+      ['better', '▼ −0.11¢ · −16%'],
+    ],
+    [],
+  ]);
+  assert.match(html, /Differences against the baseline, 29 Oct 2026, 22:32/);
+});
+
+test('the baseline row is marked, and its button clears the baseline', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older], base: 'older' });
+  assert.match(html, /<tr class="base">/);
+  assert.match(html, /<a class="base-button" href="#\/receipt-lines" aria-pressed="true"[^>]*>Baseline ✕<\/a>/);
 });
 
 test('text from a run file is escaped', () => {

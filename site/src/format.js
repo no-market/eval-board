@@ -25,6 +25,11 @@ export function formatCents(usd) {
   return `${(usd * 100).toFixed(2)}¢`;
 }
 
+// `$0.55`: a cost per receipt in US dollars, written per 100 receipts.
+export function formatPer100(usd) {
+  return `$${(usd * 100).toFixed(2)}`;
+}
+
 // `gemini-2.5-flash` for `google/gemini-2.5-flash`: the model without its provider.
 export function shortModel(model) {
   return model.slice(model.indexOf('/') + 1);

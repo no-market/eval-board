@@ -27,7 +27,11 @@ async function start() {
 
 function render(route, index) {
   if (route.view === 'tab') {
-    return renderTab({ flow: route.flow, runs: index.runs.filter((run) => run.flow === route.flow) });
+    const runs = index.runs.filter((run) => run.flow === route.flow);
+    if (route.base && !runs.some((run) => run.run === route.base)) {
+      return renderNotFound(`There is no run ${route.base} to set as the baseline.`, route.flow);
+    }
+    return renderTab({ flow: route.flow, runs, base: route.base });
   }
   return renderNotFound('This address is not on the eval board.');
 }
