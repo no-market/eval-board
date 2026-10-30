@@ -156,3 +156,42 @@ test('each difference in the summary is marked better, worse or the same', () =>
   assert.deepEqual(marks[3], ['worse', 'worse', 'worse', 'better']);
   assert.deepEqual(marks[4], ['better', 'better', 'better', 'same']);
 });
+
+// Run A for the changed lines: the real run with its turkey legs read right,
+// its extra discount line on the Aldi eggs not read, and its pomegranate not
+// read; B has a fourth receipt, which A hasn't.
+function changedA() {
+  const cases = structuredClone(realRun.cases);
+  const indyk = { outcome: 'existing', kind: 'Indyk', quantity: null, source: 'model' };
+  for (const i of [2, 3]) Object.assign(cases[0].lines[i], { verdict: 'right', step: null, recorded: indyk });
+  cases[1].lines.splice(3, 1);
+  Object.assign(cases[2].lines[25], { read: null, recorded: null, verdict: 'error', step: 'read' });
+  return { id: A.id, run: { ...A.run, cases } };
+}
+
+// The changed lines table: its groups' titles and each row's cells.
+function changedRows(html) {
+  const section = html.match(/<section[^>]*class="changed"[\s\S]*?<\/section>/)?.[0] ?? '';
+  return [...section.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]
+    .slice(1)
+    .map(([, row]) => [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)));
+}
+
+test('the changed lines: worse in B, then better, over the shared receipts', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: changedA(), b: B });
+  assert.match(text(html), /Lines whose verdict changed · 4 on 3 shared receipts/);
+  assert.deepEqual(changedRows(html), [
+    ['▲ Worse in B · 3 lines'],
+    ['Aldi, 23 Sep 2026', 'GOLONKA Z INDYKA KG', 'right', 'error · kind choice', 'Indyk', 'new : Golonka z indyka', 'Indyk'],
+    ['Aldi, 23 Sep 2026', 'GOLONKA Z INDYKA KG', 'right', 'error · kind choice', 'Indyk', '— (no answer)', 'Indyk'],
+    ['Aldi, 23 Oct 2026', 'read: OPUST JAJA 10L ŚCIÓŁKOWE', 'not read', 'warning · reading', '—', '— (noise)', '—'],
+    ['▼ Better in B · 1 line'],
+    ['Biedronka, 24 Oct 2026', 'Granat szt', 'error · reading', 'right', '— (not read)', 'Granaty', 'Granaty'],
+  ]);
+});
+
+test('the changed lines: none when no verdict changed', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: { id: A.id, run: realRun }, b: { id: REAL, run: realRun } });
+  assert.match(text(html), /Lines whose verdict changed · 0 on 3 receipts/);
+  assert.match(text(html), /No line’s verdict changed\./);
+});

@@ -167,3 +167,14 @@ table.by-step td { padding-top: 12px; padding-bottom: 12px; }
 table.by-step td.diff { font-size: 14px; }
 table.by-step .total { background: #F7FAFA; }
 table.by-step th.group.total { font-weight: 700; }
+
+/* The changed lines of a comparison: worse in B, then better, a chip per verdict. */
+.compare h2 .muted { font-weight: 500; }
+table.changed-lines { min-width: 1080px; }
+table.changed-lines tr.group th { padding: 10px 16px; text-align: left; font-size: 14px; font-weight: 700; border-top: 1px solid var(--border); }
+table.changed-lines tbody.worse tr.group th { color: var(--worse); background: #FDF3EC; }
+table.changed-lines tbody.better tr.group th { color: var(--better); background: #EEF4FB; }
+.verdict { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EDEDEA; color: #5E5E5A; }
+.verdict.right { background: #DCEBFA; color: #123E6E; }
+.verdict.warning { background: #FFF1C9; color: #5C4300; }
+.verdict.error { background: #FBE3D3; color: #7A2E04; }

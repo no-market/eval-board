@@ -4,9 +4,11 @@
 // SECTIONS, reading what it needs from the comparison.
 import { flowById } from './flows.js';
 import { centsDifference, linesDifference, per100Difference, secondsDifference } from './differences.js';
-import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, shortModel } from './format.js';
+import { changedLines } from './changed-lines.js';
+import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, receiptName, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
+import { dash, expected, recorded, STEP_NAMES } from './run.js';
 
 // The index entries of the two runs a compare address names, A the older:
 // { a, b }, or { message } when a run is unknown or the runs are of
@@ -103,8 +105,52 @@ function countAndShare({ count, share }) {
   return `${count} (${formatShare(share)})`;
 }
 
+// The lines whose verdict changed, over the shared receipts: worse in B, then
+// better, each in receipt and line order (see `changedLines`).
+function changed({ a, b, receipts }) {
+  const { worse, better } = changedLines(a.run, b.run);
+  const count = worse.length + better.length;
+  const same = receipts.shared.length === receipts.a.length && receipts.shared.length === receipts.b.length;
+  const group = (mark, title, lines) =>
+    lines.length === 0
+      ? ''
+      : html`
+        <tbody class="${mark}">
+          <tr class="group"><th scope="colgroup" colspan="7">${title} · ${linesCount(lines.length)}</th></tr>${lines.map(changedRow)}
+        </tbody>`;
+  return html`<section aria-labelledby="changed-h" class="changed">
+    <h2 id="changed-h">Lines whose verdict changed <span class="muted">· ${count} on ${receipts.shared.length} ${same ? '' : 'shared '}receipts</span></h2>
+    ${count === 0
+      ? html`<p class="muted">No line’s verdict changed.</p>`
+      : html`<div class="table-wrap">
+      <table class="lines changed-lines">
+        <thead><tr><th scope="col">Receipt</th><th scope="col">As printed</th><th scope="col">A</th><th scope="col">B</th><th scope="col">A recorded</th><th scope="col">B recorded</th><th scope="col">Expected</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}
+      </table>
+    </div>`}
+  </section>`;
+}
+
+function changedRow({ receipt, a, b }) {
+  const line = b ?? a;
+  const printed = line.text ?? html`<span class="muted">read:</span> ${line.read?.text ?? ''}`;
+  return html`
+          <tr><td class="nowrap" title="${receipt}">${receiptName(receipt)}</td><td class="mono">${printed}</td><td class="nowrap">${verdict(a)}</td><td class="nowrap">${verdict(b)}</td><td>${a ? recorded(a.recorded) : dash}</td><td>${b ? recorded(b.recorded) : dash}</td><td>${expected(line)}</td></tr>`;
+}
+
+// A line's verdict and, for an error or a warning, its step: `error · reading`;
+// `not read` for a run the line isn't in.
+function verdict(line) {
+  if (!line) return html`<span class="verdict not-read">not read</span>`;
+  const step = line.step ? ` · ${STEP_NAMES[line.step] ?? line.step}` : '';
+  return html`<span class="verdict ${line.verdict}">${line.verdict}${step}</span>`;
+}
+
+function linesCount(n) {
+  return n === 1 ? '1 line' : `${n} lines`;
+}
+
 // The sections of the comparison, in order, after its heading.
-export const SECTIONS = [summary];
+export const SECTIONS = [summary, changed];
 
 // The page of the comparison of runs `a` and `b`, each { id, run }, A the older.
 export function renderCompare({ flow, a, b }) {

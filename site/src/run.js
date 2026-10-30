@@ -22,9 +22,9 @@ export function renderRun({ flow: flowId, run, data }) {
 }
 
 const STEPS = ['read', 'choose_kinds', 'database'];
-const STEP_NAMES = { read: 'reading', choose_kinds: 'kind choice', database: 'database' };
+export const STEP_NAMES = { read: 'reading', choose_kinds: 'kind choice', database: 'database' };
 
-const dash = html`<span class="muted">—</span>`;
+export const dash = html`<span class="muted">—</span>`;
 
 // A number that may be missing (a step with no priced calls, a run whose every
 // receipt failed) as `—`.
@@ -143,7 +143,7 @@ function asRead(line) {
 }
 
 // A kind, a new kind marked as new, or a dash with the reason no kind was recorded.
-function recorded(rec) {
+export function recorded(rec) {
   if (rec === null) return html`${dash} <span class="muted">(not read)</span>`;
   if (rec.outcome === 'existing') return rec.kind;
   if (rec.outcome === 'new') return html`<span class="new">new</span>: ${rec.kind}`;
@@ -152,7 +152,7 @@ function recorded(rec) {
 
 // The truth: a kind, a new kind marked as new, or a dash with the outcome
 // expected instead of a kind (noise, unknown). An extra line has none.
-function expected(line) {
+export function expected(line) {
   if (line.expected === 'new') return html`<span class="new">new</span>: ${line.label?.name}`;
   if (line.expected === 'noise' || line.expected === 'unknown') {
     return html`${dash} <span class="muted">(${line.expected})</span>`;
