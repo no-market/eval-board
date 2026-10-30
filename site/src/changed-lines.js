@@ -8,13 +8,15 @@ const BADNESS = { right: 0, warning: 1, error: 2 };
 const badness = (line) => (line ? BADNESS[line.verdict] ?? 0 : 0);
 const verdict = (line) => line?.verdict ?? null;
 
-// { worse, better }: the changed lines worse in B (right → warning, right →
-// error, warning → error), and the rest, better in B; each a list of
+// { worse, better, oneRunOnly }: the changed lines worse in B (right →
+// warning, right → error, warning → error), better in B, and read in one run
+// only with no better or worse to it (right ↔ not read); each a list of
 // { receipt, a, b }, null for the run a line isn't in, in receipt and line order.
 export function changedLines(a, b) {
   const changed = matchLines(a, b).filter((pair) => verdict(pair.a) !== verdict(pair.b));
   return {
     worse: changed.filter((pair) => badness(pair.b) > badness(pair.a)),
-    better: changed.filter((pair) => badness(pair.b) <= badness(pair.a)),
+    better: changed.filter((pair) => badness(pair.b) < badness(pair.a)),
+    oneRunOnly: changed.filter((pair) => badness(pair.b) === badness(pair.a)),
   };
 }

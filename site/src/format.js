@@ -2,12 +2,12 @@
 // their marks) build on these.
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const two = (n) => String(n).padStart(2, '0');
+const twoDigits = (n) => String(n).padStart(2, '0');
 
 // `30 Oct 2026, 16:57`, in UTC, as the run files record it.
 export function formatDate(iso) {
   const d = new Date(iso);
-  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}, ${two(d.getUTCHours())}:${two(d.getUTCMinutes())}`;
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}, ${twoDigits(d.getUTCHours())}:${twoDigits(d.getUTCMinutes())}`;
 }
 
 // `8.9%`

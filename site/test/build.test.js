@@ -92,3 +92,13 @@ test('no runs and no schema build the empty site', async () => {
   assert.deepEqual(await readJson(join(out, 'index.json')), { runs: [] });
   assert.ok((await readdir(out)).includes('index.html'));
 });
+
+test('runs without a schema fail, naming the missing schema', async () => {
+  const { runs, out } = await runsDir([`${REAL}.json`]);
+  await assert.rejects(build({ runsDir: runs, outDir: out }), (error) => {
+    assert.match(error.message, /schema\.json/);
+    assert.match(error.message, /no schema|missing|not found/i);
+    assert.doesNotMatch(error.message, /ENOENT/);
+    return true;
+  });
+});

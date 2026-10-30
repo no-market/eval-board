@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { matchLines } from '../src/matching.js';
+import { matchLines, normalise } from '../src/matching.js';
 
 // Hand-made lines: a printed line by its text, an extra line by its read text.
 const printed = (text, verdict = 'right') => ({ text, read: { text }, verdict });
@@ -66,4 +66,17 @@ test('matching: only the receipts both runs have, in A’s order', () => {
     ['aldi', 'CHLEB', 'CHLEB'],
     ['lidl', 'KAKI', 'KAKI'],
   ]);
+});
+
+// Expected values from the backend's `normalise` (Python's casefold, NFKD,
+// combining marks dropped, str.split), run on the same texts.
+test('normalise folds as the backend does: ß and ẞ as ss, every sigma as σ', () => {
+  assert.equal(normalise('Weißbier STRAẞE'), 'weissbier strasse');
+  assert.equal(normalise('ΟΔΟΣ ΟΔΟς'), 'οδοσ οδοσ');
+  assert.equal(normalise('ﬁlet ŁÓDŹ'), 'filet lodz');
+});
+
+test('normalise splits on the white space the backend splits on', () => {
+  assert.equal(normalise('a\x1fb\x85c'), 'a b c');
+  assert.equal(normalise('a\ufeffb'), 'a\ufeffb');
 });

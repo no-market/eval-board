@@ -2,8 +2,9 @@
 // site's own code: cost across, error rate up, both from 0, a point per run in
 // the flow's colour. A point is a button: hover or focus shows its date and
 // two models, a click ticks its run (main.js), and a ticked point is marked.
-import { formatCents, formatDate, formatShare, shortModel } from './format.js';
+import { formatCents, formatDate, formatShare } from './format.js';
 import { html } from './html.js';
+import { modelPair } from './runs.js';
 
 const HEIGHT = 320; // the plot, in pixels
 const BELOW = 26; // room for the cost labels under it
@@ -39,7 +40,7 @@ export function chart(runs, ticked) {
 // and while ticked, to its right, or to its left near the right edge.
 function point(run, isTicked, x, y) {
   const date = formatDate(run.date);
-  const models = `${shortModel(run.models.read)} · ${shortModel(run.models.chooseKinds)}`;
+  const models = modelPair(run.models.read, run.models.chooseKinds);
   const text = `${date} · ${models}`;
   const width = Math.round(text.length * LABEL_CHAR + 12);
   const left = x > 60;

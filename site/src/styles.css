@@ -198,6 +198,7 @@ table.changed-lines { min-width: 1080px; }
 table.changed-lines tr.group th { padding: 10px 16px; text-align: left; font-size: 14px; font-weight: 700; border-top: 1px solid var(--border); }
 table.changed-lines tbody.worse tr.group th { color: var(--worse); background: #FDF3EC; }
 table.changed-lines tbody.better tr.group th { color: var(--better); background: #EEF4FB; }
+table.changed-lines tbody.one-run-only tr.group th { color: var(--same); background: var(--bg); }
 .verdict { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EDEDEA; color: #5E5E5A; }
 .verdict.right { background: #DCEBFA; color: #123E6E; }
 .verdict.warning { background: #FFF1C9; color: #5C4300; }

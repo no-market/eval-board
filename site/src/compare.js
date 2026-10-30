@@ -5,16 +5,18 @@
 import { flowById } from './flows.js';
 import { centsDifference, linesDifference, per100Difference, secondsDifference } from './differences.js';
 import { changedLines } from './changed-lines.js';
-import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, receiptName, shortModel } from './format.js';
+import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, receiptName } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
-import { dash, expected, recorded, STEP_NAMES } from './run.js';
+import { runAddress } from './route.js';
+import { dash, expected, recorded } from './run.js';
+import { failed, modelPair, olderFirst, STEPS, stepName } from './runs.js';
 
 // The index entries of the two runs a compare address names, A the older:
 // { a, b }, or { message } when a run is unknown or the runs are of
 // different flows.
 export function comparedRuns(route, index) {
-  const find = (id) => index.runs.find((run) => run.run === id);
+  const find = (id) => index.runs.find((entry) => entry.run === id);
   for (const id of [route.a, route.b]) {
     if (!find(id)) return { message: `There is no run ${id} to compare.` };
   }
@@ -27,26 +29,28 @@ export function comparedRuns(route, index) {
   if (a.flow !== route.flow) {
     return { message: `The runs ${a.run} and ${b.run} are ${a.flow} runs, not ${route.flow} runs.` };
   }
-  return Date.parse(a.date) <= Date.parse(b.date) ? { a, b } : { a: b, b: a };
+  const [older, newer] = olderFirst(a, b);
+  return { a: older, b: newer };
 }
 
 // What every section reads: the flow, runs A and B, each { id, run } with
 // `run` the run file as it is, and the receipts of each and those shared by
-// both, by name, in A's order.
-export function comparison({ flow, a, b }) {
-  const receiptsOf = (run) => run.cases.map((c) => c.receipt);
+// both, by name, in A's order, with `same` when both runs have the same ones.
+function comparison({ flow, a, b }) {
+  const receiptsOf = (runFile) => runFile.cases.map((c) => c.receipt);
   const receipts = { a: receiptsOf(a.run), b: receiptsOf(b.run) };
   const inB = new Set(receipts.b);
   const shared = receipts.a.filter((receipt) => inB.has(receipt));
-  return { flow: flowById(flow), a, b, receipts: { ...receipts, shared } };
+  const same = shared.length === receipts.a.length && shared.length === receipts.b.length;
+  return { flow: flowById(flow), a, b, receipts: { ...receipts, shared, same } };
 }
 
 // The summary by step, from each run file as it is (not recomputed over the
 // shared receipts): a row per number, A, B and B − A for the total and each step.
 function summary({ a, b }) {
   const columns = [
-    { name: 'Total', of: (run) => run.numbers },
-    ...STEPS.map(({ step, name }) => ({ name, of: (run) => run.numbers.steps.find((s) => s.step === step) })),
+    { name: 'Total', of: (runFile) => runFile.numbers },
+    ...STEPS.map(({ step, title }) => ({ name: title, of: (runFile) => runFile.numbers.steps.find((s) => s.step === step) })),
   ];
   return html`<section aria-labelledby="summary-h" class="summary">
     <div class="section-head">
@@ -72,12 +76,6 @@ function summary({ a, b }) {
     <p class="muted small">Each difference reads B against A: lines and percentage points for errors and warnings, seconds and the change in per cent (×N when B takes at least twice as long), cents (¢) per receipt and dollars per 100 receipts for cost. Each run’s own numbers, over all its receipts.</p>
   </section>`;
 }
-
-const STEPS = [
-  { step: 'read', name: 'Reading' },
-  { step: 'choose_kinds', name: 'Kind choice' },
-  { step: 'database', name: 'Database' },
-];
 
 // The summary's rows: the value of a total or a step's numbers, how it's
 // written, and the difference of two values. A value of null (a cost the
@@ -106,11 +104,11 @@ function countAndShare({ count, share }) {
 }
 
 // The lines whose verdict changed, over the shared receipts: worse in B, then
-// better, each in receipt and line order (see `changedLines`).
+// better, then read in one run only, each in receipt and line order (see
+// `changedLines`).
 function changed({ a, b, receipts }) {
-  const { worse, better } = changedLines(a.run, b.run);
-  const count = worse.length + better.length;
-  const same = receipts.shared.length === receipts.a.length && receipts.shared.length === receipts.b.length;
+  const { worse, better, oneRunOnly } = changedLines(a.run, b.run);
+  const count = worse.length + better.length + oneRunOnly.length;
   const group = (mark, title, lines) =>
     lines.length === 0
       ? ''
@@ -119,12 +117,12 @@ function changed({ a, b, receipts }) {
           <tr class="group"><th scope="colgroup" colspan="7">${title} · ${linesCount(lines.length)}</th></tr>${lines.map(changedRow)}
         </tbody>`;
   return html`<section aria-labelledby="changed-h" class="changed">
-    <h2 id="changed-h">Lines whose verdict changed <span class="muted">· ${count} on ${receipts.shared.length} ${same ? '' : 'shared '}receipts</span></h2>
+    <h2 id="changed-h">Lines whose verdict changed <span class="muted">· ${count} on ${receiptsCount(receipts.shared.length, receipts.same ? '' : 'shared ')}</span></h2>
     ${count === 0
       ? html`<p class="muted">No line’s verdict changed.</p>`
       : html`<div class="table-wrap">
       <table class="lines changed-lines">
-        <thead><tr><th scope="col">Receipt</th><th scope="col">As printed</th><th scope="col">A</th><th scope="col">B</th><th scope="col">A recorded</th><th scope="col">B recorded</th><th scope="col">Expected</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}
+        <thead><tr><th scope="col">Receipt</th><th scope="col">As printed</th><th scope="col">A</th><th scope="col">B</th><th scope="col">A recorded</th><th scope="col">B recorded</th><th scope="col">Expected</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}${group('one-run-only', 'Read in one run only', oneRunOnly)}
       </table>
     </div>`}
   </section>`;
@@ -141,7 +139,7 @@ function changedRow({ receipt, a, b }) {
 // `not read` for a run the line isn't in.
 function verdict(line) {
   if (!line) return html`<span class="verdict not-read">not read</span>`;
-  const step = line.step ? ` · ${STEP_NAMES[line.step] ?? line.step}` : '';
+  const step = line.step ? ` · ${stepName(line.step)}` : '';
   return html`<span class="verdict ${line.verdict}">${line.verdict}${step}</span>`;
 }
 
@@ -152,16 +150,16 @@ function linesCount(n) {
 // Per receipt, folded: a row per shared receipt, from each run's numbers for
 // it as they are.
 function perReceipt({ a, b, receipts }) {
-  const caseOf = (run, receipt) => run.cases.find((c) => c.receipt === receipt);
+  const caseOf = (runFile, receipt) => runFile.cases.find((c) => c.receipt === receipt);
   const groups = RECEIPT_COLUMNS.map((column) => html`<th scope="colgroup" colspan="3" class="group">${column.name}</th>`);
-  const abd = RECEIPT_COLUMNS.map(() => html`<th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num">B − A</th>`);
+  const letterHeads = RECEIPT_COLUMNS.map(() => html`<th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num">B − A</th>`);
   return html`<details class="block-fold per-receipt">
     <summary>Per receipt <span class="muted">· ${receiptsCount(receipts.shared.length)} in both runs</span></summary>
     <div class="table-wrap">
       <table class="by-receipt">
         <thead>
           <tr><th scope="col" rowspan="2">Receipt</th><th scope="col" rowspan="2" class="num">Lines A · B</th>${groups}</tr>
-          <tr>${abd}</tr>
+          <tr>${letterHeads}</tr>
         </thead>
         <tbody>${receipts.shared.map((receipt) => receiptRow(receipt, caseOf(a.run, receipt), caseOf(b.run, receipt)))}
         </tbody>
@@ -191,7 +189,6 @@ const RECEIPT_COLUMNS = [
 // for it: its cells are `—`, with no difference, and the receipt is marked
 // failed in that run, the error in the mark's title.
 function receiptRow(receipt, inA, inB) {
-  const failed = (c) => c.error !== null && c.error !== undefined;
   const numbers = [inA, inB].map((c) => (failed(c) ? null : c.numbers));
   const failures = [['A', inA], ['B', inB]].filter(([, c]) => failed(c));
   const mark = failures.length === 0
@@ -203,7 +200,7 @@ function receiptRow(receipt, inA, inB) {
 }
 
 // The sections of the comparison, in order, after its heading.
-export const SECTIONS = [summary, changed, perReceipt];
+const SECTIONS = [summary, changed, perReceipt];
 
 // The page of the comparison of runs `a` and `b`, each { id, run }, A the older.
 export function renderCompare({ flow, a, b }) {
@@ -215,8 +212,9 @@ export function renderCompare({ flow, a, b }) {
 </main>`);
 }
 
+// The heading: runs A and B, and when their receipts differ, how many each
+// has and how many are shared, which the changed lines and per receipt cover.
 function heading({ flow, a, b, receipts }) {
-  const same = receipts.shared.length === receipts.a.length && receipts.shared.length === receipts.b.length;
   return html`<div class="compare-heading">
     <a class="back" href="#/${flow.id}">← All ${flow.name.toLowerCase()} runs</a>
     <h1>Comparing two eval runs</h1>
@@ -224,21 +222,23 @@ function heading({ flow, a, b, receipts }) {
       ${runCard(flow, 'A', 'older', a)}
       ${runCard(flow, 'B', 'newer', b)}
     </div>
-    ${same
-      ? html`<p class="muted">Both runs: the same ${receiptsCount(receipts.a.length)}.</p>`
-      : html`<p class="receipts-differ">A: ${receiptsCount(receipts.a.length)} · B: ${receiptsCount(receipts.b.length)} · ${receipts.shared.length} shared. The summary is each run’s own.</p>`}
+    ${receipts.same
+      ? ''
+      : html`<p class="receipts-differ">A: ${receiptsCount(receipts.a.length)} · B: ${receiptsCount(receipts.b.length)} · ${receipts.shared.length} shared. The summary is each run’s own; changed lines and per receipt cover the ${receiptsCount(receipts.shared.length, 'shared ')}.</p>`}
   </div>`;
 }
 
-function runCard(flow, letter, age, { id, run }) {
-  const { receipts, failed, lines } = run.numbers;
-  return html`<a class="run-card" href="#/${flow.id}/run/${id}">
-        <span class="run-card-title"><span class="letter letter-${letter.toLowerCase()}">${letter}</span><strong>${formatDate(run.date)}</strong><span class="muted small">${age}</span></span>
-        <span>${run.flow_version} · <span title="${run.steps.read.model}">${shortModel(run.steps.read.model)}</span> · <span title="${run.steps.choose_kinds.model}">${shortModel(run.steps.choose_kinds.model)}</span></span>
-        <span class="muted small">commit <code>${run.commit.slice(0, 7)}</code> · ${receiptsCount(receipts)}${failed > 0 ? ` (${failed} failed)` : ''} · ${lines} lines</span>
+function runCard(flow, letter, age, { id, run: runFile }) {
+  const { receipts, failed: failedCount, lines } = runFile.numbers;
+  const { read, choose_kinds: chooseKinds } = runFile.steps;
+  return html`<a class="run-card" href="${runAddress(flow.id, id)}">
+        <span class="run-card-title"><span class="letter letter-${letter.toLowerCase()}">${letter}</span><strong>${formatDate(runFile.date)}</strong><span class="muted small">${age}</span></span>
+        <span>${runFile.flow_version} · <span title="${read.model} · ${chooseKinds.model}">${modelPair(read.model, chooseKinds.model)}</span></span>
+        <span class="muted small">commit <code>${runFile.commit.slice(0, 7)}</code> · ${receiptsCount(receipts)}${failedCount > 0 ? ` (${failedCount} failed)` : ''} · ${lines} lines</span>
       </a>`;
 }
 
-function receiptsCount(n) {
-  return n === 1 ? '1 receipt' : `${n} receipts`;
+// `3 receipts`, `1 shared receipt`.
+function receiptsCount(n, kind = '') {
+  return n === 1 ? `1 ${kind}receipt` : `${n} ${kind}receipts`;
 }

@@ -58,15 +58,18 @@ test('the heading shows A and B: date, short commit, flow version, models, recei
   assert.match(html, new RegExp(`<a class="run-card" href="#/receipt-lines/run/${REAL}"`));
 });
 
-test('when the receipts differ, the heading says how many are shared', () => {
+test('when the receipts differ, the heading says how many are shared, and that changed lines and per receipt cover them', () => {
   const html = renderCompare({ flow: 'receipt-lines', a: A, b: B });
-  assert.match(text(html), /A: 3 receipts · B: 4 receipts · 3 shared\./);
+  assert.match(
+    text(html),
+    /A: 3 receipts · B: 4 receipts · 3 shared\. The summary is each run’s own; changed lines and per receipt cover the 3 shared receipts\./,
+  );
 });
 
-test('when the receipts are the same, the heading says so', () => {
+test('when the receipts are the same, the heading has no shared receipts line', () => {
   const html = renderCompare({ flow: 'receipt-lines', a: A, b: { id: REAL, run: realRun } });
-  assert.match(text(html), /Both runs: the same 3 receipts\./);
-  assert.doesNotMatch(text(html), /shared/);
+  assert.doesNotMatch(text(html), /shared|Both runs/);
+  assert.doesNotMatch(html, /receipts-differ/);
 });
 
 const older = { run: 'older', flow: 'receipt-lines', date: '2026-10-29T19:48:00Z' };
@@ -158,12 +161,13 @@ test('each difference in the summary is marked better, worse or the same', () =>
 });
 
 // Run A for the changed lines: the real run with its turkey legs read right,
-// its extra discount line on the Aldi eggs not read, and its pomegranate not
-// read; B has a fourth receipt, which A hasn't.
+// its chocolate and its extra discount line on the Aldi eggs not read, and its
+// pomegranate not read; B has a fourth receipt, which A hasn't.
 function changedA() {
   const cases = structuredClone(realRun.cases);
   const indyk = { outcome: 'existing', kind: 'Indyk', quantity: null, source: 'model' };
   for (const i of [2, 3]) Object.assign(cases[0].lines[i], { verdict: 'right', step: null, recorded: indyk });
+  cases[0].lines.splice(1, 1);
   cases[1].lines.splice(3, 1);
   Object.assign(cases[2].lines[25], { read: null, recorded: null, verdict: 'error', step: 'read' });
   return { id: A.id, run: { ...A.run, cases } };
@@ -177,9 +181,9 @@ function changedRows(html) {
     .map(([, row]) => [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)));
 }
 
-test('the changed lines: worse in B, then better, over the shared receipts', () => {
+test('the changed lines: worse in B, then better, then read in one run only, over the shared receipts', () => {
   const html = renderCompare({ flow: 'receipt-lines', a: changedA(), b: B });
-  assert.match(text(html), /Lines whose verdict changed · 4 on 3 shared receipts/);
+  assert.match(text(html), /Lines whose verdict changed · 5 on 3 shared receipts/);
   assert.deepEqual(changedRows(html), [
     ['▲ Worse in B · 3 lines'],
     ['Aldi, 23 Sep 2026', 'GOLONKA Z INDYKA KG', 'right', 'error · kind choice', 'Indyk', 'new : Golonka z indyka', 'Indyk'],
@@ -187,6 +191,8 @@ test('the changed lines: worse in B, then better, over the shared receipts', () 
     ['Aldi, 23 Oct 2026', 'read: OPUST JAJA 10L ŚCIÓŁKOWE', 'not read', 'warning · reading', '—', '— (noise)', '—'],
     ['▼ Better in B · 1 line'],
     ['Biedronka, 24 Oct 2026', 'Granat szt', 'error · reading', 'right', '— (not read)', 'Granaty', 'Granaty'],
+    ['Read in one run only · 1 line'],
+    ['Aldi, 23 Sep 2026', 'RITTER SPORT CZEK.100G', 'not read', 'right', '—', 'Czekolada', 'Czekolada'],
   ]);
 });
 

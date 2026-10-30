@@ -72,16 +72,16 @@ async function render(route, index) {
     return renderTabOf(route, index);
   }
   if (route.view === 'compare') {
-    const runs = comparedRuns(route, index);
-    if (runs.message) return renderNotFound(runs.message, route.flow);
+    const compared = comparedRuns(route, index);
+    if (compared.message) return renderNotFound(compared.message, route.flow);
     const [a, b] = await Promise.all(
-      [runs.a, runs.b].map(async (entry) => ({ id: entry.run, run: await loadRun(entry.file) })),
+      [compared.a, compared.b].map(async (entry) => ({ id: entry.run, run: await loadRun(entry.file) })),
     );
     return renderCompare({ flow: route.flow, a, b });
   }
   if (route.view === 'run') {
-    const entry = index.runs.find((run) => run.run === route.run && run.flow === route.flow);
-    return renderRun({ flow: route.flow, run: route.run, data: entry && (await loadRun(entry.file)) });
+    const entry = index.runs.find((e) => e.run === route.run && e.flow === route.flow);
+    return renderRun({ flow: route.flow, id: route.run, runFile: entry && (await loadRun(entry.file)) });
   }
   return renderNotFound('This address is not on the eval board.');
 }

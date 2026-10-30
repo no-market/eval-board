@@ -57,13 +57,22 @@ function key(line) {
     : `printed:${normalise(line.text)}`;
 }
 
-// A text for comparing, as the backend's `normalise` does: case folded,
-// diacritics dropped (`ł` as `l`), runs of spaces as one and the ends trimmed.
+// A text for comparing, as the backend's `normalise` (core/receipts/texts.py)
+// does: diacritics dropped (`ł` as `l`), case folded, runs of white space as
+// one and the ends trimmed. JavaScript has no casefold, so lower case stands
+// in for it with the two folds that differ for these texts: `ß` (and `ẞ`,
+// lower-cased to `ß`) as `ss`, and the final `ς` as `σ`. Marks are dropped
+// as Unicode marks, where the backend drops combining characters; the two
+// differ only in scripts no receipt here is printed in.
 export function normalise(text) {
   const plain = text
     .replaceAll('ł', 'l')
     .replaceAll('Ł', 'L')
     .normalize('NFKD')
     .replace(/\p{M}/gu, '');
-  return plain.toLowerCase().replaceAll('ß', 'ss').split(/\s+/).filter(Boolean).join(' ');
+  const folded = plain.toLowerCase().replaceAll('ß', 'ss').replaceAll('ς', 'σ');
+  return folded.split(PYTHON_SPACE).filter(Boolean).join(' ');
 }
+
+// What Python's str.split() splits on: its str.isspace() characters.
+const PYTHON_SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+/;

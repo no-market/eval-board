@@ -5,6 +5,7 @@ import { DEFAULT_FLOW, flowById } from './flows.js';
 //   (bare site), #/<flow>      the flow's tab
 //   #/<flow>?base=<run>        the tab with that run as the baseline
 //   #/<flow>/run/<run>         a run page; <run> is its file name without .json
+// Each <run> is written as a URI component (see runAddress, compareAddress).
 //   #/<flow>/compare/<a>/<b>   the comparison of runs A and B
 // Anything else is { view: 'not-found' }.
 export function parseRoute(hash) {
@@ -16,11 +17,27 @@ export function parseRoute(hash) {
     const base = new URLSearchParams(query).get('base');
     return base ? { view: 'tab', flow, base } : { view: 'tab', flow };
   }
-  if (rest.length === 2 && rest[0] === 'run' && rest[1] !== '') return { view: 'run', flow, run: rest[1] };
-  if (rest[0] === 'compare' && rest.length === 3 && rest[1] && rest[2]) {
-    return { view: 'compare', flow, a: decodeURIComponent(rest[1]), b: decodeURIComponent(rest[2]) };
+  const ids = rest.slice(1).map(decoded);
+  if (ids.includes(null)) return { view: 'not-found' };
+  if (rest[0] === 'run' && ids.length === 1 && ids[0]) return { view: 'run', flow, run: ids[0] };
+  if (rest[0] === 'compare' && ids.length === 2 && ids[0] && ids[1]) {
+    return { view: 'compare', flow, a: ids[0], b: ids[1] };
   }
   return { view: 'not-found' };
+}
+
+// A run id from an address, or null for a broken escape.
+function decoded(part) {
+  try {
+    return decodeURIComponent(part);
+  } catch {
+    return null;
+  }
+}
+
+// The address of a run page.
+export function runAddress(flow, run) {
+  return `#/${flow}/run/${encodeURIComponent(run)}`;
 }
 
 // The address of the comparison of runs `a` and `b` of a flow, A the older.

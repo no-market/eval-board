@@ -1,10 +1,11 @@
 import { chart } from './chart.js';
 import { flowById } from './flows.js';
 import { centsDifference, linesDifference, secondsDifference } from './differences.js';
-import { formatCents, formatDate, formatSeconds, formatShare, shortModel } from './format.js';
+import { formatCents, formatDate, formatSeconds, formatShare } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
-import { compareAddress, tabAddress } from './route.js';
+import { compareAddress, runAddress, tabAddress } from './route.js';
+import { modelPair } from './runs.js';
 import { tickedPair } from './ticking.js';
 
 // A flow's tab: its heading, the chart of its runs (see chart.js) and the
@@ -79,8 +80,9 @@ function row(flow, run, base, ticked) {
   const isBase = run === base;
   const isTicked = ticked.includes(run.run);
   const classes = [isBase && 'base', isTicked && 'ticked'].filter(Boolean).join(' ');
-  // The difference under a number: none on the baseline's row or without one.
-  const under = (difference) => {
+  // The difference from the baseline under a number: none on the baseline's
+  // row or without one.
+  const fromBase = (difference) => {
     if (!base || isBase) return '';
     const { mark, text } = difference(base, run);
     return html`<div class="diff ${mark}">${text}</div>`;
@@ -88,13 +90,13 @@ function row(flow, run, base, ticked) {
   return html`
           <tr${classes ? html` class="${classes}"` : ''}>
             <td class="tick"><label><input type="checkbox" data-tick="${run.run}"${isTicked ? html` checked` : ''} aria-label="Compare the run of ${formatDate(run.date)}"></label></td>
-            <td class="nowrap"><a href="#/${flow.id}/run/${run.run}">${formatDate(run.date)}</a></td>
-            <td><span class="muted">${run.flowVersion} · </span><span title="${run.models.read}">${shortModel(run.models.read)}</span><span class="muted"> · </span><span title="${run.models.chooseKinds}">${shortModel(run.models.chooseKinds)}</span></td>
+            <td class="nowrap"><a href="${runAddress(flow.id, run.run)}">${formatDate(run.date)}</a></td>
+            <td><span class="muted">${run.flowVersion} · </span><span title="${run.models.read} · ${run.models.chooseKinds}">${modelPair(run.models.read, run.models.chooseKinds)}</span></td>
             <td class="num">${run.receipts}</td>
-            <td class="num nowrap"><div><strong>${shareOf(run.errors, run.lines)}</strong></div>${under((a, b) => linesDifference(a.errors, b.errors))}</td>
-            <td class="num nowrap"><div>${shareOf(run.warnings, run.lines)}</div>${under((a, b) => linesDifference(a.warnings, b.warnings))}</td>
-            <td class="num nowrap"><div>${formatSeconds(run.seconds.median)}</div>${under((a, b) => secondsDifference(a.seconds.median, b.seconds.median))}</td>
-            <td class="num nowrap"><div>${formatCents(run.costUsd)}</div>${under((a, b) => centsDifference(a.costUsd, b.costUsd))}</td>
+            <td class="num nowrap"><div><strong>${shareOf(run.errors, run.lines)}</strong></div>${fromBase((a, b) => linesDifference(a.errors, b.errors))}</td>
+            <td class="num nowrap"><div>${shareOf(run.warnings, run.lines)}</div>${fromBase((a, b) => linesDifference(a.warnings, b.warnings))}</td>
+            <td class="num nowrap"><div>${formatSeconds(run.seconds.median)}</div>${fromBase((a, b) => secondsDifference(a.seconds.median, b.seconds.median))}</td>
+            <td class="num nowrap"><div>${formatCents(run.costUsd)}</div>${fromBase((a, b) => centsDifference(a.costUsd, b.costUsd))}</td>
             <td class="num">${baseButton(flow, run, isBase)}</td>
           </tr>`;
 }

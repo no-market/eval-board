@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { compareAddress, parseRoute, tabAddress } from '../src/route.js';
+import { compareAddress, parseRoute, runAddress, tabAddress } from '../src/route.js';
 
 test('the bare site opens the receipt lines tab', () => {
   for (const hash of ['', '#', '#/']) {
@@ -18,6 +18,13 @@ test('#/receipt-lines/run/<run> opens that run page', () => {
     flow: 'receipt-lines',
     run: '2026-10-30T165731-google-gemini-2.5-flash',
   });
+});
+
+test('the run address encodes the run, as the compare address does, and opens it again', () => {
+  const run = '2026-10-30T165731-a b#c?d/e%f';
+  const address = runAddress('receipt-lines', run);
+  assert.equal(address, '#/receipt-lines/run/2026-10-30T165731-a%20b%23c%3Fd%2Fe%25f');
+  assert.deepEqual(parseRoute(address), { view: 'run', flow: 'receipt-lines', run });
 });
 
 test('a run address without a run, or with more after it, is not found', () => {
@@ -58,6 +65,12 @@ test('the compare address names A then B', () => {
 test('a compare address without two runs is not found', () => {
   assert.deepEqual(parseRoute('#/receipt-lines/compare/one'), { view: 'not-found' });
   assert.deepEqual(parseRoute('#/receipt-lines/compare/one/two/three'), { view: 'not-found' });
+});
+
+test('a run or compare address with a broken escape is not found', () => {
+  for (const hash of ['#/receipt-lines/run/%E0', '#/receipt-lines/compare/%E0/b']) {
+    assert.deepEqual(parseRoute(hash), { view: 'not-found' }, `hash ${hash}`);
+  }
 });
 
 test('an address the site does not know is not found', () => {

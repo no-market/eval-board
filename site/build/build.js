@@ -16,7 +16,7 @@ export async function build({ runsDir, outDir }) {
 
   const runs = [];
   if (files.length > 0) {
-    const check = runChecker(await readJson(join(runsDir, 'schema.json')));
+    const check = runChecker(await readSchema(runsDir, files.length));
     for (const file of files) {
       const run = await readJson(join(runsDir, file));
       check(file, run);
@@ -32,6 +32,18 @@ export async function build({ runsDir, outDir }) {
   const index = { runs: runs.map(({ file, run }) => summarise(file, run)) };
   await writeFile(join(outDir, 'index.json'), JSON.stringify(index));
   return index;
+}
+
+// The runs' schema.json, which every run is checked against: a clear error
+// when there are runs but no schema.
+async function readSchema(runsDir, runCount) {
+  try {
+    return await readJson(join(runsDir, 'schema.json'));
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    const runFiles = runCount === 1 ? '1 run file' : `${runCount} run files`;
+    throw new Error(`There is no schema.json in ${runsDir} to check its ${runFiles} against.`);
+  }
 }
 
 async function readJson(path) {

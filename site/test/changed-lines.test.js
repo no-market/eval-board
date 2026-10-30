@@ -47,5 +47,14 @@ test('changed lines: a line in one run only is not read in the other', () => {
 
 test('changed lines: none when the verdicts are the same', () => {
   const a = run(['aldi', [line('CHLEB', 'error')]]);
-  assert.deepEqual(changedLines(a, a), { worse: [], better: [] });
+  assert.deepEqual(changedLines(a, a), { worse: [], better: [], oneRunOnly: [] });
+});
+
+test('changed lines: a right line in one run only is neither worse nor better, but read in one run only', () => {
+  const a = run(['lidl', [line('KAKI', 'right'), extra('OPUST A', 'right'), extra('OPUST C', 'error')]]);
+  const b = run(['lidl', [line('KAKI', 'right'), extra('OPUST B', 'right'), extra('OPUST D', 'warning')]]);
+  const { worse, better, oneRunOnly } = changedLines(a, b);
+  assert.deepEqual(written(worse), ['lidl OPUST D: not read → warning']);
+  assert.deepEqual(written(better), ['lidl OPUST C: error → not read']);
+  assert.deepEqual(written(oneRunOnly), ['lidl OPUST B: not read → right', 'lidl OPUST A: right → not read']);
 });

@@ -8,7 +8,7 @@ const realRun = JSON.parse(
   await readFile(new URL(`./fixtures/${REAL}.json`, import.meta.url), 'utf8'),
 );
 const copy = () => structuredClone(realRun);
-const page = (data = realRun) => renderRun({ flow: 'receipt-lines', run: REAL, data });
+const page = (data = realRun) => renderRun({ flow: 'receipt-lines', id: REAL, runFile: data });
 
 const text = (html) => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
@@ -110,7 +110,7 @@ test('a link to the run file, and none to Logfire', () => {
 });
 
 test('a run that does not exist says so, with a link back to the tab', () => {
-  const html = renderRun({ flow: 'receipt-lines', run: 'no-such-run', data: null });
+  const html = renderRun({ flow: 'receipt-lines', id: 'no-such-run', runFile: null });
   assert.match(text(html), /There is no eval run no-such-run\. Back to Receipt lines/);
   assert.match(html, /<a href="#\/receipt-lines">Back to Receipt lines<\/a>/);
 });
