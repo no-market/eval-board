@@ -4,6 +4,7 @@ import { DEFAULT_FLOW, flowById } from './flows.js';
 // address works on Pages without a server:
 //   (bare site), #/<flow>      the flow's tab
 //   #/<flow>?base=<run>        the tab with that run as the baseline
+//   #/<flow>/run/<run>         a run page; <run> is its file name without .json
 //   #/<flow>/compare/<a>/<b>   the comparison of runs A and B
 // Anything else is { view: 'not-found' }.
 export function parseRoute(hash) {
@@ -15,6 +16,7 @@ export function parseRoute(hash) {
     const base = new URLSearchParams(query).get('base');
     return base ? { view: 'tab', flow, base } : { view: 'tab', flow };
   }
+  if (rest.length === 2 && rest[0] === 'run' && rest[1] !== '') return { view: 'run', flow, run: rest[1] };
   if (rest[0] === 'compare' && rest.length === 3 && rest[1] && rest[2]) {
     return { view: 'compare', flow, a: decodeURIComponent(rest[1]), b: decodeURIComponent(rest[2]) };
   }

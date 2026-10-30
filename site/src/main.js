@@ -4,6 +4,7 @@
 import { comparedRuns, renderCompare } from './compare.js';
 import { renderNotFound } from './not-found.js';
 import { parseRoute } from './route.js';
+import { renderRun } from './run.js';
 import { renderTab } from './tab.js';
 import { tick } from './ticking.js';
 
@@ -22,14 +23,16 @@ async function start() {
     app.textContent = `The eval board could not load its index of runs (${error.message}).`;
     return;
   }
-  // Each showing counts, so a run file that arrives after the address has
-  // changed again is dropped.
-  let showing = 0;
   const show = async () => {
-    const shown = ++showing;
-    const page = await render(parseRoute(location.hash), index);
-    if (shown !== showing) return;
-    app.innerHTML = page;
+    const hash = location.hash;
+    let view;
+    try {
+      view = await render(parseRoute(hash), index);
+    } catch (error) {
+      view = renderNotFound(`The eval board could not load this run (${error.message}).`);
+    }
+    if (hash !== location.hash) return; // the address changed while a run loaded
+    app.innerHTML = view;
     window.scrollTo(0, 0);
   };
   window.addEventListener('hashchange', show);
@@ -57,12 +60,14 @@ async function render(route, index) {
   if (route.view === 'compare') {
     const runs = comparedRuns(route, index);
     if (runs.message) return renderNotFound(runs.message, route.flow);
-    try {
-      const [a, b] = await Promise.all([runs.a, runs.b].map(loadRun));
-      return renderCompare({ flow: route.flow, a, b });
-    } catch (error) {
-      return renderNotFound(`The comparison could not load its run files (${error.message}).`, route.flow);
-    }
+    const [a, b] = await Promise.all(
+      [runs.a, runs.b].map(async (entry) => ({ id: entry.run, run: await loadRun(entry.file) })),
+    );
+    return renderCompare({ flow: route.flow, a, b });
+  }
+  if (route.view === 'run') {
+    const entry = index.runs.find((run) => run.run === route.run && run.flow === route.flow);
+    return renderRun({ flow: route.flow, run: route.run, data: entry && (await loadRun(entry.file)) });
   }
   return renderNotFound('This address is not on the eval board.');
 }
@@ -72,11 +77,11 @@ function renderTabOf(route, index) {
   return renderTab({ flow: route.flow, runs, base: route.base, ticked });
 }
 
-// A run file, as the build copied it beside the index: { id, run }.
-async function loadRun(entry) {
-  const response = await fetch(`runs/${encodeURIComponent(entry.file)}`);
-  if (!response.ok) throw new Error(`${entry.file}: ${response.status}`);
-  return { id: entry.run, run: await response.json() };
+// A run file's copy, which the build writes next to the page.
+async function loadRun(file) {
+  const response = await fetch(`runs/${encodeURIComponent(file)}`);
+  if (!response.ok) throw new Error(`runs/${file}: ${response.status}`);
+  return response.json();
 }
 
 start();
