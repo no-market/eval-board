@@ -33,6 +33,7 @@ async function start() {
     }
     if (hash !== location.hash) return; // the address changed while a run loaded
     app.innerHTML = view;
+    fitChartLabels();
     window.scrollTo(0, 0);
   };
   window.addEventListener('hashchange', show);
@@ -43,6 +44,7 @@ async function start() {
     const route = parseRoute(location.hash);
     if (route.view !== 'tab') return;
     app.innerHTML = renderTabOf(route, index);
+    fitChartLabels();
     app.querySelector(selector)?.focus();
   };
   app.addEventListener('change', (event) => {
@@ -89,6 +91,21 @@ async function render(route, index) {
 function renderTabOf(route, index) {
   const runs = index.runs.filter((run) => run.flow === route.flow);
   return renderTab({ flow: route.flow, runs, base: route.base, ticked });
+}
+
+// The chart sizes each point's label from its number of characters; here,
+// with the page's real font, each label's box is fitted to its text.
+const measure = document.createElement('canvas').getContext('2d');
+function fitChartLabels() {
+  for (const label of app.querySelectorAll('.point .label')) {
+    const text = label.querySelector('text');
+    const rect = label.querySelector('rect');
+    const style = getComputedStyle(text);
+    measure.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    const width = Math.ceil(measure.measureText(text.textContent).width + 12);
+    if (text.getAttribute('text-anchor') === 'end') rect.setAttribute('x', String(-14 - width));
+    rect.setAttribute('width', String(width));
+  }
 }
 
 // A run file's copy, which the build writes next to the page.

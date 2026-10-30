@@ -97,7 +97,7 @@ function row(flow, run, base, ticked) {
             <td class="num nowrap"><div>${shareOf(run.warnings, run.lines)}</div>${fromBase((a, b) => linesDifference(a.warnings, b.warnings))}</td>
             <td class="num nowrap"><div>${formatSeconds(run.seconds.median)}</div>${fromBase((a, b) => secondsDifference(a.seconds.median, b.seconds.median))}</td>
             <td class="num nowrap"><div>${formatCents(run.costUsd)}</div>${fromBase((a, b) => centsDifference(a.costUsd, b.costUsd))}</td>
-            <td class="num">${baseButton(flow, run, isBase)}</td>
+            <td class="num base-cell">${baseButton(flow, run, isBase)}</td>
           </tr>`;
 }
 

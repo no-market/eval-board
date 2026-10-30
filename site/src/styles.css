@@ -111,7 +111,7 @@ main.run h2 .muted { font-weight: 500; }
 .diff.better { color: var(--better); }
 .diff.worse { color: var(--worse); }
 .diff.same { color: var(--same); }
-td:last-child { padding-top: 6px; padding-bottom: 6px; }
+td.base-cell { padding-top: 6px; padding-bottom: 6px; }
 tr.base { box-shadow: inset 4px 0 0 var(--flow); }
 .base-button {
   display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; box-sizing: border-box;
@@ -183,7 +183,7 @@ main.compare { gap: 28px; }
 .receipts-differ { padding: 12px 16px; border-radius: 10px; background: #FFF4E5; border: 1px solid #F0C98A; color: #5A3A06; }
 .compare section { display: flex; flex-direction: column; gap: 10px; }
 .section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
-table.by-step { min-width: 1040px; font-size: 14px; }
+table.by-step { min-width: 860px; font-size: 14px; }
 table.by-step th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
 table.by-step thead tr + tr th { font-size: 12px; padding-top: 2px; }
 table.by-step tbody th { color: var(--text); font-size: 14px; white-space: nowrap; border-top: 1px solid var(--rule); }
@@ -204,7 +204,7 @@ table.changed-lines tbody.one-run-only tr.group th { color: var(--same); backgro
 .verdict.warning { background: #FFF1C9; color: #5C4300; }
 .verdict.error { background: #FBE3D3; color: #7A2E04; }
 
-table.by-receipt { min-width: 1040px; font-size: 14px; }
+table.by-receipt { min-width: 860px; font-size: 14px; }
 table.by-receipt th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
 table.by-receipt thead tr + tr th { font-size: 12px; padding-top: 2px; }
 table.by-receipt tbody th { color: var(--text); font-size: 14px; font-weight: 500; white-space: nowrap; border-top: 1px solid var(--rule); }

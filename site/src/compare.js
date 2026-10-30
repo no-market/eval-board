@@ -95,7 +95,13 @@ function cells(row, aNumbers, bNumbers, isTotal) {
   const { mark, text } = missing ? { mark: 'same', text: '' } : row.difference(a, b);
   const total = isTotal ? ' total' : '';
   const written = (value) => (value === null || value === undefined ? '—' : row.format(value));
-  return html`<td class="num${total}">${written(a)}</td><td class="num${total}">${written(b)}</td><td class="diff ${mark} num nowrap${total}">${text}</td>`;
+  return html`<td class="num${total}">${written(a)}</td><td class="num${total}">${written(b)}</td><td class="diff ${mark} num${total}">${wrappable(text)}</td>`;
+}
+
+// A difference that may break onto a second line only at its ` · `, so a
+// narrow column shows `▲ +25 lines` over `· +61.8 pts`, never a split number.
+function wrappable(text) {
+  return text.split(' · ').map((part, i) => html`${i > 0 ? ' · ' : ''}<span class="nowrap">${part}</span>`);
 }
 
 // `13 (28.9%)`: a count of lines with its share of the run's lines.
