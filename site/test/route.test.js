@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRoute } from '../src/route.js';
+import { parseRoute, tabAddress } from '../src/route.js';
 
 test('the bare site opens the receipt lines tab', () => {
   for (const hash of ['', '#', '#/']) {
@@ -24,6 +24,20 @@ test('a run address without a run, or with more after it, is not found', () => {
   for (const hash of ['#/receipt-lines/run', '#/receipt-lines/run/', '#/receipt-lines/run/a/b']) {
     assert.deepEqual(parseRoute(hash), { view: 'not-found' }, `hash ${hash}`);
   }
+});
+
+test('?base=<run> sets the baseline of the tab', () => {
+  assert.deepEqual(parseRoute('#/receipt-lines?base=2026-10-30T165731-a'), {
+    view: 'tab',
+    flow: 'receipt-lines',
+    base: '2026-10-30T165731-a',
+  });
+});
+
+test('the tab address carries the baseline, and drops it when cleared', () => {
+  assert.equal(tabAddress('receipt-lines', '2026-10-30T165731-a'), '#/receipt-lines?base=2026-10-30T165731-a');
+  assert.equal(tabAddress('receipt-lines', null), '#/receipt-lines');
+  assert.deepEqual(parseRoute(tabAddress('receipt-lines', null)), { view: 'tab', flow: 'receipt-lines' });
 });
 
 test('an address the site does not know is not found', () => {

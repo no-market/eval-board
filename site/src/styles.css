@@ -84,7 +84,7 @@ main.run .pill {
   background: var(--surface); border: 1px solid var(--border);
 }
 .block { display: flex; flex-direction: column; gap: 10px; }
-tbody th { color: var(--text); font-size: 15px; padding: 10px 8px; border-top: 1px solid var(--rule); }
+main.run tbody th { color: var(--text); font-size: 15px; padding: 10px 8px; border-top: 1px solid var(--rule); }
 table.summary, table.receipts { min-width: 720px; }
 table.summary th, table.summary td, table.receipts td,
 table.receipts thead th:not(:first-child) { text-align: right; }
@@ -104,3 +104,19 @@ details.block-fold summary { cursor: pointer; padding: 14px 16px; min-height: 44
 details.block-fold summary .muted { font-weight: 500; }
 details.block-fold .table-wrap { border: 0; border-top: 1px solid var(--rule); border-radius: 0 0 12px 12px; }
 main.run h2 .muted { font-weight: 500; }
+.runs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+.better { color: var(--better); font-weight: 700; }
+.worse { color: var(--worse); font-weight: 700; }
+.diff { font-size: 12px; font-weight: 600; }
+.diff.better { color: var(--better); }
+.diff.worse { color: var(--worse); }
+.diff.same { color: var(--same); }
+td:last-child { padding-top: 6px; padding-bottom: 6px; }
+tr.base { box-shadow: inset 4px 0 0 var(--flow); }
+.base-button {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; box-sizing: border-box;
+  border-radius: 999px; border: 1px solid #D0D0CB; background: var(--surface);
+  color: #3F3F3C; font-size: 13px; text-decoration: none; white-space: nowrap;
+}
+.base-button:hover { color: var(--text); border-color: var(--muted); }
+.base-button[aria-pressed="true"] { border-color: var(--flow); background: var(--flow); color: #FFFFFF; font-weight: 700; }
