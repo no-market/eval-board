@@ -204,141 +204,6 @@
       "title": "CatalogMetrics",
       "type": "object"
     },
-    "Conditions": {
-      "properties": {
-        "loyalty_card": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Loyalty Card"
-        },
-        "app": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "App"
-        },
-        "coupon": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Coupon"
-        },
-        "minimum_quantity": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Minimum Quantity"
-        },
-        "multiple": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Multiple"
-        },
-        "free_item_rule": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Free Item Rule"
-        },
-        "percentage_discount": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Percentage Discount"
-        },
-        "eligible_range": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Eligible Range"
-        },
-        "exclusions": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Exclusions"
-        },
-        "limit": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Limit"
-        }
-      },
-      "title": "Conditions",
-      "type": "object"
-    },
     "Count": {
       "properties": {
         "count": {
@@ -394,37 +259,6 @@
         "discounts"
       ],
       "type": "string"
-    },
-    "Difference": {
-      "properties": {
-        "truth": {
-          "title": "Truth",
-          "type": "string"
-        },
-        "prediction": {
-          "title": "Prediction",
-          "type": "integer"
-        },
-        "field": {
-          "title": "Field",
-          "type": "string"
-        },
-        "expected": {
-          "$ref": "#/$defs/JsonValue"
-        },
-        "actual": {
-          "$ref": "#/$defs/JsonValue"
-        }
-      },
-      "required": [
-        "truth",
-        "prediction",
-        "field",
-        "expected",
-        "actual"
-      ],
-      "title": "Difference",
-      "type": "object"
     },
     "Discount": {
       "properties": {
@@ -490,146 +324,6 @@
         "unknown"
       ],
       "type": "string"
-    },
-    "ExtractionConfig": {
-      "properties": {
-        "model": {
-          "title": "Model",
-          "type": "string"
-        },
-        "strategy": {
-          "default": "text",
-          "enum": [
-            "text",
-            "image",
-            "positioned_text",
-            "ocr_text",
-            "ocr_text_image"
-          ],
-          "title": "Strategy",
-          "type": "string"
-        },
-        "output": {
-          "$ref": "#/$defs/OutputMode",
-          "default": "json_schema"
-        },
-        "version": {
-          "default": "promo-v2",
-          "title": "Version",
-          "type": "string"
-        },
-        "options": {
-          "additionalProperties": {
-            "$ref": "#/$defs/JsonValue"
-          },
-          "default": {},
-          "title": "Options",
-          "type": "object"
-        }
-      },
-      "required": [
-        "model"
-      ],
-      "title": "ExtractionConfig",
-      "type": "object"
-    },
-    "ExtractionUsage": {
-      "properties": {
-        "page": {
-          "title": "Page",
-          "type": "integer"
-        },
-        "latency_s": {
-          "title": "Latency S",
-          "type": "number"
-        },
-        "input_tokens": {
-          "title": "Input Tokens",
-          "type": "integer"
-        },
-        "output_tokens": {
-          "title": "Output Tokens",
-          "type": "integer"
-        },
-        "cost_usd": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Cost Usd"
-        },
-        "cost_status": {
-          "enum": [
-            "reported",
-            "estimated",
-            "unknown",
-            "partial"
-          ],
-          "title": "Cost Status",
-          "type": "string"
-        },
-        "accounting_complete": {
-          "title": "Accounting Complete",
-          "type": "boolean"
-        },
-        "prompt_version": {
-          "default": "promo-v2",
-          "title": "Prompt Version",
-          "type": "string"
-        },
-        "preprocessing_version": {
-          "default": "promo-input-v2",
-          "title": "Preprocessing Version",
-          "type": "string"
-        },
-        "stages": {
-          "items": {
-            "$ref": "#/$defs/StageUsage"
-          },
-          "title": "Stages",
-          "type": "array"
-        },
-        "pricing_versions": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Pricing Versions",
-          "type": "array"
-        }
-      },
-      "required": [
-        "page",
-        "latency_s",
-        "input_tokens",
-        "output_tokens",
-        "cost_usd",
-        "cost_status",
-        "accounting_complete",
-        "stages"
-      ],
-      "title": "ExtractionUsage",
-      "type": "object"
-    },
-    "FieldScore": {
-      "properties": {
-        "scored": {
-          "default": 0,
-          "title": "Scored",
-          "type": "integer"
-        },
-        "correct": {
-          "default": 0,
-          "title": "Correct",
-          "type": "integer"
-        }
-      },
-      "title": "FieldScore",
-      "type": "object"
     },
     "FlowStep": {
       "enum": [
@@ -764,7 +458,7 @@
         "expected_quantity": {
           "anyOf": [
             {
-              "$ref": "#/$defs/nomarket__core__receipts__reading__Quantity"
+              "$ref": "#/$defs/Quantity"
             },
             {
               "type": "null"
@@ -957,190 +651,6 @@
       "title": "Numbers",
       "type": "object"
     },
-    "Offer": {
-      "properties": {
-        "name": {
-          "minLength": 1,
-          "title": "Name",
-          "type": "string"
-        },
-        "brands": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Brands",
-          "type": "array"
-        },
-        "price": {
-          "anyOf": [
-            {
-              "minimum": 0.0,
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Price"
-        },
-        "price_basis": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Price Basis"
-        },
-        "pack_size": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pack Size"
-        },
-        "quantity": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/nomarket__core__promos__models__Quantity"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "reference_price": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ReferencePrice"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "lowest_30_days": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ReferencePrice"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "ambiguous_reference": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ReferencePrice"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "condition": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Condition"
-        },
-        "conditions": {
-          "$ref": "#/$defs/Conditions",
-          "default": {
-            "loyalty_card": null,
-            "app": null,
-            "coupon": null,
-            "minimum_quantity": null,
-            "multiple": null,
-            "free_item_rule": null,
-            "percentage_discount": null,
-            "eligible_range": null,
-            "exclusions": null,
-            "limit": null
-          }
-        },
-        "valid_from": {
-          "anyOf": [
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Valid From"
-        },
-        "valid_to": {
-          "anyOf": [
-            {
-              "format": "date",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Valid To"
-        },
-        "validity_wording": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Validity Wording"
-        },
-        "permanent_price_cut": {
-          "default": false,
-          "title": "Permanent Price Cut",
-          "type": "boolean"
-        },
-        "ambiguous_fields": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Ambiguous Fields",
-          "type": "array"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "title": "Offer",
-      "type": "object"
-    },
     "Outcome": {
       "enum": [
         "existing",
@@ -1151,259 +661,48 @@
       ],
       "type": "string"
     },
-    "OutputMode": {
-      "enum": [
-        "tool",
-        "json_schema"
+    "Pair": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
       ],
-      "type": "string"
+      "type": "array"
     },
-    "PromoCase": {
+    "Quantity": {
       "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "chain": {
-          "title": "Chain",
-          "type": "string"
-        },
-        "leaflet_id": {
-          "title": "Leaflet Id",
-          "type": "string"
-        },
-        "page": {
-          "title": "Page",
-          "type": "integer"
-        },
-        "truth_count": {
-          "title": "Truth Count",
-          "type": "integer"
-        },
-        "predictions": {
-          "items": {
-            "$ref": "#/$defs/Offer"
-          },
-          "title": "Predictions",
-          "type": "array"
-        },
-        "expected": {
-          "additionalProperties": {
-            "additionalProperties": {
-              "$ref": "#/$defs/JsonValue"
-            },
-            "type": "object"
-          },
-          "default": {},
-          "title": "Expected",
-          "type": "object"
-        },
-        "pairs": {
-          "default": [],
-          "items": {
-            "$ref": "#/$defs/evals__promos__Pair"
-          },
-          "title": "Pairs",
-          "type": "array"
-        },
-        "matched": {
-          "default": 0,
-          "title": "Matched",
-          "type": "integer"
-        },
-        "missed": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Missed",
-          "type": "array"
-        },
-        "extra": {
-          "default": [],
-          "items": {
-            "type": "integer"
-          },
-          "title": "Extra",
-          "type": "array"
-        },
-        "differences": {
-          "default": [],
-          "items": {
-            "$ref": "#/$defs/Difference"
-          },
-          "title": "Differences",
-          "type": "array"
-        },
-        "fields": {
-          "additionalProperties": {
-            "$ref": "#/$defs/FieldScore"
-          },
-          "default": {},
-          "title": "Fields",
-          "type": "object"
-        },
-        "unscored": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Unscored",
-          "type": "array"
-        },
-        "failed": {
-          "default": false,
-          "title": "Failed",
-          "type": "boolean"
-        },
-        "failure": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failure"
-        },
-        "usage": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ExtractionUsage"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "seconds": {
-          "default": 0,
-          "title": "Seconds",
+        "amount": {
+          "title": "Amount",
           "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/Unit"
         }
       },
       "required": [
-        "id",
-        "chain",
-        "leaflet_id",
-        "page",
-        "truth_count",
-        "predictions"
+        "amount",
+        "unit"
       ],
-      "title": "PromoCase",
-      "type": "object"
-    },
-    "PromoRun": {
-      "properties": {
-        "schema_version": {
-          "const": 3,
-          "default": 3,
-          "title": "Schema Version",
-          "type": "integer"
-        },
-        "flow": {
-          "const": "promo-extraction",
-          "default": "promo-extraction",
-          "title": "Flow",
-          "type": "string"
-        },
-        "date": {
-          "format": "date-time",
-          "title": "Date",
-          "type": "string"
-        },
-        "commit": {
-          "title": "Commit",
-          "type": "string"
-        },
-        "dataset_revision": {
-          "title": "Dataset Revision",
-          "type": "string"
-        },
-        "scorer_version": {
-          "default": "promo-identity-exact-v2",
-          "title": "Scorer Version",
-          "type": "string"
-        },
-        "config": {
-          "$ref": "#/$defs/ExtractionConfig"
-        },
-        "chain_configs": {
-          "additionalProperties": {
-            "$ref": "#/$defs/ExtractionConfig"
-          },
-          "default": {},
-          "title": "Chain Configs",
-          "type": "object"
-        },
-        "selection": {
-          "items": {
-            "type": "string"
-          },
-          "title": "Selection",
-          "type": "array"
-        },
-        "eligible": {
-          "items": {
-            "type": "string"
-          },
-          "title": "Eligible",
-          "type": "array"
-        },
-        "full": {
-          "title": "Full",
-          "type": "boolean"
-        },
-        "excluded": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "title": "Excluded",
-          "type": "object"
-        },
-        "cases": {
-          "items": {
-            "$ref": "#/$defs/PromoCase"
-          },
-          "title": "Cases",
-          "type": "array"
-        },
-        "totals": {
-          "$ref": "#/$defs/Totals"
-        },
-        "by_chain": {
-          "additionalProperties": {
-            "$ref": "#/$defs/Totals"
-          },
-          "title": "By Chain",
-          "type": "object"
-        },
-        "by_leaflet": {
-          "additionalProperties": {
-            "$ref": "#/$defs/Totals"
-          },
-          "title": "By Leaflet",
-          "type": "object"
-        }
-      },
-      "required": [
-        "date",
-        "commit",
-        "dataset_revision",
-        "config",
-        "selection",
-        "eligible",
-        "full",
-        "excluded",
-        "cases",
-        "totals",
-        "by_chain",
-        "by_leaflet"
-      ],
-      "title": "PromoRun",
+      "title": "Quantity",
       "type": "object"
     },
     "ReadLine": {
@@ -1416,7 +715,7 @@
         "quantity": {
           "anyOf": [
             {
-              "$ref": "#/$defs/nomarket__core__receipts__reading__Quantity"
+              "$ref": "#/$defs/Quantity"
             },
             {
               "type": "null"
@@ -1687,7 +986,7 @@
         },
         "pairs": {
           "items": {
-            "$ref": "#/$defs/evals__reading__Pair"
+            "$ref": "#/$defs/Pair"
           },
           "title": "Pairs",
           "type": "array"
@@ -1843,7 +1142,7 @@
         "quantity": {
           "anyOf": [
             {
-              "$ref": "#/$defs/nomarket__core__receipts__reading__Quantity"
+              "$ref": "#/$defs/Quantity"
             },
             {
               "type": "null"
@@ -1861,143 +1160,6 @@
         "source"
       ],
       "title": "Recorded",
-      "type": "object"
-    },
-    "ReferencePrice": {
-      "properties": {
-        "amount": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Amount"
-        },
-        "kind": {
-          "default": "unknown",
-          "enum": [
-            "regular",
-            "pre_promo",
-            "lowest_30_days",
-            "unknown"
-          ],
-          "title": "Kind",
-          "type": "string"
-        },
-        "wording": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Wording"
-        }
-      },
-      "title": "ReferencePrice",
-      "type": "object"
-    },
-    "RunResult": {
-      "properties": {
-        "schema_version": {
-          "const": 3,
-          "default": 3,
-          "title": "Schema Version",
-          "type": "integer"
-        },
-        "flow": {
-          "const": "receipt-lines",
-          "default": "receipt-lines",
-          "title": "Flow",
-          "type": "string"
-        },
-        "date": {
-          "format": "date-time",
-          "title": "Date",
-          "type": "string"
-        },
-        "commit": {
-          "title": "Commit",
-          "type": "string"
-        },
-        "flow_version": {
-          "title": "Flow Version",
-          "type": "string"
-        },
-        "steps": {
-          "additionalProperties": {
-            "$ref": "#/$defs/StepRun"
-          },
-          "title": "Steps",
-          "type": "object"
-        },
-        "receipts": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Receipts"
-        },
-        "reviewed": {
-          "title": "Reviewed",
-          "type": "integer"
-        },
-        "numbers": {
-          "$ref": "#/$defs/Numbers"
-        },
-        "metrics": {
-          "$ref": "#/$defs/Metrics"
-        },
-        "skipped": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Skipped",
-          "type": "array"
-        },
-        "cases": {
-          "items": {
-            "$ref": "#/$defs/CaseResult"
-          },
-          "title": "Cases",
-          "type": "array"
-        },
-        "duplicates": {
-          "default": [],
-          "items": {
-            "$ref": "#/$defs/DuplicateReceipt"
-          },
-          "title": "Duplicates",
-          "type": "array"
-        }
-      },
-      "required": [
-        "date",
-        "commit",
-        "flow_version",
-        "steps",
-        "receipts",
-        "reviewed",
-        "numbers",
-        "metrics",
-        "cases"
-      ],
-      "title": "RunResult",
       "type": "object"
     },
     "RunStep": {
@@ -2078,116 +1240,6 @@
       "title": "Spread",
       "type": "object"
     },
-    "StageUsage": {
-      "properties": {
-        "stage": {
-          "title": "Stage",
-          "type": "string"
-        },
-        "latency_s": {
-          "title": "Latency S",
-          "type": "number"
-        },
-        "input_tokens": {
-          "default": 0,
-          "title": "Input Tokens",
-          "type": "integer"
-        },
-        "output_tokens": {
-          "default": 0,
-          "title": "Output Tokens",
-          "type": "integer"
-        },
-        "cost_usd": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Cost Usd"
-        },
-        "cost_status": {
-          "default": "unknown",
-          "enum": [
-            "reported",
-            "estimated",
-            "unknown",
-            "partial",
-            "local"
-          ],
-          "title": "Cost Status",
-          "type": "string"
-        },
-        "accounting_complete": {
-          "default": true,
-          "title": "Accounting Complete",
-          "type": "boolean"
-        },
-        "attempts": {
-          "default": 1,
-          "title": "Attempts",
-          "type": "integer"
-        },
-        "engine": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Engine"
-        },
-        "engine_version": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Engine Version"
-        },
-        "pricing_version": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pricing Version"
-        },
-        "pricing_source": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pricing Source"
-        }
-      },
-      "required": [
-        "stage",
-        "latency_s"
-      ],
-      "title": "StageUsage",
-      "type": "object"
-    },
     "StepRun": {
       "properties": {
         "model": {
@@ -2231,116 +1283,6 @@
         "database_s"
       ],
       "title": "StepTimes",
-      "type": "object"
-    },
-    "Totals": {
-      "properties": {
-        "truth": {
-          "title": "Truth",
-          "type": "integer"
-        },
-        "matched": {
-          "title": "Matched",
-          "type": "integer"
-        },
-        "missed": {
-          "title": "Missed",
-          "type": "integer"
-        },
-        "extra": {
-          "title": "Extra",
-          "type": "integer"
-        },
-        "failed_pages": {
-          "title": "Failed Pages",
-          "type": "integer"
-        },
-        "precision": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Precision"
-        },
-        "recall": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Recall"
-        },
-        "cost_usd": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Cost Usd"
-        },
-        "known_cost_usd": {
-          "title": "Known Cost Usd",
-          "type": "number"
-        },
-        "accounting_complete": {
-          "title": "Accounting Complete",
-          "type": "boolean"
-        },
-        "seconds": {
-          "title": "Seconds",
-          "type": "number"
-        },
-        "p50_seconds": {
-          "title": "P50 Seconds",
-          "type": "number"
-        },
-        "p95_seconds": {
-          "title": "P95 Seconds",
-          "type": "number"
-        },
-        "fields": {
-          "additionalProperties": {
-            "$ref": "#/$defs/FieldScore"
-          },
-          "title": "Fields",
-          "type": "object"
-        },
-        "pricing_versions": {
-          "default": [],
-          "items": {
-            "type": "string"
-          },
-          "title": "Pricing Versions",
-          "type": "array"
-        }
-      },
-      "required": [
-        "truth",
-        "matched",
-        "missed",
-        "extra",
-        "failed_pages",
-        "precision",
-        "recall",
-        "cost_usd",
-        "known_cost_usd",
-        "accounting_complete",
-        "seconds",
-        "p50_seconds",
-        "p95_seconds",
-        "fields"
-      ],
-      "title": "Totals",
       "type": "object"
     },
     "Unit": {
@@ -2412,24 +1354,6 @@
       "title": "Misread",
       "type": "object"
     },
-    "evals__promos__Pair": {
-      "properties": {
-        "truth": {
-          "title": "Truth",
-          "type": "string"
-        },
-        "prediction": {
-          "title": "Prediction",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "truth",
-        "prediction"
-      ],
-      "title": "Pair",
-      "type": "object"
-    },
     "evals__reading__Misread": {
       "properties": {
         "truth": {
@@ -2447,90 +1371,97 @@
       ],
       "title": "Misread",
       "type": "object"
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": 3,
+      "default": 3,
+      "title": "Schema Version",
+      "type": "integer"
     },
-    "evals__reading__Pair": {
-      "maxItems": 2,
-      "minItems": 2,
-      "prefixItems": [
+    "flow": {
+      "const": "receipt-lines",
+      "default": "receipt-lines",
+      "title": "Flow",
+      "type": "string"
+    },
+    "date": {
+      "format": "date-time",
+      "title": "Date",
+      "type": "string"
+    },
+    "commit": {
+      "title": "Commit",
+      "type": "string"
+    },
+    "flow_version": {
+      "title": "Flow Version",
+      "type": "string"
+    },
+    "steps": {
+      "additionalProperties": {
+        "$ref": "#/$defs/StepRun"
+      },
+      "title": "Steps",
+      "type": "object"
+    },
+    "receipts": {
+      "anyOf": [
         {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "type": "integer"
         },
         {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "type": "null"
         }
       ],
+      "title": "Receipts"
+    },
+    "reviewed": {
+      "title": "Reviewed",
+      "type": "integer"
+    },
+    "numbers": {
+      "$ref": "#/$defs/Numbers"
+    },
+    "metrics": {
+      "$ref": "#/$defs/Metrics"
+    },
+    "skipped": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Skipped",
       "type": "array"
     },
-    "nomarket__core__promos__models__Quantity": {
-      "properties": {
-        "amount": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            }
-          ],
-          "title": "Amount"
-        },
-        "unit": {
-          "title": "Unit",
-          "type": "string"
-        }
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/CaseResult"
       },
-      "required": [
-        "amount",
-        "unit"
-      ],
-      "title": "Quantity",
-      "type": "object"
+      "title": "Cases",
+      "type": "array"
     },
-    "nomarket__core__receipts__reading__Quantity": {
-      "properties": {
-        "amount": {
-          "title": "Amount",
-          "type": "number"
-        },
-        "unit": {
-          "$ref": "#/$defs/Unit"
-        }
+    "duplicates": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/DuplicateReceipt"
       },
-      "required": [
-        "amount",
-        "unit"
-      ],
-      "title": "Quantity",
-      "type": "object"
+      "title": "Duplicates",
+      "type": "array"
     }
   },
-  "discriminator": {
-    "mapping": {
-      "promo-extraction": "#/$defs/PromoRun",
-      "receipt-lines": "#/$defs/RunResult"
-    },
-    "propertyName": "flow"
-  },
-  "oneOf": [
-    {
-      "$ref": "#/$defs/RunResult"
-    },
-    {
-      "$ref": "#/$defs/PromoRun"
-    }
-  ]
+  "required": [
+    "date",
+    "commit",
+    "flow_version",
+    "steps",
+    "receipts",
+    "reviewed",
+    "numbers",
+    "metrics",
+    "cases"
+  ],
+  "title": "RunResult",
+  "type": "object"
 }
