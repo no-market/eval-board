@@ -74,16 +74,29 @@ test('a run that does not fit the schema fails with its file name', async () => 
   await assert.rejects(build({ runsDir: runs, outDir: out }), /broken-run\.json/);
 });
 
-test('a promo run is checked and left out of the index', async () => {
+test('a run of a flow with no tab is left out, unchecked', async () => {
   const { runs, out } = await runsDir(['schema.json', `${REAL}.json`, `${PROMO}.json`]);
-  await build({ runsDir: runs, outDir: out });
-  const index = await readJson(join(out, 'index.json'));
-  assert.deepEqual(index.runs.map((r) => r.run), [REAL]);
-
   const broken = await readJson(join(fixtures, `${PROMO}.json`));
   delete broken.cases;
   await writeFile(join(runs, 'broken-promo.json'), JSON.stringify(broken));
-  await assert.rejects(build({ runsDir: runs, outDir: out }), /broken-promo\.json/);
+  await build({ runsDir: runs, outDir: out });
+  const index = await readJson(join(out, 'index.json'));
+  assert.deepEqual(index.runs.map((r) => r.run), [REAL]);
+  assert.deepEqual(await readdir(join(out, 'runs')), [`${REAL}.json`]);
+});
+
+test('a receipt-only schema.json builds beside promo runs', async () => {
+  const { runs, out } = await runsDir([`${REAL}.json`, `${PROMO}.json`]);
+  await copyFile(join(fixtures, 'schema-receipt-only.json'), join(runs, 'schema.json'));
+  await build({ runsDir: runs, outDir: out });
+  const index = await readJson(join(out, 'index.json'));
+  assert.deepEqual(index.runs.map((r) => r.run), [REAL]);
+});
+
+test('runs of flows with no tab need no schema', async () => {
+  const { runs, out } = await runsDir([`${PROMO}.json`]);
+  await build({ runsDir: runs, outDir: out });
+  assert.deepEqual(await readJson(join(out, 'index.json')), { runs: [] });
 });
 
 test('no runs and no schema build the empty site', async () => {

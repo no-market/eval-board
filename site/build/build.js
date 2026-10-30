@@ -8,20 +8,23 @@ const SRC = new URL('../src/', import.meta.url).pathname;
 
 // Builds the site from `runsDir` into `outDir`: the page with its script and
 // styles, `index.json` (the runs of flows with a tab, newest first) and a copy
-// of each indexed run under `runs/`. Throws on a run that doesn't fit schema.json.
+// of each indexed run under `runs/`. Only runs of flows with a tab are checked
+// against schema.json, and the build throws on one that doesn't fit; a run of
+// any other flow is left out unchecked, so a schema.json that knows only the
+// flows with a tab still builds.
 export async function build({ runsDir, outDir }) {
   const files = (await readdir(runsDir))
     .filter((name) => name.endsWith('.json') && name !== 'schema.json')
     .sort();
 
   const runs = [];
-  if (files.length > 0) {
-    const check = runChecker(await readSchema(runsDir, files.length));
-    for (const file of files) {
-      const run = await readJson(join(runsDir, file));
-      check(file, run);
-      if (flowById(run.flow)) runs.push({ file, run });
-    }
+  for (const file of files) {
+    const run = await readJson(join(runsDir, file));
+    if (flowById(run.flow)) runs.push({ file, run });
+  }
+  if (runs.length > 0) {
+    const check = runChecker(await readSchema(runsDir, runs.length));
+    for (const { file, run } of runs) check(file, run);
   }
   runs.sort((a, b) => Date.parse(b.run.date) - Date.parse(a.run.date));
 
