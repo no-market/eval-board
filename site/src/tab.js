@@ -3,30 +3,48 @@ import { centsDifference, linesDifference, secondsDifference } from './differenc
 import { formatCents, formatDate, formatSeconds, formatShare, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
-import { tabAddress } from './route.js';
+import { compareAddress, tabAddress } from './route.js';
+import { tickedPair } from './ticking.js';
 
 // A flow's tab: its heading and the table of its runs, a row per index entry,
 // in the order given (the index is newest first). `base`, the run named as
 // the baseline by the address, if any: every other row shows its difference
-// from it.
-export function renderTab({ flow: flowId, runs, base: baseId = null }) {
+// from it. `ticked`, the run ids ticked for comparing (see ticking.js): their
+// boxes are ticked, and with two a button opens their comparison.
+export function renderTab({ flow: flowId, runs, base: baseId = null, ticked = [] }) {
   const flow = flowById(flowId);
   const base = runs.find((run) => run.run === baseId) ?? null;
   return String(html`${header(flow.id)}
 <main style="--flow: ${flow.colour}">
-  <div class="heading">
-    <h1 style="color: ${flow.colour}">${flow.name}</h1>
-    <p class="muted">${runsLine(runs.length)} · each is one reading model and one kind choice model on every reviewed photo</p>
+  <div class="tab-head">
+    <div class="heading">
+      <h1 style="color: ${flow.colour}">${flow.name}</h1>
+      <p class="muted">${runsLine(runs.length)} · each is one reading model and one kind choice model on every reviewed photo</p>
+    </div>
+    ${runs.length === 0 ? '' : compareButton(flow, runs, ticked)}
   </div>
-  ${runs.length === 0 ? html`<p class="empty">No eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>` : table(flow, runs, base)}
+  ${runs.length === 0 ? html`<p class="empty">No eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>` : table(flow, runs, base, ticked)}
 </main>`);
+}
+
+// How many runs are ticked, and the button that opens their comparison once
+// two are.
+function compareButton(flow, runs, ticked) {
+  const pair = tickedPair(ticked, runs);
+  const n = runs.filter((run) => ticked.includes(run.run)).length;
+  return html`<div class="compare-bar">
+      <span class="muted" aria-live="polite">${pair ? '2 runs ticked' : `${n} of 2 runs ticked`}</span>
+      ${pair
+        ? html`<a class="compare-button" href="${compareAddress(flow.id, pair[0].run, pair[1].run)}">Compare 2 runs</a>`
+        : html`<button type="button" class="compare-button" disabled>Tick 2 runs to compare</button>`}
+    </div>`;
 }
 
 function runsLine(n) {
   return n === 1 ? '1 eval run' : `${n} eval runs`;
 }
 
-function table(flow, runs, base) {
+function table(flow, runs, base, ticked) {
   return html`<section aria-labelledby="runs-h" class="runs">
     <div class="runs-head">
       <h2 id="runs-h">Eval runs, newest first</h2>
@@ -36,6 +54,7 @@ function table(flow, runs, base) {
       <table>
         <thead>
           <tr>
+            <th scope="col" class="tick"><span class="visually-hidden">Compare</span></th>
             <th scope="col">Date</th>
             <th scope="col">Flow · reading · kind choice</th>
             <th scope="col" class="num">Receipts</th>
@@ -46,15 +65,17 @@ function table(flow, runs, base) {
             <th scope="col" class="num">Baseline</th>
           </tr>
         </thead>
-        <tbody>${runs.map((run) => row(flow, run, base))}</tbody>
+        <tbody>${runs.map((run) => row(flow, run, base, ticked))}</tbody>
       </table>
     </div>
     <p class="muted small">Shares in brackets are counted in lines. Seconds are the median per receipt; cost is the mean per receipt that didn't fail.</p>
   </section>`;
 }
 
-function row(flow, run, base) {
+function row(flow, run, base, ticked) {
   const isBase = run === base;
+  const isTicked = ticked.includes(run.run);
+  const classes = [isBase && 'base', isTicked && 'ticked'].filter(Boolean).join(' ');
   // The difference under a number: none on the baseline's row or without one.
   const under = (difference) => {
     if (!base || isBase) return '';
@@ -62,7 +83,8 @@ function row(flow, run, base) {
     return html`<div class="diff ${mark}">${text}</div>`;
   };
   return html`
-          <tr${isBase ? html` class="base"` : ''}>
+          <tr${classes ? html` class="${classes}"` : ''}>
+            <td class="tick"><label><input type="checkbox" data-tick="${run.run}"${isTicked ? html` checked` : ''} aria-label="Compare the run of ${formatDate(run.date)}"></label></td>
             <td class="nowrap"><a href="#/${flow.id}/run/${run.run}">${formatDate(run.date)}</a></td>
             <td><span class="muted">${run.flowVersion} · </span><span title="${run.models.read}">${shortModel(run.models.read)}</span><span class="muted"> · </span><span title="${run.models.chooseKinds}">${shortModel(run.models.chooseKinds)}</span></td>
             <td class="num">${run.receipts}</td>

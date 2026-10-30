@@ -4,6 +4,7 @@ import { DEFAULT_FLOW, flowById } from './flows.js';
 // address works on Pages without a server:
 //   (bare site), #/<flow>      the flow's tab
 //   #/<flow>?base=<run>        the tab with that run as the baseline
+//   #/<flow>/compare/<a>/<b>   the comparison of runs A and B
 // Anything else is { view: 'not-found' }.
 export function parseRoute(hash) {
   const [address, query = ''] = hash.replace(/^#/, '').split('?');
@@ -14,7 +15,15 @@ export function parseRoute(hash) {
     const base = new URLSearchParams(query).get('base');
     return base ? { view: 'tab', flow, base } : { view: 'tab', flow };
   }
+  if (rest[0] === 'compare' && rest.length === 3 && rest[1] && rest[2]) {
+    return { view: 'compare', flow, a: decodeURIComponent(rest[1]), b: decodeURIComponent(rest[2]) };
+  }
   return { view: 'not-found' };
+}
+
+// The address of the comparison of runs `a` and `b` of a flow, A the older.
+export function compareAddress(flow, a, b) {
+  return `#/${flow}/compare/${encodeURIComponent(a)}/${encodeURIComponent(b)}`;
 }
 
 // The address of a flow's tab, with `base` as its baseline or none.

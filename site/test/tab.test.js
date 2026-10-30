@@ -24,6 +24,7 @@ test('the table shows the cells of the real fixture run', () => {
   const html = renderTab({ flow: 'receipt-lines', runs: [entry] });
   assert.deepEqual(bodyRows(html), [
     [
+      '',
       '30 Oct 2026, 16:57',
       'V1 · gemini-2.5-flash · gemini-2.5-flash',
       '3',
@@ -44,7 +45,7 @@ test('the date links to the run page', () => {
 test('a row per run, in the order of the index', () => {
   const older = { ...entry, run: 'older', date: '2026-10-29T12:54:00Z' };
   const rows = bodyRows(renderTab({ flow: 'receipt-lines', runs: [entry, older] }));
-  assert.deepEqual(rows.map((cells) => cells[0]), ['30 Oct 2026, 16:57', '29 Oct 2026, 12:54']);
+  assert.deepEqual(rows.map((cells) => cells[1]), ['30 Oct 2026, 16:57', '29 Oct 2026, 12:54']);
 });
 
 test('the heading is in the flow colour, under a tab bar of the flows', () => {
@@ -113,4 +114,30 @@ test('text from a run file is escaped', () => {
     runs: [{ ...entry, flowVersion: '<b>V1</b>' }],
   });
   assert.match(html, /&lt;b&gt;V1&lt;\/b&gt;/);
+});
+
+// Each row's box, as [run, ticked].
+function boxes(html) {
+  return [...html.matchAll(/<input type="checkbox" data-tick="([^"]+)"([^>]*)>/g)].map(([, run, rest]) => [
+    run,
+    / checked/.test(rest),
+  ]);
+}
+
+test('each row has a box for comparing, ticked for the ticked runs', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older], ticked: ['older'] });
+  assert.deepEqual(boxes(html), [[REAL, false], ['older', true]]);
+  assert.match(html, /<input type="checkbox" data-tick="older" checked aria-label="Compare the run of 29 Oct 2026, 22:32"/);
+});
+
+test('with fewer than two runs ticked, the compare button is disabled', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older], ticked: ['older'] });
+  assert.match(html, /1 of 2 runs ticked/);
+  assert.match(html, /<button type="button" class="compare-button" disabled>Tick 2 runs to compare<\/button>/);
+});
+
+test('with two runs ticked, a button opens their comparison, A the older', () => {
+  const html = renderTab({ flow: 'receipt-lines', runs: [entry, older], ticked: [REAL, 'older'] });
+  assert.match(html, /2 runs ticked/);
+  assert.match(html, new RegExp(`<a class="compare-button" href="#/receipt-lines/compare/older/${REAL}">Compare 2 runs</a>`));
 });
