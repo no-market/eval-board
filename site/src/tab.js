@@ -1,3 +1,4 @@
+import { chart } from './chart.js';
 import { flowById } from './flows.js';
 import { centsDifference, linesDifference, secondsDifference } from './differences.js';
 import { formatCents, formatDate, formatSeconds, formatShare, shortModel } from './format.js';
@@ -6,7 +7,8 @@ import { header } from './layout.js';
 import { compareAddress, tabAddress } from './route.js';
 import { tickedPair } from './ticking.js';
 
-// A flow's tab: its heading and the table of its runs, a row per index entry,
+// A flow's tab: its heading, the chart of its runs (see chart.js) and the
+// table of them, a row per index entry,
 // in the order given (the index is newest first). `base`, the run named as
 // the baseline by the address, if any: every other row shows its difference
 // from it. `ticked`, the run ids ticked for comparing (see ticking.js): their
@@ -23,7 +25,8 @@ export function renderTab({ flow: flowId, runs, base: baseId = null, ticked = []
     </div>
     ${runs.length === 0 ? '' : compareButton(flow, runs, ticked)}
   </div>
-  ${runs.length === 0 ? html`<p class="empty">No eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>` : table(flow, runs, base, ticked)}
+  ${runs.length === 0 ? html`<p class="empty">No eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>` : html`${chart(runs, ticked)}
+  ${table(flow, runs, base, ticked)}`}
 </main>`);
 }
 

@@ -36,16 +36,30 @@ async function start() {
     window.scrollTo(0, 0);
   };
   window.addEventListener('hashchange', show);
-  // A row's box ticks its run; the tab is drawn again where it is, with the
-  // focus kept on the box.
-  app.addEventListener('change', (event) => {
-    const box = event.target.closest?.('input[data-tick]');
-    if (!box) return;
-    ticked = tick(ticked, box.dataset.tick);
+  // A row's box, or a point on the chart, ticks its run; the tab is drawn
+  // again where it is, with the focus kept on what was used.
+  const tickRun = (run, selector) => {
+    ticked = tick(ticked, run);
     const route = parseRoute(location.hash);
     if (route.view !== 'tab') return;
     app.innerHTML = renderTabOf(route, index);
-    app.querySelector(`input[data-tick="${CSS.escape(box.dataset.tick)}"]`)?.focus();
+    app.querySelector(selector)?.focus();
+  };
+  app.addEventListener('change', (event) => {
+    const box = event.target.closest?.('input[data-tick]');
+    if (box) tickRun(box.dataset.tick, `input[data-tick="${CSS.escape(box.dataset.tick)}"]`);
+  });
+  const pointOf = (event) => event.target.closest?.('[data-point]');
+  const tickPoint = (point) => tickRun(point.dataset.point, `[data-point="${CSS.escape(point.dataset.point)}"]`);
+  app.addEventListener('click', (event) => {
+    const point = pointOf(event);
+    if (point) tickPoint(point);
+  });
+  app.addEventListener('keydown', (event) => {
+    const point = pointOf(event);
+    if (!point || (event.key !== 'Enter' && event.key !== ' ')) return;
+    event.preventDefault();
+    tickPoint(point);
   });
   show();
 }
