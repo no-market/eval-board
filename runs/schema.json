@@ -216,6 +216,7 @@
             }
           ],
           "default": null,
+          "description": "The card or programme name only, such as Moja Biedronka.",
           "title": "Loyalty Card"
         },
         "app": {
@@ -228,6 +229,7 @@
             }
           ],
           "default": null,
+          "description": "The app name only, such as Lidl Plus, when it is required.",
           "title": "App"
         },
         "coupon": {
@@ -240,6 +242,7 @@
             }
           ],
           "default": null,
+          "description": "True when a coupon must be activated.",
           "title": "Coupon"
         },
         "minimum_quantity": {
@@ -255,6 +258,7 @@
             }
           ],
           "default": null,
+          "description": "Items to buy for the offer: 2 for 1+1 or a second-item discount, 3 for 2+1 or when bought as 3.",
           "title": "Minimum Quantity"
         },
         "multiple": {
@@ -282,6 +286,7 @@
             }
           ],
           "default": null,
+          "description": "The printed free-item rule, such as 1+1 GRATIS.",
           "title": "Free Item Rule"
         },
         "percentage_discount": {
@@ -297,6 +302,7 @@
             }
           ],
           "default": null,
+          "description": "The printed discount percentage as a number (37 for -37%).",
           "title": "Percentage Discount"
         },
         "eligible_range": {
@@ -309,6 +315,7 @@
             }
           ],
           "default": null,
+          "description": "The printed products the offer covers when it spans a range, or a printed restriction to selected stores.",
           "title": "Eligible Range"
         },
         "exclusions": {
@@ -514,7 +521,7 @@
           "default": "json_schema"
         },
         "version": {
-          "default": "promo-v2",
+          "default": "promo-v3",
           "title": "Version",
           "type": "string"
         },
@@ -577,12 +584,12 @@
           "type": "boolean"
         },
         "prompt_version": {
-          "default": "promo-v2",
+          "default": "promo-v3",
           "title": "Prompt Version",
           "type": "string"
         },
         "preprocessing_version": {
-          "default": "promo-input-v2",
+          "default": "promo-input-v3",
           "title": "Preprocessing Version",
           "type": "string"
         },
@@ -960,6 +967,7 @@
     "Offer": {
       "properties": {
         "name": {
+          "description": "The printed product name; a range offer keeps its printed range wording (Wszystkie parówki Kraina Wędlin).",
           "minLength": 1,
           "title": "Name",
           "type": "string"
@@ -986,6 +994,7 @@
             }
           ],
           "default": null,
+          "description": "The printed offer price. A price labelled cena regularna is a reference, not the offer price. Null for a free-item offer (1+1, 2+1) with no other printed price: never 0, never its regular price.",
           "title": "Price"
         },
         "price_basis": {
@@ -998,6 +1007,7 @@
             }
           ],
           "default": null,
+          "description": "The bare unit the price is for, without a number: kg for goods sold by weight; opak. for packaged goods (jar, can, pack), even when printed per szt.; the printed word for fresh items sold per piece, bunch or tray (sztuka, szt., pęczek, tacka).",
           "title": "Price Basis"
         },
         "pack_size": {
@@ -1010,6 +1020,7 @@
             }
           ],
           "default": null,
+          "description": "The printed pack wording with its content (Puszka 455 g, Opak. 1 kg, 500 g, 310 g (10 szt.)), without a pack count (1 opak.) or unit price. Null for goods sold by weight (luz, luzem 1 kg) or per piece or bunch.",
           "title": "Pack Size"
         },
         "quantity": {
@@ -1021,7 +1032,8 @@
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "description": "The pack content as a number and unit (500 g). Never the basis of a comparison unit price (19,98/1 kg). Null for goods sold by weight (luz, luzem 1 kg) or per piece or bunch (1 szt., 1 pęczek)."
         },
         "reference_price": {
           "anyOf": [
@@ -1032,7 +1044,8 @@
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "description": "A price whose printed label names it regular or pre-promo (Cena regularna, cena przed obniżką). A price for buying without the card or app or beyond the limit is not a reference: keep it in condition."
         },
         "lowest_30_days": {
           "anyOf": [
@@ -1043,7 +1056,8 @@
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "description": "A price whose printed label names the lowest price of the last 30 days."
         },
         "ambiguous_reference": {
           "anyOf": [
@@ -1054,7 +1068,8 @@
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "description": "A crossed-out or second price whose type is not printed (no label, or Najniższa cena sprzed pierwszej obniżki), kind unknown; also add 'reference type' to ambiguous_fields."
         },
         "condition": {
           "anyOf": [
@@ -1066,6 +1081,7 @@
             }
           ],
           "default": null,
+          "description": "The printed purchase conditions and discount wording (37% taniej, Dostępne w wybranych sklepach). Marketing labels such as SUPERCENA or HIT are not conditions.",
           "title": "Condition"
         },
         "conditions": {
@@ -1094,6 +1110,7 @@
             }
           ],
           "default": null,
+          "description": "The offer's own printed start date, else the date range printed for the whole page (header or footer). A single printed day (tylko w sobotę 31.10) is both valid_from and valid_to.",
           "title": "Valid From"
         },
         "valid_to": {
@@ -1107,6 +1124,7 @@
             }
           ],
           "default": null,
+          "description": "The end date from the same printed range as valid_from.",
           "title": "Valid To"
         },
         "validity_wording": {
@@ -1119,6 +1137,7 @@
             }
           ],
           "default": null,
+          "description": "The short printed date phrase used for the dates, such as Od czwartku 29.10 do soboty 31.10; never legal small print.",
           "title": "Validity Wording"
         },
         "permanent_price_cut": {
@@ -1210,6 +1229,18 @@
           "default": 0,
           "title": "Matched",
           "type": "integer"
+        },
+        "exact_matched": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exact Matched"
         },
         "missed": {
           "default": [],
@@ -1324,7 +1355,7 @@
           "type": "string"
         },
         "scorer_version": {
-          "default": "promo-identity-exact-v2",
+          "default": "promo-core-text-v4",
           "title": "Scorer Version",
           "type": "string"
         },
@@ -1901,6 +1932,7 @@
             }
           ],
           "default": null,
+          "description": "The printed label only (Cena regularna), without the amount, asterisks or a trailing colon; null when no label is printed.",
           "title": "Wording"
         }
       },
@@ -2243,6 +2275,18 @@
           "title": "Matched",
           "type": "integer"
         },
+        "exact_matched": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exact Matched"
+        },
         "missed": {
           "title": "Missed",
           "type": "integer"
@@ -2421,6 +2465,15 @@
         "prediction": {
           "title": "Prediction",
           "type": "integer"
+        },
+        "rule": {
+          "default": "exact",
+          "enum": [
+            "exact",
+            "core"
+          ],
+          "title": "Rule",
+          "type": "string"
         }
       },
       "required": [
