@@ -167,3 +167,10 @@ table.by-step td { padding-top: 12px; padding-bottom: 12px; }
 table.by-step td.diff { font-size: 14px; }
 table.by-step .total { background: #F7FAFA; }
 table.by-step th.group.total { font-weight: 700; }
+table.by-receipt { min-width: 1040px; font-size: 14px; }
+table.by-receipt th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
+table.by-receipt thead tr + tr th { font-size: 12px; padding-top: 2px; }
+table.by-receipt tbody th { color: var(--text); font-size: 14px; font-weight: 500; white-space: nowrap; border-top: 1px solid var(--rule); }
+table.by-receipt td.diff { font-size: 14px; }
+.failed-mark { margin-left: 8px; color: var(--worse); font-size: 12px; font-weight: 600; cursor: help; }
+.only-in { margin: 0; padding: 10px 16px 14px; border-top: 1px solid var(--rule); }
