@@ -25,6 +25,15 @@ export function formatCents(usd) {
   return `${(usd * 100).toFixed(2)}¢`;
 }
 
+// `Aldi, 23 Sep 2026` for the photo `aldi/2026-09-23 12.50.png`: the chain
+// and the date of a receipt. A photo named otherwise is given as it is.
+export function receiptName(photo) {
+  const match = photo.match(/^([^/]+)\/(\d{4})-(\d{2})-(\d{2})\b/);
+  if (!match) return photo;
+  const [, chain, year, month, day] = match;
+  return `${chain[0].toUpperCase()}${chain.slice(1)}, ${Number(day)} ${MONTHS[Number(month) - 1]} ${year}`;
+}
+
 // `gemini-2.5-flash` for `google/gemini-2.5-flash`: the model without its provider.
 export function shortModel(model) {
   return model.slice(model.indexOf('/') + 1);

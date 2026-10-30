@@ -72,3 +72,35 @@ td { padding: 10px 8px; border-top: 1px solid var(--rule); vertical-align: top; 
 th:first-child, td:first-child { padding-left: 16px; }
 th:last-child, td:last-child { padding-right: 16px; }
 .num { text-align: right; }
+
+/* The run page */
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+main.run .heading { gap: 8px; }
+main.run .back { font-size: 14px; align-self: flex-start; padding: 10px 0; }
+main.run .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; color: #3F3F3C; font-size: 14px; }
+main.run .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+main.run .pill {
+  padding: 6px 12px; border-radius: 999px; font-size: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.block { display: flex; flex-direction: column; gap: 10px; }
+tbody th { color: var(--text); font-size: 15px; padding: 10px 8px; border-top: 1px solid var(--rule); }
+table.summary, table.receipts { min-width: 720px; }
+table.summary th, table.summary td, table.receipts td,
+table.receipts thead th:not(:first-child) { text-align: right; }
+table.summary tbody th, table.receipts tbody th { text-align: left; }
+table.summary th, table.summary td { padding: 12px 16px; }
+table.summary .total { color: var(--text); font-weight: 700; }
+table.summary td.total { background: #F7FAFA; font-weight: normal; }
+table.receipts tbody th { font-weight: 500; }
+table.receipts tr.failed td { text-align: left; color: var(--worse); }
+table.lines { min-width: 960px; font-size: 14px; }
+table.lines tbody tr { vertical-align: top; }
+.new {
+  color: var(--flow); font-weight: 600;
+}
+details.block-fold { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+details.block-fold summary { cursor: pointer; padding: 14px 16px; min-height: 44px; box-sizing: border-box; font-weight: 600; }
+details.block-fold summary .muted { font-weight: 500; }
+details.block-fold .table-wrap { border: 0; border-top: 1px solid var(--rule); border-radius: 0 0 12px 12px; }
+main.run h2 .muted { font-weight: 500; }
