@@ -1,5 +1,5 @@
 // The flows the site has a tab for, in tab order. A run of any other flow is
-// checked by the build and left out of the index.
+// left out by the build, unchecked.
 export const FLOWS = [
   { id: 'receipt-lines', name: 'Receipt lines', colour: '#0F6E6E' },
 ];
