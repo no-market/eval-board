@@ -1,0 +1,291 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { comparedRuns, renderCompare } from '../src/compare.js';
+
+const REAL = '2026-10-30T165731-google-gemini-2.5-flash-google-gemini-2.5-flash';
+const realRun = JSON.parse(
+  await readFile(new URL(`./fixtures/${REAL}.json`, import.meta.url), 'utf8'),
+);
+
+// The text of an element, tags stripped and white space collapsed.
+const text = (html) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+// Run B, the real run with a fourth receipt; run A, an older run on its three
+// receipts with another model, its numbers by hand.
+const B = {
+  id: REAL,
+  run: {
+    ...realRun,
+    numbers: { ...realRun.numbers, receipts: 4 },
+    cases: [...realRun.cases, { ...realRun.cases[0], receipt: 'lidl/2026-10-28 10.00.jpg' }],
+  },
+};
+const A = {
+  id: '2026-10-29T194800-lite',
+  run: {
+    ...realRun,
+    date: '2026-10-29T19:48:00Z',
+    commit: '2104219aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    steps: {
+      read: { model: 'google/gemini-3.5-flash-lite', options: {} },
+      choose_kinds: { model: 'google/gemini-3.5-flash-lite', options: {} },
+    },
+    numbers: {
+      receipts: 3,
+      failed: 1,
+      lines: 45,
+      errors: { count: 13, share: 13 / 45 },
+      warnings: { count: 22, share: 22 / 45 },
+      seconds: { median_s: 5.8, p95_s: 16.5 },
+      cost_usd: 0.0067,
+      steps: [
+        { step: 'read', errors: { count: 12, share: 12 / 45 }, warnings: { count: 22, share: 22 / 45 }, seconds: { median_s: 2.5, p95_s: 5.3 }, cost_usd: 0.0029 },
+        { step: 'choose_kinds', errors: { count: 1, share: 1 / 45 }, warnings: { count: 0, share: 0 }, seconds: { median_s: 2.1, p95_s: 4.4 }, cost_usd: 0.0038 },
+        { step: 'database', errors: { count: 0, share: 0 }, warnings: { count: 0, share: 0 }, seconds: { median_s: 1.5, p95_s: 6.8 }, cost_usd: null },
+      ],
+    },
+  },
+};
+
+test('the heading shows A and B: date, short commit, flow version, models, receipts', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: A, b: B });
+  const cards = [...html.matchAll(/<a class="run-card"[^>]*>([\s\S]*?)<\/a>/g)].map(([, card]) => text(card));
+  assert.deepEqual(cards, [
+    'A 29 Oct 2026, 19:48 older V1 · gemini-3.5-flash-lite · gemini-3.5-flash-lite commit 2104219 · 3 receipts (1 failed) · 45 lines',
+    'B 30 Oct 2026, 16:57 newer V1 · gemini-2.5-flash · gemini-2.5-flash commit 27e9b49 · 4 receipts · 45 lines',
+  ]);
+  assert.match(html, new RegExp(`<a class="run-card" href="#/receipt-lines/run/${REAL}"`));
+});
+
+test('when the receipts differ, the heading says how many are shared, and that changed lines and per receipt cover them', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: A, b: B });
+  assert.match(
+    text(html),
+    /A: 3 receipts · B: 4 receipts · 3 shared\. The summary is each run’s own; changed lines and per receipt cover the 3 shared receipts\./,
+  );
+});
+
+test('when the receipts are the same, the heading has no shared receipts line', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: A, b: { id: REAL, run: realRun } });
+  assert.doesNotMatch(text(html), /shared|Both runs/);
+  assert.doesNotMatch(html, /receipts-differ/);
+});
+
+const older = { run: 'older', flow: 'receipt-lines', date: '2026-10-29T19:48:00Z' };
+const newer = { run: 'newer', flow: 'receipt-lines', date: '2026-10-30T16:57:31Z' };
+const promo = { run: 'promo', flow: 'promos', date: '2026-10-30T18:35:42Z' };
+const index = { runs: [promo, newer, older] };
+
+test('routing: a compare address finds both runs in the index, A the older', () => {
+  const route = { view: 'compare', flow: 'receipt-lines', a: 'older', b: 'newer' };
+  assert.deepEqual(comparedRuns(route, index), { a: older, b: newer });
+});
+
+test('routing: a compare address naming the newer run first still makes A the older', () => {
+  const route = { view: 'compare', flow: 'receipt-lines', a: 'newer', b: 'older' };
+  assert.deepEqual(comparedRuns(route, index), { a: older, b: newer });
+});
+
+test('routing: a compare address naming an unknown run says so', () => {
+  const route = { view: 'compare', flow: 'receipt-lines', a: 'older', b: 'gone' };
+  assert.deepEqual(comparedRuns(route, index), { message: 'There is no run gone to compare.' });
+});
+
+test('routing: two runs of different flows say they can’t be compared', () => {
+  const route = { view: 'compare', flow: 'receipt-lines', a: 'older', b: 'promo' };
+  assert.deepEqual(comparedRuns(route, index), {
+    message: 'The runs older and promo are of different flows, receipt-lines and promos; only runs of one flow compare.',
+  });
+});
+
+// The summary's body rows: the row's name, then A, B and B − A for each of
+// total, reading, kind choice and database; and each difference's mark.
+function summaryRows(html) {
+  const section = html.match(/<section[^>]*class="summary"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const tbody = section.match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
+  );
+}
+function summaryMarks(html) {
+  const section = html.match(/<section[^>]*class="summary"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const tbody = section.match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<td class="diff (\w+)/g)].map(([, mark]) => mark),
+  );
+}
+
+test('the summary shows A, B and the difference by step, from each run file as it is', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: A, b: B });
+  assert.deepEqual(summaryRows(html), [
+    ['Errors',
+      '13 (28.9%)', '4 (8.9%)', '▼ −9 lines · −20.0 pts',
+      '12 (26.7%)', '2 (4.4%)', '▼ −10 lines · −22.2 pts',
+      '1 (2.2%)', '2 (4.4%)', '▲ +1 line · +2.2 pts',
+      '0 (0.0%)', '0 (0.0%)', '±0'],
+    ['Warnings',
+      '22 (48.9%)', '22 (48.9%)', '±0',
+      '22 (48.9%)', '22 (48.9%)', '±0',
+      '0 (0.0%)', '0 (0.0%)', '±0',
+      '0 (0.0%)', '0 (0.0%)', '±0'],
+    ['Seconds, median',
+      '5.8 s', '14.9 s', '▲ +9.1 s · ×2.6',
+      '2.5 s', '8.8 s', '▲ +6.3 s · ×3.5',
+      '2.1 s', '5.4 s', '▲ +3.3 s · ×2.6',
+      '1.5 s', '0.7 s', '▼ −0.8 s · −54%'],
+    ['Seconds, p95',
+      '16.5 s', '21.7 s', '▲ +5.2 s · +31%',
+      '5.3 s', '11.1 s', '▲ +5.8 s · ×2.1',
+      '4.4 s', '10.0 s', '▲ +5.6 s · ×2.3',
+      '6.8 s', '0.7 s', '▼ −6.1 s · −90%'],
+    ['Cost / receipt',
+      '0.67¢', '0.55¢', '▼ −0.12¢ · −17%',
+      '0.29¢', '0.27¢', '▼ −0.02¢ · −6%',
+      '0.38¢', '0.28¢', '▼ −0.10¢ · −26%',
+      '—', '—', ''],
+    ['Cost / 100 receipts',
+      '$0.67', '$0.55', '▼ −$0.12',
+      '$0.29', '$0.27', '▼ −$0.02',
+      '$0.38', '$0.28', '▼ −$0.10',
+      '—', '—', ''],
+  ]);
+});
+
+test('each difference in the summary is marked better, worse or the same', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: A, b: B });
+  const marks = summaryMarks(html);
+  assert.deepEqual(marks[0], ['better', 'better', 'worse', 'same']);
+  assert.deepEqual(marks[3], ['worse', 'worse', 'worse', 'better']);
+  assert.deepEqual(marks[4], ['better', 'better', 'better', 'same']);
+});
+
+// Run A for the changed lines: the real run with its turkey legs read right,
+// its chocolate and its extra discount line on the Aldi eggs not read, and its
+// pomegranate not read; B has a fourth receipt, which A hasn't.
+function changedA() {
+  const cases = structuredClone(realRun.cases);
+  const indyk = { outcome: 'existing', kind: 'Indyk', quantity: null, source: 'model' };
+  for (const i of [2, 3]) Object.assign(cases[0].lines[i], { verdict: 'right', step: null, recorded: indyk });
+  cases[0].lines.splice(1, 1);
+  cases[1].lines.splice(3, 1);
+  Object.assign(cases[2].lines[25], { read: null, recorded: null, verdict: 'error', step: 'read' });
+  return { id: A.id, run: { ...A.run, cases } };
+}
+
+// The changed lines table: its groups' titles and each row's cells.
+function changedRows(html) {
+  const section = html.match(/<section[^>]*class="changed"[\s\S]*?<\/section>/)?.[0] ?? '';
+  return [...section.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]
+    .slice(1)
+    .map(([, row]) => [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)));
+}
+
+test('the changed lines: worse in B, then better, then read in one run only, over the shared receipts', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: changedA(), b: B });
+  assert.match(text(html), /Lines whose verdict changed · 5 on 3 shared receipts/);
+  assert.deepEqual(changedRows(html), [
+    ['▲ Worse in B · 3 lines'],
+    ['Aldi, 23 Sep 2026', 'GOLONKA Z INDYKA KG', 'right', 'error · kind choice', 'Indyk', 'new : Golonka z indyka', 'Indyk'],
+    ['Aldi, 23 Sep 2026', 'GOLONKA Z INDYKA KG', 'right', 'error · kind choice', 'Indyk', '— (no answer)', 'Indyk'],
+    ['Aldi, 23 Oct 2026', 'read: OPUST JAJA 10L ŚCIÓŁKOWE', 'not read', 'warning · reading', '—', '— (noise)', '—'],
+    ['▼ Better in B · 1 line'],
+    ['Biedronka, 24 Oct 2026', 'Granat szt', 'error · reading', 'right', '— (not read)', 'Granaty', 'Granaty'],
+    ['Read in one run only · 1 line'],
+    ['Aldi, 23 Sep 2026', 'RITTER SPORT CZEK.100G', 'not read', 'right', '—', 'Czekolada', 'Czekolada'],
+  ]);
+});
+
+test('the changed lines: none when no verdict changed', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: { id: A.id, run: realRun }, b: { id: REAL, run: realRun } });
+  assert.match(text(html), /Lines whose verdict changed · 0 on 3 receipts/);
+  assert.match(text(html), /No line’s verdict changed\./);
+});
+
+// Per receipt: run A with its own numbers on Aldi, 23 Sep; Aldi, 23 Oct
+// failed in A; Kaufland only in A. B is the real run with Lidl only in B.
+const caseOf = (run, receipt) => run.cases.find((c) => c.receipt === receipt);
+const ALDI_SEP = 'aldi/2026-09-23 12.50.png';
+const ALDI_OCT = 'aldi/2026-10-23 15.55.26.jpg';
+const perReceiptA = {
+  ...A,
+  run: {
+    ...A.run,
+    cases: [
+      {
+        ...caseOf(realRun, ALDI_SEP),
+        numbers: {
+          lines: 5,
+          errors: { count: 0, share: 0 },
+          warnings: { count: 1, share: 0.2 },
+          seconds: 5.7,
+          cost_usd: 0.0038,
+          steps: [],
+        },
+      },
+      {
+        ...caseOf(realRun, ALDI_OCT),
+        error: 'ModelError: the model returned no lines',
+        lines: [],
+        times: null,
+        numbers: { lines: 0, errors: { count: 0, share: null }, warnings: { count: 0, share: null }, seconds: null, cost_usd: null, steps: [] },
+      },
+      { ...caseOf(realRun, ALDI_SEP), receipt: 'kaufland/2026-10-01 09.00.jpg' },
+    ],
+  },
+};
+
+const perReceiptSection = (html) => html.match(/<details[^>]*class="block-fold per-receipt"[^>]*>[\s\S]*?<\/details>/)?.[0] ?? '';
+
+// The per receipt table's body rows, each its cells as text.
+function perReceiptRows(html) {
+  const tbody = perReceiptSection(html).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
+  );
+}
+
+test('per receipt: a shared receipt shows lines in A and B, then A, B and B − A for errors, warnings, seconds and cost', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  assert.deepEqual(perReceiptRows(html)[0], [
+    'Aldi, 23 Sep 2026', '5 · 5',
+    '0', '2', '▲ +2 lines · +40.0 pts',
+    '1', '0', '▼ −1 line · −20.0 pts',
+    '5.7 s', '6.5 s', '▲ +0.8 s · +13%',
+    '0.38¢', '0.33¢', '▼ −0.05¢ · −13%',
+  ]);
+});
+
+test('per receipt: a receipt that failed in a run is marked, with no numbers or differences for that run', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  const failed = perReceiptSection(html).match(/<tr class="failed">[\s\S]*?<\/tr>/)?.[0] ?? '';
+  assert.deepEqual(perReceiptRows(html)[1], [
+    'Aldi, 23 Oct 2026 failed in A', '— · 8',
+    '—', '0', '', '—', '2', '', '—', '21.7 s', '', '—', '0.38¢', '',
+  ]);
+  assert.match(failed, /title="A: ModelError: the model returned no lines"/);
+});
+
+test('per receipt: receipts in one run only are listed below the table, not in it', () => {
+  const section = perReceiptSection(renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B }));
+  assert.deepEqual(perReceiptRows(section).map((row) => row[0].replace(/ failed in A$/, '')), [
+    'Aldi, 23 Sep 2026', 'Aldi, 23 Oct 2026',
+  ]);
+  const below = text(section.slice(section.indexOf('</table>')));
+  assert.match(below, /Only in A: Kaufland, 1 Oct 2026 ?\./);
+  assert.match(below, /Only in B: Biedronka, 24 Oct 2026 · Lidl, 28 Oct 2026 ?\./);
+});
+
+test('per receipt: with the same receipts in both runs, nothing is listed as in one run only', () => {
+  const section = perReceiptSection(renderCompare({ flow: 'receipt-lines', a: A, b: { id: REAL, run: realRun } }));
+  assert.equal(perReceiptRows(section).length, 3);
+  assert.doesNotMatch(section, /Only in/);
+});
+
+test('per receipt is folded by default and is the last section', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  const opening = perReceiptSection(html).match(/^<details[^>]*>/)[0];
+  assert.doesNotMatch(opening, /\bopen\b/);
+  assert.match(text(perReceiptSection(html)), /^Per receipt · 2 receipts in both runs /);
+  assert.match(html, /<\/details>\s*<\/main>/);
+});

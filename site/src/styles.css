@@ -1,0 +1,213 @@
+/* The look of the design: system fonts only, nothing loaded from other hosts.
+   `--flow` is set to the flow's colour on each element that uses it. */
+:root {
+  --bg: #F6F6F4;
+  --surface: #FFFFFF;
+  --text: #1B1B1A;
+  --muted: #5E5E5A;
+  --border: #E2E2DE;
+  --rule: #ECECE8;
+  --link: #0F5E5E;
+  --link-hover: #0A4242;
+  --better: #1D5FA8;
+  --worse: #A8480A;
+  --same: #5E5E5A;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.nowrap { white-space: nowrap; }
+.loading, .empty { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+.empty { padding: 0; }
+
+header.site { background: var(--surface); border-bottom: 1px solid var(--border); }
+header.site .bar,
+header.site nav { max-width: 1200px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+header.site .bar {
+  padding-top: 18px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;
+}
+header.site .brand { display: flex; align-items: baseline; gap: 10px; }
+header.site .name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+header.site .org { color: var(--muted); font-size: 13px; }
+header.site nav { display: flex; gap: 4px; margin-top: 14px; }
+header.site nav a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; min-height: 44px; box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+  color: var(--text); text-decoration: none; font-weight: 600;
+}
+header.site nav a[aria-current="page"] { border-bottom-color: var(--flow); }
+header.site nav .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--flow); }
+
+main {
+  max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.heading { display: flex; flex-direction: column; gap: 4px; }
+h1 { margin: 0; font-size: 26px; letter-spacing: -0.015em; }
+h2 { margin: 0; font-size: 16px; }
+.heading p, main p { margin: 0; }
+
+.runs { display: flex; flex-direction: column; gap: 10px; }
+.table-wrap {
+  overflow-x: auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th { text-align: left; color: var(--muted); font-size: 13px; font-weight: 600; padding: 12px 8px; }
+td { padding: 10px 8px; border-top: 1px solid var(--rule); vertical-align: top; }
+th:first-child, td:first-child { padding-left: 16px; }
+th:last-child, td:last-child { padding-right: 16px; }
+.num { text-align: right; }
+
+/* The run page */
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+main.run .heading { gap: 8px; }
+main.run .back { font-size: 14px; align-self: flex-start; padding: 10px 0; }
+main.run .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; color: #3F3F3C; font-size: 14px; }
+main.run .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+main.run .pill {
+  padding: 6px 12px; border-radius: 999px; font-size: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.block { display: flex; flex-direction: column; gap: 10px; }
+main.run tbody th { color: var(--text); font-size: 15px; padding: 10px 8px; border-top: 1px solid var(--rule); }
+table.summary, table.receipts { min-width: 720px; }
+table.summary th, table.summary td, table.receipts td,
+table.receipts thead th:not(:first-child) { text-align: right; }
+table.summary tbody th, table.receipts tbody th { text-align: left; }
+table.summary th, table.summary td { padding: 12px 16px; }
+table.summary .total { color: var(--text); font-weight: 700; }
+table.summary td.total { background: #F7FAFA; font-weight: normal; }
+table.receipts tbody th { font-weight: 500; }
+table.receipts tr.failed td { text-align: left; color: var(--worse); }
+table.lines { min-width: 960px; font-size: 14px; }
+table.lines tbody tr { vertical-align: top; }
+.new {
+  color: var(--flow); font-weight: 600;
+}
+details.block-fold { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+details.block-fold summary { cursor: pointer; padding: 14px 16px; min-height: 44px; box-sizing: border-box; font-weight: 600; }
+details.block-fold summary .muted { font-weight: 500; }
+details.block-fold .table-wrap { border: 0; border-top: 1px solid var(--rule); border-radius: 0 0 12px 12px; }
+main.run h2 .muted { font-weight: 500; }
+.runs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+.better { color: var(--better); font-weight: 700; }
+.worse { color: var(--worse); font-weight: 700; }
+.diff { font-size: 12px; font-weight: 600; }
+.diff.better { color: var(--better); }
+.diff.worse { color: var(--worse); }
+.diff.same { color: var(--same); }
+td:last-child { padding-top: 6px; padding-bottom: 6px; }
+tr.base { box-shadow: inset 4px 0 0 var(--flow); }
+.base-button {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; box-sizing: border-box;
+  border-radius: 999px; border: 1px solid #D0D0CB; background: var(--surface);
+  color: #3F3F3C; font-size: 13px; text-decoration: none; white-space: nowrap;
+}
+.base-button:hover { color: var(--text); border-color: var(--muted); }
+.base-button[aria-pressed="true"] { border-color: var(--flow); background: var(--flow); color: #FFFFFF; font-weight: 700; }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Ticking runs to compare on the tab. */
+.tab-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.compare-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 14px; }
+.compare-button {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; box-sizing: border-box;
+  border-radius: 8px; border: 1px solid var(--flow); background: var(--flow);
+  color: #FFFFFF; font: inherit; font-weight: 600; text-decoration: none;
+}
+a.compare-button:hover { color: #FFFFFF; }
+.compare-button:disabled { border-color: #D0D0CB; background: #EDEDEA; color: #6B6B66; }
+th.tick, td.tick { width: 44px; padding-top: 0; padding-bottom: 0; }
+td.tick label { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; cursor: pointer; }
+td.tick input { width: 18px; height: 18px; margin: 0; accent-color: var(--flow); }
+tr.ticked td { background: #EEF6F5; }
+
+/* The chart of error rate against cost per receipt. */
+.chart {
+  display: flex; flex-direction: column; gap: 12px; padding: 20px 24px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.chart-body { display: flex; gap: 10px; }
+.chart svg { display: block; overflow: visible; font-size: 12px; font-variant-numeric: tabular-nums; }
+.chart svg.plot { flex: 1; min-width: 0; }
+.chart text { fill: var(--muted); }
+.chart line.axis { stroke: #B9B9B3; }
+.chart line.grid { stroke: #E6E6E2; stroke-dasharray: 3 3; }
+.chart-foot { text-align: center; font-size: 12px; }
+.point { cursor: pointer; outline: none; }
+.point .target { fill: transparent; }
+.point .dot { fill: var(--surface); stroke: var(--flow); stroke-width: 2.5; }
+.point .ring { fill: none; stroke: var(--flow); stroke-width: 2; }
+.point[aria-pressed="true"] .dot { fill: var(--flow); stroke: none; }
+.point:focus-visible .target { stroke: var(--link); stroke-width: 2; }
+.point .label { display: none; pointer-events: none; }
+.point .label rect { fill: var(--surface); stroke: #D0D0CB; }
+.point .label text { fill: var(--text); }
+.point:hover .label, .point:focus .label, .point[aria-pressed="true"] .label { display: inline; }
+
+/* The comparison. */
+main.compare { gap: 28px; }
+.compare-heading { display: flex; flex-direction: column; gap: 12px; }
+.compare-heading .back { font-size: 14px; align-self: flex-start; padding: 10px 0; }
+.run-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 12px; }
+.run-card {
+  display: flex; flex-direction: column; gap: 4px; padding: 14px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  color: var(--text); text-decoration: none;
+}
+.run-card:hover { color: var(--text); border-color: var(--muted); }
+.run-card-title { display: flex; align-items: center; gap: 8px; }
+.run-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.letter {
+  display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+  border-radius: 6px; background: #EDEDEA; font-weight: 700; font-size: 13px;
+}
+.letter-b { background: var(--flow); color: #FFFFFF; }
+.receipts-differ { padding: 12px 16px; border-radius: 10px; background: #FFF4E5; border: 1px solid #F0C98A; color: #5A3A06; }
+.compare section { display: flex; flex-direction: column; gap: 10px; }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+table.by-step { min-width: 1040px; font-size: 14px; }
+table.by-step th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
+table.by-step thead tr + tr th { font-size: 12px; padding-top: 2px; }
+table.by-step tbody th { color: var(--text); font-size: 14px; white-space: nowrap; border-top: 1px solid var(--rule); }
+table.by-step td { padding-top: 12px; padding-bottom: 12px; }
+table.by-step td.diff { font-size: 14px; }
+table.by-step .total { background: #F7FAFA; }
+table.by-step th.group.total { font-weight: 700; }
+
+/* The changed lines of a comparison: worse in B, then better, a chip per verdict. */
+.compare h2 .muted { font-weight: 500; }
+table.changed-lines { min-width: 1080px; }
+table.changed-lines tr.group th { padding: 10px 16px; text-align: left; font-size: 14px; font-weight: 700; border-top: 1px solid var(--border); }
+table.changed-lines tbody.worse tr.group th { color: var(--worse); background: #FDF3EC; }
+table.changed-lines tbody.better tr.group th { color: var(--better); background: #EEF4FB; }
+table.changed-lines tbody.one-run-only tr.group th { color: var(--same); background: var(--bg); }
+.verdict { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EDEDEA; color: #5E5E5A; }
+.verdict.right { background: #DCEBFA; color: #123E6E; }
+.verdict.warning { background: #FFF1C9; color: #5C4300; }
+.verdict.error { background: #FBE3D3; color: #7A2E04; }
+
+table.by-receipt { min-width: 1040px; font-size: 14px; }
+table.by-receipt th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
+table.by-receipt thead tr + tr th { font-size: 12px; padding-top: 2px; }
+table.by-receipt tbody th { color: var(--text); font-size: 14px; font-weight: 500; white-space: nowrap; border-top: 1px solid var(--rule); }
+table.by-receipt td.diff { font-size: 14px; }
+.failed-mark { margin-left: 8px; color: var(--worse); font-size: 12px; font-weight: 600; cursor: help; }
+.only-in { margin: 0; padding: 10px 16px 14px; border-top: 1px solid var(--rule); }
