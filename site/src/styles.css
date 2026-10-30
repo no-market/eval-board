@@ -138,6 +138,30 @@ td.tick label { display: flex; align-items: center; justify-content: center; wid
 td.tick input { width: 18px; height: 18px; margin: 0; accent-color: var(--flow); }
 tr.ticked td { background: #EEF6F5; }
 
+/* The chart of error rate against cost per receipt. */
+.chart {
+  display: flex; flex-direction: column; gap: 12px; padding: 20px 24px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.chart-body { display: flex; gap: 10px; }
+.chart svg { display: block; overflow: visible; font-size: 12px; font-variant-numeric: tabular-nums; }
+.chart svg.plot { flex: 1; min-width: 0; }
+.chart text { fill: var(--muted); }
+.chart line.axis { stroke: #B9B9B3; }
+.chart line.grid { stroke: #E6E6E2; stroke-dasharray: 3 3; }
+.chart-foot { text-align: center; font-size: 12px; }
+.point { cursor: pointer; outline: none; }
+.point .target { fill: transparent; }
+.point .dot { fill: var(--surface); stroke: var(--flow); stroke-width: 2.5; }
+.point .ring { fill: none; stroke: var(--flow); stroke-width: 2; }
+.point[aria-pressed="true"] .dot { fill: var(--flow); stroke: none; }
+.point:focus-visible .target { stroke: var(--link); stroke-width: 2; }
+.point .label { display: none; pointer-events: none; }
+.point .label rect { fill: var(--surface); stroke: #D0D0CB; }
+.point .label text { fill: var(--text); }
+.point:hover .label, .point:focus .label, .point[aria-pressed="true"] .label { display: inline; }
+
 /* The comparison. */
 main.compare { gap: 28px; }
 .compare-heading { display: flex; flex-direction: column; gap: 12px; }
@@ -178,3 +202,11 @@ table.changed-lines tbody.better tr.group th { color: var(--better); background:
 .verdict.right { background: #DCEBFA; color: #123E6E; }
 .verdict.warning { background: #FFF1C9; color: #5C4300; }
 .verdict.error { background: #FBE3D3; color: #7A2E04; }
+
+table.by-receipt { min-width: 1040px; font-size: 14px; }
+table.by-receipt th.group { text-align: center; color: var(--text); padding-bottom: 4px; }
+table.by-receipt thead tr + tr th { font-size: 12px; padding-top: 2px; }
+table.by-receipt tbody th { color: var(--text); font-size: 14px; font-weight: 500; white-space: nowrap; border-top: 1px solid var(--rule); }
+table.by-receipt td.diff { font-size: 14px; }
+.failed-mark { margin-left: 8px; color: var(--worse); font-size: 12px; font-weight: 600; cursor: help; }
+.only-in { margin: 0; padding: 10px 16px 14px; border-top: 1px solid var(--rule); }

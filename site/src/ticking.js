@@ -1,4 +1,4 @@
-// Ticking runs to compare, by a row's box on the tab or (later) a point on the
+// Ticking runs to compare, by a row’s box on the tab or a point on the
 // chart. The ticked runs are a list of run ids in the order they were ticked,
 // at most two; nothing here touches the page.
 

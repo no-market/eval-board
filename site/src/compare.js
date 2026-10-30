@@ -149,8 +149,61 @@ function linesCount(n) {
   return n === 1 ? '1 line' : `${n} lines`;
 }
 
+// Per receipt, folded: a row per shared receipt, from each run's numbers for
+// it as they are.
+function perReceipt({ a, b, receipts }) {
+  const caseOf = (run, receipt) => run.cases.find((c) => c.receipt === receipt);
+  const groups = RECEIPT_COLUMNS.map((column) => html`<th scope="colgroup" colspan="3" class="group">${column.name}</th>`);
+  const abd = RECEIPT_COLUMNS.map(() => html`<th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num">B − A</th>`);
+  return html`<details class="block-fold per-receipt">
+    <summary>Per receipt <span class="muted">· ${receiptsCount(receipts.shared.length)} in both runs</span></summary>
+    <div class="table-wrap">
+      <table class="by-receipt">
+        <thead>
+          <tr><th scope="col" rowspan="2">Receipt</th><th scope="col" rowspan="2" class="num">Lines A · B</th>${groups}</tr>
+          <tr>${abd}</tr>
+        </thead>
+        <tbody>${receipts.shared.map((receipt) => receiptRow(receipt, caseOf(a.run, receipt), caseOf(b.run, receipt)))}
+        </tbody>
+      </table>
+    </div>
+    ${onlyIn('A', receipts.a, receipts.shared)}${onlyIn('B', receipts.b, receipts.shared)}
+  </details>`;
+}
+
+// `Only in A: Kaufland, 1 Oct 2026.`: the receipts of one run the other lacks.
+function onlyIn(letter, ofRun, shared) {
+  const only = ofRun.filter((receipt) => !shared.includes(receipt));
+  if (only.length === 0) return '';
+  return html`<p class="only-in muted small">Only in ${letter}: ${only.map((receipt, i) => html`${i > 0 ? ' · ' : ''}<span title="${receipt}">${receiptName(receipt)}</span>`)}.</p>`;
+}
+
+// The per receipt columns: a receipt's value, how it's written, and the
+// difference of two values.
+const RECEIPT_COLUMNS = [
+  { name: 'Errors', value: (n) => n.errors, format: ({ count }) => String(count), difference: linesDifference },
+  { name: 'Warnings', value: (n) => n.warnings, format: ({ count }) => String(count), difference: linesDifference },
+  { name: 'Seconds', value: (n) => n.seconds, format: formatSeconds, difference: secondsDifference },
+  { name: 'Cost', value: (n) => n.cost_usd, format: formatCents, difference: centsDifference },
+];
+
+// A shared receipt's row. A run in which the receipt failed has no numbers
+// for it: its cells are `—`, with no difference, and the receipt is marked
+// failed in that run, the error in the mark's title.
+function receiptRow(receipt, inA, inB) {
+  const failed = (c) => c.error !== null && c.error !== undefined;
+  const numbers = [inA, inB].map((c) => (failed(c) ? null : c.numbers));
+  const failures = [['A', inA], ['B', inB]].filter(([, c]) => failed(c));
+  const mark = failures.length === 0
+    ? ''
+    : html` <span class="failed-mark" title="${failures.map(([letter, c]) => `${letter}: ${c.error}`).join('\n')}">failed in ${failures.map(([letter]) => letter).join(' and ')}</span>`;
+  const lines = numbers.map((n) => (n ? n.lines : '—')).join(' · ');
+  return html`
+          <tr${failures.length > 0 ? html` class="failed"` : ''}><th scope="row" title="${receipt}">${receiptName(receipt)}${mark}</th><td class="num">${lines}</td>${RECEIPT_COLUMNS.map((column) => cells(column, numbers[0], numbers[1], false))}</tr>`;
+}
+
 // The sections of the comparison, in order, after its heading.
-export const SECTIONS = [summary, changed];
+export const SECTIONS = [summary, changed, perReceipt];
 
 // The page of the comparison of runs `a` and `b`, each { id, run }, A the older.
 export function renderCompare({ flow, a, b }) {

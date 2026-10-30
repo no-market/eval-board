@@ -195,3 +195,91 @@ test('the changed lines: none when no verdict changed', () => {
   assert.match(text(html), /Lines whose verdict changed · 0 on 3 receipts/);
   assert.match(text(html), /No line’s verdict changed\./);
 });
+
+// Per receipt: run A with its own numbers on Aldi, 23 Sep; Aldi, 23 Oct
+// failed in A; Kaufland only in A. B is the real run with Lidl only in B.
+const caseOf = (run, receipt) => run.cases.find((c) => c.receipt === receipt);
+const ALDI_SEP = 'aldi/2026-09-23 12.50.png';
+const ALDI_OCT = 'aldi/2026-10-23 15.55.26.jpg';
+const perReceiptA = {
+  ...A,
+  run: {
+    ...A.run,
+    cases: [
+      {
+        ...caseOf(realRun, ALDI_SEP),
+        numbers: {
+          lines: 5,
+          errors: { count: 0, share: 0 },
+          warnings: { count: 1, share: 0.2 },
+          seconds: 5.7,
+          cost_usd: 0.0038,
+          steps: [],
+        },
+      },
+      {
+        ...caseOf(realRun, ALDI_OCT),
+        error: 'ModelError: the model returned no lines',
+        lines: [],
+        times: null,
+        numbers: { lines: 0, errors: { count: 0, share: null }, warnings: { count: 0, share: null }, seconds: null, cost_usd: null, steps: [] },
+      },
+      { ...caseOf(realRun, ALDI_SEP), receipt: 'kaufland/2026-10-01 09.00.jpg' },
+    ],
+  },
+};
+
+const perReceiptSection = (html) => html.match(/<details[^>]*class="block-fold per-receipt"[^>]*>[\s\S]*?<\/details>/)?.[0] ?? '';
+
+// The per receipt table's body rows, each its cells as text.
+function perReceiptRows(html) {
+  const tbody = perReceiptSection(html).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
+  );
+}
+
+test('per receipt: a shared receipt shows lines in A and B, then A, B and B − A for errors, warnings, seconds and cost', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  assert.deepEqual(perReceiptRows(html)[0], [
+    'Aldi, 23 Sep 2026', '5 · 5',
+    '0', '2', '▲ +2 lines · +40.0 pts',
+    '1', '0', '▼ −1 line · −20.0 pts',
+    '5.7 s', '6.5 s', '▲ +0.8 s · +13%',
+    '0.38¢', '0.33¢', '▼ −0.05¢ · −13%',
+  ]);
+});
+
+test('per receipt: a receipt that failed in a run is marked, with no numbers or differences for that run', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  const failed = perReceiptSection(html).match(/<tr class="failed">[\s\S]*?<\/tr>/)?.[0] ?? '';
+  assert.deepEqual(perReceiptRows(html)[1], [
+    'Aldi, 23 Oct 2026 failed in A', '— · 8',
+    '—', '0', '', '—', '2', '', '—', '21.7 s', '', '—', '0.38¢', '',
+  ]);
+  assert.match(failed, /title="A: ModelError: the model returned no lines"/);
+});
+
+test('per receipt: receipts in one run only are listed below the table, not in it', () => {
+  const section = perReceiptSection(renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B }));
+  assert.deepEqual(perReceiptRows(section).map((row) => row[0].replace(/ failed in A$/, '')), [
+    'Aldi, 23 Sep 2026', 'Aldi, 23 Oct 2026',
+  ]);
+  const below = text(section.slice(section.indexOf('</table>')));
+  assert.match(below, /Only in A: Kaufland, 1 Oct 2026 ?\./);
+  assert.match(below, /Only in B: Biedronka, 24 Oct 2026 · Lidl, 28 Oct 2026 ?\./);
+});
+
+test('per receipt: with the same receipts in both runs, nothing is listed as in one run only', () => {
+  const section = perReceiptSection(renderCompare({ flow: 'receipt-lines', a: A, b: { id: REAL, run: realRun } }));
+  assert.equal(perReceiptRows(section).length, 3);
+  assert.doesNotMatch(section, /Only in/);
+});
+
+test('per receipt is folded by default and is the last section', () => {
+  const html = renderCompare({ flow: 'receipt-lines', a: perReceiptA, b: B });
+  const opening = perReceiptSection(html).match(/^<details[^>]*>/)[0];
+  assert.doesNotMatch(opening, /\bopen\b/);
+  assert.match(text(perReceiptSection(html)), /^Per receipt · 2 receipts in both runs /);
+  assert.match(html, /<\/details>\s*<\/main>/);
+});
