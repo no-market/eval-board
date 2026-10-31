@@ -1378,7 +1378,7 @@
           "type": "string"
         },
         "scorer_version": {
-          "default": "promo-core-text-v5",
+          "default": "promo-core-text-v6",
           "title": "Scorer Version",
           "type": "string"
         },
