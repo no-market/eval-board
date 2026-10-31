@@ -118,8 +118,15 @@ test('with no run with verdicts, the tab says there are none yet', () => {
   for (const runs of [[], [unscored]]) {
     const html = renderPromoTab({ flow: FLOW, runs });
     assert.match(html, /No promo eval runs with verdicts yet/);
-    assert.doesNotMatch(html, /<table/);
+    assert.doesNotMatch(html, /<input type="checkbox"/);
   }
+  assert.doesNotMatch(renderPromoTab({ flow: FLOW, runs: [] }), /<table/);
+});
+
+test('with no run with verdicts, every run is in the history', () => {
+  const html = renderPromoTab({ flow: FLOW, runs: [unscored] });
+  assert.match(html, /<details class="block-fold history">/);
+  assert.match(html, new RegExp(`href="#/promo-extraction/run/${unscored.run}"`));
 });
 
 test('text from a run file is escaped', () => {
@@ -213,4 +220,41 @@ test('a ticked run of another eval set does not count towards the pair', () => {
   const other = { ...older, run: 'other', evalSet: { ...entry.evalSet, scorer: 'promo-core-text-v5' } };
   const html = renderPromoTab({ flow: FLOW, runs: [entry, older, other], ticked: [REAL, 'other'] });
   assert.match(html, /1 of 2 runs ticked/);
+});
+
+// The history section: each of its tables as { headers, rows }.
+function historyTables(html) {
+  const section = html.match(/<details class="block-fold history"[\s\S]*?<\/details>/)?.[0] ?? '';
+  return [...section.matchAll(/<table>[\s\S]*?<\/table>/g)].map(([table]) => ({ headers: headers(table), rows: bodyRows(table) }));
+}
+
+// A run with verdicts on another eval set: another scorer.
+const otherSet = { ...entry, run: 'other', date: '2026-10-31T12:38:02Z', evalSet: { ...entry.evalSet, scorer: 'promo-core-text-v5' } };
+
+test('a run with verdicts on another eval set shows in the history with its eval set, error and warning rates', () => {
+  const html = renderPromoTab({ flow: FLOW, runs: [entry, otherSet] });
+  assert.deepEqual(historyTables(html), [
+    {
+      headers: ['Date', 'Prompt', 'Model', 'Eval set', 'Error rate', 'Warning rate'],
+      rows: [['31 Oct 2026, 12:38', 'promo-v4', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-core-text-v5 · 8 pages', '40.9% (9 of 22)', '59.1% (13 of 22)']],
+    },
+  ]);
+  assert.match(html, /<a href="#\/promo-extraction\/run\/other">31 Oct 2026, 12:38<\/a>/);
+});
+
+test('history runs can’t be ticked or set as the baseline, and show no differences', () => {
+  const html = renderPromoTab({ flow: FLOW, runs: [entry, older, otherSet, unscored], base: 'older', ticked: ['other'] });
+  const section = html.match(/<details class="block-fold history"[\s\S]*?<\/details>/)[0];
+  assert.doesNotMatch(section, /checkbox|base-button|class="diff/);
+  assert.deepEqual(boxes(html).map(([run]) => run), [REAL, 'older']);
+});
+
+test('a run without verdicts shows in the history with matched of truth, missed, made-up, recall, precision and failed pages', () => {
+  const html = renderPromoTab({ flow: FLOW, runs: [entry, unscored] });
+  assert.deepEqual(historyTables(html), [
+    {
+      headers: ['Date', 'Prompt', 'Model', 'Eval set', 'Matched', 'Missed', 'Made up', 'Recall', 'Precision', 'Failed pages'],
+      rows: [['30 Oct 2026, 18:35', 'promo-v2', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-identity-exact-v2 · 10 pages', '20 of 40', '20', '21', '50.0%', '48.8%', '0']],
+    },
+  ]);
 });
