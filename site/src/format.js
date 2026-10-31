@@ -43,3 +43,8 @@ export function formatPer100(usd) {
 export function shortModel(model) {
   return model.slice(model.indexOf('/') + 1);
 }
+
+// `8 pages`, `1 page`.
+export function pagesCount(n) {
+  return n === 1 ? '1 page' : `${n} pages`;
+}

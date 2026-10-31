@@ -1,0 +1,112 @@
+// The promos tab: the current eval set (see eval-sets.js), named in its
+// heading, and the table of its runs, a row per index entry in the order
+// given (the index is newest first).
+// `base`, the run named as the baseline by the address: when it is of the
+// current eval set, every other row shows its difference from it. `ticked`,
+// the run ids ticked for comparing (see ticking.js), as on the receipt lines tab.
+// Below the table, folded, the history of runs on other eval sets (see
+// promo-history.js).
+import { chart } from './chart.js';
+import { promosDifference, secondsDifference } from './differences.js';
+import { currentEvalSet, evalSetName, inEvalSet } from './eval-sets.js';
+import { flowById } from './flows.js';
+import { formatDate, formatSeconds } from './format.js';
+import { dash, html } from './html.js';
+import { historySection } from './promo-history.js';
+import { header } from './layout.js';
+import { chainName, chainsInRuns, costCell, costDifference, costPerPage, modelsLine, shareOf, strategiesLine } from './promo-runs.js';
+import { runAddress } from './route.js';
+import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
+
+// The chart's points (see chart.js): a run's cost per page, the priced part
+// when some calls weren't priced, and its error rate over promos.
+const pages = {
+  unit: 'page',
+  cost: (run) => costPerPage(run.totals),
+  share: (run) => run.totals.errors.share,
+  models: (run) => `${run.prompt} · ${modelsLine(run.configs)}`,
+  foot: 'Cost per page, the run’s cost over its pages; the priced part when some calls weren’t priced',
+};
+
+export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = null, ticked = [] }) {
+  const flow = flowById(flowId);
+  const evalSet = currentEvalSet(allRuns);
+  const runs = evalSet ? inEvalSet(allRuns, evalSet) : [];
+  const base = runs.find((run) => run.run === baseId) ?? null;
+  return String(html`${header(flow.id)}
+<main style="--flow: ${flow.colour}">
+  <div class="tab-head">
+    <div class="heading">
+      <h1 style="color: ${flow.colour}">${flow.name}</h1>
+      ${evalSet ? html`<p class="muted">${runsLine(runs.length)} on the eval set <strong title="${evalSet.selection.join(', ')}">${evalSetName(evalSet)}</strong></p>` : ''}
+    </div>
+    ${evalSet ? compareButton(flow, runs, ticked) : ''}
+  </div>
+  ${evalSet
+    ? html`${chart(runs, ticked, pages)}
+  ${table(flow, runs, base, ticked)}`
+    : html`<p class="empty">No promo eval runs with verdicts yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>`}
+  ${historySection(flow, allRuns, evalSet)}
+</main>`);
+}
+
+function table(flow, runs, base, ticked) {
+  const chains = chainsInRuns(runs);
+  return html`<section aria-labelledby="runs-h" class="runs">
+    <div class="runs-head">
+      <h2 id="runs-h">Eval runs, newest first</h2>
+      ${baselineHint(base)}
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" class="tick"><span class="visually-hidden">Compare</span></th>
+            <th scope="col">Date</th>
+            <th scope="col">Prompt</th>
+            <th scope="col">Model</th>
+            <th scope="col" class="num">Pages</th>
+            <th scope="col" class="num">Error rate</th>
+            ${chains.map((chain) => html`<th scope="col" class="num" title="Error rate of ${chainName(chain)}’s promos">${chainName(chain)}</th>`)}
+            <th scope="col" class="num">Warning rate</th>
+            <th scope="col" class="num">s / page</th>
+            <th scope="col" class="num">Cost / page</th>
+            <th scope="col" class="num">Baseline</th>
+          </tr>
+        </thead>
+        <tbody>${runs.map((run) => row(flow, run, chains, base, ticked))}</tbody>
+      </table>
+    </div>
+    <p class="muted small">Shares in brackets are counted in promos: every reviewed promo of the pages, and every made-up one; a chain’s column, of that chain’s. Seconds are the median per page; cost is the run’s cost over its pages, ≥ the priced part when some calls weren’t priced.</p>
+  </section>`;
+}
+
+function row(flow, run, chains, base, ticked) {
+  const isBase = run === base;
+  const isTicked = ticked.includes(run.run);
+  const diff = fromBase(base, run);
+  return html`
+          <tr${rowClasses(isBase, isTicked)}>
+            ${tickBox(run, isTicked)}
+            <td class="nowrap"><a href="${runAddress(flow.id, run.run)}">${formatDate(run.date)}</a></td>
+            <td>${run.prompt}</td>
+            <td><span title="${strategiesLine(run.configs)}">${modelsLine(run.configs)}</span></td>
+            <td class="num">${run.totals.pages}</td>
+            <td class="num nowrap"><div><strong>${shareOf(run.totals)}</strong></div>${diff((a, b) => promosDifference(a.totals.errors, b.totals.errors))}</td>
+            ${chains.map((chain) => chainCell(run, chain, diff))}
+            <td class="num nowrap"><div>${shareOf(run.totals, 'warnings')}</div>${diff((a, b) => promosDifference(a.totals.warnings, b.totals.warnings))}</td>
+            <td class="num nowrap"><div>${formatSeconds(run.totals.seconds.median)}</div>${diff((a, b) => secondsDifference(a.totals.seconds.median, b.totals.seconds.median))}</td>
+            <td class="num nowrap"><div>${costCell(run.totals)}</div>${diff((a, b) => costDifference(a.totals, b.totals))}</td>
+            <td class="num base-cell">${baseButton(flow, run, isBase)}</td>
+          </tr>`;
+}
+
+// A chain's error rate, with its difference from the baseline's when both
+// runs have the chain.
+function chainCell(run, chain, diff) {
+  const numbers = run.byChain[chain];
+  if (!numbers) return html`<td class="num">${dash}</td>`;
+  return html`<td class="num nowrap"><div>${shareOf(numbers)}</div>${diff((a, b) =>
+    a.byChain[chain] ? promosDifference(a.byChain[chain].errors, b.byChain[chain].errors) : null,
+  )}</td>`;
+}

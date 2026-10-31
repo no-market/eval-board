@@ -195,6 +195,7 @@ table.by-step th.group.total { font-weight: 700; }
 /* The changed lines of a comparison: worse in B, then better, a chip per verdict. */
 .compare h2 .muted { font-weight: 500; }
 table.changed-lines { min-width: 1080px; }
+table.changed-promos { min-width: 760px; }
 table.changed-lines tr.group th { padding: 10px 16px; text-align: left; font-size: 14px; font-weight: 700; border-top: 1px solid var(--border); }
 table.changed-lines tbody.worse tr.group th { color: var(--worse); background: #FDF3EC; }
 table.changed-lines tbody.better tr.group th { color: var(--better); background: #EEF4FB; }

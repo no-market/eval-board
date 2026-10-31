@@ -4,13 +4,12 @@ import { centsDifference, linesDifference, secondsDifference } from './differenc
 import { formatCents, formatDate, formatSeconds, formatShare } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
-import { compareAddress, runAddress, tabAddress } from './route.js';
+import { runAddress } from './route.js';
 import { modelPair } from './runs.js';
-import { tickedPair } from './ticking.js';
+import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
 
-// A flow's tab: its heading, the chart of its runs (see chart.js) and the
-// table of them, a row per index entry,
-// in the order given (the index is newest first). `base`, the run named as
+// The receipt lines tab: its heading, the chart of its runs (see chart.js)
+// and the table of them, a row per index entry, in the order given (the index is newest first). `base`, the run named as
 // the baseline by the address, if any: every other row shows its difference
 // from it. `ticked`, the run ids ticked for comparing (see ticking.js): their
 // boxes are ticked, and with two a button opens their comparison.
@@ -31,28 +30,11 @@ export function renderTab({ flow: flowId, runs, base: baseId = null, ticked = []
 </main>`);
 }
 
-// How many runs are ticked, and the button that opens their comparison once
-// two are.
-function compareButton(flow, runs, ticked) {
-  const pair = tickedPair(ticked, runs);
-  const n = runs.filter((run) => ticked.includes(run.run)).length;
-  return html`<div class="compare-bar">
-      <span class="muted" aria-live="polite">${pair ? '2 runs ticked' : `${n} of 2 runs ticked`}</span>
-      ${pair
-        ? html`<a class="compare-button" href="${compareAddress(flow.id, pair[0].run, pair[1].run)}">Compare 2 runs</a>`
-        : html`<button type="button" class="compare-button" disabled>Tick 2 runs to compare</button>`}
-    </div>`;
-}
-
-function runsLine(n) {
-  return n === 1 ? '1 eval run' : `${n} eval runs`;
-}
-
 function table(flow, runs, base, ticked) {
   return html`<section aria-labelledby="runs-h" class="runs">
     <div class="runs-head">
       <h2 id="runs-h">Eval runs, newest first</h2>
-      <span class="muted small">${base ? `Differences against the baseline, ${formatDate(base.date)}` : 'Set a baseline with a row’s “Set as baseline” to see every other run against it'} · <span class="better">▼ better</span> · <span class="worse">▲ worse</span></span>
+      ${baselineHint(base)}
     </div>
     <div class="table-wrap">
       <table>
@@ -79,24 +61,17 @@ function table(flow, runs, base, ticked) {
 function row(flow, run, base, ticked) {
   const isBase = run === base;
   const isTicked = ticked.includes(run.run);
-  const classes = [isBase && 'base', isTicked && 'ticked'].filter(Boolean).join(' ');
-  // The difference from the baseline under a number: none on the baseline's
-  // row or without one.
-  const fromBase = (difference) => {
-    if (!base || isBase) return '';
-    const { mark, text } = difference(base, run);
-    return html`<div class="diff ${mark}">${text}</div>`;
-  };
+  const diff = fromBase(base, run);
   return html`
-          <tr${classes ? html` class="${classes}"` : ''}>
-            <td class="tick"><label><input type="checkbox" data-tick="${run.run}"${isTicked ? html` checked` : ''} aria-label="Compare the run of ${formatDate(run.date)}"></label></td>
+          <tr${rowClasses(isBase, isTicked)}>
+            ${tickBox(run, isTicked)}
             <td class="nowrap"><a href="${runAddress(flow.id, run.run)}">${formatDate(run.date)}</a></td>
             <td><span class="muted">${run.flowVersion} · </span><span title="${run.models.read} · ${run.models.chooseKinds}">${modelPair(run.models.read, run.models.chooseKinds)}</span></td>
             <td class="num">${run.receipts}</td>
-            <td class="num nowrap"><div><strong>${shareOf(run.errors, run.lines)}</strong></div>${fromBase((a, b) => linesDifference(a.errors, b.errors))}</td>
-            <td class="num nowrap"><div>${shareOf(run.warnings, run.lines)}</div>${fromBase((a, b) => linesDifference(a.warnings, b.warnings))}</td>
-            <td class="num nowrap"><div>${formatSeconds(run.seconds.median)}</div>${fromBase((a, b) => secondsDifference(a.seconds.median, b.seconds.median))}</td>
-            <td class="num nowrap"><div>${formatCents(run.costUsd)}</div>${fromBase((a, b) => centsDifference(a.costUsd, b.costUsd))}</td>
+            <td class="num nowrap"><div><strong>${shareOf(run.errors, run.lines)}</strong></div>${diff((a, b) => linesDifference(a.errors, b.errors))}</td>
+            <td class="num nowrap"><div>${shareOf(run.warnings, run.lines)}</div>${diff((a, b) => linesDifference(a.warnings, b.warnings))}</td>
+            <td class="num nowrap"><div>${formatSeconds(run.seconds.median)}</div>${diff((a, b) => secondsDifference(a.seconds.median, b.seconds.median))}</td>
+            <td class="num nowrap"><div>${formatCents(run.costUsd)}</div>${diff((a, b) => centsDifference(a.costUsd, b.costUsd))}</td>
             <td class="num base-cell">${baseButton(flow, run, isBase)}</td>
           </tr>`;
 }
@@ -104,13 +79,4 @@ function row(flow, run, base, ticked) {
 // `11.6% (5 of 43)`: a share with the lines it rests on.
 function shareOf({ count, share }, lines) {
   return html`${formatShare(share)} <span class="muted">(${count} of ${lines})</span>`;
-}
-
-// A link, as the baseline lives only in the address: it sets this run as the
-// baseline, or on the baseline's row clears it.
-function baseButton(flow, run, isBase) {
-  const date = formatDate(run.date);
-  return isBase
-    ? html`<a class="base-button" href="${tabAddress(flow.id, null)}" aria-pressed="true" role="button" aria-label="Clear the baseline, the run of ${date}">Baseline ✕</a>`
-    : html`<a class="base-button" href="${tabAddress(flow.id, run.run)}" aria-pressed="false" role="button" aria-label="Set the run of ${date} as baseline">Set as baseline</a>`;
 }
