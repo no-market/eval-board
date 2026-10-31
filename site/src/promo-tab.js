@@ -98,13 +98,13 @@ function chainCell(run, chain, diff) {
 }
 
 // `45.5% (10 of 22)`: the errors (or warnings) of `numbers`, counted in promos.
-function shareOf(numbers, of = 'errors') {
+export function shareOf(numbers, of = 'errors') {
   const { count, share } = numbers[of];
   return html`${formatShare(share)} <span class="muted">(${count} of ${numbers.promos})</span>`;
 }
 
 // `0.15¢`, or `≥ 0.08¢` for the priced part of a cost.
-function cost(perPage) {
+export function cost(perPage) {
   if (!perPage) return dash;
   if (perPage.priced) return formatCents(perPage.usd);
   return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;

@@ -107,7 +107,7 @@ function cells(row, aNumbers, bNumbers, isTotal) {
 
 // A difference that may break onto a second line only at its ` · `, so a
 // narrow column shows `▲ +25 lines` over `· +61.8 pts`, never a split number.
-function wrappable(text) {
+export function wrappable(text) {
   return text.split(' · ').map((part, i) => html`${i > 0 ? ' · ' : ''}<span class="nowrap">${part}</span>`);
 }
 
