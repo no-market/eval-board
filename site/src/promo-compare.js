@@ -10,6 +10,7 @@ import { flowById } from './flows.js';
 import { formatDate, formatSeconds } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
+import { changedPromos } from './promo-changes.js';
 import { chainName, costPerPage, modelsLine, strategiesLine } from './promo-runs.js';
 import { cost, shareOf } from './promo-tab.js';
 import { runAddress } from './route.js';
@@ -90,9 +91,61 @@ function cells(row, a, b, total) {
 
 const dash = html`<span class="muted">—</span>`;
 
-// The sections of the comparison, in order, after its heading. The promos
-// whose verdict changed (#24) follow the summary.
-const SECTIONS = [summary];
+// The promos whose verdict changed, over the pages both runs have (see
+// `changedPromos`): worse in B, better in B, then the same verdict with other
+// fields, and how many promos are unchanged. It shows the changes and doesn't
+// judge them.
+function changed({ a, b }) {
+  const { worse, better, otherFields, unchanged } = changedPromos(a.run, b.run);
+  const count = worse.length + better.length + otherFields.length;
+  const group = (mark, title, pairs) =>
+    pairs.length === 0
+      ? ''
+      : html`
+        <tbody class="${mark}">
+          <tr class="group"><th scope="colgroup" colspan="4">${title} · ${promosCount(pairs.length)}</th></tr>${pairs.map(changedRow)}
+        </tbody>`;
+  return html`<section aria-labelledby="changed-h" class="changed">
+    <div class="section-head">
+      <h2 id="changed-h">Promos whose verdict changed <span class="muted">· ${count}</span></h2>
+      <span class="muted small">${promosCount(unchanged)} unchanged</span>
+    </div>
+    ${count === 0
+      ? html`<p class="muted">No promo’s verdict or fields changed.</p>`
+      : html`<div class="table-wrap">
+      <table class="changed-lines changed-promos">
+        <thead><tr><th scope="col">Page</th><th scope="col">Promo</th><th scope="col">A</th><th scope="col">B</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}${group('one-run-only', 'The same verdict, other fields', otherFields)}
+      </table>
+    </div>`}
+    <p class="muted small">Promos pair by page and reviewed promo; a made-up promo, an error, by its name, folded to its core identity. A made-up promo gone in B is better; one new in B is worse.</p>
+  </section>`;
+}
+
+function changedRow({ page, a, b }) {
+  const promo = b ?? a;
+  const madeUp = promo.truth === null ? html` <span class="muted small">made up</span>` : '';
+  return html`
+          <tr><td class="nowrap">${chainName(page.chain)} · page ${page.page}</td><td>${promo.name}${madeUp}</td><td>${promoVerdict(a)}</td><td>${promoVerdict(b)}</td></tr>`;
+}
+
+// A promo's verdict and the fields it has wrong, errors in bold, then
+// warnings: `error price · condition`; `—` for a run the promo isn't in.
+function promoVerdict(promo) {
+  if (!promo) return dash;
+  const field = (name) => (name === 'extra' ? 'made up' : name);
+  const errors = promo.errors.map((name, i) => html`${i > 0 ? ', ' : ''}<strong>${field(name)}</strong>`);
+  const warnings = promo.warnings.map((name, i) => html`${i > 0 ? ', ' : ''}${field(name)}`);
+  const separator = errors.length > 0 && warnings.length > 0 ? ' · ' : '';
+  return html`<span class="verdict ${promo.verdict}">${promo.verdict}</span> <span class="small">${errors}${separator}${warnings}</span>`;
+}
+
+// `22 promos`, `1 promo`.
+function promosCount(n) {
+  return n === 1 ? '1 promo' : `${n} promos`;
+}
+
+// The sections of the comparison, in order, after its heading.
+const SECTIONS = [summary, changed];
 
 // The page of the comparison of promo runs `a` and `b`, each { id, run }, A the older.
 export function renderPromoCompare({ flow, a, b }) {

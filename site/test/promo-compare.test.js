@@ -174,3 +174,58 @@ test('a cost not priced in full shows its priced part, ≥, with no difference',
   const [, , , costRow] = summaryRows(compare(unpriced, B));
   assert.deepEqual(costRow.slice(0, 4), ['Cost / page', '≥ 0.13¢', '0.15¢', '']);
 });
+
+// Run A for the changed promos: the real run with, on Aldi's page 2, its
+// chicken fillets an error; on Kaufland's page 5, its avocado right and an
+// onion made up; and on Lidl's page 6, its butter warned of on one more field.
+function changedA() {
+  const promosOf = (id, change) => {
+    const page = realRun.cases.find((c) => c.id === id);
+    return { ...page, ...change(page) };
+  };
+  const changes = {
+    'aldi-kw44-th-p002': (page) => ({
+      promos: page.promos.map((p) => (p.truth.endsWith('o002') ? { ...p, verdict: 'error', errors: ['price'], warnings: ['condition'] } : p)),
+    }),
+    'kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005': (page) => ({
+      predictions: [...page.predictions, { ...page.predictions[0], name: 'Cebula żółta', brands: [] }],
+      promos: [
+        ...page.promos.map((p) => (p.truth.endsWith('o001') ? { ...p, verdict: 'right', errors: [], warnings: [] } : p)),
+        { truth: null, prediction: 2, name: 'Cebula żółta', verdict: 'error', errors: ['extra'], warnings: [] },
+      ],
+    }),
+    'lidl-gazetka-29-10-czw-kw44-p006': (page) => ({
+      promos: page.promos.map((p) => (p.truth.endsWith('o001') ? { ...p, warnings: ['condition', 'price_basis'] } : p)),
+    }),
+  };
+  return { ...A, run: { ...A.run, cases: realRun.cases.map((c) => (changes[c.id] ? promosOf(c.id, changes[c.id]) : c)) } };
+}
+
+// The changed promos section: its heading, its groups' titles and each row's cells.
+const changedOf = (html) => html.match(/<section[^>]*class="changed"[\s\S]*?<\/section>/)?.[0] ?? '';
+const changedRows = (html) =>
+  [...changedOf(html).matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
+  );
+
+test('the changed promos follow the summary: worse in B, better in B, then the same verdict with other fields', () => {
+  const html = compare(changedA(), B);
+  assert.ok(html.indexOf('class="summary"') < html.indexOf('class="changed"'));
+  assert.match(text(changedOf(html)), /^Promos whose verdict changed · 4 19 promos unchanged/);
+  assert.deepEqual(changedRows(html), [
+    ['Page', 'Promo', 'A', 'B'],
+    ['▲ Worse in B · 1 promo'],
+    ['Kaufland · page 5', 'Awokado zielone', 'right', 'warning condition'],
+    ['▼ Better in B · 2 promos'],
+    ['Aldi · page 2', 'Filety z piersi kurczaka Mięsne Specjały', 'error price · condition', 'warning brands, condition'],
+    ['Kaufland · page 5', 'Cebula żółta made up', 'error made up', '—'],
+    ['The same verdict, other fields · 1 promo'],
+    ['Lidl · page 6', 'Masło 82% Mleczna Krowa Pilos, 200 g', 'warning condition, price_basis', 'warning condition'],
+  ]);
+});
+
+test('with no promo changed, the section says so and names the unchanged promos', () => {
+  const section = text(changedOf(compare(A, B)));
+  assert.equal(section.startsWith('Promos whose verdict changed · 0 22 promos unchanged'), true, section);
+  assert.match(section, /No promo’s verdict or fields changed\./);
+});
