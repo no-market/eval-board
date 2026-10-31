@@ -65,3 +65,51 @@ test('a cost with unpriced calls is the priced part, marked ≥', () => {
   const [cost] = rows(page(run), 'Summary by chain').filter(([label]) => label === 'Cost per page');
   assert.deepEqual(cost, ['Cost per page', '≥ 0.15¢', '≥ 0.10¢', '0.20¢', '0.16¢', '0.07¢']);
 });
+
+test('per page: each page with its leaflet, promos, errors, warnings, seconds and cost', () => {
+  assert.deepEqual(rows(page(), 'Per page'), [
+    ['Page', 'Promos', 'Errors', 'Warnings', 'Seconds', 'Cost'],
+    ['Biedronka p. 4 · leaflet', '3', '3', '0', '4.8 s', '0.21¢'],
+    ['Biedronka p. 5 · leaflet', '3', '2', '1', '4.5 s', '0.20¢'],
+    ['Aldi p. 2 · leaflet', '3', '1', '2', '2.8 s', '0.15¢'],
+    ['Aldi p. 3 · leaflet', '3', '3', '0', '3.3 s', '0.19¢'],
+    ['Lidl p. 6 · leaflet', '2', '0', '2', '2.2 s', '0.13¢'],
+    ['Kaufland p. 4 · leaflet', '6', '0', '6', '3.7 s', '0.23¢'],
+    ['Kaufland p. 5 · leaflet', '2', '0', '2', '1.7 s', '0.09¢'],
+    ['Lidl p. 117 · leaflet', '0', '0', '0', '0.6 s', '0.00¢'],
+  ]);
+});
+
+// The section headed `heading`, up to the next section.
+function section(html, heading) {
+  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
+  assert.ok(start >= 0, `a section headed ${heading}`);
+  const rest = html.slice(start);
+  return rest.slice(0, rest.search(/<\/(section|details)>/));
+}
+
+test("each page links to its own leaflet and nowhere else; no leaflet files or page images show", () => {
+  const html = page();
+  const links = [...section(html, 'Per page').matchAll(/href="([^"]*)"/g)].map(([, href]) => href);
+  assert.deepEqual(links, withVerdicts.cases.map((c) => c.source_url.replaceAll('&', '&amp;')));
+  assert.doesNotMatch(html, /<img|<iframe|<object|<embed/);
+  assert.doesNotMatch(html, /\.pdf"/);
+});
+
+test("a page whose leaflet address isn't a web address has no link", () => {
+  const run = structuredClone(withVerdicts);
+  run.cases[0].source_url = 'javascript:alert(1)';
+  run.cases[1].source_url = null;
+  const html = section(page(run), 'Per page');
+  assert.doesNotMatch(html, /javascript:/);
+  assert.equal([...html.matchAll(/href=/g)].length, withVerdicts.cases.length - 2);
+});
+
+test('a failed page says why; a page with unscored promos says how many', () => {
+  const run = structuredClone(withVerdicts);
+  Object.assign(run.cases[0], { failed: true, failure: 'Page extraction failed', promos: [] });
+  run.cases[1].unscored = ['one', 'two'];
+  const [, failed, unscored] = rows(page(run), 'Per page');
+  assert.deepEqual(failed, ['Biedronka p. 4 · leaflet', 'Failed: Page extraction failed', '4.8 s', '0.21¢']);
+  assert.deepEqual(unscored, ['Biedronka p. 5 · leaflet', '3 · 2 unscored', '2', '1', '4.5 s', '0.20¢']);
+});

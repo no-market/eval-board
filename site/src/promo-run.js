@@ -23,6 +23,7 @@ export function renderPromoRun({ flow: flowId, id, runFile }) {
 <main class="run promo" style="--flow: ${flow.colour}">
   ${heading(flow, runFile)}
   ${summary(runFile)}
+  ${perPage(runFile.cases)}
   <p><a href="${runFileOnGitHub(id)}">Run file on GitHub</a></p>
 </main>`);
 }
@@ -97,4 +98,38 @@ function cost({ numbers, pages }) {
   if (!perPage) return dash;
   if (perPage.priced) return formatCents(perPage.usd);
   return html`<span title="Some calls were not priced; this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;
+}
+
+function perPage(cases) {
+  return html`<section aria-labelledby="pages-h" class="block">
+    <h2 id="pages-h">Per page</h2>
+    <div class="table-wrap">
+      <table class="receipts">
+        <thead><tr><th scope="col">Page</th><th scope="col">Promos</th><th scope="col">Errors</th><th scope="col">Warnings</th><th scope="col">Seconds</th><th scope="col">Cost</th></tr></thead>
+        <tbody>${cases.map(pageRow)}
+        </tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+function pageRow(page) {
+  const name = html`<th scope="row">${pageName(page)}</th>`;
+  const spent = html`<td>${orDash(page.seconds, formatSeconds)}</td><td>${orDash(page.usage?.cost_usd, formatCents)}</td>`;
+  if (page.failed) {
+    return html`
+          <tr class="failed">${name}<td colspan="3"><strong>Failed:</strong> ${page.failure}</td>${spent}</tr>`;
+  }
+  const promos = page.promos ?? [];
+  const count = (verdict) => promos.filter((promo) => promo.verdict === verdict).length;
+  const unscored = page.unscored?.length ? html` <span class="muted">· ${page.unscored.length} unscored</span>` : '';
+  return html`
+          <tr>${name}<td>${promos.length}${unscored}</td><td>${count('error')}</td><td>${count('warning')}</td>${spent}</tr>`;
+}
+
+// `Biedronka p. 4 · leaflet`, the page's id on hover and a link to its own
+// leaflet: only a web address, never a leaflet file or page image.
+function pageName(page) {
+  const leaflet = /^https?:\/\//.test(page.source_url ?? '') ? html` · <a href="${page.source_url}">leaflet</a>` : '';
+  return html`<span title="${page.id}">${chainName(page.chain)} p. ${page.page}</span>${leaflet}`;
 }
