@@ -1195,6 +1195,18 @@
           "title": "Page",
           "type": "integer"
         },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
         "truth_count": {
           "title": "Truth Count",
           "type": "integer"
@@ -1266,6 +1278,14 @@
           "title": "Differences",
           "type": "array"
         },
+        "promos": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PromoVerdict"
+          },
+          "title": "Promos",
+          "type": "array"
+        },
         "fields": {
           "additionalProperties": {
             "$ref": "#/$defs/FieldScore"
@@ -1330,8 +1350,11 @@
     "PromoRun": {
       "properties": {
         "schema_version": {
-          "const": 3,
-          "default": 3,
+          "default": 4,
+          "enum": [
+            3,
+            4
+          ],
           "title": "Schema Version",
           "type": "integer"
         },
@@ -1355,7 +1378,7 @@
           "type": "string"
         },
         "scorer_version": {
-          "default": "promo-core-text-v4",
+          "default": "promo-core-text-v5",
           "title": "Scorer Version",
           "type": "string"
         },
@@ -1435,6 +1458,64 @@
         "by_leaflet"
       ],
       "title": "PromoRun",
+      "type": "object"
+    },
+    "PromoVerdict": {
+      "description": "One promo of the run: a truth promo, paired or missed, or an extra prediction.",
+      "properties": {
+        "truth": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Truth"
+        },
+        "prediction": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prediction"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "errors": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "warnings": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "truth",
+        "prediction",
+        "name",
+        "verdict"
+      ],
+      "title": "PromoVerdict",
       "type": "object"
     },
     "ReadLine": {
@@ -2270,6 +2351,40 @@
         "truth": {
           "title": "Truth",
           "type": "integer"
+        },
+        "promos": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Promos"
+        },
+        "errors": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Count"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "warnings": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Count"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "matched": {
           "title": "Matched",
