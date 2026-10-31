@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { currentEvalSet, evalSetName, hasVerdicts, inEvalSet, sameEvalSet } from '../src/eval-sets.js';
+import { currentEvalSet, evalSetName, hasVerdicts, history, inEvalSet, sameEvalSet } from '../src/eval-sets.js';
 
 const SET = { dataset: 'baseline-10', scorer: 'promo-core-text-v6', selection: ['aldi-p002', 'lidl-p006'] };
 
@@ -56,4 +56,21 @@ test('the runs of an eval set are those whose eval set it is, in their order', (
 test('an eval set is named by its dataset revision, scorer version and number of pages', () => {
   assert.equal(evalSetName(SET), 'baseline-10 · promo-core-text-v6 · 2 pages');
   assert.equal(evalSetName({ ...SET, selection: ['aldi-p002'] }), 'baseline-10 · promo-core-text-v6 · 1 page');
+});
+
+test('the history is every run not of the current eval set, newest first by date', () => {
+  const other = { ...SET, scorer: 'promo-core-text-v5' };
+  const unscored = { ...SET, scorer: 'promo-identity-exact-v2' };
+  const runs = [
+    entry('current', '2026-10-31T13:00:00Z'),
+    entry('older-unscored', '2026-10-30T18:00:00Z', unscored, null),
+    entry('other', '2026-10-31T12:00:00Z', other),
+    entry('newer-unscored', '2026-10-30T22:00:00Z', unscored, null),
+  ];
+  assert.deepEqual(history(runs, SET).map((r) => r.run), ['other', 'newer-unscored', 'older-unscored']);
+});
+
+test('with no current eval set, every run is history', () => {
+  const runs = [entry('a', '2026-10-30T12:00:00Z', SET, null), entry('b', '2026-10-30T13:00:00Z', SET, null)];
+  assert.deepEqual(history(runs, null).map((r) => r.run), ['b', 'a']);
 });

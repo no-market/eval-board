@@ -5,6 +5,7 @@
 import { flowById } from './flows.js';
 import { centsDifference, linesDifference, per100Difference, secondsDifference } from './differences.js';
 import { changedLines } from './changed-lines.js';
+import { whyNotCompared as whyPromosNotCompared } from './eval-sets.js';
 import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, receiptName } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
@@ -12,9 +13,13 @@ import { runAddress } from './route.js';
 import { dash, expected, recorded } from './run.js';
 import { failed, modelPair, olderFirst, STEPS, stepName } from './runs.js';
 
+// Why two runs of one flow (index entries, A the older) aren't compared, or
+// null when they are, for a flow with a rule beyond being of one flow.
+const WHY_NOT_COMPARED = { 'promo-extraction': whyPromosNotCompared };
+
 // The index entries of the two runs a compare address names, A the older:
-// { a, b }, or { message } when a run is unknown or the runs are of
-// different flows.
+// { a, b }, or { message } when a run is unknown, the runs are of different
+// flows, or their flow doesn't compare them (see WHY_NOT_COMPARED).
 export function comparedRuns(route, index) {
   const find = (id) => index.runs.find((entry) => entry.run === id);
   for (const id of [route.a, route.b]) {
@@ -30,6 +35,8 @@ export function comparedRuns(route, index) {
     return { message: `The runs ${a.run} and ${b.run} are ${a.flow} runs, not ${route.flow} runs.` };
   }
   const [older, newer] = olderFirst(a, b);
+  const message = WHY_NOT_COMPARED[a.flow]?.(older, newer);
+  if (message) return { message };
   return { a: older, b: newer };
 }
 
@@ -100,7 +107,7 @@ function cells(row, aNumbers, bNumbers, isTotal) {
 
 // A difference that may break onto a second line only at its ` · `, so a
 // narrow column shows `▲ +25 lines` over `· +61.8 pts`, never a split number.
-function wrappable(text) {
+export function wrappable(text) {
   return text.split(' · ').map((part, i) => html`${i > 0 ? ' · ' : ''}<span class="nowrap">${part}</span>`);
 }
 
