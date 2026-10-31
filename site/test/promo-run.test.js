@@ -13,7 +13,7 @@ const withoutVerdicts = await load(WITHOUT_VERDICTS);
 // A promo run page, opened as main.js opens it.
 const page = (runFile = withVerdicts, id = WITH_VERDICTS) => viewsOf(FLOW).run({ flow: FLOW, id, runFile });
 
-const text = (html) => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const text = (html) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
 test('a missing promo run shows the not-found page', () => {
   const html = viewsOf(FLOW).run({ flow: FLOW, id: 'r1', runFile: undefined });
@@ -103,6 +103,54 @@ test("a page whose leaflet address isn't a web address has no link", () => {
   const html = section(page(run), 'Per page');
   assert.doesNotMatch(html, /javascript:/);
   assert.equal([...html.matchAll(/href=/g)].length, withVerdicts.cases.length - 2);
+});
+
+test('errors: each promo in error with its page, fields, expected and actual', () => {
+  const html = page();
+  assert.match(text(html), /Errors · 9/);
+  const errors = rows(html, 'Errors');
+  assert.equal(errors.length, 1 + 9);
+  assert.deepEqual(errors[0], ['Page', 'Promo', 'Fields', 'Expected', 'Actual']);
+  assert.deepEqual(errors[2], [
+    'Biedronka p. 4 · leaflet',
+    'Ser żółty Gouda Światowid, 400 g',
+    'conditions.minimum_quantity, price_basis',
+    'conditions.minimum_quantity 2 price_basis —',
+    'conditions.minimum_quantity — price_basis opak.',
+  ]);
+});
+
+test('warnings are folded, with the differences under each field named', () => {
+  const html = page();
+  assert.match(html, /<details class="block-fold">\s*<summary>Warnings · 13<\/summary>/);
+  const kawa = rows(html, 'Warnings').find(([, promo]) => promo === 'Kawa rozpuszczalna Krönung Jacobs, 200 g');
+  assert.deepEqual(kawa, [
+    'Aldi p. 2 · leaflet',
+    'Kawa rozpuszczalna Krönung Jacobs, 200 g',
+    'condition, lowest_30_days, reference_price',
+    'condition Przy zakupie 2 szt.; limit 6 szt. na klienta. lowest_30_days.amount 41.99 lowest_30_days.kind lowest_30_days lowest_30_days.wording najniższa cena z 30 dni przed obniżką reference_price.wording Cena regularna',
+    'condition 33% PRZY ZAKUPIE 2 SZT. lowest_30_days.amount — lowest_30_days.kind — lowest_30_days.wording — reference_price.wording Cena regularna /najniższa cena z 30 dni przed obniżką',
+  ]);
+});
+
+test('a conditions difference shows only the parts that differ', () => {
+  // Aldi p. 2: no conditions expected, ten read, of which only the discount is stated.
+  const sliwki = rows(page(), 'Errors').find(([, promo]) => promo === 'Śliwki polskie');
+  assert.deepEqual(sliwki, [
+    'Aldi p. 2 · leaflet',
+    'Śliwki polskie',
+    'conditions.percentage_discount',
+    'conditions.percentage_discount —',
+    'conditions.percentage_discount 37',
+  ]);
+});
+
+test('a run with verdicts shows the heading, summary, pages, errors and folded warnings, in that order', () => {
+  const html = page();
+  const at = (pattern) => html.search(pattern);
+  const order = [/<h1/, /<h2[^>]*>Summary by chain/, /<h2[^>]*>Per page/, /<h2[^>]*>Errors/, /<summary>Warnings/].map(at);
+  assert.ok(order.every((i) => i >= 0), 'every part is there');
+  assert.deepEqual(order, [...order].sort((a, b) => a - b));
 });
 
 test('a failed page says why; a page with unscored promos says how many', () => {

@@ -24,6 +24,8 @@ export function renderPromoRun({ flow: flowId, id, runFile }) {
   ${heading(flow, runFile)}
   ${summary(runFile)}
   ${perPage(runFile.cases)}
+  ${errors(promosWith(runFile.cases, 'error'))}
+  ${warnings(promosWith(runFile.cases, 'warning'))}
   <p><a href="${runFileOnGitHub(id)}">Run file on GitHub</a></p>
 </main>`);
 }
@@ -132,4 +134,66 @@ function pageRow(page) {
 function pageName(page) {
   const leaflet = /^https?:\/\//.test(page.source_url ?? '') ? html` · <a href="${page.source_url}">leaflet</a>` : '';
   return html`<span title="${page.id}">${chainName(page.chain)} p. ${page.page}</span>${leaflet}`;
+}
+
+// The promos with the verdict, in page order, each with its page.
+function promosWith(cases, verdict) {
+  return cases.flatMap((page) =>
+    (page.promos ?? []).filter((promo) => promo.verdict === verdict).map((promo) => ({ page, promo })),
+  );
+}
+
+function errors(promos) {
+  return html`<section aria-labelledby="errors-h" class="block">
+    <h2 id="errors-h">Errors <span class="muted">· ${promos.length}</span></h2>
+    <div class="table-wrap">${promosTable(promos, 'errors')}</div>
+  </section>`;
+}
+
+function warnings(promos) {
+  return html`<details class="block-fold">
+    <summary>Warnings · ${promos.length}</summary>
+    <div class="table-wrap">${promosTable(promos, 'warnings')}</div>
+  </details>`;
+}
+
+// `list`: which of a promo's lists of fields the table names, its `errors`
+// or its `warnings`.
+function promosTable(promos, list) {
+  return html`
+      <table class="lines">
+        <thead><tr><th scope="col">Page</th><th scope="col">Promo</th><th scope="col">Fields</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead>
+        <tbody>${promos.map(({ page, promo }) => {
+          const named = differencesOf(page, promo, promo[list]);
+          return html`
+          <tr><td class="nowrap">${pageName(page)}</td><td>${promo.name}</td><td class="mono">${promo[list].join(', ')}</td><td>${named.map((d) => value(d.field, d.expected))}</td><td>${named.map((d) => value(d.field, d.actual))}</td></tr>`;
+        })}
+        </tbody>
+      </table>`;
+}
+
+// The differences of a promo under the `fields` its verdict names, as
+// { field, expected, actual }. A field names its parts too: `lowest_30_days`
+// its `lowest_30_days.amount`. A difference of all the conditions, as when
+// none were expected, gives only the parts that differ.
+function differencesOf(page, promo, fields) {
+  const named = (field) => fields.some((f) => field === f || field.startsWith(`${f}.`));
+  return page.differences
+    .filter((d) => d.prediction === promo.prediction && d.truth === promo.truth)
+    .flatMap((d) => (d.field === 'conditions' ? conditionParts(d) : [d]))
+    .filter((d) => named(d.field));
+}
+
+function conditionParts({ expected, actual }) {
+  const before = expected ?? {};
+  const after = actual ?? {};
+  return [...new Set([...Object.keys(before), ...Object.keys(after)])]
+    .filter((part) => JSON.stringify(before[part] ?? null) !== JSON.stringify(after[part] ?? null))
+    .map((part) => ({ field: `conditions.${part}`, expected: before[part] ?? null, actual: after[part] ?? null }));
+}
+
+// `price_basis opak.`: a field and its value, a dash for none.
+function value(field, v) {
+  const shown = v === null || v === undefined ? dash : html`<code>${typeof v === 'string' ? v : JSON.stringify(v)}</code>`;
+  return html`<div><span class="muted">${field}</span> ${shown}</div>`;
 }
