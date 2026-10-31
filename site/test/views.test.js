@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { renderCompare } from '../src/compare.js';
 import { FLOWS } from '../src/flows.js';
 import { renderPromoCompare } from '../src/promo-compare.js';
+import { renderPromoRun } from '../src/promo-run.js';
 import { renderPromoTab } from '../src/promo-tab.js';
 import { renderRun } from '../src/run.js';
 import { renderTab } from '../src/tab.js';
@@ -25,15 +26,8 @@ test('promo runs open the promos tab', () => {
   assert.equal(viewsOf('promo-extraction').tab, renderPromoTab);
 });
 
-test('a promo run page, not built yet, says so and links the run file', () => {
-  const html = viewsOf('promo-extraction').run({ flow: 'promo-extraction', id: 'r1', runFile: { flow: 'promo-extraction' } });
-  assert.match(html, /not on the eval board yet/);
-  assert.match(html, /href="https:\/\/github.com\/no-market\/eval-board\/blob\/main\/runs\/r1.json"/);
-});
-
-test('a promo run page of an unknown run says there is no such run', () => {
-  const html = viewsOf('promo-extraction').run({ flow: 'promo-extraction', id: 'r1', runFile: undefined });
-  assert.match(html, /There is no eval run r1/);
+test('promo runs open the promo run page', () => {
+  assert.equal(viewsOf('promo-extraction').run, renderPromoRun);
 });
 
 test('promo runs open the promo comparison', () => {
