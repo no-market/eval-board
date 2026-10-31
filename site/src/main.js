@@ -1,12 +1,11 @@
 // The page's entry: loads the index once, then renders the view the address
 // opens, again on every change of the address. Everything it shows comes
 // from this site; it loads nothing from other hosts.
-import { comparedRuns, renderCompare } from './compare.js';
+import { comparedRuns } from './compare.js';
 import { renderNotFound } from './not-found.js';
 import { parseRoute } from './route.js';
-import { renderRun } from './run.js';
-import { renderTab } from './tab.js';
 import { tick } from './ticking.js';
+import { viewsOf } from './views.js';
 
 const app = document.getElementById('app');
 
@@ -79,18 +78,18 @@ async function render(route, index) {
     const [a, b] = await Promise.all(
       [compared.a, compared.b].map(async (entry) => ({ id: entry.run, run: await loadRun(entry.file) })),
     );
-    return renderCompare({ flow: route.flow, a, b });
+    return viewsOf(route.flow).compare({ flow: route.flow, a, b });
   }
   if (route.view === 'run') {
     const entry = index.runs.find((e) => e.run === route.run && e.flow === route.flow);
-    return renderRun({ flow: route.flow, id: route.run, runFile: entry && (await loadRun(entry.file)) });
+    return viewsOf(route.flow).run({ flow: route.flow, id: route.run, runFile: entry && (await loadRun(entry.file)) });
   }
   return renderNotFound('This address is not on the eval board.');
 }
 
 function renderTabOf(route, index) {
   const runs = index.runs.filter((run) => run.flow === route.flow);
-  return renderTab({ flow: route.flow, runs, base: route.base, ticked });
+  return viewsOf(route.flow).tab({ flow: route.flow, runs, base: route.base, ticked });
 }
 
 // The chart sizes each point's label from its number of characters; here,
