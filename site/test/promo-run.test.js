@@ -164,6 +164,35 @@ test('a run with verdicts shows the heading, summary, pages, errors and folded w
   assert.deepEqual(order, [...order].sort((a, b) => a - b));
 });
 
+test('a run without verdicts: matched, missed, made-up, recall and precision in the table', () => {
+  const html = page(withoutVerdicts, WITHOUT_VERDICTS);
+  assert.deepEqual(rows(html, 'Summary by chain'), [
+    ['', 'Total', 'Aldi', 'Biedronka', 'Kaufland', 'Lidl', 'Netto'],
+    ['Matched', '20 of 40', '1 of 6', '3 of 6', '7 of 8', '0 of 2', '9 of 18'],
+    ['Missed', '20', '5', '3', '1', '2', '9'],
+    ['Made up', '21', '5', '3', '0', '2', '11'],
+    ['Recall', '50.0%', '16.7%', '50.0%', '87.5%', '0.0%', '50.0%'],
+    ['Precision', '48.8%', '16.7%', '50.0%', '100.0%', '0.0%', '45.0%'],
+    ['Seconds per page, median (p95)', '3.9 s (12.5 s)', '3.6 s (3.9 s)', '5.7 s (6.2 s)', '3.3 s (5.4 s)', '0.7 s (2.1 s)', '8.3 s (12.5 s)'],
+    ['Cost per page', '0.31¢', '0.22¢', '0.27¢', '0.33¢', '0.06¢', '0.67¢'],
+  ]);
+});
+
+test('a run without verdicts lists no promos: no errors, no warnings', () => {
+  const html = page(withoutVerdicts, WITHOUT_VERDICTS);
+  assert.doesNotMatch(html, /<h2[^>]*>Errors/);
+  assert.doesNotMatch(html, /Warnings/);
+  assert.match(text(html), /Promo eval run, 30 Oct 2026, 18:35/);
+  assert.match(text(html), /10 of 10 pages, full/);
+});
+
+test('a run without verdicts gives each page its matched, missed and made-up promos', () => {
+  const pages = rows(page(withoutVerdicts, WITHOUT_VERDICTS), 'Per page');
+  assert.deepEqual(pages[0], ['Page', 'Promos', 'Matched', 'Missed', 'Made up', 'Seconds', 'Cost']);
+  assert.deepEqual(pages[1], ['Biedronka p. 4', '3', '2', '1', '1', '5.7 s', '0.23¢']);
+  assert.deepEqual(pages[9], ['Netto p. 5', '6', '1', '5', '7', '8.3 s', '0.51¢']);
+});
+
 test('a failed page says why; a page with unscored promos says how many', () => {
   const run = structuredClone(withVerdicts);
   Object.assign(run.cases[0], { failed: true, failure: 'Page extraction failed', promos: [] });

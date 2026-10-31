@@ -11,6 +11,7 @@ import { flowById } from './flows.js';
 import { formatCents, formatDate, formatSeconds, formatShare, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
+import { hasVerdicts } from './eval-sets.js';
 import { renderNotFound } from './not-found.js';
 import { chainName, costPerPage } from './promo-runs.js';
 import { dash } from './run.js';
@@ -19,13 +20,16 @@ import { runFileOnGitHub } from './runs.js';
 export function renderPromoRun({ flow: flowId, id, runFile }) {
   if (!runFile) return renderNotFound(`There is no eval run ${id}.`, flowId);
   const flow = flowById(flowId);
+  const verdicts = hasVerdicts(runFile);
   return String(html`${header(flow.id)}
 <main class="run promo" style="--flow: ${flow.colour}">
   ${heading(flow, runFile)}
-  ${summary(runFile)}
-  ${perPage(runFile.cases)}
-  ${errors(promosWith(runFile.cases, 'error'))}
-  ${warnings(promosWith(runFile.cases, 'warning'))}
+  ${summary(runFile, verdicts)}
+  ${perPage(runFile.cases, verdicts)}
+  ${verdicts
+    ? html`${errors(promosWith(runFile.cases, 'error'))}
+  ${warnings(promosWith(runFile.cases, 'warning'))}`
+    : html`<p class="muted">Scored before errors and warnings, so no promos are listed by verdict.</p>`}
   <p><a href="${runFileOnGitHub(id)}">Run file on GitHub</a></p>
 </main>`);
 }
@@ -60,7 +64,7 @@ const orDash = (value, format) => (value === null || value === undefined ? dash 
 // The table of the run: a column for the total and one per chain, each over
 // its own pages; with verdicts, errors and warnings, else matched, missed and
 // made-up promos with recall and precision.
-function summary(runFile) {
+function summary(runFile, verdicts) {
   const columns = [
     { name: 'Total', numbers: runFile.totals, pages: runFile.cases.length },
     ...chainsOf(runFile).map((chain) => ({
@@ -77,8 +81,18 @@ function summary(runFile) {
       <table class="summary">
         <thead><tr><th scope="col"></th>${columns.map(({ name }, i) => html`<th scope="col"${i === 0 ? html` class="total"` : ''}>${name}</th>`)}</tr></thead>
         <tbody>${[
-          row('Errors', ({ numbers }) => promosOf(numbers.errors, numbers.promos)),
-          row('Warnings', ({ numbers }) => promosOf(numbers.warnings, numbers.promos)),
+          ...(verdicts
+            ? [
+                row('Errors', ({ numbers }) => promosOf(numbers.errors, numbers.promos)),
+                row('Warnings', ({ numbers }) => promosOf(numbers.warnings, numbers.promos)),
+              ]
+            : [
+                row('Matched', ({ numbers }) => html`<strong>${numbers.matched}</strong> of ${numbers.truth}`),
+                row('Missed', ({ numbers }) => numbers.missed),
+                row('Made up', ({ numbers }) => numbers.extra),
+                row('Recall', ({ numbers }) => orDash(numbers.recall, formatShare)),
+                row('Precision', ({ numbers }) => orDash(numbers.precision, formatShare)),
+              ]),
           row('Seconds per page, median (p95)', ({ numbers }) => html`${orDash(numbers.p50_seconds, formatSeconds)} <span class="muted">(${orDash(numbers.p95_seconds, formatSeconds)})</span>`),
           row('Cost per page', cost),
         ]}
@@ -102,31 +116,47 @@ function cost({ numbers, pages }) {
   return html`<span title="Some calls were not priced; this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;
 }
 
-function perPage(cases) {
+// Each page's promos: with verdicts, how many are errors and warnings; else
+// how many were matched, missed and made up.
+const PAGE_COLUMNS = {
+  verdicts: [
+    ['Promos', (page) => html`${(page.promos ?? []).length}${unscored(page)}`],
+    ['Errors', (page) => withVerdict(page, 'error')],
+    ['Warnings', (page) => withVerdict(page, 'warning')],
+  ],
+  before: [
+    ['Promos', (page) => page.truth_count],
+    ['Matched', (page) => page.matched],
+    ['Missed', (page) => page.missed.length],
+    ['Made up', (page) => page.extra.length],
+  ],
+};
+const withVerdict = (page, verdict) => (page.promos ?? []).filter((promo) => promo.verdict === verdict).length;
+const unscored = (page) => (page.unscored?.length ? html` <span class="muted">· ${page.unscored.length} unscored</span>` : '');
+
+function perPage(cases, verdicts) {
+  const columns = PAGE_COLUMNS[verdicts ? 'verdicts' : 'before'];
   return html`<section aria-labelledby="pages-h" class="block">
     <h2 id="pages-h">Per page</h2>
     <div class="table-wrap">
       <table class="receipts">
-        <thead><tr><th scope="col">Page</th><th scope="col">Promos</th><th scope="col">Errors</th><th scope="col">Warnings</th><th scope="col">Seconds</th><th scope="col">Cost</th></tr></thead>
-        <tbody>${cases.map(pageRow)}
+        <thead><tr><th scope="col">Page</th>${columns.map(([name]) => html`<th scope="col">${name}</th>`)}<th scope="col">Seconds</th><th scope="col">Cost</th></tr></thead>
+        <tbody>${cases.map((page) => pageRow(page, columns))}
         </tbody>
       </table>
     </div>
   </section>`;
 }
 
-function pageRow(page) {
+function pageRow(page, columns) {
   const name = html`<th scope="row">${pageName(page)}</th>`;
   const spent = html`<td>${orDash(page.seconds, formatSeconds)}</td><td>${orDash(page.usage?.cost_usd, formatCents)}</td>`;
   if (page.failed) {
     return html`
-          <tr class="failed">${name}<td colspan="3"><strong>Failed:</strong> ${page.failure}</td>${spent}</tr>`;
+          <tr class="failed">${name}<td colspan="${columns.length}"><strong>Failed:</strong> ${page.failure}</td>${spent}</tr>`;
   }
-  const promos = page.promos ?? [];
-  const count = (verdict) => promos.filter((promo) => promo.verdict === verdict).length;
-  const unscored = page.unscored?.length ? html` <span class="muted">· ${page.unscored.length} unscored</span>` : '';
   return html`
-          <tr>${name}<td>${promos.length}${unscored}</td><td>${count('error')}</td><td>${count('warning')}</td>${spent}</tr>`;
+          <tr>${name}${columns.map(([, cell]) => html`<td>${cell(page)}</td>`)}${spent}</tr>`;
 }
 
 // `Biedronka p. 4 · leaflet`, the page's id on hover and a link to its own
