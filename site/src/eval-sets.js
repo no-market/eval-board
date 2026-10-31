@@ -2,6 +2,7 @@
 // version and selection of pages taken as a set (the index keeps the
 // selection sorted, see build/summarise-promo.js); runs compare only within
 // one eval set. The current eval set is that of the newest run with verdicts.
+import { formatDate } from './format.js';
 
 // Whether two eval sets are one: the same dataset revision, scorer version
 // and pages.
@@ -38,4 +39,21 @@ export function inEvalSet(runs, evalSet) {
 export function evalSetName({ dataset, scorer, selection }) {
   const pages = selection.length === 1 ? '1 page' : `${selection.length} pages`;
   return `${dataset} · ${scorer} · ${pages}`;
+}
+
+// Why two promo runs (index entries) aren't compared, or null when they are:
+// only two runs of one eval set, both with verdicts, compare. A run without
+// verdicts is named first, as its eval set is no matter then.
+export function whyNotCompared(a, b) {
+  const unscored = [a, b].filter((run) => !hasVerdicts(run));
+  if (unscored.length === 2) {
+    return `The runs of ${formatDate(a.date)} and ${formatDate(b.date)} were scored before errors and warnings, so they have no verdicts to compare; only two runs with verdicts compare.`;
+  }
+  if (unscored.length === 1) {
+    return `The run of ${formatDate(unscored[0].date)} was scored before errors and warnings, so it has no verdicts to compare; only two runs with verdicts compare.`;
+  }
+  if (!sameEvalSet(a.evalSet, b.evalSet)) {
+    return `The runs of ${formatDate(a.date)} and ${formatDate(b.date)} are on different eval sets, ${evalSetName(a.evalSet)} and ${evalSetName(b.evalSet)}; only two runs of one eval set compare.`;
+  }
+  return null;
 }
