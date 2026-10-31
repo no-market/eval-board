@@ -4,6 +4,7 @@
 // `base`, the run named as the baseline by the address: when it is of the
 // current eval set, every other row shows its difference from it. `ticked`,
 // the run ids ticked for comparing (see ticking.js), as on the receipt lines tab.
+import { chart } from './chart.js';
 import { centsDifference, promosDifference, secondsDifference } from './differences.js';
 import { currentEvalSet, evalSetName, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
@@ -15,6 +16,16 @@ import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
 
 const dash = html`<span class="muted">—</span>`;
+
+// The chart's points (see chart.js): a run's cost per page, the priced part
+// when some calls weren't priced, and its error rate over promos.
+const pages = {
+  unit: 'page',
+  cost: (run) => costPerPage(run.totals),
+  share: (run) => run.totals.errors.share,
+  models: (run) => `${run.prompt} · ${modelsLine(run.configs)}`,
+  foot: 'Cost per page, the run’s cost over its pages; the priced part when some calls weren’t priced',
+};
 
 export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = null, ticked = [] }) {
   const flow = flowById(flowId);
@@ -31,7 +42,8 @@ export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = nul
     ${evalSet ? compareButton(flow, runs, ticked) : ''}
   </div>
   ${evalSet
-    ? table(flow, runs, base, ticked)
+    ? html`${chart(runs, ticked, pages)}
+  ${table(flow, runs, base, ticked)}`
     : html`<p class="empty">No promo eval runs with verdicts yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>`}
 </main>`);
 }
