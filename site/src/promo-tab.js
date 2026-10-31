@@ -1,14 +1,17 @@
 // The promos tab: the current eval set (see eval-sets.js), named in its
 // heading, and the table of its runs, a row per index entry in the order
-// given (the index is newest first). Runs of other eval sets are left out.
+// given (the index is newest first).
 // `base`, the run named as the baseline by the address: when it is of the
 // current eval set, every other row shows its difference from it. `ticked`,
 // the run ids ticked for comparing (see ticking.js), as on the receipt lines tab.
+// Below the table, folded, the history of runs on other eval sets (see
+// promo-history.js).
 import { centsDifference, promosDifference, secondsDifference } from './differences.js';
 import { currentEvalSet, evalSetName, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
 import { formatCents, formatDate, formatSeconds, formatShare } from './format.js';
 import { html } from './html.js';
+import { historySection } from './promo-history.js';
 import { header } from './layout.js';
 import { chainName, chainsOf, costPerPage, modelsLine, strategiesLine } from './promo-runs.js';
 import { runAddress } from './route.js';
@@ -33,6 +36,7 @@ export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = nul
   ${evalSet
     ? table(flow, runs, base, ticked)
     : html`<p class="empty">No promo eval runs with verdicts yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>`}
+  ${historySection(flow, allRuns, evalSet)}
 </main>`);
 }
 
