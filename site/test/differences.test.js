@@ -4,6 +4,7 @@ import {
   centsDifference,
   linesDifference,
   per100Difference,
+  promosDifference,
   secondsDifference,
 } from '../src/differences.js';
 import { formatCents, formatPer100 } from '../src/format.js';
@@ -84,4 +85,19 @@ test('from a baseline of zero there is no per cent', () => {
 
 test('seconds equal to the tenth are no change', () => {
   assert.deepEqual(secondsDifference(8.82, 8.8), { mark: 'same', text: '±0' });
+});
+
+// Errors of 4 of 22 promos against 10 of 22.
+test('fewer error promos are better, in promos and percentage points', () => {
+  assert.deepEqual(
+    promosDifference({ count: 10, share: 10 / 22 }, { count: 4, share: 4 / 22 }),
+    { mark: 'better', text: '▼ −6 promos · −27.3 pts' },
+  );
+});
+
+test('one more promo is worse, in the singular', () => {
+  assert.deepEqual(
+    promosDifference({ count: 9, share: 9 / 22 }, { count: 10, share: 10 / 22 }),
+    { mark: 'worse', text: '▲ +1 promo · +4.5 pts' },
+  );
 });

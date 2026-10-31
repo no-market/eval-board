@@ -8,10 +8,20 @@ const MINUS = '−';
 // Errors or warnings, each { count, share } of a run's lines:
 // `▼ −9 lines · −20.0 pts`.
 export function linesDifference(a, b) {
-  const lines = b.count - a.count;
+  return countDifference(a, b, 'line', 'lines');
+}
+
+// Errors or warnings, each { count, share } of a promo run's promos:
+// `▼ −6 promos · −27.3 pts`.
+export function promosDifference(a, b) {
+  return countDifference(a, b, 'promo', 'promos');
+}
+
+function countDifference(a, b, one, many) {
+  const count = b.count - a.count;
   const points = round((b.share - a.share) * 100, 1);
-  return difference(Math.sign(points) || Math.sign(lines), [
-    `${signed(lines, 0)} ${Math.abs(lines) === 1 ? 'line' : 'lines'}`,
+  return difference(Math.sign(points) || Math.sign(count), [
+    `${signed(count, 0)} ${Math.abs(count) === 1 ? one : many}`,
     `${signed(points, 1)} pts`,
   ]);
 }
