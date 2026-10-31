@@ -145,6 +145,17 @@ test('a conditions difference shows only the parts that differ', () => {
   ]);
 });
 
+test('a missed promo and a made-up one are errors that say so', () => {
+  const run = structuredClone(withVerdicts);
+  run.cases[0].promos.push(
+    { truth: 'biedronka-j2givjdmw-p004-o009', prediction: null, name: 'Masło', verdict: 'error', errors: [], warnings: [] },
+    { truth: null, prediction: 7, name: 'Chleb', verdict: 'error', errors: [], warnings: [] },
+  );
+  const errors = rows(page(run), 'Errors');
+  assert.deepEqual(errors.find(([, promo]) => promo === 'Masło'), ['Biedronka p. 4 · leaflet', 'Masło', '', 'on the page', '— (missed)']);
+  assert.deepEqual(errors.find(([, promo]) => promo === 'Chleb'), ['Biedronka p. 4 · leaflet', 'Chleb', '', '— (not on the page)', 'made up']);
+});
+
 test('a run with verdicts shows the heading, summary, pages, errors and folded warnings, in that order', () => {
   const html = page();
   const at = (pattern) => html.search(pattern);

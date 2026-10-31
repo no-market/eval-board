@@ -164,12 +164,21 @@ function promosTable(promos, list) {
       <table class="lines">
         <thead><tr><th scope="col">Page</th><th scope="col">Promo</th><th scope="col">Fields</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead>
         <tbody>${promos.map(({ page, promo }) => {
-          const named = differencesOf(page, promo, promo[list]);
+          const [expected, actual] = expectedAndActual(page, promo, promo[list]);
           return html`
-          <tr><td class="nowrap">${pageName(page)}</td><td>${promo.name}</td><td class="mono">${promo[list].join(', ')}</td><td>${named.map((d) => value(d.field, d.expected))}</td><td>${named.map((d) => value(d.field, d.actual))}</td></tr>`;
+          <tr><td class="nowrap">${pageName(page)}</td><td>${promo.name}</td><td class="mono">${promo[list].join(', ')}</td><td>${expected}</td><td>${actual}</td></tr>`;
         })}
         </tbody>
       </table>`;
+}
+
+// What was expected of a promo and what was read: a missed promo's whole
+// promo, a made-up one's, or each difference under the `fields` named.
+function expectedAndActual(page, promo, fields) {
+  if (promo.prediction === null) return ['on the page', html`${dash} <span class="muted">(missed)</span>`];
+  if (promo.truth === null) return [html`${dash} <span class="muted">(not on the page)</span>`, 'made up'];
+  const named = differencesOf(page, promo, fields);
+  return [named.map((d) => value(d.field, d.expected)), named.map((d) => value(d.field, d.actual))];
 }
 
 // The differences of a promo under the `fields` its verdict names, as
