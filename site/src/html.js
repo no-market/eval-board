@@ -33,3 +33,11 @@ export function escape(text) {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
 }
+
+// A missing value: `—`, muted.
+export const dash = html`<span class="muted">—</span>`;
+
+// A value that may be missing, written by `format`, else `—`.
+export function orDash(value, format) {
+  return value === null || value === undefined ? dash : format(value);
+}

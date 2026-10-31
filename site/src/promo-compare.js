@@ -4,34 +4,30 @@
 // function of the comparison (see `comparison`) to HTML; a later section is
 // added to SECTIONS, reading what it needs from the comparison.
 import { wrappable } from './compare.js';
-import { centsDifference, promosDifference, secondsDifference } from './differences.js';
+import { promosDifference, secondsDifference } from './differences.js';
 import { evalSetName } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatDate, formatSeconds } from './format.js';
-import { html } from './html.js';
+import { formatDate, formatSeconds, pagesCount } from './format.js';
+import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { changedPromos } from './promo-changes.js';
-import { chainName, costPerPage, modelsLine, strategiesLine } from './promo-runs.js';
-import { cost, shareOf } from './promo-tab.js';
+import { chainName, chainsInRuns, costCell, costDifference, modelsLine, pageLabel, promoRun, shareOf, strategiesLine } from './promo-runs.js';
 import { runAddress } from './route.js';
 
-// What every section reads: the flow, runs A and B, each { id, run } with
-// `run` the run file as it is, and the chains of either, in alphabetical order.
+// What every section reads: the flow, runs A and B, each { id, run, read }
+// with `run` the run file as it is and `read` it as promoRun reads it, and
+// the chains of either, in alphabetical order.
 function comparison({ flow, a, b }) {
-  const chains = [...new Set([a, b].flatMap(({ run }) => Object.keys(run.by_chain)))].sort();
-  return { flow: flowById(flow), a, b, chains };
+  const [readA, readB] = [a, b].map(({ run }) => promoRun(run));
+  return { flow: flowById(flow), a: { ...a, read: readA }, b: { ...b, read: readB }, chains: chainsInRuns([readA, readB]) };
 }
 
-// The summary by chain, from each run file as it is: a row per number, A, B
+// The summary by chain, from each run's own numbers: a row per number, A, B
 // and B − A for the total and each chain. A chain one run lacks is `—`.
 function summary({ a, b, chains }) {
   const columns = [
-    { name: 'Total', of: (runFile) => numbers(runFile.totals, runFile.cases.length) },
-    ...chains.map((chain) => ({
-      name: chainName(chain),
-      of: (runFile) =>
-        runFile.by_chain[chain] ? numbers(runFile.by_chain[chain], runFile.cases.filter((c) => c.chain === chain).length) : null,
-    })),
+    { name: 'Total', of: (run) => run.totals },
+    ...chains.map((chain) => ({ name: chainName(chain), of: (run) => run.byChain[chain] ?? null })),
   ];
   const total = (i) => (i === 0 ? ' total' : '');
   return html`<section aria-labelledby="summary-h" class="summary">
@@ -50,7 +46,7 @@ function summary({ a, b, chains }) {
         </thead>
         <tbody>${SUMMARY_ROWS.map((row) => html`
           <tr>
-            <th scope="row">${row.name}</th>${columns.map((column, i) => cells(row, column.of(a.run), column.of(b.run), total(i)))}
+            <th scope="row">${row.name}</th>${columns.map((column, i) => cells(row, column.of(a.read), column.of(b.read), total(i)))}
           </tr>`)}
         </tbody>
       </table>
@@ -59,28 +55,13 @@ function summary({ a, b, chains }) {
   </section>`;
 }
 
-// The numbers of a run file's totals, or of one chain's, over its `pages`.
-function numbers(totals, pages) {
-  return {
-    promos: totals.promos,
-    errors: totals.errors,
-    warnings: totals.warnings,
-    seconds: totals.p50_seconds,
-    cost: costPerPage({ costUsd: totals.cost_usd, knownCostUsd: totals.known_cost_usd, pages }),
-  };
-}
-
 // The summary's rows: how a total's or a chain's numbers are written, and the
 // difference of two, or null for none.
 const SUMMARY_ROWS = [
   { name: 'Errors', format: (n) => shareOf(n), difference: (a, b) => promosDifference(a.errors, b.errors) },
   { name: 'Warnings', format: (n) => shareOf(n, 'warnings'), difference: (a, b) => promosDifference(a.warnings, b.warnings) },
-  { name: 's / page, median', format: (n) => formatSeconds(n.seconds), difference: (a, b) => secondsDifference(a.seconds, b.seconds) },
-  {
-    name: 'Cost / page',
-    format: (n) => cost(n.cost),
-    difference: (a, b) => (a.cost?.priced && b.cost?.priced ? centsDifference(a.cost.usd, b.cost.usd) : null),
-  },
+  { name: 's / page, median', format: (n) => formatSeconds(n.seconds.median), difference: (a, b) => secondsDifference(a.seconds.median, b.seconds.median) },
+  { name: 'Cost / page', format: costCell, difference: costDifference },
 ];
 
 function cells(row, a, b, total) {
@@ -89,12 +70,10 @@ function cells(row, a, b, total) {
   return html`<td class="num nowrap${total}">${written(a)}</td><td class="num nowrap${total}">${written(b)}</td><td class="diff ${found ? found.mark : 'same'} num${total}">${found ? wrappable(found.text) : ''}</td>`;
 }
 
-const dash = html`<span class="muted">—</span>`;
-
-// The promos whose verdict changed, over the pages both runs have (see
-// `changedPromos`): worse in B, better in B, then the same verdict with other
-// fields, and how many promos are unchanged. It shows the changes and doesn't
-// judge them.
+// The changed promos, over the pages both runs have (see `changedPromos`):
+// worse in B, better in B, then the same verdict with other fields, each
+// counted, and how many promos are unchanged. It shows the changes and
+// doesn't judge them.
 function changed({ a, b }) {
   const { worse, better, otherFields, unchanged } = changedPromos(a.run, b.run);
   const count = worse.length + better.length + otherFields.length;
@@ -107,7 +86,7 @@ function changed({ a, b }) {
         </tbody>`;
   return html`<section aria-labelledby="changed-h" class="changed">
     <div class="section-head">
-      <h2 id="changed-h">Promos whose verdict changed <span class="muted">· ${count}</span></h2>
+      <h2 id="changed-h">Changed promos <span class="muted">· worse ${worse.length} · better ${better.length} · other fields ${otherFields.length}</span></h2>
       <span class="muted small">${promosCount(unchanged)} unchanged</span>
     </div>
     ${count === 0
@@ -125,7 +104,7 @@ function changedRow({ page, a, b }) {
   const promo = b ?? a;
   const madeUp = promo.truth === null ? html` <span class="muted small">made up</span>` : '';
   return html`
-          <tr><td class="nowrap">${chainName(page.chain)} · page ${page.page}</td><td>${promo.name}${madeUp}</td><td>${promoVerdict(a)}</td><td>${promoVerdict(b)}</td></tr>`;
+          <tr><td class="nowrap">${pageLabel(page.chain, page.page)}</td><td>${promo.name}${madeUp}</td><td>${promoVerdict(a)}</td><td>${promoVerdict(b)}</td></tr>`;
 }
 
 // A promo's verdict and the fields it has wrong, errors in bold, then
@@ -162,7 +141,7 @@ function heading({ flow, a, b }) {
   return html`<div class="compare-heading">
     <a class="back" href="#/${flow.id}">← All promo runs</a>
     <h1>Comparing two eval runs</h1>
-    <p class="muted">Both on the eval set <strong>${evalSetName(evalSetOf(a.run))}</strong></p>
+    <p class="muted">Both on the eval set <strong>${evalSetName(a.read.evalSet)}</strong></p>
     <div class="run-cards">
       ${runCard(flow, 'A', 'older', a)}
       ${runCard(flow, 'B', 'newer', b)}
@@ -170,36 +149,11 @@ function heading({ flow, a, b }) {
   </div>`;
 }
 
-function runCard(flow, letter, age, { id, run: runFile }) {
-  const configs = configsOf(runFile);
-  const failed = runFile.totals.failed_pages;
+function runCard(flow, letter, age, { id, read: run }) {
+  const failed = run.totals.failedPages;
   return html`<a class="run-card" href="${runAddress(flow.id, id)}">
-        <span class="run-card-title"><span class="letter letter-${letter.toLowerCase()}">${letter}</span><strong>${formatDate(runFile.date)}</strong><span class="muted small">${age}</span></span>
-        <span>${runFile.config.version} · <span title="${strategiesLine(configs)}">${modelsLine(configs)}</span></span>
-        <span class="muted small">commit <code>${runFile.commit.slice(0, 7)}</code> · ${pagesCount(runFile.cases.length)}${failed > 0 ? ` (${failed} failed)` : ''}</span>
+        <span class="run-card-title"><span class="letter letter-${letter.toLowerCase()}">${letter}</span><strong>${formatDate(run.date)}</strong><span class="muted small">${age}</span></span>
+        <span>${run.prompt} · <span title="${strategiesLine(run.configs)}">${modelsLine(run.configs)}</span></span>
+        <span class="muted small">commit <code>${run.commit.slice(0, 7)}</code> · ${pagesCount(run.totals.pages)}${failed > 0 ? ` (${failed} failed)` : ''}</span>
       </a>`;
-}
-
-// Each chain's config, by chain in alphabetical order, as the index has them
-// (see build/summarise-promo.js): the chain's own, else the run's.
-function configsOf(runFile) {
-  return Object.fromEntries(
-    Object.keys(runFile.by_chain)
-      .sort()
-      .map((chain) => [chain, runFile.chain_configs?.[chain] ?? runFile.config]),
-  );
-}
-
-// A run file's eval set, as the index has it (see eval-sets.js).
-function evalSetOf(runFile) {
-  return {
-    dataset: runFile.dataset_revision,
-    scorer: runFile.scorer_version,
-    selection: [...new Set(runFile.selection)].sort(),
-  };
-}
-
-// `8 pages`, `1 page`.
-function pagesCount(n) {
-  return n === 1 ? '1 page' : `${n} pages`;
 }

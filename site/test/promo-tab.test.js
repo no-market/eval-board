@@ -101,6 +101,7 @@ test('the heading names the current eval set', () => {
   const html = renderPromoTab({ flow: FLOW, runs: [entry] });
   assert.match(html, /<h1 style="color: #9A4A12">Promos<\/h1>/);
   assert.match(html, /1 eval run on the eval set <strong[^>]*>baseline-10-reviewed-v2-context · promo-core-text-v6 · 8 pages<\/strong>/);
+  assert.doesNotMatch(html, /each is one prompt/);
   assert.match(html, /<nav aria-label="Flows">[\s\S]*<a href="#\/promo-extraction" aria-current="page"[\s\S]*Promos<\/a>[\s\S]*<\/nav>/);
 });
 
@@ -231,15 +232,24 @@ function historyTables(html) {
 // A run with verdicts on another eval set: another scorer.
 const otherSet = { ...entry, run: 'other', date: '2026-10-31T12:38:02Z', evalSet: { ...entry.evalSet, scorer: 'promo-core-text-v5' } };
 
-test('a run with verdicts on another eval set shows in the history with its eval set, error and warning rates', () => {
-  const html = renderPromoTab({ flow: FLOW, runs: [entry, otherSet] });
+test('the history is one table of every run on another eval set, newest first, with its eval set named', () => {
+  const html = renderPromoTab({ flow: FLOW, runs: [entry, unscored, otherSet] });
   assert.deepEqual(historyTables(html), [
     {
-      headers: ['Date', 'Prompt', 'Model', 'Eval set', 'Error rate', 'Warning rate'],
-      rows: [['31 Oct 2026, 12:38', 'promo-v4', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-core-text-v5 · 8 pages', '40.9% (9 of 22)', '59.1% (13 of 22)']],
+      headers: ['Date', 'Prompt', 'Model', 'Eval set', 'Error rate', 'Warning rate', 'Matched', 'Missed', 'Made up', 'Recall', 'Precision', 'Failed pages'],
+      rows: [
+        ['31 Oct 2026, 12:38', 'promo-v4', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-core-text-v5 · 8 pages', '40.9% (9 of 22)', '59.1% (13 of 22)', '—', '—', '—', '—', '—', '—'],
+        ['30 Oct 2026, 18:35', 'promo-v2', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-identity-exact-v2 · 10 pages', '—', '—', '20 of 40', '20', '21', '50.0%', '48.8%', '0'],
+      ],
     },
   ]);
   assert.match(html, /<a href="#\/promo-extraction\/run\/other">31 Oct 2026, 12:38<\/a>/);
+});
+
+test('history runs are ordered by date across both kinds of run', () => {
+  const newerUnscored = { ...unscored, run: 'newer-unscored', date: '2026-10-31T12:50:00Z' };
+  const html = renderPromoTab({ flow: FLOW, runs: [entry, otherSet, newerUnscored] });
+  assert.deepEqual(historyTables(html)[0].rows.map(([date]) => date), ['31 Oct 2026, 12:50', '31 Oct 2026, 12:38']);
 });
 
 test('history runs can’t be ticked or set as the baseline, and show no differences', () => {
@@ -247,14 +257,4 @@ test('history runs can’t be ticked or set as the baseline, and show no differe
   const section = html.match(/<details class="block-fold history"[\s\S]*?<\/details>/)[0];
   assert.doesNotMatch(section, /checkbox|base-button|class="diff/);
   assert.deepEqual(boxes(html).map(([run]) => run), [REAL, 'older']);
-});
-
-test('a run without verdicts shows in the history with matched of truth, missed, made-up, recall, precision and failed pages', () => {
-  const html = renderPromoTab({ flow: FLOW, runs: [entry, unscored] });
-  assert.deepEqual(historyTables(html), [
-    {
-      headers: ['Date', 'Prompt', 'Model', 'Eval set', 'Matched', 'Missed', 'Made up', 'Recall', 'Precision', 'Failed pages'],
-      rows: [['30 Oct 2026, 18:35', 'promo-v2', 'gemini-2.5-flash', 'baseline-10-reviewed-v2-context · promo-identity-exact-v2 · 10 pages', '20 of 40', '20', '21', '50.0%', '48.8%', '0']],
-    },
-  ]);
 });

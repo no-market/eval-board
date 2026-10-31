@@ -50,8 +50,8 @@ function rows(html, heading) {
 test('the summary: errors, warnings, seconds per page median (p95) and cost per page, in total and by chain', () => {
   assert.deepEqual(rows(page(), 'Summary by chain'), [
     ['', 'Total', 'Aldi', 'Biedronka', 'Kaufland', 'Lidl'],
-    ['Errors', '9 of 22 (40.9%)', '4 of 6 (66.7%)', '5 of 6 (83.3%)', '0 of 8 (0.0%)', '0 of 2 (0.0%)'],
-    ['Warnings', '13 of 22 (59.1%)', '2 of 6 (33.3%)', '1 of 6 (16.7%)', '8 of 8 (100.0%)', '2 of 2 (100.0%)'],
+    ['Errors', '40.9% (9 of 22)', '66.7% (4 of 6)', '83.3% (5 of 6)', '0.0% (0 of 8)', '0.0% (0 of 2)'],
+    ['Warnings', '59.1% (13 of 22)', '33.3% (2 of 6)', '16.7% (1 of 6)', '100.0% (8 of 8)', '100.0% (2 of 2)'],
     ['Seconds per page, median (p95)', '2.8 s (4.8 s)', '2.8 s (3.3 s)', '4.5 s (4.8 s)', '1.7 s (3.7 s)', '0.6 s (2.2 s)'],
     ['Cost per page', '0.15¢', '0.17¢', '0.20¢', '0.16¢', '0.07¢'],
   ]);
@@ -145,15 +145,18 @@ test('a conditions difference shows only the parts that differ', () => {
   ]);
 });
 
-test('a missed promo and a made-up one are errors that say so', () => {
+test('a missed promo shows its price as expected, a made-up one its price as actual, each marked', () => {
   const run = structuredClone(withVerdicts);
-  run.cases[0].promos.push(
+  const biedronka = run.cases[0];
+  biedronka.expected['biedronka-j2givjdmw-p004-o009'] = { name: 'Masło', aliases: [], fields: { ...biedronka.expected['biedronka-j2givjdmw-p004-o001'].fields, price: '6.99' } };
+  biedronka.predictions.push({ ...biedronka.predictions[0], name: 'Chleb', price: '4.49' });
+  biedronka.promos.push(
     { truth: 'biedronka-j2givjdmw-p004-o009', prediction: null, name: 'Masło', verdict: 'error', errors: [], warnings: [] },
-    { truth: null, prediction: 7, name: 'Chleb', verdict: 'error', errors: [], warnings: [] },
+    { truth: null, prediction: biedronka.predictions.length - 1, name: 'Chleb', verdict: 'error', errors: [], warnings: [] },
   );
   const errors = rows(page(run), 'Errors');
-  assert.deepEqual(errors.find(([, promo]) => promo === 'Masło'), ['Biedronka p. 4 · leaflet', 'Masło', '', 'on the page', '— (missed)']);
-  assert.deepEqual(errors.find(([, promo]) => promo === 'Chleb'), ['Biedronka p. 4 · leaflet', 'Chleb', '', '— (not on the page)', 'made up']);
+  assert.deepEqual(errors.find(([, promo]) => promo === 'Masło'), ['Biedronka p. 4 · leaflet', 'Masło', '', 'price 6.99', '— (missed)']);
+  assert.deepEqual(errors.find(([, promo]) => promo === 'Chleb'), ['Biedronka p. 4 · leaflet', 'Chleb', '', '— (not on the page)', 'price 4.49 (made up)']);
 });
 
 test('a run with verdicts shows the heading, summary, pages, errors and folded warnings, in that order', () => {

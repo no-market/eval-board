@@ -7,10 +7,10 @@ import { centsDifference, linesDifference, per100Difference, secondsDifference }
 import { changedLines } from './changed-lines.js';
 import { whyNotCompared as whyPromosNotCompared } from './eval-sets.js';
 import { formatCents, formatDate, formatPer100, formatSeconds, formatShare, receiptName } from './format.js';
-import { html } from './html.js';
+import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { runAddress } from './route.js';
-import { dash, expected, recorded } from './run.js';
+import { expected, recorded } from './run.js';
 import { failed, modelPair, olderFirst, STEPS, stepName } from './runs.js';
 
 // Why two runs of one flow (index entries, A the older) aren't compared, or

@@ -7,18 +7,16 @@
 // Below the table, folded, the history of runs on other eval sets (see
 // promo-history.js).
 import { chart } from './chart.js';
-import { centsDifference, promosDifference, secondsDifference } from './differences.js';
+import { promosDifference, secondsDifference } from './differences.js';
 import { currentEvalSet, evalSetName, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatCents, formatDate, formatSeconds, formatShare } from './format.js';
-import { html } from './html.js';
+import { formatDate, formatSeconds } from './format.js';
+import { dash, html } from './html.js';
 import { historySection } from './promo-history.js';
 import { header } from './layout.js';
-import { chainName, chainsOf, costPerPage, modelsLine, strategiesLine } from './promo-runs.js';
+import { chainName, chainsInRuns, costCell, costDifference, costPerPage, modelsLine, shareOf, strategiesLine } from './promo-runs.js';
 import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
-
-const dash = html`<span class="muted">—</span>`;
 
 // The chart's points (see chart.js): a run's cost per page, the priced part
 // when some calls weren't priced, and its error rate over promos.
@@ -40,7 +38,7 @@ export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = nul
   <div class="tab-head">
     <div class="heading">
       <h1 style="color: ${flow.colour}">${flow.name}</h1>
-      ${evalSet ? html`<p class="muted">${runsLine(runs.length)} on the eval set <strong title="${evalSet.selection.join(', ')}">${evalSetName(evalSet)}</strong> · each is one prompt and a model per chain on every page of the eval set</p>` : ''}
+      ${evalSet ? html`<p class="muted">${runsLine(runs.length)} on the eval set <strong title="${evalSet.selection.join(', ')}">${evalSetName(evalSet)}</strong></p>` : ''}
     </div>
     ${evalSet ? compareButton(flow, runs, ticked) : ''}
   </div>
@@ -53,7 +51,7 @@ export function renderPromoTab({ flow: flowId, runs: allRuns, base: baseId = nul
 }
 
 function table(flow, runs, base, ticked) {
-  const chains = chainsOf(runs);
+  const chains = chainsInRuns(runs);
   return html`<section aria-labelledby="runs-h" class="runs">
     <div class="runs-head">
       <h2 id="runs-h">Eval runs, newest first</h2>
@@ -98,7 +96,7 @@ function row(flow, run, chains, base, ticked) {
             ${chains.map((chain) => chainCell(run, chain, diff))}
             <td class="num nowrap"><div>${shareOf(run.totals, 'warnings')}</div>${diff((a, b) => promosDifference(a.totals.warnings, b.totals.warnings))}</td>
             <td class="num nowrap"><div>${formatSeconds(run.totals.seconds.median)}</div>${diff((a, b) => secondsDifference(a.totals.seconds.median, b.totals.seconds.median))}</td>
-            <td class="num nowrap"><div>${cost(costPerPage(run.totals))}</div>${diff(costDifference)}</td>
+            <td class="num nowrap"><div>${costCell(run.totals)}</div>${diff((a, b) => costDifference(a.totals, b.totals))}</td>
             <td class="num base-cell">${baseButton(flow, run, isBase)}</td>
           </tr>`;
 }
@@ -111,24 +109,4 @@ function chainCell(run, chain, diff) {
   return html`<td class="num nowrap"><div>${shareOf(numbers)}</div>${diff((a, b) =>
     a.byChain[chain] ? promosDifference(a.byChain[chain].errors, b.byChain[chain].errors) : null,
   )}</td>`;
-}
-
-// `45.5% (10 of 22)`: the errors (or warnings) of `numbers`, counted in promos.
-export function shareOf(numbers, of = 'errors') {
-  const { count, share } = numbers[of];
-  return html`${formatShare(share)} <span class="muted">(${count} of ${numbers.promos})</span>`;
-}
-
-// `0.15¢`, or `≥ 0.08¢` for the priced part of a cost.
-export function cost(perPage) {
-  if (!perPage) return dash;
-  if (perPage.priced) return formatCents(perPage.usd);
-  return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;
-}
-
-// The difference in cost per page, only when both costs are known in full.
-function costDifference(a, b) {
-  const [costA, costB] = [costPerPage(a.totals), costPerPage(b.totals)];
-  if (!costA?.priced || !costB?.priced) return null;
-  return centsDifference(costA.usd, costB.usd);
 }

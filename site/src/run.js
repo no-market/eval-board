@@ -1,6 +1,6 @@
 import { flowById } from './flows.js';
 import { formatCents, formatDate, formatSeconds, formatShare, receiptName } from './format.js';
-import { html } from './html.js';
+import { dash, html, orDash } from './html.js';
 import { header } from './layout.js';
 import { renderNotFound } from './not-found.js';
 import { failed, runFileOnGitHub, STEPS, stepName } from './runs.js';
@@ -22,11 +22,6 @@ export function renderRun({ flow: flowId, id, runFile }) {
 </main>`);
 }
 
-export const dash = html`<span class="muted">—</span>`;
-
-// A number that may be missing (a step with no priced calls, a run whose every
-// receipt failed) as `—`.
-const orDash = (value, format) => (value === null || value === undefined ? dash : format(value));
 const stepOf = (numbers, step) => numbers.steps.find((s) => s.step === step);
 
 function heading(flow, runFile) {

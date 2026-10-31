@@ -1,4 +1,4 @@
-// The promos whose verdict changed between two promo runs of one eval set.
+// The promos that changed between two promo runs of one eval set.
 // Promos pair across the runs by page and reviewed promo. A made-up promo has
 // no reviewed promo, so it pairs with a made-up promo of the same page by its
 // name: first by the name's identity, then by its core identity, as the

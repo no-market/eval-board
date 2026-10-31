@@ -2,7 +2,7 @@
 // version and selection of pages taken as a set (the index keeps the
 // selection sorted, see build/summarise-promo.js); runs compare only within
 // one eval set. The current eval set is that of the newest run with verdicts.
-import { formatDate } from './format.js';
+import { formatDate, pagesCount } from './format.js';
 
 // Whether two eval sets are one: the same dataset revision, scorer version
 // and pages.
@@ -15,10 +15,11 @@ export function sameEvalSet(a, b) {
   );
 }
 
-// Whether a promo run (an index entry) was scored with verdicts, so has
-// errors and warnings; a run scored before them (schema_version 3) has not.
+// Whether a promo run (an index entry, or a run file read by promoRun in
+// promo-runs.js) was scored with verdicts, so has errors and warnings: its
+// schema_version is 4 or later. A run scored before them (3) has not.
 export function hasVerdicts(run) {
-  return run.totals.errors !== null && run.totals.errors !== undefined;
+  return run.schemaVersion >= 4;
 }
 
 // The eval set of the newest run with verdicts among `runs`, or null when
@@ -45,8 +46,7 @@ export function history(runs, evalSet) {
 
 // `baseline-10-reviewed-v2-context · promo-core-text-v6 · 8 pages`
 export function evalSetName({ dataset, scorer, selection }) {
-  const pages = selection.length === 1 ? '1 page' : `${selection.length} pages`;
-  return `${dataset} · ${scorer} · ${pages}`;
+  return `${dataset} · ${scorer} · ${pagesCount(selection.length)}`;
 }
 
 // Why two promo runs (index entries) aren't compared, or null when they are:

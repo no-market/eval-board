@@ -10,7 +10,7 @@ const OTHER_SET = { ...SET, scorer: 'promo-core-text-v5' };
 
 // An index entry of a promo run: with verdicts unless `errors` is null.
 function entry(run, date, evalSet = SET, errors = { count: 1, share: 0.5 }) {
-  return { run, flow: FLOW, date, evalSet, totals: { errors } };
+  return { run, flow: FLOW, date, evalSet, schemaVersion: errors ? 4 : 3, totals: { errors } };
 }
 const route = (a, b) => ({ view: 'compare', flow: FLOW, a, b });
 
@@ -211,21 +211,21 @@ const changedRows = (html) =>
 test('the changed promos follow the summary: worse in B, better in B, then the same verdict with other fields', () => {
   const html = compare(changedA(), B);
   assert.ok(html.indexOf('class="summary"') < html.indexOf('class="changed"'));
-  assert.match(text(changedOf(html)), /^Promos whose verdict changed · 4 19 promos unchanged/);
+  assert.match(text(changedOf(html)), /^Changed promos · worse 1 · better 2 · other fields 1 19 promos unchanged/);
   assert.deepEqual(changedRows(html), [
     ['Page', 'Promo', 'A', 'B'],
     ['▲ Worse in B · 1 promo'],
-    ['Kaufland · page 5', 'Awokado zielone', 'right', 'warning condition'],
+    ['Kaufland p. 5', 'Awokado zielone', 'right', 'warning condition'],
     ['▼ Better in B · 2 promos'],
-    ['Aldi · page 2', 'Filety z piersi kurczaka Mięsne Specjały', 'error price · condition', 'warning brands, condition'],
-    ['Kaufland · page 5', 'Cebula żółta made up', 'error made up', '—'],
+    ['Aldi p. 2', 'Filety z piersi kurczaka Mięsne Specjały', 'error price · condition', 'warning brands, condition'],
+    ['Kaufland p. 5', 'Cebula żółta made up', 'error made up', '—'],
     ['The same verdict, other fields · 1 promo'],
-    ['Lidl · page 6', 'Masło 82% Mleczna Krowa Pilos, 200 g', 'warning condition, price_basis', 'warning condition'],
+    ['Lidl p. 6', 'Masło 82% Mleczna Krowa Pilos, 200 g', 'warning condition, price_basis', 'warning condition'],
   ]);
 });
 
 test('with no promo changed, the section says so and names the unchanged promos', () => {
   const section = text(changedOf(compare(A, B)));
-  assert.equal(section.startsWith('Promos whose verdict changed · 0 22 promos unchanged'), true, section);
+  assert.equal(section.startsWith('Changed promos · worse 0 · better 0 · other fields 0 22 promos unchanged'), true, section);
   assert.match(section, /No promo’s verdict or fields changed\./);
 });

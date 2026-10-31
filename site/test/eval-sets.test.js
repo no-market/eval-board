@@ -4,9 +4,10 @@ import { currentEvalSet, evalSetName, hasVerdicts, history, inEvalSet, sameEvalS
 
 const SET = { dataset: 'baseline-10', scorer: 'promo-core-text-v6', selection: ['aldi-p002', 'lidl-p006'] };
 
-// An index entry of a promo run: with verdicts unless `errors` is null.
+// An index entry of a promo run: with verdicts (schema_version 4) unless
+// `errors` is null (schema_version 3).
 function entry(run, date, evalSet = SET, errors = { count: 1, share: 0.5 }) {
-  return { run, date, evalSet, totals: { errors } };
+  return { run, date, evalSet, schemaVersion: errors ? 4 : 3, totals: { errors } };
 }
 
 test('runs of one dataset revision, scorer version and selection are of one eval set', () => {
@@ -20,9 +21,10 @@ test('runs differing in the dataset revision, the scorer version or the selectio
   assert.ok(!sameEvalSet(SET, { ...SET, selection: ['aldi-p002', 'lidl-p007'] }));
 });
 
-test('a run has verdicts when it has errors', () => {
-  assert.ok(hasVerdicts(entry('a', '2026-10-31T12:00:00Z')));
-  assert.ok(!hasVerdicts(entry('a', '2026-10-31T12:00:00Z', SET, null)));
+test('a run has verdicts when its schema_version is 4 or later', () => {
+  assert.ok(hasVerdicts({ schemaVersion: 4 }));
+  assert.ok(hasVerdicts({ schemaVersion: 5 }));
+  assert.ok(!hasVerdicts({ schemaVersion: 3 }));
 });
 
 test('the current eval set is that of the newest run with verdicts', () => {
