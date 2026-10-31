@@ -8,11 +8,12 @@
 // The repo is public (ADR-0006): promo records show, but leaflet files, page
 // images and raw leaflet text never do; a page links only to its own leaflet.
 import { flowById } from './flows.js';
-import { formatDate, shortModel } from './format.js';
+import { formatCents, formatDate, formatSeconds, formatShare, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
 import { renderNotFound } from './not-found.js';
-import { chainName } from './promo-runs.js';
+import { chainName, costPerPage } from './promo-runs.js';
+import { dash } from './run.js';
 import { runFileOnGitHub } from './runs.js';
 
 export function renderPromoRun({ flow: flowId, id, runFile }) {
@@ -21,6 +22,7 @@ export function renderPromoRun({ flow: flowId, id, runFile }) {
   return String(html`${header(flow.id)}
 <main class="run promo" style="--flow: ${flow.colour}">
   ${heading(flow, runFile)}
+  ${summary(runFile)}
   <p><a href="${runFileOnGitHub(id)}">Run file on GitHub</a></p>
 </main>`);
 }
@@ -48,4 +50,51 @@ function heading(flow, runFile) {
       <span class="pill">Failed: ${runFile.totals.failed_pages} of ${pages} pages</span>
     </div>
   </div>`;
+}
+
+const orDash = (value, format) => (value === null || value === undefined ? dash : format(value));
+
+// The table of the run: a column for the total and one per chain, each over
+// its own pages; with verdicts, errors and warnings, else matched, missed and
+// made-up promos with recall and precision.
+function summary(runFile) {
+  const columns = [
+    { name: 'Total', numbers: runFile.totals, pages: runFile.cases.length },
+    ...chainsOf(runFile).map((chain) => ({
+      name: chainName(chain),
+      numbers: runFile.by_chain[chain],
+      pages: runFile.cases.filter((c) => c.chain === chain).length,
+    })),
+  ];
+  const row = (label, value) => html`
+        <tr><th scope="row">${label}</th>${columns.map((column, i) => html`<td${i === 0 ? html` class="total"` : ''}>${value(column)}</td>`)}</tr>`;
+  return html`<section aria-labelledby="summary-h" class="block">
+    <h2 id="summary-h">Summary by chain</h2>
+    <div class="table-wrap">
+      <table class="summary">
+        <thead><tr><th scope="col"></th>${columns.map(({ name }, i) => html`<th scope="col"${i === 0 ? html` class="total"` : ''}>${name}</th>`)}</tr></thead>
+        <tbody>${[
+          row('Errors', ({ numbers }) => promosOf(numbers.errors, numbers.promos)),
+          row('Warnings', ({ numbers }) => promosOf(numbers.warnings, numbers.promos)),
+          row('Seconds per page, median (p95)', ({ numbers }) => html`${orDash(numbers.p50_seconds, formatSeconds)} <span class="muted">(${orDash(numbers.p95_seconds, formatSeconds)})</span>`),
+          row('Cost per page', cost),
+        ]}
+        </tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+// `9 of 22 (40.9%)`: a count of promos out of the promos scored.
+function promosOf(count, promos) {
+  if (!count) return dash;
+  return html`<strong>${count.count}</strong> of ${promos} <span class="muted">(${formatShare(count.share)})</span>`;
+}
+
+// Cost per page; the priced part marked ≥ when some calls weren't priced.
+function cost({ numbers, pages }) {
+  const perPage = costPerPage({ costUsd: numbers.cost_usd, knownCostUsd: numbers.known_cost_usd, pages });
+  if (!perPage) return dash;
+  if (perPage.priced) return formatCents(perPage.usd);
+  return html`<span title="Some calls were not priced; this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;
 }

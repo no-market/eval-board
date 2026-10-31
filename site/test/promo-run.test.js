@@ -35,3 +35,33 @@ test("the heading: prompt, each chain's model and strategy, commit, dataset and 
   assert.match(all, /8 of 8 pages, full/);
   assert.match(all, /Failed: 0 of 8 pages/);
 });
+
+// The text of each row of the table in the section headed `heading`: its row
+// header and cells, tags stripped.
+function rows(html, heading) {
+  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
+  assert.ok(start >= 0, `a section headed ${heading}`);
+  const table = html.slice(start).match(/<table[\s\S]*?<\/table>/)?.[0] ?? '';
+  return [...table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+    [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
+  );
+}
+
+test('the summary: errors, warnings, seconds per page median (p95) and cost per page, in total and by chain', () => {
+  assert.deepEqual(rows(page(), 'Summary by chain'), [
+    ['', 'Total', 'Aldi', 'Biedronka', 'Kaufland', 'Lidl'],
+    ['Errors', '9 of 22 (40.9%)', '4 of 6 (66.7%)', '5 of 6 (83.3%)', '0 of 8 (0.0%)', '0 of 2 (0.0%)'],
+    ['Warnings', '13 of 22 (59.1%)', '2 of 6 (33.3%)', '1 of 6 (16.7%)', '8 of 8 (100.0%)', '2 of 2 (100.0%)'],
+    ['Seconds per page, median (p95)', '2.8 s (4.8 s)', '2.8 s (3.3 s)', '4.5 s (4.8 s)', '1.7 s (3.7 s)', '0.6 s (2.2 s)'],
+    ['Cost per page', '0.15¢', '0.17¢', '0.20¢', '0.16¢', '0.07¢'],
+  ]);
+});
+
+test('a cost with unpriced calls is the priced part, marked ≥', () => {
+  const run = structuredClone(withVerdicts);
+  run.totals.cost_usd = null;
+  run.by_chain.aldi.cost_usd = null;
+  run.by_chain.aldi.known_cost_usd = 0.002;
+  const [cost] = rows(page(run), 'Summary by chain').filter(([label]) => label === 'Cost per page');
+  assert.deepEqual(cost, ['Cost per page', '≥ 0.15¢', '≥ 0.10¢', '0.20¢', '0.16¢', '0.07¢']);
+});
