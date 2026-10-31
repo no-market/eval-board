@@ -34,6 +34,14 @@ export function inEvalSet(runs, evalSet) {
   return runs.filter((run) => sameEvalSet(run.evalSet, evalSet));
 }
 
+// The history: the runs among `runs` not of `evalSet` (all of them when
+// there is no current eval set), newest first by date.
+export function history(runs, evalSet) {
+  return runs
+    .filter((run) => !evalSet || !sameEvalSet(run.evalSet, evalSet))
+    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+}
+
 // `baseline-10-reviewed-v2-context · promo-core-text-v6 · 8 pages`
 export function evalSetName({ dataset, scorer, selection }) {
   const pages = selection.length === 1 ? '1 page' : `${selection.length} pages`;
