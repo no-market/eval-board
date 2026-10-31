@@ -2,14 +2,15 @@
 // flow so that each view knows only its own flow's runs. main.js opens the
 // view an address names through viewsOf; every flow in FLOWS has all three.
 import { renderCompare } from './compare.js';
-import { renderPromoComparePending, renderPromoRunPending } from './promo-pending.js';
+import { renderPromoCompare } from './promo-compare.js';
+import { renderPromoRunPending } from './promo-pending.js';
 import { renderPromoTab } from './promo-tab.js';
 import { renderRun } from './run.js';
 import { renderTab } from './tab.js';
 
 const VIEWS = {
   'receipt-lines': { tab: renderTab, run: renderRun, compare: renderCompare },
-  'promo-extraction': { tab: renderPromoTab, run: renderPromoRunPending, compare: renderPromoComparePending },
+  'promo-extraction': { tab: renderPromoTab, run: renderPromoRunPending, compare: renderPromoCompare },
 };
 
 // The views of the flow `flowId`: { tab, run, compare }, each taking what

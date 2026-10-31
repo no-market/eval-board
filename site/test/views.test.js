@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderCompare } from '../src/compare.js';
 import { FLOWS } from '../src/flows.js';
+import { renderPromoCompare } from '../src/promo-compare.js';
 import { renderPromoTab } from '../src/promo-tab.js';
 import { renderRun } from '../src/run.js';
 import { renderTab } from '../src/tab.js';
@@ -35,7 +36,6 @@ test('a promo run page of an unknown run says there is no such run', () => {
   assert.match(html, /There is no eval run r1/);
 });
 
-test('a comparison of promo runs, not built yet, says so', () => {
-  const html = viewsOf('promo-extraction').compare({ flow: 'promo-extraction', a: { id: 'a' }, b: { id: 'b' } });
-  assert.match(html, /not on the eval board yet/);
+test('promo runs open the promo comparison', () => {
+  assert.equal(viewsOf('promo-extraction').compare, renderPromoCompare);
 });
