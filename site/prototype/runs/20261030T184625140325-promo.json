@@ -1,0 +1,5467 @@
+{
+  "schema_version": 3,
+  "flow": "promo-extraction",
+  "date": "2026-10-30T18:46:25.140325Z",
+  "commit": "83aa010400c4031622137e3809c442b0beae5f24",
+  "dataset_revision": "baseline-10-reviewed-v2-context",
+  "scorer_version": "promo-identity-exact-v2",
+  "config": {
+    "model": "openai/gpt-5-mini",
+    "strategy": "text",
+    "output": "json_schema",
+    "version": "promo-v2",
+    "options": {}
+  },
+  "chain_configs": {
+    "lidl": {
+      "model": "openai/gpt-5-mini",
+      "strategy": "text",
+      "output": "json_schema",
+      "version": "promo-v2",
+      "options": {}
+    },
+    "aldi": {
+      "model": "openai/gpt-5-mini",
+      "strategy": "text",
+      "output": "json_schema",
+      "version": "promo-v2",
+      "options": {}
+    },
+    "kaufland": {
+      "model": "openai/gpt-5-mini",
+      "strategy": "positioned_text",
+      "output": "json_schema",
+      "version": "promo-v2",
+      "options": {}
+    },
+    "netto": {
+      "model": "openai/gpt-5-mini",
+      "strategy": "text",
+      "output": "json_schema",
+      "version": "promo-v2",
+      "options": {}
+    },
+    "biedronka": {
+      "model": "openai/gpt-5-mini",
+      "strategy": "image",
+      "output": "json_schema",
+      "version": "promo-v2",
+      "options": {}
+    }
+  },
+  "selection": [
+    "biedronka-j2givjdmw-p004",
+    "biedronka-j2givjdmw-p005",
+    "aldi-kw44-th-p002",
+    "aldi-kw44-th-p003",
+    "lidl-gazetka-29-10-czw-kw44-p006",
+    "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004",
+    "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005",
+    "netto-DmehP6eT-p004",
+    "netto-DmehP6eT-p005",
+    "lidl-gazetka-29-10-czw-kw44-p117"
+  ],
+  "eligible": [
+    "biedronka-j2givjdmw-p004",
+    "biedronka-j2givjdmw-p005",
+    "aldi-kw44-th-p002",
+    "aldi-kw44-th-p003",
+    "lidl-gazetka-29-10-czw-kw44-p006",
+    "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004",
+    "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005",
+    "netto-DmehP6eT-p004",
+    "netto-DmehP6eT-p005",
+    "lidl-gazetka-29-10-czw-kw44-p117"
+  ],
+  "full": true,
+  "excluded": {
+    "lidl-e0912e82562a-p005": "ineligible",
+    "lidl-e0912e82562a-p006": "ineligible",
+    "lidl-e0912e82562a-p007": "ineligible",
+    "lidl-e0912e82562a-p008": "ineligible",
+    "biedronka-c9478989737c-p002": "ineligible",
+    "biedronka-a042d100c6d3-p003": "ineligible",
+    "biedronka-08f67c70395d-p004": "ineligible",
+    "biedronka-d15c84e904db-p005": "ineligible",
+    "netto-b9381a282607-p002": "ineligible",
+    "netto-9fe74f57790c-p003": "ineligible",
+    "netto-7c34cdab4e0b-p004": "ineligible",
+    "netto-3cfdca8b2267-p005": "ineligible",
+    "aldi-a6ee401a8060-p002": "ineligible",
+    "aldi-a6ee401a8060-p003": "ineligible",
+    "aldi-a6ee401a8060-p004": "ineligible",
+    "aldi-a6ee401a8060-p005": "ineligible",
+    "kaufland-e7665b63be11-p002": "ineligible",
+    "kaufland-e7665b63be11-p003": "ineligible",
+    "kaufland-e7665b63be11-p004": "ineligible",
+    "kaufland-e7665b63be11-p005": "ineligible",
+    "biedronka-j2kjp4ji9-p008": "ineligible",
+    "biedronka-j2kjp4ji9-p009": "ineligible",
+    "lidl-gazetka-29-10-czw-kw44-p005": "ineligible"
+  },
+  "cases": [
+    {
+      "id": "biedronka-j2givjdmw-p004",
+      "chain": "biedronka",
+      "leaflet_id": "d0d10a7a-5fd0-415f-96a6-47f02a5a9cd0",
+      "page": 4,
+      "truth_count": 3,
+      "predictions": [
+        {
+          "name": "WSZYSTKIE JAJA Z CHOWU ŚCIÓŁKOWEGO MOJA KURKA",
+          "brands": [
+            "Moja Kurka"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "Drugi tańszy produkt 40% taniej. Mieszaj dowolnie.",
+          "conditions": {
+            "loyalty_card": "z kartą lub apką Moja Biedronka",
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": "2",
+            "multiple": "2",
+            "free_item_rule": null,
+            "percentage_discount": "40",
+            "eligible_range": "Wszystkie jaja z chowu ściółkowego Moja Kurka",
+            "exclusions": null,
+            "limit": "Limit dzienny 4 opak. (maks. 2 z rabatem) na kartę Moja Biedronka."
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "pack_size (illustrated: 10 and 20 szt. shown); no numeric pack price printed; promotional discount applies to the second (cheaper) product"
+          ]
+        },
+        {
+          "name": "Ser żółty Gouda Światowid, 400 g",
+          "brands": [
+            "Światowid"
+          ],
+          "price": "12.59",
+          "price_basis": "Cena za 1szt. / bez karty MB / poza limitem",
+          "pack_size": "400 g",
+          "quantity": null,
+          "reference_price": {
+            "amount": "31.48",
+            "kind": "regular",
+            "wording": "31,48/kg (printed)"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "1+1 GRATIS (kup 1, drugi gratis).",
+          "conditions": {
+            "loyalty_card": "z kartą lub apką Moja Biedronka",
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": "1",
+            "multiple": "2",
+            "free_item_rule": "1+1 gratis",
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "Limit dzienny 4 szt. na kartę Moja Biedronka."
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "Printed price '12,59' shown with wording 'Cena za 1szt. / bez karty MB / poza limitem' — relation between this price and the promotional 1+1 offer is not explicitly stated; printed unit reference '31,48/kg' retained"
+          ]
+        },
+        {
+          "name": "WSZYSTKIE MROŻONE OWOCE I WARZYWA MROŹNA KRAINA",
+          "brands": [
+            "Mroźna Kraina"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "Drugi tańszy produkt 50% taniej. Mieszaj dowolnie.",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": "2",
+            "multiple": "2",
+            "free_item_rule": null,
+            "percentage_discount": "50",
+            "eligible_range": "Wszystkie mrożone owoce i warzywa Mroźna Kraina",
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "pack_size varies across illustrated products (multiple different bags shown); no single pack size or numeric promotional unit price printed"
+          ]
+        }
+      ],
+      "expected": {
+        "biedronka-j2givjdmw-p004-o001": {
+          "name": "Wszystkie jaja z chowu ściółkowego Moja Kurka",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Moja Kurka"
+            ],
+            "price": null,
+            "price_basis": null,
+            "pack_size": null,
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Z kartą lub aplikacją Moja Biedronka; drugi tańszy produkt 40% taniej; mieszaj dowolnie. Limit dzienny 4 opak. (maks. 2 z rabatem) na kartę Moja Biedronka.",
+            "conditions": {
+              "loyalty_card": "Moja Biedronka",
+              "percentage_discount": "40",
+              "minimum_quantity": "2",
+              "eligible_range": "Wszystkie jaja z chowu ściółkowego Moja Kurka; mieszaj dowolnie",
+              "limit": "Dziennie 4 opak., maks. 2 z rabatem na kartę"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "biedronka-j2givjdmw-p004-o002": {
+          "name": "Ser żółty Gouda Światowid, 400 g",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Światowid"
+            ],
+            "price": null,
+            "price_basis": null,
+            "pack_size": "400 g",
+            "quantity": {
+              "amount": "400",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Z kartą lub aplikacją Moja Biedronka; 1+1 gratis. Cena za 1 szt./bez karty MB/poza limitem: 12,59 zł. Limit dzienny 4 szt. na kartę. Rabat zostanie rozłożony proporcjonalnie na wszystkie produkty promocyjne.",
+            "conditions": {
+              "loyalty_card": "Moja Biedronka",
+              "free_item_rule": "1+1 gratis",
+              "minimum_quantity": "2",
+              "limit": "Dziennie 4 szt. na kartę"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "biedronka-j2givjdmw-p004-o003": {
+          "name": "Wszystkie mrożone owoce i warzywa Mroźna Kraina",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Mroźna Kraina"
+            ],
+            "price": null,
+            "price_basis": null,
+            "pack_size": null,
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Drugi tańszy produkt 50% taniej; mieszaj dowolnie.",
+            "conditions": {
+              "percentage_discount": "50",
+              "minimum_quantity": "2",
+              "eligible_range": "Wszystkie mrożone owoce i warzywa Mroźna Kraina; mieszaj dowolnie"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o003",
+          "prediction": 2
+        }
+      ],
+      "matched": 3,
+      "missed": [],
+      "extra": [],
+      "differences": [
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "ambiguous_fields",
+          "expected": null,
+          "actual": [
+            "pack_size (illustrated: 10 and 20 szt. shown); no numeric pack price printed; promotional discount applies to the second (cheaper) product"
+          ]
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "condition",
+          "expected": "Z kartą lub aplikacją Moja Biedronka; drugi tańszy produkt 40% taniej; mieszaj dowolnie. Limit dzienny 4 opak. (maks. 2 z rabatem) na kartę Moja Biedronka.",
+          "actual": "Drugi tańszy produkt 40% taniej. Mieszaj dowolnie."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "conditions.loyalty_card",
+          "expected": "Moja Biedronka",
+          "actual": "z kartą lub apką Moja Biedronka"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "conditions.eligible_range",
+          "expected": "Wszystkie jaja z chowu ściółkowego Moja Kurka; mieszaj dowolnie",
+          "actual": "Wszystkie jaja z chowu ściółkowego Moja Kurka"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "conditions.limit",
+          "expected": "Dziennie 4 opak., maks. 2 z rabatem na kartę",
+          "actual": "Limit dzienny 4 opak. (maks. 2 z rabatem) na kartę Moja Biedronka."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o001",
+          "prediction": 0,
+          "field": "validity_wording",
+          "expected": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+          "actual": null
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "ambiguous_fields",
+          "expected": null,
+          "actual": [
+            "Printed price '12,59' shown with wording 'Cena za 1szt. / bez karty MB / poza limitem' — relation between this price and the promotional 1+1 offer is not explicitly stated; printed unit reference '31,48/kg' retained"
+          ]
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "condition",
+          "expected": "Z kartą lub aplikacją Moja Biedronka; 1+1 gratis. Cena za 1 szt./bez karty MB/poza limitem: 12,59 zł. Limit dzienny 4 szt. na kartę. Rabat zostanie rozłożony proporcjonalnie na wszystkie produkty promocyjne.",
+          "actual": "1+1 GRATIS (kup 1, drugi gratis)."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "conditions.loyalty_card",
+          "expected": "Moja Biedronka",
+          "actual": "z kartą lub apką Moja Biedronka"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "conditions.minimum_quantity",
+          "expected": "2",
+          "actual": "1"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "conditions.limit",
+          "expected": "Dziennie 4 szt. na kartę",
+          "actual": "Limit dzienny 4 szt. na kartę Moja Biedronka."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "price",
+          "expected": null,
+          "actual": "12.59"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "price_basis",
+          "expected": null,
+          "actual": "Cena za 1szt. / bez karty MB / poza limitem"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "quantity",
+          "expected": {
+            "amount": "400",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "31.48",
+            "kind": "regular",
+            "wording": "31,48/kg (printed)"
+          }
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o002",
+          "prediction": 1,
+          "field": "validity_wording",
+          "expected": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+          "actual": null
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o003",
+          "prediction": 2,
+          "field": "ambiguous_fields",
+          "expected": null,
+          "actual": [
+            "pack_size varies across illustrated products (multiple different bags shown); no single pack size or numeric promotional unit price printed"
+          ]
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o003",
+          "prediction": 2,
+          "field": "condition",
+          "expected": "Drugi tańszy produkt 50% taniej; mieszaj dowolnie.",
+          "actual": "Drugi tańszy produkt 50% taniej. Mieszaj dowolnie."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o003",
+          "prediction": 2,
+          "field": "conditions.eligible_range",
+          "expected": "Wszystkie mrożone owoce i warzywa Mroźna Kraina; mieszaj dowolnie",
+          "actual": "Wszystkie mrożone owoce i warzywa Mroźna Kraina"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p004-o003",
+          "prediction": 2,
+          "field": "validity_wording",
+          "expected": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+          "actual": null
+        }
+      ],
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 3,
+          "correct": 0
+        },
+        "ambiguous_reference": {
+          "scored": 3,
+          "correct": 3
+        },
+        "brands": {
+          "scored": 3,
+          "correct": 3
+        },
+        "condition": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.loyalty_card": {
+          "scored": 2,
+          "correct": 0
+        },
+        "conditions.percentage_discount": {
+          "scored": 2,
+          "correct": 2
+        },
+        "conditions.minimum_quantity": {
+          "scored": 3,
+          "correct": 2
+        },
+        "conditions.eligible_range": {
+          "scored": 2,
+          "correct": 0
+        },
+        "conditions.limit": {
+          "scored": 2,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 3,
+          "correct": 3
+        },
+        "pack_size": {
+          "scored": 3,
+          "correct": 3
+        },
+        "permanent_price_cut": {
+          "scored": 3,
+          "correct": 3
+        },
+        "price": {
+          "scored": 3,
+          "correct": 2
+        },
+        "price_basis": {
+          "scored": 3,
+          "correct": 2
+        },
+        "quantity": {
+          "scored": 3,
+          "correct": 2
+        },
+        "reference_price": {
+          "scored": 3,
+          "correct": 2
+        },
+        "valid_from": {
+          "scored": 3,
+          "correct": 3
+        },
+        "valid_to": {
+          "scored": 3,
+          "correct": 3
+        },
+        "validity_wording": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.free_item_rule": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 4,
+        "latency_s": 60.37621993100001,
+        "input_tokens": 7825,
+        "output_tokens": 5240,
+        "cost_usd": 0.01243625,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 60.376141352999994,
+            "input_tokens": 7825,
+            "output_tokens": 5240,
+            "cost_usd": 0.01243625,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 60.377050384
+    },
+    {
+      "id": "biedronka-j2givjdmw-p005",
+      "chain": "biedronka",
+      "leaflet_id": "d0d10a7a-5fd0-415f-96a6-47f02a5a9cd0",
+      "page": 5,
+      "truth_count": 3,
+      "predictions": [
+        {
+          "name": "Szynka konserwowa Kraina Wędlin",
+          "brands": [
+            "Kraina Wędlin"
+          ],
+          "price": "3.79",
+          "price_basis": "18.95",
+          "pack_size": "200 g",
+          "quantity": {
+            "amount": "200",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "6.99",
+            "kind": "pre_promo",
+            "wording": "Cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "DRUGI 90% TANIEJ; KAŻDA Z 2 SZTUK 3,79",
+          "conditions": {
+            "loyalty_card": "Moja Biedronka (karta lub apka)",
+            "app": "Moja Biedronka (apka)",
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": "2",
+            "free_item_rule": "Drugi 90% taniej",
+            "percentage_discount": "90",
+            "eligible_range": "Szynka konserwowa Kraina Wędlin, 200 g",
+            "exclusions": "Cena za 1 szt. / bez karty MB / poza limitem: 6,99 (34.95/kg)",
+            "limit": "Limit dzienny 6 szt. na kartę Moja Biedronka."
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Wszystkie parówki Kraina Wędlin",
+          "brands": [
+            "Kraina Wędlin"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "DRUGI 70% TANIEJ; Drugi tańszy produkt 70% taniej; MIESZAJ DOWOLNIE",
+          "conditions": {
+            "loyalty_card": "Moja Biedronka (karta lub apka)",
+            "app": "Moja Biedronka (apka)",
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": "2",
+            "free_item_rule": "Drugi tańszy produkt 70% taniej",
+            "percentage_discount": "70",
+            "eligible_range": "Wszystkie parówki Kraina Wędlin (można mieszać dowolnie)",
+            "exclusions": null,
+            "limit": "Limit dzienny 6 szt. (maks. 3 z rabatem) na kartę Moja Biedronka."
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Kiełbasa Żywiecka Kraina Wędlin",
+          "brands": [
+            "Kraina Wędlin"
+          ],
+          "price": "10.99",
+          "price_basis": "18.32",
+          "pack_size": "600 g",
+          "quantity": {
+            "amount": "600",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "18.89",
+            "kind": "pre_promo",
+            "wording": "Cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "DRUGI 82% TANIEJ; KAŻDA Z 2 SZTUK 10,99",
+          "conditions": {
+            "loyalty_card": "Moja Biedronka (karta lub apka)",
+            "app": "Moja Biedronka (apka)",
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": "2",
+            "free_item_rule": "Drugi 82% taniej (każda z 2 sztuk)",
+            "percentage_discount": "82",
+            "eligible_range": "Kiełbasa Żywiecka Kraina Wędlin, 600 g",
+            "exclusions": "Cena za 1 szt. / bez karty MB / poza limitem: 18,89 (31.48/kg)",
+            "limit": "Limit dzienny 6 szt. na kartę Moja Biedronka."
+          },
+          "valid_from": "2026-10-26",
+          "valid_to": "2026-10-31",
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        }
+      ],
+      "expected": {
+        "biedronka-j2givjdmw-p005-o001": {
+          "name": "Szynka konserwowa Kraina Wędlin, 200 g",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Kraina Wędlin"
+            ],
+            "price": "3.79",
+            "price_basis": "opak.",
+            "pack_size": "200 g",
+            "quantity": {
+              "amount": "200",
+              "unit": "g"
+            },
+            "reference_price": {
+              "amount": "6.99",
+              "kind": "pre_promo",
+              "wording": "Cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Z kartą lub aplikacją Moja Biedronka; drugi 90% taniej; każda z 2 sztuk 3,79 zł. Cena za 1 szt./bez karty MB/poza limitem: 6,99 zł. Limit dzienny 6 szt. na kartę.",
+            "conditions": {
+              "loyalty_card": "Moja Biedronka",
+              "minimum_quantity": "2",
+              "percentage_discount": "90",
+              "limit": "Dziennie 6 szt. na kartę"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "biedronka-j2givjdmw-p005-o002": {
+          "name": "Wszystkie parówki Kraina Wędlin",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Kraina Wędlin"
+            ],
+            "price": null,
+            "price_basis": null,
+            "pack_size": null,
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Z kartą lub aplikacją Moja Biedronka; drugi tańszy produkt 70% taniej; mieszaj dowolnie. Limit dzienny 6 szt. (maks. 3 z rabatem) na kartę.",
+            "conditions": {
+              "loyalty_card": "Moja Biedronka",
+              "minimum_quantity": "2",
+              "percentage_discount": "70",
+              "eligible_range": "Wszystkie parówki Kraina Wędlin; mieszaj dowolnie",
+              "limit": "Dziennie 6 szt., maks. 3 z rabatem na kartę"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "biedronka-j2givjdmw-p005-o003": {
+          "name": "Kiełbasa żywiecka Kraina Wędlin, 600 g",
+          "aliases": [],
+          "fields": {
+            "brands": [
+              "Kraina Wędlin"
+            ],
+            "price": "10.99",
+            "price_basis": "opak.",
+            "pack_size": "600 g",
+            "quantity": {
+              "amount": "600",
+              "unit": "g"
+            },
+            "reference_price": {
+              "amount": "18.89",
+              "kind": "pre_promo",
+              "wording": "Cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "condition": "Z kartą lub aplikacją Moja Biedronka; drugi 82% taniej; każda z 2 sztuk 10,99 zł. Cena za 1 szt./bez karty MB/poza limitem: 18,89 zł. Limit dzienny 6 szt. na kartę.",
+            "conditions": {
+              "loyalty_card": "Moja Biedronka",
+              "minimum_quantity": "2",
+              "percentage_discount": "82",
+              "limit": "Dziennie 6 szt. na kartę"
+            },
+            "valid_from": "2026-10-26",
+            "valid_to": "2026-10-31",
+            "validity_wording": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1
+        }
+      ],
+      "matched": 1,
+      "missed": [
+        "biedronka-j2givjdmw-p005-o001",
+        "biedronka-j2givjdmw-p005-o003"
+      ],
+      "extra": [
+        0,
+        2
+      ],
+      "differences": [
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "condition",
+          "expected": "Z kartą lub aplikacją Moja Biedronka; drugi tańszy produkt 70% taniej; mieszaj dowolnie. Limit dzienny 6 szt. (maks. 3 z rabatem) na kartę.",
+          "actual": "DRUGI 70% TANIEJ; Drugi tańszy produkt 70% taniej; MIESZAJ DOWOLNIE"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "conditions.loyalty_card",
+          "expected": "Moja Biedronka",
+          "actual": "Moja Biedronka (karta lub apka)"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "conditions.minimum_quantity",
+          "expected": "2",
+          "actual": null
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "conditions.eligible_range",
+          "expected": "Wszystkie parówki Kraina Wędlin; mieszaj dowolnie",
+          "actual": "Wszystkie parówki Kraina Wędlin (można mieszać dowolnie)"
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "conditions.limit",
+          "expected": "Dziennie 6 szt., maks. 3 z rabatem na kartę",
+          "actual": "Limit dzienny 6 szt. (maks. 3 z rabatem) na kartę Moja Biedronka."
+        },
+        {
+          "truth": "biedronka-j2givjdmw-p005-o002",
+          "prediction": 1,
+          "field": "validity_wording",
+          "expected": "PONIEDZIAŁEK – SOBOTA 26.10–31.10",
+          "actual": null
+        }
+      ],
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 1,
+          "correct": 1
+        },
+        "ambiguous_reference": {
+          "scored": 1,
+          "correct": 1
+        },
+        "brands": {
+          "scored": 1,
+          "correct": 1
+        },
+        "condition": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.loyalty_card": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.minimum_quantity": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.percentage_discount": {
+          "scored": 1,
+          "correct": 1
+        },
+        "conditions.eligible_range": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.limit": {
+          "scored": 1,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 1,
+          "correct": 1
+        },
+        "pack_size": {
+          "scored": 1,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price_basis": {
+          "scored": 1,
+          "correct": 1
+        },
+        "quantity": {
+          "scored": 1,
+          "correct": 1
+        },
+        "reference_price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_from": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_to": {
+          "scored": 1,
+          "correct": 1
+        },
+        "validity_wording": {
+          "scored": 1,
+          "correct": 0
+        }
+      },
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 5,
+        "latency_s": 64.61581377499999,
+        "input_tokens": 8145,
+        "output_tokens": 6323,
+        "cost_usd": 0.01468225,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 64.61574202,
+            "input_tokens": 8145,
+            "output_tokens": 6323,
+            "cost_usd": 0.01468225,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 64.61617267900002
+    },
+    {
+      "id": "aldi-kw44-th-p002",
+      "chain": "aldi",
+      "leaflet_id": "2026_cw44_th_promotion_weekend_26k44g03",
+      "page": 2,
+      "truth_count": 3,
+      "predictions": [
+        {
+          "name": "Śliwki polskie",
+          "brands": [],
+          "price": "4.99",
+          "price_basis": "Cena za kg",
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": {
+            "amount": "7.99",
+            "kind": "pre_promo",
+            "wording": "*Najniższa cena sprzed pierwszej obniżki."
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "37",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "czw. 29.10 – sob. 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "W nagłówku strony pojawia się \"39%\" — niejednoznaczne powiązanie z tą pozycją (przy produkcie wydrukowano \"37%\")"
+          ]
+        },
+        {
+          "name": "Filety z piersi kurczaka",
+          "brands": [],
+          "price": "14.99",
+          "price_basis": "Cena za kg",
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": {
+            "amount": "24.8",
+            "kind": "pre_promo",
+            "wording": "*Najniższa cena sprzed pierwszej obniżki."
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "39",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "2.5 kg na klienta."
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "czw. 29.10 – sob. 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "JACOBS Kawa rozpuszczalna Krönung",
+          "brands": [
+            "JACOBS"
+          ],
+          "price": "27.99",
+          "price_basis": "/szt.",
+          "pack_size": "Słoik 200 g",
+          "quantity": {
+            "amount": "200",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "41.99",
+            "kind": "regular",
+            "wording": "Cena regularna"
+          },
+          "lowest_30_days": {
+            "amount": "41.99",
+            "kind": "lowest_30_days",
+            "wording": "najniższa cena z 30 dni przed obniżką"
+          },
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": "2",
+            "free_item_rule": null,
+            "percentage_discount": "33",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "Limit: 6 szt. na klienta."
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "czw. 29.10 – sob. 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "Wydruk przedstawia kwotę 41.99 zarówno jako \"Cena regularna\", jak i jako \"najniższa cena z 30 dni przed obniżką\"",
+            "Podana efektywna cena jednostkowa: 1 kg = 139.95"
+          ]
+        }
+      ],
+      "expected": {
+        "aldi-kw44-th-p002-o001": {
+          "name": "Śliwki polskie",
+          "aliases": [],
+          "fields": {
+            "price": "4.99",
+            "pack_size": null,
+            "condition": null,
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "7.99",
+              "kind": "unknown",
+              "wording": "Najniższa cena sprzed pierwszej obniżki"
+            },
+            "conditions": null,
+            "validity_wording": "czw. 29.10 – sob. 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "aldi-kw44-th-p002-o002": {
+          "name": "Filety z piersi kurczaka Mięsne Specjały",
+          "aliases": [],
+          "fields": {
+            "price": "14.99",
+            "pack_size": null,
+            "condition": "Limit: 2,5 kg na klienta.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "MIĘSNE SPECJAŁY"
+            ],
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "24.80",
+              "kind": "unknown",
+              "wording": "Najniższa cena sprzed pierwszej obniżki"
+            },
+            "conditions": {
+              "limit": "2,5 kg na klienta"
+            },
+            "validity_wording": "czw. 29.10 – sob. 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "aldi-kw44-th-p002-o003": {
+          "name": "Kawa rozpuszczalna Krönung Jacobs, 200 g",
+          "aliases": [],
+          "fields": {
+            "price": "27.99",
+            "pack_size": "Słoik 200 g",
+            "condition": "Przy zakupie 2 szt.; limit 6 szt. na klienta.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "JACOBS"
+            ],
+            "price_basis": "szt.",
+            "quantity": {
+              "amount": "200",
+              "unit": "g"
+            },
+            "reference_price": {
+              "amount": "41.99",
+              "kind": "regular",
+              "wording": "Cena regularna"
+            },
+            "lowest_30_days": {
+              "amount": "41.99",
+              "kind": "lowest_30_days",
+              "wording": "najniższa cena z 30 dni przed obniżką"
+            },
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "2",
+              "limit": "6 szt. na klienta"
+            },
+            "validity_wording": "czw. 29.10 – sob. 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0
+        }
+      ],
+      "matched": 1,
+      "missed": [
+        "aldi-kw44-th-p002-o002",
+        "aldi-kw44-th-p002-o003"
+      ],
+      "extra": [
+        1,
+        2
+      ],
+      "differences": [
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": [
+            "W nagłówku strony pojawia się \"39%\" — niejednoznaczne powiązanie z tą pozycją (przy produkcie wydrukowano \"37%\")"
+          ]
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "ambiguous_reference.amount",
+          "expected": "7.99",
+          "actual": null
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "ambiguous_reference.wording",
+          "expected": "Najniższa cena sprzed pierwszej obniżki",
+          "actual": null
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "conditions",
+          "expected": null,
+          "actual": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "37",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          }
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "price_basis",
+          "expected": "kg",
+          "actual": "Cena za kg"
+        },
+        {
+          "truth": "aldi-kw44-th-p002-o001",
+          "prediction": 0,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "7.99",
+            "kind": "pre_promo",
+            "wording": "*Najniższa cena sprzed pierwszej obniżki."
+          }
+        }
+      ],
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.amount": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 1,
+          "correct": 0
+        },
+        "brands": {
+          "scored": 1,
+          "correct": 1
+        },
+        "condition": {
+          "scored": 1,
+          "correct": 1
+        },
+        "conditions": {
+          "scored": 1,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 1,
+          "correct": 1
+        },
+        "pack_size": {
+          "scored": 1,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price_basis": {
+          "scored": 1,
+          "correct": 0
+        },
+        "quantity": {
+          "scored": 1,
+          "correct": 1
+        },
+        "reference_price": {
+          "scored": 1,
+          "correct": 0
+        },
+        "valid_from": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_to": {
+          "scored": 1,
+          "correct": 1
+        },
+        "validity_wording": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 2,
+        "latency_s": 90.18415193800001,
+        "input_tokens": 3341,
+        "output_tokens": 7864,
+        "cost_usd": 0.01633285,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 90.18409466099999,
+            "input_tokens": 3341,
+            "output_tokens": 7864,
+            "cost_usd": 0.01633285,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 90.18455506500004
+    },
+    {
+      "id": "aldi-kw44-th-p003",
+      "chain": "aldi",
+      "leaflet_id": "2026_cw44_th_promotion_weekend_26k44g03",
+      "page": 3,
+      "truth_count": 3,
+      "predictions": [
+        {
+          "name": "Szynka konserwowa premium",
+          "brands": [
+            "SOKOŁÓW"
+          ],
+          "price": "8.99",
+          "price_basis": "1 kg = 19.76",
+          "pack_size": "Puszka 455 g",
+          "quantity": {
+            "amount": "455",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "14.99",
+            "kind": "pre_promo",
+            "wording": "Najniższa cena sprzed pierwszej obniżki."
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "40",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "Limit: 4 szt. na klienta."
+          },
+          "valid_from": "2026-10-31",
+          "valid_to": "2026-10-31",
+          "validity_wording": "tylko w sobotę 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "AŻ DO 40% TANIEJ (nagłówek)",
+            "OSZCZĘDZASZ 6,00 ZŁ (wydruk oszczędności)"
+          ]
+        },
+        {
+          "name": "Kawa ziarnista Family",
+          "brands": [
+            "EDUSCHO"
+          ],
+          "price": "69.99",
+          "price_basis": "/szt. cena regularna",
+          "pack_size": "Opak. 1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": "1+1 GRATIS",
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "Limit: 2 szt. na klienta."
+          },
+          "valid_from": null,
+          "valid_to": null,
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "druk: \"cena regularna\""
+          ]
+        },
+        {
+          "name": "Babka panettone klasyczna",
+          "brands": [
+            "GOURMET FINEST CUISINE"
+          ],
+          "price": "17.99",
+          "price_basis": null,
+          "pack_size": "Opak. 1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": null,
+          "lowest_30_days": {
+            "amount": "29.99",
+            "kind": "lowest_30_days",
+            "wording": "Najniższa cena z 30 dni przed obniżką"
+          },
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "40",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "Limit: 4 szt. na klienta."
+          },
+          "valid_from": null,
+          "valid_to": null,
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "OSZCZĘDZASZ 12,00 ZŁ (wydruk oszczędności)"
+          ]
+        }
+      ],
+      "expected": {
+        "aldi-kw44-th-p003-o001": {
+          "name": "Szynka konserwowa premium Sokołów, 455 g",
+          "aliases": [],
+          "fields": {
+            "price": "8.99",
+            "pack_size": "Puszka 455 g",
+            "condition": "Limit: 4 szt. na klienta.",
+            "valid_from": "2026-10-31",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "SOKOŁÓW"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "455",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "14.99",
+              "kind": "unknown",
+              "wording": "Najniższa cena sprzed pierwszej obniżki"
+            },
+            "conditions": {
+              "limit": "4 szt. na klienta"
+            },
+            "validity_wording": "tylko w sobotę 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "aldi-kw44-th-p003-o002": {
+          "name": "Kawa ziarnista Family Eduscho, 1 kg",
+          "aliases": [],
+          "fields": {
+            "price": null,
+            "pack_size": "Opak. 1 kg",
+            "condition": "1+1 gratis; limit 2 szt. na klienta.",
+            "valid_from": "2026-10-31",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "EDUSCHO"
+            ],
+            "price_basis": null,
+            "quantity": {
+              "amount": "1",
+              "unit": "kg"
+            },
+            "reference_price": {
+              "amount": "69.99",
+              "kind": "regular",
+              "wording": "cena regularna"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "2",
+              "free_item_rule": "1+1 GRATIS",
+              "limit": "2 szt. na klienta"
+            },
+            "validity_wording": "tylko w sobotę 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "aldi-kw44-th-p003-o003": {
+          "name": "Babka panettone klasyczna Gourmet Finest Cuisine, 1 kg",
+          "aliases": [],
+          "fields": {
+            "price": "17.99",
+            "pack_size": "Opak. 1 kg",
+            "condition": "Limit: 4 szt. na klienta.",
+            "valid_from": "2026-10-31",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "GOURMET FINEST CUISINE"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "1",
+              "unit": "kg"
+            },
+            "reference_price": null,
+            "lowest_30_days": {
+              "amount": "29.99",
+              "kind": "lowest_30_days",
+              "wording": "Najniższa cena z 30 dni przed obniżką"
+            },
+            "ambiguous_reference": null,
+            "conditions": {
+              "limit": "4 szt. na klienta"
+            },
+            "validity_wording": "tylko w sobotę 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [],
+      "matched": 0,
+      "missed": [
+        "aldi-kw44-th-p003-o001",
+        "aldi-kw44-th-p003-o002",
+        "aldi-kw44-th-p003-o003"
+      ],
+      "extra": [
+        0,
+        1,
+        2
+      ],
+      "differences": [],
+      "fields": {},
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 3,
+        "latency_s": 57.62595007499999,
+        "input_tokens": 3102,
+        "output_tokens": 6055,
+        "cost_usd": 0.012655099999999999,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 57.62589384,
+            "input_tokens": 3102,
+            "output_tokens": 6055,
+            "cost_usd": 0.012655099999999999,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 57.62611263000002
+    },
+    {
+      "id": "lidl-gazetka-29-10-czw-kw44-p006",
+      "chain": "lidl",
+      "leaflet_id": "gazetka-29-10-czw-kw44",
+      "page": 6,
+      "truth_count": 2,
+      "predictions": [
+        {
+          "name": "Polski kurczak – filety z piersi, XXL",
+          "brands": [
+            "RZEŹNIK"
+          ],
+          "price": "14.99",
+          "price_basis": null,
+          "pack_size": "1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": {
+            "amount": "24.8",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką/cena poza promocją: 1 kg = 24.80"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "-39%",
+          "conditions": {
+            "loyalty_card": null,
+            "app": "Szczegóły promocji dostępne w aplikacji Lidl Plus. Aktywuj kupon i zeskanuj aplikację.",
+            "coupon": true,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "39",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "5 kg na kupon."
+          },
+          "valid_from": "2026-10-30",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od piątku, 30.10 do 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "cena oznaczona '*' (wymaga aktywacji kuponu w aplikacji Lidl Plus)"
+          ]
+        },
+        {
+          "name": "Masło 82% Mleczna Krowa",
+          "brands": [
+            "PILOS"
+          ],
+          "price": "2.49",
+          "price_basis": "100 g = 1.25 (cena za 1 opak. przy zakupie 3 opak.)",
+          "pack_size": "200 g",
+          "quantity": {
+            "amount": "200",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "4.99",
+            "kind": "pre_promo",
+            "wording": "4.99/opak., 100 g = 2.50"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "-50% przy zakupie 3",
+          "conditions": {
+            "loyalty_card": null,
+            "app": "Szczegóły promocji dostępne w aplikacji Lidl Plus. Aktywuj kupon i zeskanuj aplikację.",
+            "coupon": true,
+            "minimum_quantity": "3",
+            "multiple": "3",
+            "free_item_rule": null,
+            "percentage_discount": "50",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": "3 opak. na kupon."
+          },
+          "valid_from": null,
+          "valid_to": null,
+          "validity_wording": null,
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "cena oznaczona '*' — cena za 1 opak. przy zakupie 3 opak."
+          ]
+        }
+      ],
+      "expected": {
+        "lidl-gazetka-29-10-czw-kw44-p006-o001": {
+          "name": "Masło 82% Mleczna Krowa Pilos, 200 g",
+          "aliases": [],
+          "fields": {
+            "price": "2.49",
+            "pack_size": "200 g",
+            "condition": "Aktywuj kupon i zeskanuj aplikację Lidl Plus. -50% przy zakupie 3; cena za 1 opak. przy zakupie 3 opak. Limit: 3 opak. na kupon.",
+            "valid_from": "2026-10-30",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "PILOS"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "200",
+              "unit": "g"
+            },
+            "reference_price": {
+              "amount": "4.99",
+              "kind": "pre_promo",
+              "wording": "Cena przed obniżką/cena poza promocją"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "app": "Lidl Plus",
+              "coupon": true,
+              "minimum_quantity": "3",
+              "percentage_discount": "50",
+              "limit": "3 opak. na kupon"
+            },
+            "validity_wording": "Od piątku, 30.10 do 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "lidl-gazetka-29-10-czw-kw44-p006-o002": {
+          "name": "Polski kurczak – filety z piersi, XXL Rzeźnik",
+          "aliases": [],
+          "fields": {
+            "price": "14.99",
+            "pack_size": null,
+            "condition": "Aktywuj kupon i zeskanuj aplikację Lidl Plus; -39%. Limit: 5 kg na kupon.",
+            "valid_from": "2026-10-30",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "RZEŹNIK"
+            ],
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": {
+              "amount": "24.80",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką/cena poza promocją: 1 kg"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "app": "Lidl Plus",
+              "coupon": true,
+              "percentage_discount": "39",
+              "limit": "5 kg na kupon"
+            },
+            "validity_wording": "Od piątku, 30.10 do 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [],
+      "matched": 0,
+      "missed": [
+        "lidl-gazetka-29-10-czw-kw44-p006-o001",
+        "lidl-gazetka-29-10-czw-kw44-p006-o002"
+      ],
+      "extra": [
+        0,
+        1
+      ],
+      "differences": [],
+      "fields": {},
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 6,
+        "latency_s": 31.947675786000048,
+        "input_tokens": 1322,
+        "output_tokens": 3413,
+        "cost_usd": 0.0071565,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 31.947593609999956,
+            "input_tokens": 1322,
+            "output_tokens": 3413,
+            "cost_usd": 0.0071565,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 1,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 31.947821269999963
+    },
+    {
+      "id": "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004",
+      "chain": "kaufland",
+      "leaflet_id": "gazetka-tygodnia-29-10-2026-04-11-2026-dd4837",
+      "page": 4,
+      "truth_count": 6,
+      "predictions": [
+        {
+          "name": "Kaki sztuka",
+          "brands": [],
+          "price": "2.49",
+          "price_basis": null,
+          "pack_size": "sztuka",
+          "quantity": null,
+          "reference_price": {
+            "amount": "3.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "37",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Grejpfruty czerwone luzem 1 kg",
+          "brands": [],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": "1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "SUPERCENA tylko",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Winogrona ciemne luzem 1 kg",
+          "brands": [],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": "1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": {
+            "amount": "9.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "40",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Polska włoszczyzna tacka",
+          "brands": [],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": "tacka",
+          "quantity": null,
+          "reference_price": {
+            "amount": "7.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "25",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Polska sałata masłowa sztuka",
+          "brands": [],
+          "price": "2.99",
+          "price_basis": null,
+          "pack_size": "sztuka",
+          "quantity": null,
+          "reference_price": {
+            "amount": "3.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "25",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Polska rzodkiewka pęczek",
+          "brands": [],
+          "price": "1.79",
+          "price_basis": null,
+          "pack_size": "pęczek",
+          "quantity": null,
+          "reference_price": {
+            "amount": "2.69",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "33",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "OD CZWARTKU 29.10 DO SOBOTY 31.10",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        }
+      ],
+      "expected": {
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o001": {
+          "name": "Kaki",
+          "aliases": [],
+          "fields": {
+            "price": "2.49",
+            "pack_size": null,
+            "condition": "37% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "sztuka",
+            "quantity": null,
+            "reference_price": {
+              "amount": "3.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "37"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o002": {
+          "name": "Grejpfruty czerwone",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": null,
+            "condition": null,
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": null,
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o003": {
+          "name": "Winogrona ciemne",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": null,
+            "condition": "40% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": {
+              "amount": "9.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "40"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o004": {
+          "name": "Polska rzodkiewka",
+          "aliases": [],
+          "fields": {
+            "price": "1.79",
+            "pack_size": null,
+            "condition": "33% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "pęczek",
+            "quantity": null,
+            "reference_price": {
+              "amount": "2.69",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "33"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o005": {
+          "name": "Polska włoszczyzna",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": null,
+            "condition": "25% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "tacka",
+            "quantity": null,
+            "reference_price": {
+              "amount": "7.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "25"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o006": {
+          "name": "Polska sałata masłowa",
+          "aliases": [],
+          "fields": {
+            "price": "2.99",
+            "pack_size": null,
+            "condition": "25% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "sztuka",
+            "quantity": null,
+            "reference_price": {
+              "amount": "3.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "25"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [],
+      "matched": 0,
+      "missed": [
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o001",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o002",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o003",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o004",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o005",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p004-o006"
+      ],
+      "extra": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "differences": [],
+      "fields": {},
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 4,
+        "latency_s": 93.344431257,
+        "input_tokens": 8167,
+        "output_tokens": 10885,
+        "cost_usd": 0.02312055,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 93.34437458999997,
+            "input_tokens": 8167,
+            "output_tokens": 10885,
+            "cost_usd": 0.02312055,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 93.34463015199998
+    },
+    {
+      "id": "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005",
+      "chain": "kaufland",
+      "leaflet_id": "gazetka-tygodnia-29-10-2026-04-11-2026-dd4837",
+      "page": 5,
+      "truth_count": 2,
+      "predictions": [
+        {
+          "name": "Awokado zielone sztuka",
+          "brands": [],
+          "price": "2.99",
+          "price_basis": null,
+          "pack_size": "sztuka",
+          "quantity": {
+            "amount": "1",
+            "unit": "sztuka"
+          },
+          "reference_price": {
+            "amount": "5.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "TANIEJ!",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "50",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "oferta ważna od 29.10.2026 do 31.10.2026, chyba że na stronach gazety wskazano inaczej. Produkty w podanych cenach dostępne w czasie obowiązywania oferty, chyba że wcześniej dojdzie do wyczerpania zapasów. Sprzedaż w ilościach detalicznych. Wszystkie podane ceny wyrażone są w złotych polskich.",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Polska marchew luzem",
+          "brands": [],
+          "price": "1.99",
+          "price_basis": null,
+          "pack_size": "1 kg",
+          "quantity": {
+            "amount": "1",
+            "unit": "kg"
+          },
+          "reference_price": {
+            "amount": "3.99",
+            "kind": "pre_promo",
+            "wording": "cena przed obniżką"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "TANIEJ!",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "50",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "oferta ważna od 29.10.2026 do 31.10.2026, chyba że na stronach gazety wskazano inaczej. Produkty w podanych cenach dostępne w czasie obowiązywania oferty, chyba że wcześniej dojdzie do wyczerpania zapasów. Sprzedaż w ilościach detalicznych. Wszystkie podane ceny wyrażone są w złotych polskich.",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        }
+      ],
+      "expected": {
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005-o001": {
+          "name": "Awokado zielone",
+          "aliases": [],
+          "fields": {
+            "price": "2.99",
+            "pack_size": null,
+            "condition": "50% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "sztuka",
+            "quantity": null,
+            "reference_price": {
+              "amount": "5.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "50"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005-o002": {
+          "name": "Polska marchew",
+          "aliases": [],
+          "fields": {
+            "price": "1.99",
+            "pack_size": null,
+            "condition": "50% taniej",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": {
+              "amount": "3.99",
+              "kind": "pre_promo",
+              "wording": "cena przed obniżką"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "percentage_discount": "50"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [],
+      "matched": 0,
+      "missed": [
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005-o001",
+        "kaufland-gazetka-tygodnia-29-10-2026-04-11-2026-dd4837-p005-o002"
+      ],
+      "extra": [
+        0,
+        1
+      ],
+      "differences": [],
+      "fields": {},
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 5,
+        "latency_s": 63.90969619399999,
+        "input_tokens": 5417,
+        "output_tokens": 5993,
+        "cost_usd": 0.012821850000000001,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 63.909636401,
+            "input_tokens": 5417,
+            "output_tokens": 5993,
+            "cost_usd": 0.012821850000000001,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 63.90981729199996
+    },
+    {
+      "id": "netto-DmehP6eT-p004",
+      "chain": "netto",
+      "leaflet_id": "DmehP6eT",
+      "page": 4,
+      "truth_count": 12,
+      "predictions": [
+        {
+          "name": "Pomidor koktajlowy",
+          "brands": [],
+          "price": "9.99",
+          "price_basis": "19.98/1 kg",
+          "pack_size": "500 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "14.99",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Buraki gotowane Tradycyjny Smak",
+          "brands": [],
+          "price": "3.99",
+          "price_basis": "7.98/1 kg",
+          "pack_size": "500 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "4.99",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Brokuł",
+          "brands": [],
+          "price": null,
+          "price_basis": "13.98/1 kg",
+          "pack_size": "500 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "6.99",
+            "kind": "regular",
+            "wording": "Cena regularna: 6,99 za 1 opak."
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "1+1 GRATIS",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": "1+1 GRATIS",
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Por",
+          "brands": [],
+          "price": null,
+          "price_basis": null,
+          "pack_size": "1 szt.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "5.49",
+            "kind": "regular",
+            "wording": "Cena regularna: 5,49 za 1 szt."
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "1+1 GRATIS",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": "1+1 GRATIS",
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Natka pietruszki; Koperek; Szczypiorek",
+          "brands": [],
+          "price": "1.99",
+          "price_basis": "1.99/1 pęczek",
+          "pack_size": "1 pęczek",
+          "quantity": null,
+          "reference_price": {
+            "amount": "3.19",
+            "kind": "regular",
+            "wording": "*w odniesieniu do ceny regularnej"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "Przy zakupie 2 pęczków",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": "2",
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Pieczarka biała",
+          "brands": [],
+          "price": "6.99",
+          "price_basis": "11.98/1 kg",
+          "pack_size": "500 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "19.39",
+            "kind": "unknown",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "reference_price"
+          ]
+        },
+        {
+          "name": "Winogrono jasne",
+          "brands": [],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": "luz 1 kg",
+          "quantity": null,
+          "reference_price": {
+            "amount": "9.19",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Malina",
+          "brands": [],
+          "price": "3.49",
+          "price_basis": "47.92/1 kg",
+          "pack_size": "125 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "6.19",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Cytryna",
+          "brands": [],
+          "price": "3.49",
+          "price_basis": "6.98/1 kg",
+          "pack_size": "siatka 500 g",
+          "quantity": null,
+          "reference_price": {
+            "amount": "4.79",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Kiwi Gold",
+          "brands": [],
+          "price": "6.99",
+          "price_basis": null,
+          "pack_size": "1 szt.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "10.39",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Winogrono ciemne",
+          "brands": [],
+          "price": "6.99",
+          "price_basis": "13.98/1 kg",
+          "pack_size": "500 g, 1 opak.",
+          "quantity": null,
+          "reference_price": {
+            "amount": "15.29",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Pomelo czerwone",
+          "brands": [],
+          "price": "6.99",
+          "price_basis": null,
+          "pack_size": "luz 1 kg",
+          "quantity": null,
+          "reference_price": {
+            "amount": "15.29",
+            "kind": "regular",
+            "wording": null
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        }
+      ],
+      "expected": {
+        "netto-DmehP6eT-p004-o001": {
+          "name": "Pieczarka biała",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": "500 g",
+            "condition": "27% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "8.29",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "27"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o002": {
+          "name": "Cytryna siatka",
+          "aliases": [],
+          "fields": {
+            "price": "3.49",
+            "pack_size": "500 g",
+            "condition": "43% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "6.19",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "43"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o003": {
+          "name": "Kiwi Gold",
+          "aliases": [],
+          "fields": {
+            "price": "3.49",
+            "pack_size": null,
+            "condition": "27% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "szt.",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "4.79",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "27"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o004": {
+          "name": "Malina",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": "125 g",
+            "condition": "34% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "125",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "9.19",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "34"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o005": {
+          "name": "Buraki gotowane Tradycyjny Smak",
+          "aliases": [],
+          "fields": {
+            "price": "3.99",
+            "pack_size": "500 g",
+            "condition": "20% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Tradycyjny Smak"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "4.99",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "20"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o006": {
+          "name": "Winogrono ciemne",
+          "aliases": [],
+          "fields": {
+            "price": "6.99",
+            "pack_size": "500 g",
+            "condition": "32% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "10.39",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "32"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o007": {
+          "name": "Winogrono jasne luz",
+          "aliases": [],
+          "fields": {
+            "price": "6.99",
+            "pack_size": null,
+            "condition": "63% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "19.39",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "63"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o008": {
+          "name": "Pomidor koktajlowy",
+          "aliases": [],
+          "fields": {
+            "price": "9.99",
+            "pack_size": "500 g",
+            "condition": "33% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "14.99",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "33"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o009": {
+          "name": "Pomelo czerwone luz",
+          "aliases": [],
+          "fields": {
+            "price": "6.99",
+            "pack_size": null,
+            "condition": "54% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "kg",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "15.29",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "54"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p004-o010": {
+          "name": "Natka pietruszki / Koperek / Szczypiorek",
+          "aliases": [],
+          "fields": {
+            "price": "1.99",
+            "pack_size": null,
+            "condition": "Cena za 1 pęczek przy zakupie 2 pęczków. 37% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "pęczek",
+            "quantity": null,
+            "reference_price": {
+              "amount": "3.19",
+              "kind": "regular",
+              "wording": "w odniesieniu do ceny regularnej"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "2",
+              "eligible_range": "Natka pietruszki, koperek, szczypiorek",
+              "percentage_discount": "37"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "netto-DmehP6eT-p004-o011": {
+          "name": "Por",
+          "aliases": [],
+          "fields": {
+            "price": null,
+            "pack_size": null,
+            "condition": "1+1 GRATIS",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "szt.",
+            "quantity": null,
+            "reference_price": {
+              "amount": "5.49",
+              "kind": "regular",
+              "wording": "Cena regularna"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "2",
+              "free_item_rule": "1+1 GRATIS"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        },
+        "netto-DmehP6eT-p004-o012": {
+          "name": "Brokuł",
+          "aliases": [],
+          "fields": {
+            "price": null,
+            "pack_size": "500 g",
+            "condition": "1+1 GRATIS",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": null,
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "500",
+              "unit": "g"
+            },
+            "reference_price": {
+              "amount": "6.99",
+              "kind": "regular",
+              "wording": "Cena regularna"
+            },
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "2",
+              "free_item_rule": "1+1 GRATIS"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o011",
+          "prediction": 3
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10
+        }
+      ],
+      "matched": 9,
+      "missed": [
+        "netto-DmehP6eT-p004-o002",
+        "netto-DmehP6eT-p004-o007",
+        "netto-DmehP6eT-p004-o009"
+      ],
+      "extra": [
+        6,
+        8,
+        11
+      ],
+      "differences": [
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "ambiguous_reference.amount",
+          "expected": "14.99",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "condition",
+          "expected": "33% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "conditions.percentage_discount",
+          "expected": "33",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "pack_size",
+          "expected": "500 g",
+          "actual": "500 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "19.98/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "quantity",
+          "expected": {
+            "amount": "500",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o008",
+          "prediction": 0,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "14.99",
+            "kind": "regular",
+            "wording": null
+          }
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "ambiguous_reference.amount",
+          "expected": "4.99",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "brands",
+          "expected": [
+            "Tradycyjny Smak"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "condition",
+          "expected": "20% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "conditions.percentage_discount",
+          "expected": "20",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "pack_size",
+          "expected": "500 g",
+          "actual": "500 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "7.98/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "quantity",
+          "expected": {
+            "amount": "500",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o005",
+          "prediction": 1,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "4.99",
+            "kind": "regular",
+            "wording": null
+          }
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2,
+          "field": "conditions.minimum_quantity",
+          "expected": "2",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2,
+          "field": "pack_size",
+          "expected": "500 g",
+          "actual": "500 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "13.98/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2,
+          "field": "quantity",
+          "expected": {
+            "amount": "500",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o012",
+          "prediction": 2,
+          "field": "reference_price.wording",
+          "expected": "Cena regularna",
+          "actual": "Cena regularna: 6,99 za 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o011",
+          "prediction": 3,
+          "field": "conditions.minimum_quantity",
+          "expected": "2",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o011",
+          "prediction": 3,
+          "field": "pack_size",
+          "expected": null,
+          "actual": "1 szt."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o011",
+          "prediction": 3,
+          "field": "price_basis",
+          "expected": "szt.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o011",
+          "prediction": 3,
+          "field": "reference_price.wording",
+          "expected": "Cena regularna",
+          "actual": "Cena regularna: 5,49 za 1 szt."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "condition",
+          "expected": "Cena za 1 pęczek przy zakupie 2 pęczków. 37% taniej.",
+          "actual": "Przy zakupie 2 pęczków"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "conditions.eligible_range",
+          "expected": "Natka pietruszki, koperek, szczypiorek",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "conditions.percentage_discount",
+          "expected": "37",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "pack_size",
+          "expected": null,
+          "actual": "1 pęczek"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "price_basis",
+          "expected": "pęczek",
+          "actual": "1.99/1 pęczek"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o010",
+          "prediction": 4,
+          "field": "reference_price.wording",
+          "expected": "w odniesieniu do ceny regularnej",
+          "actual": "*w odniesieniu do ceny regularnej"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": [
+            "reference_price"
+          ]
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "ambiguous_reference.amount",
+          "expected": "8.29",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "condition",
+          "expected": "27% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "conditions.percentage_discount",
+          "expected": "27",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "pack_size",
+          "expected": "500 g",
+          "actual": "500 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "price",
+          "expected": "5.99",
+          "actual": "6.99"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "11.98/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "quantity",
+          "expected": {
+            "amount": "500",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o001",
+          "prediction": 5,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "19.39",
+            "kind": "unknown",
+            "wording": null
+          }
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "ambiguous_reference.amount",
+          "expected": "9.19",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "condition",
+          "expected": "34% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "conditions.percentage_discount",
+          "expected": "34",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "pack_size",
+          "expected": "125 g",
+          "actual": "125 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "price",
+          "expected": "5.99",
+          "actual": "3.49"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "47.92/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "quantity",
+          "expected": {
+            "amount": "125",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o004",
+          "prediction": 7,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "6.19",
+            "kind": "regular",
+            "wording": null
+          }
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "ambiguous_reference.amount",
+          "expected": "4.79",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "condition",
+          "expected": "27% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "conditions.percentage_discount",
+          "expected": "27",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "pack_size",
+          "expected": null,
+          "actual": "1 szt."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "price",
+          "expected": "3.49",
+          "actual": "6.99"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "price_basis",
+          "expected": "szt.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o003",
+          "prediction": 9,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "10.39",
+            "kind": "regular",
+            "wording": null
+          }
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "ambiguous_fields",
+          "expected": [
+            "reference type"
+          ],
+          "actual": []
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "ambiguous_reference.amount",
+          "expected": "10.39",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "ambiguous_reference.kind",
+          "expected": "unknown",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "condition",
+          "expected": "32% taniej.",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "conditions.percentage_discount",
+          "expected": "32",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "pack_size",
+          "expected": "500 g",
+          "actual": "500 g, 1 opak."
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "price_basis",
+          "expected": "opak.",
+          "actual": "13.98/1 kg"
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "quantity",
+          "expected": {
+            "amount": "500",
+            "unit": "g"
+          },
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p004-o006",
+          "prediction": 10,
+          "field": "reference_price",
+          "expected": null,
+          "actual": {
+            "amount": "15.29",
+            "kind": "regular",
+            "wording": null
+          }
+        }
+      ],
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 9,
+          "correct": 3
+        },
+        "ambiguous_reference.amount": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 6,
+          "correct": 6
+        },
+        "brands": {
+          "scored": 9,
+          "correct": 8
+        },
+        "condition": {
+          "scored": 9,
+          "correct": 2
+        },
+        "conditions.percentage_discount": {
+          "scored": 7,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 9,
+          "correct": 9
+        },
+        "pack_size": {
+          "scored": 9,
+          "correct": 0
+        },
+        "permanent_price_cut": {
+          "scored": 9,
+          "correct": 9
+        },
+        "price": {
+          "scored": 9,
+          "correct": 6
+        },
+        "price_basis": {
+          "scored": 9,
+          "correct": 0
+        },
+        "quantity": {
+          "scored": 9,
+          "correct": 3
+        },
+        "reference_price": {
+          "scored": 6,
+          "correct": 0
+        },
+        "valid_from": {
+          "scored": 9,
+          "correct": 9
+        },
+        "valid_to": {
+          "scored": 9,
+          "correct": 9
+        },
+        "validity_wording": {
+          "scored": 9,
+          "correct": 9
+        },
+        "ambiguous_reference": {
+          "scored": 3,
+          "correct": 3
+        },
+        "conditions.minimum_quantity": {
+          "scored": 3,
+          "correct": 1
+        },
+        "conditions.free_item_rule": {
+          "scored": 2,
+          "correct": 2
+        },
+        "reference_price.amount": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.kind": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.wording": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.eligible_range": {
+          "scored": 1,
+          "correct": 0
+        }
+      },
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 4,
+        "latency_s": 107.691995915,
+        "input_tokens": 5899,
+        "output_tokens": 11753,
+        "cost_usd": 0.02469275,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 107.691937586,
+            "input_tokens": 5899,
+            "output_tokens": 11753,
+            "cost_usd": 0.02469275,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 107.69368445399994
+    },
+    {
+      "id": "netto-DmehP6eT-p005",
+      "chain": "netto",
+      "leaflet_id": "DmehP6eT",
+      "page": 5,
+      "truth_count": 6,
+      "predictions": [
+        {
+          "name": "WSZYSTKIE ŚLEDZIKI I RYBKI NA RAZ 100 G LISNER",
+          "brands": [
+            "Lisner"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": "100 g",
+          "quantity": {
+            "amount": "100",
+            "unit": "g"
+          },
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "KUP 3 PRODUKTY, A NAJTAŃSZY OTRZYMASZ GRATIS / 2+1 GRATIS",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": "3",
+            "free_item_rule": "najtańszy otrzymasz gratis",
+            "percentage_discount": null,
+            "eligible_range": "WSZYSTKIE ŚLEDZIKI I RYBKI NA RAZ 100 G",
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "offer is a range promotion (2+1 gratis) printed together with an example pack (100 g Lisner). The example pack has explicit pack prices elsewhere on the page; this offer is the range-level 2+1 promotion and has no single pack price printed here."
+          ]
+        },
+        {
+          "name": "100 G LISNER",
+          "brands": [
+            "Lisner"
+          ],
+          "price": "10.99",
+          "price_basis": null,
+          "pack_size": "100 g",
+          "quantity": {
+            "amount": "100",
+            "unit": "g"
+          },
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "14% TANIEJ",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": "14",
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Pstrąg łososiowy wędzony na zimno, plastry",
+          "brands": [
+            "Port Netto"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": "100 g",
+          "quantity": {
+            "amount": "100",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "109.9",
+            "kind": "regular",
+            "wording": "109,90/1 kg"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "Near this product the numbers '559 25% TANIEJ 749' are printed on the page; it is ambiguous whether the pack prices 5.59 (559) and 7.49 (749) refer to this product. The printed unit price 109,90/1 kg is inconsistent with a 5.59 pack price for 100 g, so the pack price is not assigned to this offer to avoid guessing."
+          ]
+        },
+        {
+          "name": "Filety śledziowe w oleju a’la matjas",
+          "brands": [
+            "Corsarro"
+          ],
+          "price": "16.99",
+          "price_basis": null,
+          "pack_size": "250 g",
+          "quantity": {
+            "amount": "250",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "22.36",
+            "kind": "regular",
+            "wording": "22,36/1 kg"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": null,
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Zestaw sushi Hoshi",
+          "brands": [
+            "Sushi Tokyo"
+          ],
+          "price": null,
+          "price_basis": null,
+          "pack_size": "310 g",
+          "quantity": {
+            "amount": "310",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "54.81",
+            "kind": "regular",
+            "wording": "54,81/1 kg"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "SUPERCENA",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "No explicit pack price printed for this item in the supplied text; only unit price (54,81/1 kg) is printed."
+          ]
+        },
+        {
+          "name": "MIKSUJ DOWOLNIE (wybrane owoce)",
+          "brands": [],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": null,
+          "quantity": null,
+          "reference_price": null,
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "MIKSUJ DOWOLNIE – oferta zakresowa dla wymienionych produktów",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": "Winogrono jasne (luz) 1 kg; Malina 125 g",
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": [
+            "This is a range/mix offer printed as 'MIKSUJ DOWOLNIE 599'. The printed examples have different pack sizes (1 kg and 125 g); the offer is represented as a single range offer with the printed price 5.99 rather than duplicating per example pack."
+          ]
+        },
+        {
+          "name": "Filety śledziowe w sosie śmietanowym",
+          "brands": [
+            "Lisner"
+          ],
+          "price": "19.45",
+          "price_basis": null,
+          "pack_size": "700 g",
+          "quantity": {
+            "amount": "700",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "27.79",
+            "kind": "regular",
+            "wording": "27,79/1 kg"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "SUPERCENA",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        },
+        {
+          "name": "Pstrąg łososiowy filet XXL",
+          "brands": [
+            "SuperFish"
+          ],
+          "price": "5.99",
+          "price_basis": null,
+          "pack_size": "100 g",
+          "quantity": {
+            "amount": "100",
+            "unit": "g"
+          },
+          "reference_price": {
+            "amount": "59.9",
+            "kind": "regular",
+            "wording": "59,90/1 kg"
+          },
+          "lowest_30_days": null,
+          "ambiguous_reference": null,
+          "condition": "SUPERCENA",
+          "conditions": {
+            "loyalty_card": null,
+            "app": null,
+            "coupon": null,
+            "minimum_quantity": null,
+            "multiple": null,
+            "free_item_rule": null,
+            "percentage_discount": null,
+            "eligible_range": null,
+            "exclusions": null,
+            "limit": null
+          },
+          "valid_from": "2026-10-29",
+          "valid_to": "2026-10-31",
+          "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+          "permanent_price_cut": false,
+          "ambiguous_fields": []
+        }
+      ],
+      "expected": {
+        "netto-DmehP6eT-p005-o001": {
+          "name": "Filety śledziowe w oleju a’la matjas Corsarro",
+          "aliases": [],
+          "fields": {
+            "price": "5.59",
+            "pack_size": "250 g",
+            "condition": "25% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Corsarro"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "250",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "7.49",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "25"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p005-o002": {
+          "name": "Pstrąg łososiowy wędzony na zimno Port Netto, plastry",
+          "aliases": [],
+          "fields": {
+            "price": "10.99",
+            "pack_size": "100 g",
+            "condition": "14% taniej.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Port Netto"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "100",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": {
+              "amount": "12.85",
+              "kind": "unknown",
+              "wording": null
+            },
+            "conditions": {
+              "percentage_discount": "14"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": [
+              "reference type"
+            ]
+          }
+        },
+        "netto-DmehP6eT-p005-o003": {
+          "name": "Pstrąg łososiowy filet XXL SuperFish",
+          "aliases": [],
+          "fields": {
+            "price": "5.99",
+            "pack_size": null,
+            "condition": null,
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "SuperFish"
+            ],
+            "price_basis": "100 g",
+            "quantity": null,
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": null,
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": []
+          }
+        },
+        "netto-DmehP6eT-p005-o004": {
+          "name": "Filety śledziowe w sosie śmietanowym Lisner",
+          "aliases": [],
+          "fields": {
+            "price": "19.45",
+            "pack_size": "700 g",
+            "condition": "Dostępne w wybranych sklepach",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Lisner"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "700",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "eligible_range": "Dostępne w wybranych sklepach"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": []
+          }
+        },
+        "netto-DmehP6eT-p005-o005": {
+          "name": "Zestaw sushi Hoshi Sushi Tokyo",
+          "aliases": [],
+          "fields": {
+            "price": "16.99",
+            "pack_size": "310 g (10 szt.)",
+            "condition": null,
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Sushi Tokyo"
+            ],
+            "price_basis": "opak.",
+            "quantity": {
+              "amount": "310",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": null,
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": []
+          }
+        },
+        "netto-DmehP6eT-p005-o006": {
+          "name": "Wszystkie śledziki i rybki na raz 100 g Lisner",
+          "aliases": [],
+          "fields": {
+            "price": null,
+            "pack_size": "100 g",
+            "condition": "2+1 GRATIS; kup 3 produkty, a najtańszy otrzymasz gratis. Miksuj dowolnie.",
+            "valid_from": "2026-10-29",
+            "valid_to": "2026-10-31",
+            "brands": [
+              "Lisner"
+            ],
+            "price_basis": null,
+            "quantity": {
+              "amount": "100",
+              "unit": "g"
+            },
+            "reference_price": null,
+            "lowest_30_days": null,
+            "ambiguous_reference": null,
+            "conditions": {
+              "minimum_quantity": "3",
+              "free_item_rule": "Najtańszy z 3 gratis",
+              "eligible_range": "Wszystkie śledziki i rybki na raz 100 g Lisner; miksuj dowolnie"
+            },
+            "validity_wording": "Od czwartku 29.10 do soboty 31.10.2026",
+            "permanent_price_cut": null,
+            "ambiguous_fields": null
+          }
+        }
+      },
+      "pairs": [
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0
+        }
+      ],
+      "matched": 1,
+      "missed": [
+        "netto-DmehP6eT-p005-o001",
+        "netto-DmehP6eT-p005-o002",
+        "netto-DmehP6eT-p005-o003",
+        "netto-DmehP6eT-p005-o004",
+        "netto-DmehP6eT-p005-o005"
+      ],
+      "extra": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "differences": [
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0,
+          "field": "ambiguous_fields",
+          "expected": null,
+          "actual": [
+            "offer is a range promotion (2+1 gratis) printed together with an example pack (100 g Lisner). The example pack has explicit pack prices elsewhere on the page; this offer is the range-level 2+1 promotion and has no single pack price printed here."
+          ]
+        },
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0,
+          "field": "condition",
+          "expected": "2+1 GRATIS; kup 3 produkty, a najtańszy otrzymasz gratis. Miksuj dowolnie.",
+          "actual": "KUP 3 PRODUKTY, A NAJTAŃSZY OTRZYMASZ GRATIS / 2+1 GRATIS"
+        },
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0,
+          "field": "conditions.minimum_quantity",
+          "expected": "3",
+          "actual": null
+        },
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0,
+          "field": "conditions.free_item_rule",
+          "expected": "Najtańszy z 3 gratis",
+          "actual": "najtańszy otrzymasz gratis"
+        },
+        {
+          "truth": "netto-DmehP6eT-p005-o006",
+          "prediction": 0,
+          "field": "conditions.eligible_range",
+          "expected": "Wszystkie śledziki i rybki na raz 100 g Lisner; miksuj dowolnie",
+          "actual": "WSZYSTKIE ŚLEDZIKI I RYBKI NA RAZ 100 G"
+        }
+      ],
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference": {
+          "scored": 1,
+          "correct": 1
+        },
+        "brands": {
+          "scored": 1,
+          "correct": 1
+        },
+        "condition": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.minimum_quantity": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.free_item_rule": {
+          "scored": 1,
+          "correct": 0
+        },
+        "conditions.eligible_range": {
+          "scored": 1,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 1,
+          "correct": 1
+        },
+        "pack_size": {
+          "scored": 1,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price_basis": {
+          "scored": 1,
+          "correct": 1
+        },
+        "quantity": {
+          "scored": 1,
+          "correct": 1
+        },
+        "reference_price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_from": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_to": {
+          "scored": 1,
+          "correct": 1
+        },
+        "validity_wording": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 5,
+        "latency_s": 114.24574601400002,
+        "input_tokens": 5074,
+        "output_tokens": 12598,
+        "cost_usd": 0.0262053,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 114.2456888459999,
+            "input_tokens": 5074,
+            "output_tokens": 12598,
+            "cost_usd": 0.0262053,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 114.246208411
+    },
+    {
+      "id": "lidl-gazetka-29-10-czw-kw44-p117",
+      "chain": "lidl",
+      "leaflet_id": "gazetka-29-10-czw-kw44",
+      "page": 117,
+      "truth_count": 0,
+      "predictions": [],
+      "expected": {},
+      "pairs": [],
+      "matched": 0,
+      "missed": [],
+      "extra": [],
+      "differences": [],
+      "fields": {},
+      "unscored": [],
+      "failed": false,
+      "failure": null,
+      "usage": {
+        "page": 117,
+        "latency_s": 8.75745282899993,
+        "input_tokens": 2193,
+        "output_tokens": 568,
+        "cost_usd": 0.00145385,
+        "cost_status": "reported",
+        "accounting_complete": true,
+        "prompt_version": "promo-v2",
+        "preprocessing_version": "promo-input-v2",
+        "stages": [
+          {
+            "stage": "model",
+            "latency_s": 8.757394791000024,
+            "input_tokens": 2193,
+            "output_tokens": 568,
+            "cost_usd": 0.00145385,
+            "cost_status": "reported",
+            "accounting_complete": true,
+            "attempts": 2,
+            "engine": null,
+            "engine_version": null,
+            "pricing_version": null,
+            "pricing_source": null
+          }
+        ],
+        "pricing_versions": []
+      },
+      "seconds": 8.757507080999972
+    }
+  ],
+  "totals": {
+    "truth": 40,
+    "matched": 15,
+    "missed": 25,
+    "extra": 27,
+    "failed_pages": 0,
+    "precision": 0.35714285714285715,
+    "recall": 0.375,
+    "cost_usd": 0.15155725,
+    "known_cost_usd": 0.15155725,
+    "accounting_complete": true,
+    "seconds": 692.7035594179999,
+    "p50_seconds": 63.90981729199996,
+    "p95_seconds": 114.246208411,
+    "fields": {
+      "ambiguous_fields": {
+        "scored": 15,
+        "correct": 4
+      },
+      "ambiguous_reference": {
+        "scored": 8,
+        "correct": 8
+      },
+      "brands": {
+        "scored": 15,
+        "correct": 14
+      },
+      "condition": {
+        "scored": 15,
+        "correct": 3
+      },
+      "conditions.loyalty_card": {
+        "scored": 3,
+        "correct": 0
+      },
+      "conditions.percentage_discount": {
+        "scored": 10,
+        "correct": 3
+      },
+      "conditions.minimum_quantity": {
+        "scored": 8,
+        "correct": 3
+      },
+      "conditions.eligible_range": {
+        "scored": 5,
+        "correct": 0
+      },
+      "conditions.limit": {
+        "scored": 3,
+        "correct": 0
+      },
+      "lowest_30_days": {
+        "scored": 15,
+        "correct": 15
+      },
+      "pack_size": {
+        "scored": 15,
+        "correct": 6
+      },
+      "permanent_price_cut": {
+        "scored": 15,
+        "correct": 15
+      },
+      "price": {
+        "scored": 15,
+        "correct": 11
+      },
+      "price_basis": {
+        "scored": 15,
+        "correct": 4
+      },
+      "quantity": {
+        "scored": 15,
+        "correct": 8
+      },
+      "reference_price": {
+        "scored": 12,
+        "correct": 4
+      },
+      "valid_from": {
+        "scored": 15,
+        "correct": 15
+      },
+      "valid_to": {
+        "scored": 15,
+        "correct": 15
+      },
+      "validity_wording": {
+        "scored": 15,
+        "correct": 11
+      },
+      "conditions.free_item_rule": {
+        "scored": 4,
+        "correct": 3
+      },
+      "ambiguous_reference.amount": {
+        "scored": 7,
+        "correct": 0
+      },
+      "ambiguous_reference.kind": {
+        "scored": 7,
+        "correct": 0
+      },
+      "ambiguous_reference.wording": {
+        "scored": 7,
+        "correct": 6
+      },
+      "conditions": {
+        "scored": 1,
+        "correct": 0
+      },
+      "reference_price.amount": {
+        "scored": 3,
+        "correct": 3
+      },
+      "reference_price.kind": {
+        "scored": 3,
+        "correct": 3
+      },
+      "reference_price.wording": {
+        "scored": 3,
+        "correct": 0
+      }
+    },
+    "pricing_versions": []
+  },
+  "by_chain": {
+    "aldi": {
+      "truth": 6,
+      "matched": 1,
+      "missed": 5,
+      "extra": 5,
+      "failed_pages": 0,
+      "precision": 0.16666666666666666,
+      "recall": 0.16666666666666666,
+      "cost_usd": 0.02898795,
+      "known_cost_usd": 0.02898795,
+      "accounting_complete": true,
+      "seconds": 147.81066769500006,
+      "p50_seconds": 57.62611263000002,
+      "p95_seconds": 90.18455506500004,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.amount": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 1,
+          "correct": 0
+        },
+        "brands": {
+          "scored": 1,
+          "correct": 1
+        },
+        "condition": {
+          "scored": 1,
+          "correct": 1
+        },
+        "conditions": {
+          "scored": 1,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 1,
+          "correct": 1
+        },
+        "pack_size": {
+          "scored": 1,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price_basis": {
+          "scored": 1,
+          "correct": 0
+        },
+        "quantity": {
+          "scored": 1,
+          "correct": 1
+        },
+        "reference_price": {
+          "scored": 1,
+          "correct": 0
+        },
+        "valid_from": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_to": {
+          "scored": 1,
+          "correct": 1
+        },
+        "validity_wording": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "pricing_versions": []
+    },
+    "biedronka": {
+      "truth": 6,
+      "matched": 4,
+      "missed": 2,
+      "extra": 2,
+      "failed_pages": 0,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "cost_usd": 0.0271185,
+      "known_cost_usd": 0.0271185,
+      "accounting_complete": true,
+      "seconds": 124.99322306300002,
+      "p50_seconds": 60.377050384,
+      "p95_seconds": 64.61617267900002,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 4,
+          "correct": 1
+        },
+        "ambiguous_reference": {
+          "scored": 4,
+          "correct": 4
+        },
+        "brands": {
+          "scored": 4,
+          "correct": 4
+        },
+        "condition": {
+          "scored": 4,
+          "correct": 0
+        },
+        "conditions.loyalty_card": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.percentage_discount": {
+          "scored": 3,
+          "correct": 3
+        },
+        "conditions.minimum_quantity": {
+          "scored": 4,
+          "correct": 2
+        },
+        "conditions.eligible_range": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.limit": {
+          "scored": 3,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 4,
+          "correct": 4
+        },
+        "pack_size": {
+          "scored": 4,
+          "correct": 4
+        },
+        "permanent_price_cut": {
+          "scored": 4,
+          "correct": 4
+        },
+        "price": {
+          "scored": 4,
+          "correct": 3
+        },
+        "price_basis": {
+          "scored": 4,
+          "correct": 3
+        },
+        "quantity": {
+          "scored": 4,
+          "correct": 3
+        },
+        "reference_price": {
+          "scored": 4,
+          "correct": 3
+        },
+        "valid_from": {
+          "scored": 4,
+          "correct": 4
+        },
+        "valid_to": {
+          "scored": 4,
+          "correct": 4
+        },
+        "validity_wording": {
+          "scored": 4,
+          "correct": 0
+        },
+        "conditions.free_item_rule": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "pricing_versions": []
+    },
+    "kaufland": {
+      "truth": 8,
+      "matched": 0,
+      "missed": 8,
+      "extra": 8,
+      "failed_pages": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "cost_usd": 0.0359424,
+      "known_cost_usd": 0.0359424,
+      "accounting_complete": true,
+      "seconds": 157.25444744399994,
+      "p50_seconds": 63.90981729199996,
+      "p95_seconds": 93.34463015199998,
+      "fields": {},
+      "pricing_versions": []
+    },
+    "lidl": {
+      "truth": 2,
+      "matched": 0,
+      "missed": 2,
+      "extra": 2,
+      "failed_pages": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "cost_usd": 0.00861035,
+      "known_cost_usd": 0.00861035,
+      "accounting_complete": true,
+      "seconds": 40.705328350999935,
+      "p50_seconds": 8.757507080999972,
+      "p95_seconds": 31.947821269999963,
+      "fields": {},
+      "pricing_versions": []
+    },
+    "netto": {
+      "truth": 18,
+      "matched": 10,
+      "missed": 8,
+      "extra": 10,
+      "failed_pages": 0,
+      "precision": 0.5,
+      "recall": 0.5555555555555556,
+      "cost_usd": 0.05089805,
+      "known_cost_usd": 0.05089805,
+      "accounting_complete": true,
+      "seconds": 221.93989286499993,
+      "p50_seconds": 107.69368445399994,
+      "p95_seconds": 114.246208411,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 10,
+          "correct": 3
+        },
+        "ambiguous_reference.amount": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 6,
+          "correct": 6
+        },
+        "brands": {
+          "scored": 10,
+          "correct": 9
+        },
+        "condition": {
+          "scored": 10,
+          "correct": 2
+        },
+        "conditions.percentage_discount": {
+          "scored": 7,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 10,
+          "correct": 10
+        },
+        "pack_size": {
+          "scored": 10,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 10,
+          "correct": 10
+        },
+        "price": {
+          "scored": 10,
+          "correct": 7
+        },
+        "price_basis": {
+          "scored": 10,
+          "correct": 1
+        },
+        "quantity": {
+          "scored": 10,
+          "correct": 4
+        },
+        "reference_price": {
+          "scored": 7,
+          "correct": 1
+        },
+        "valid_from": {
+          "scored": 10,
+          "correct": 10
+        },
+        "valid_to": {
+          "scored": 10,
+          "correct": 10
+        },
+        "validity_wording": {
+          "scored": 10,
+          "correct": 10
+        },
+        "ambiguous_reference": {
+          "scored": 4,
+          "correct": 4
+        },
+        "conditions.minimum_quantity": {
+          "scored": 4,
+          "correct": 1
+        },
+        "conditions.free_item_rule": {
+          "scored": 3,
+          "correct": 2
+        },
+        "reference_price.amount": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.kind": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.wording": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.eligible_range": {
+          "scored": 2,
+          "correct": 0
+        }
+      },
+      "pricing_versions": []
+    }
+  },
+  "by_leaflet": {
+    "aldi:2026_cw44_th_promotion_weekend_26k44g03": {
+      "truth": 6,
+      "matched": 1,
+      "missed": 5,
+      "extra": 5,
+      "failed_pages": 0,
+      "precision": 0.16666666666666666,
+      "recall": 0.16666666666666666,
+      "cost_usd": 0.02898795,
+      "known_cost_usd": 0.02898795,
+      "accounting_complete": true,
+      "seconds": 147.81066769500006,
+      "p50_seconds": 57.62611263000002,
+      "p95_seconds": 90.18455506500004,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.amount": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 1,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 1,
+          "correct": 0
+        },
+        "brands": {
+          "scored": 1,
+          "correct": 1
+        },
+        "condition": {
+          "scored": 1,
+          "correct": 1
+        },
+        "conditions": {
+          "scored": 1,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 1,
+          "correct": 1
+        },
+        "pack_size": {
+          "scored": 1,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price": {
+          "scored": 1,
+          "correct": 1
+        },
+        "price_basis": {
+          "scored": 1,
+          "correct": 0
+        },
+        "quantity": {
+          "scored": 1,
+          "correct": 1
+        },
+        "reference_price": {
+          "scored": 1,
+          "correct": 0
+        },
+        "valid_from": {
+          "scored": 1,
+          "correct": 1
+        },
+        "valid_to": {
+          "scored": 1,
+          "correct": 1
+        },
+        "validity_wording": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "pricing_versions": []
+    },
+    "biedronka:d0d10a7a-5fd0-415f-96a6-47f02a5a9cd0": {
+      "truth": 6,
+      "matched": 4,
+      "missed": 2,
+      "extra": 2,
+      "failed_pages": 0,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "cost_usd": 0.0271185,
+      "known_cost_usd": 0.0271185,
+      "accounting_complete": true,
+      "seconds": 124.99322306300002,
+      "p50_seconds": 60.377050384,
+      "p95_seconds": 64.61617267900002,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 4,
+          "correct": 1
+        },
+        "ambiguous_reference": {
+          "scored": 4,
+          "correct": 4
+        },
+        "brands": {
+          "scored": 4,
+          "correct": 4
+        },
+        "condition": {
+          "scored": 4,
+          "correct": 0
+        },
+        "conditions.loyalty_card": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.percentage_discount": {
+          "scored": 3,
+          "correct": 3
+        },
+        "conditions.minimum_quantity": {
+          "scored": 4,
+          "correct": 2
+        },
+        "conditions.eligible_range": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.limit": {
+          "scored": 3,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 4,
+          "correct": 4
+        },
+        "pack_size": {
+          "scored": 4,
+          "correct": 4
+        },
+        "permanent_price_cut": {
+          "scored": 4,
+          "correct": 4
+        },
+        "price": {
+          "scored": 4,
+          "correct": 3
+        },
+        "price_basis": {
+          "scored": 4,
+          "correct": 3
+        },
+        "quantity": {
+          "scored": 4,
+          "correct": 3
+        },
+        "reference_price": {
+          "scored": 4,
+          "correct": 3
+        },
+        "valid_from": {
+          "scored": 4,
+          "correct": 4
+        },
+        "valid_to": {
+          "scored": 4,
+          "correct": 4
+        },
+        "validity_wording": {
+          "scored": 4,
+          "correct": 0
+        },
+        "conditions.free_item_rule": {
+          "scored": 1,
+          "correct": 1
+        }
+      },
+      "pricing_versions": []
+    },
+    "kaufland:gazetka-tygodnia-29-10-2026-04-11-2026-dd4837": {
+      "truth": 8,
+      "matched": 0,
+      "missed": 8,
+      "extra": 8,
+      "failed_pages": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "cost_usd": 0.0359424,
+      "known_cost_usd": 0.0359424,
+      "accounting_complete": true,
+      "seconds": 157.25444744399994,
+      "p50_seconds": 63.90981729199996,
+      "p95_seconds": 93.34463015199998,
+      "fields": {},
+      "pricing_versions": []
+    },
+    "lidl:gazetka-29-10-czw-kw44": {
+      "truth": 2,
+      "matched": 0,
+      "missed": 2,
+      "extra": 2,
+      "failed_pages": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "cost_usd": 0.00861035,
+      "known_cost_usd": 0.00861035,
+      "accounting_complete": true,
+      "seconds": 40.705328350999935,
+      "p50_seconds": 8.757507080999972,
+      "p95_seconds": 31.947821269999963,
+      "fields": {},
+      "pricing_versions": []
+    },
+    "netto:DmehP6eT": {
+      "truth": 18,
+      "matched": 10,
+      "missed": 8,
+      "extra": 10,
+      "failed_pages": 0,
+      "precision": 0.5,
+      "recall": 0.5555555555555556,
+      "cost_usd": 0.05089805,
+      "known_cost_usd": 0.05089805,
+      "accounting_complete": true,
+      "seconds": 221.93989286499993,
+      "p50_seconds": 107.69368445399994,
+      "p95_seconds": 114.246208411,
+      "fields": {
+        "ambiguous_fields": {
+          "scored": 10,
+          "correct": 3
+        },
+        "ambiguous_reference.amount": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.kind": {
+          "scored": 6,
+          "correct": 0
+        },
+        "ambiguous_reference.wording": {
+          "scored": 6,
+          "correct": 6
+        },
+        "brands": {
+          "scored": 10,
+          "correct": 9
+        },
+        "condition": {
+          "scored": 10,
+          "correct": 2
+        },
+        "conditions.percentage_discount": {
+          "scored": 7,
+          "correct": 0
+        },
+        "lowest_30_days": {
+          "scored": 10,
+          "correct": 10
+        },
+        "pack_size": {
+          "scored": 10,
+          "correct": 1
+        },
+        "permanent_price_cut": {
+          "scored": 10,
+          "correct": 10
+        },
+        "price": {
+          "scored": 10,
+          "correct": 7
+        },
+        "price_basis": {
+          "scored": 10,
+          "correct": 1
+        },
+        "quantity": {
+          "scored": 10,
+          "correct": 4
+        },
+        "reference_price": {
+          "scored": 7,
+          "correct": 1
+        },
+        "valid_from": {
+          "scored": 10,
+          "correct": 10
+        },
+        "valid_to": {
+          "scored": 10,
+          "correct": 10
+        },
+        "validity_wording": {
+          "scored": 10,
+          "correct": 10
+        },
+        "ambiguous_reference": {
+          "scored": 4,
+          "correct": 4
+        },
+        "conditions.minimum_quantity": {
+          "scored": 4,
+          "correct": 1
+        },
+        "conditions.free_item_rule": {
+          "scored": 3,
+          "correct": 2
+        },
+        "reference_price.amount": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.kind": {
+          "scored": 3,
+          "correct": 3
+        },
+        "reference_price.wording": {
+          "scored": 3,
+          "correct": 0
+        },
+        "conditions.eligible_range": {
+          "scored": 2,
+          "correct": 0
+        }
+      },
+      "pricing_versions": []
+    }
+  }
+}

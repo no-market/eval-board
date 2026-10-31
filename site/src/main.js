@@ -7,6 +7,12 @@ import { parseRoute } from './route.js';
 import { renderRun } from './run.js';
 import { renderTab } from './tab.js';
 import { tick } from './ticking.js';
+// PROTOTYPE: the promos tab's variants.
+import { renderPromoCompare } from './proto/promo-compare.js';
+import { renderPromoRun } from './proto/promo-run.js';
+import { renderPromoTab } from './proto/promo-tab.js';
+import { wireSwitcher, withRescored } from './proto/promo-common.js';
+const PROMO = 'promo-extraction';
 
 const app = document.getElementById('app');
 
@@ -23,6 +29,8 @@ async function start() {
     app.textContent = `The eval board could not load its index of runs (${error.message}).`;
     return;
   }
+  if (!withRescored) index.runs = index.runs.filter((run) => !run.rescoredFrom);
+  wireSwitcher();
   const show = async () => {
     const hash = location.hash;
     let view;
@@ -79,18 +87,19 @@ async function render(route, index) {
     const [a, b] = await Promise.all(
       [compared.a, compared.b].map(async (entry) => ({ id: entry.run, run: await loadRun(entry.file) })),
     );
-    return renderCompare({ flow: route.flow, a, b });
+    return route.flow === PROMO ? renderPromoCompare({ flow: route.flow, a, b }) : renderCompare({ flow: route.flow, a, b });
   }
   if (route.view === 'run') {
     const entry = index.runs.find((e) => e.run === route.run && e.flow === route.flow);
-    return renderRun({ flow: route.flow, id: route.run, runFile: entry && (await loadRun(entry.file)) });
+    const runFile = entry && (await loadRun(entry.file));
+    return route.flow === PROMO ? renderPromoRun({ flow: route.flow, id: route.run, runFile }) : renderRun({ flow: route.flow, id: route.run, runFile });
   }
   return renderNotFound('This address is not on the eval board.');
 }
 
 function renderTabOf(route, index) {
   const runs = index.runs.filter((run) => run.flow === route.flow);
-  return renderTab({ flow: route.flow, runs, base: route.base, ticked });
+  return (route.flow === PROMO ? renderPromoTab : renderTab)({ flow: route.flow, runs, base: route.base, ticked });
 }
 
 // The chart sizes each point's label from its number of characters; here,

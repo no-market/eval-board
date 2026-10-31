@@ -1,6 +1,8 @@
+import { summarisePromo } from '../src/proto/promo-summary.js';
 // A receipt lines run (schema_version 3) as one entry of the index: what the
 // table and the chart need, without loading the run file.
 export function summarise(file, run) {
+  if (run.flow === 'promo-extraction') return summarisePromo(file, run); // PROTOTYPE
   const { numbers } = run;
   return {
     run: file.replace(/\.json$/, ''),
