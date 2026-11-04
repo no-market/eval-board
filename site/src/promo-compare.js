@@ -7,7 +7,7 @@ import { wrappable } from './compare.js';
 import { promosDifference, secondsDifference } from './differences.js';
 import { evalSetName } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatDate, formatSeconds, pagesCount } from './format.js';
+import { formatDate, formatSeconds, pagesCount, promosCount } from './format.js';
 import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { changedPromos } from './promo-changes.js';
@@ -64,7 +64,7 @@ const SUMMARY_ROWS = [
   { name: 'Cost / page', format: costCell, difference: costDifference },
 ];
 
-function cells(row, a, b, total) {
+export function cells(row, a, b, total) {
   const found = a && b ? row.difference(a, b) : null;
   const written = (n) => (n ? row.format(n) : dash);
   return html`<td class="num nowrap${total}">${written(a)}</td><td class="num nowrap${total}">${written(b)}</td><td class="diff ${found ? found.mark : 'same'} num${total}">${found ? wrappable(found.text) : ''}</td>`;
@@ -109,18 +109,13 @@ function changedRow({ page, a, b }) {
 
 // A promo's verdict and the fields it has wrong, errors in bold, then
 // warnings: `error price · condition`; `—` for a run the promo isn't in.
-function promoVerdict(promo) {
+export function promoVerdict(promo) {
   if (!promo) return dash;
   const field = (name) => (name === 'extra' ? 'made up' : name);
   const errors = promo.errors.map((name, i) => html`${i > 0 ? ', ' : ''}<strong>${field(name)}</strong>`);
   const warnings = promo.warnings.map((name, i) => html`${i > 0 ? ', ' : ''}${field(name)}`);
   const separator = errors.length > 0 && warnings.length > 0 ? ' · ' : '';
   return html`<span class="verdict ${promo.verdict}">${promo.verdict}</span> <span class="small">${errors}${separator}${warnings}</span>`;
-}
-
-// `22 promos`, `1 promo`.
-function promosCount(n) {
-  return n === 1 ? '1 promo' : `${n} promos`;
 }
 
 // The sections of the comparison, in order, after its heading.

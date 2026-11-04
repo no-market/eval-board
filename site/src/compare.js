@@ -15,7 +15,7 @@ import { failed, modelPair, olderFirst, STEPS, stepName } from './runs.js';
 
 // Why two runs of one flow (index entries, A the older) aren't compared, or
 // null when they are, for a flow with a rule beyond being of one flow.
-const WHY_NOT_COMPARED = { 'promo-extraction': whyPromosNotCompared };
+const WHY_NOT_COMPARED = { 'promo-extraction': whyPromosNotCompared, 'promo-kinds': whyPromosNotCompared };
 
 // The index entries of the two runs a compare address names, A the older:
 // { a, b }, or { message } when a run is unknown, the runs are of different

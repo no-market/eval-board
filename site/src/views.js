@@ -3,6 +3,9 @@
 // view an address names through viewsOf; every flow in FLOWS has all three.
 import { renderCompare } from './compare.js';
 import { renderPromoCompare } from './promo-compare.js';
+import { renderPromoKindsCompare } from './promo-kinds-compare.js';
+import { renderPromoKindsRun } from './promo-kinds-run.js';
+import { renderPromoKindsTab } from './promo-kinds-tab.js';
 import { renderPromoRun } from './promo-run.js';
 import { renderPromoTab } from './promo-tab.js';
 import { renderRun } from './run.js';
@@ -11,6 +14,7 @@ import { renderTab } from './tab.js';
 const VIEWS = {
   'receipt-lines': { tab: renderTab, run: renderRun, compare: renderCompare },
   'promo-extraction': { tab: renderPromoTab, run: renderPromoRun, compare: renderPromoCompare },
+  'promo-kinds': { tab: renderPromoKindsTab, run: renderPromoKindsRun, compare: renderPromoKindsCompare },
 };
 
 // The views of the flow `flowId`: { tab, run, compare }, each taking what

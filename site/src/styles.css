@@ -103,6 +103,7 @@ details.block-fold { background: var(--surface); border: 1px solid var(--border)
 details.block-fold summary { cursor: pointer; padding: 14px 16px; min-height: 44px; box-sizing: border-box; font-weight: 600; }
 details.block-fold summary .muted { font-weight: 500; }
 details.block-fold .table-wrap { border: 0; border-top: 1px solid var(--rule); border-radius: 0 0 12px 12px; }
+details.block-fold > p { padding: 0 16px 14px; }
 main.run h2 .muted { font-weight: 500; }
 .runs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
 .better { color: var(--better); font-weight: 700; }
@@ -137,6 +138,12 @@ th.tick, td.tick { width: 44px; padding-top: 0; padding-bottom: 0; }
 td.tick label { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; cursor: pointer; }
 td.tick input { width: 18px; height: 18px; margin: 0; accent-color: var(--flow); }
 tr.ticked td { background: #EEF6F5; }
+
+/* The chart with errors by group beside it, one above the other when narrow. */
+.beside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.beside .groups { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.beside .groups tbody th { color: var(--text); font-weight: 500; white-space: nowrap; border-top: 1px solid var(--rule); }
+@media (max-width: 900px) { .beside { grid-template-columns: minmax(0, 1fr); } }
 
 /* The chart of error rate against cost per receipt. */
 .chart {
@@ -196,6 +203,7 @@ table.by-step th.group.total { font-weight: 700; }
 .compare h2 .muted { font-weight: 500; }
 table.changed-lines { min-width: 1080px; }
 table.changed-promos { min-width: 760px; }
+table.changed-kinds td { color: var(--text); font-weight: 400; }
 table.changed-lines tr.group th { padding: 10px 16px; text-align: left; font-size: 14px; font-weight: 700; border-top: 1px solid var(--border); }
 table.changed-lines tbody.worse tr.group th { color: var(--worse); background: #FDF3EC; }
 table.changed-lines tbody.better tr.group th { color: var(--better); background: #EEF4FB; }

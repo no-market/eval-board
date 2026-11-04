@@ -1,11 +1,12 @@
-// Eval sets of promo runs. A run's eval set is its dataset revision, scorer
-// version and selection of pages taken as a set (the index keeps the
-// selection sorted, see build/summarise-promo.js); runs compare only within
-// one eval set. The current eval set is that of the newest run with verdicts.
-import { formatDate, pagesCount } from './format.js';
+// Eval sets of promo and promo kinds runs. A run's eval set is its dataset
+// revision, scorer version and selection, of pages or of promos as its `unit`
+// says, taken as a set (the index keeps the selection sorted, see
+// build/summarise-promo.js); runs compare only within one eval set. The
+// current eval set is that of the newest run with verdicts.
+import { formatDate, pagesCount, promosCount } from './format.js';
 
 // Whether two eval sets are one: the same dataset revision, scorer version
-// and pages.
+// and selection.
 export function sameEvalSet(a, b) {
   return (
     a.dataset === b.dataset &&
@@ -15,11 +16,11 @@ export function sameEvalSet(a, b) {
   );
 }
 
-// Whether a promo run (an index entry, or a run file read by promoRun in
-// promo-runs.js) was scored with verdicts, so has errors and warnings: its
-// schema_version is 4 or later. A run scored before them (3) has not.
+// Whether a run (an index entry, or a run file as its flow reads it) was
+// scored with verdicts, so has errors and warnings counted. A promo run scored
+// before them (schema_version 3) has not; every promo kinds run has.
 export function hasVerdicts(run) {
-  return run.schemaVersion >= 4;
+  return Boolean(run.totals.errors);
 }
 
 // The eval set of the newest run with verdicts among `runs`, or null when
@@ -44,12 +45,14 @@ export function history(runs, evalSet) {
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }
 
-// `baseline-10-reviewed-v2-context · promo-core-text-v6 · 8 pages`
-export function evalSetName({ dataset, scorer, selection }) {
-  return `${dataset} · ${scorer} · ${pagesCount(selection.length)}`;
+// `baseline-10-reviewed-v2-context · promo-core-text-v6 · 8 pages`, or
+// `· 100 promos` for an eval set of promos.
+export function evalSetName({ dataset, scorer, selection, unit = 'page' }) {
+  const count = unit === 'promo' ? promosCount : pagesCount;
+  return `${dataset} · ${scorer} · ${count(selection.length)}`;
 }
 
-// Why two promo runs (index entries) aren't compared, or null when they are:
+// Why two runs (index entries) aren't compared, or null when they are:
 // only two runs of one eval set, both with verdicts, compare. A run without
 // verdicts is named first, as its eval set is no matter then.
 export function whyNotCompared(a, b) {

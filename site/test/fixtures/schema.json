@@ -2684,12 +2684,322 @@
       ],
       "title": "Quantity",
       "type": "object"
+    },
+    "PromoKindsCount": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "share": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "share"
+      ],
+      "title": "PromoKindsCount",
+      "type": "object"
+    },
+    "PromoKindsTotals": {
+      "properties": {
+        "promos": {
+          "type": "integer"
+        },
+        "errors": {
+          "$ref": "#/$defs/PromoKindsCount"
+        },
+        "warnings": {
+          "$ref": "#/$defs/PromoKindsCount"
+        },
+        "failed": {
+          "type": "integer"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "known_cost_usd": {
+          "type": "number"
+        },
+        "accounting_complete": {
+          "type": "boolean"
+        },
+        "seconds": {
+          "type": "number"
+        },
+        "p50_seconds": {
+          "type": "number"
+        },
+        "p95_seconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "promos",
+        "errors",
+        "warnings",
+        "failed",
+        "cost_usd",
+        "known_cost_usd",
+        "accounting_complete",
+        "seconds",
+        "p50_seconds",
+        "p95_seconds"
+      ],
+      "title": "PromoKindsTotals",
+      "type": "object"
+    },
+    "PromoKindsCase": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "chain": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "expected": {
+          "properties": {
+            "outcome": {
+              "enum": [
+                "kinds",
+                "out_of_scope",
+                "unclear"
+              ],
+              "type": "string"
+            },
+            "certain": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "possible": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "outcome",
+            "certain",
+            "possible"
+          ],
+          "type": "object"
+        },
+        "answer": {
+          "anyOf": [
+            {
+              "properties": {
+                "outcome": {
+                  "enum": [
+                    "kinds",
+                    "out_of_scope",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                "kinds": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "new_kinds": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "outcome",
+                "kinds",
+                "new_kinds"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verdict": {
+          "enum": [
+            "right",
+            "warning",
+            "error"
+          ],
+          "type": "string"
+        },
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "failed": {
+          "type": "boolean"
+        },
+        "failure": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "group",
+        "chain",
+        "name",
+        "expected",
+        "answer",
+        "verdict",
+        "errors",
+        "warnings",
+        "failed",
+        "failure",
+        "cost_usd",
+        "seconds"
+      ],
+      "title": "PromoKindsCase",
+      "type": "object"
+    },
+    "PromoKindsRun": {
+      "properties": {
+        "schema_version": {
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        },
+        "flow": {
+          "const": "promo-kinds",
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "dataset_revision": {
+          "type": "string"
+        },
+        "scorer_version": {
+          "type": "string"
+        },
+        "prompt_version": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object"
+        },
+        "selection": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "eligible": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "full": {
+          "type": "boolean"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/PromoKindsCase"
+          },
+          "type": "array"
+        },
+        "totals": {
+          "$ref": "#/$defs/PromoKindsTotals"
+        },
+        "by_group": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PromoKindsTotals"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "flow",
+        "date",
+        "commit",
+        "dataset_revision",
+        "scorer_version",
+        "prompt_version",
+        "model",
+        "options",
+        "selection",
+        "eligible",
+        "full",
+        "cases",
+        "totals",
+        "by_group"
+      ],
+      "title": "PromoKindsRun",
+      "type": "object"
     }
   },
   "discriminator": {
     "mapping": {
       "promo-extraction": "#/$defs/PromoRun",
-      "receipt-lines": "#/$defs/RunResult"
+      "receipt-lines": "#/$defs/RunResult",
+      "promo-kinds": "#/$defs/PromoKindsRun"
     },
     "propertyName": "flow"
   },
@@ -2699,6 +3009,9 @@
     },
     {
       "$ref": "#/$defs/PromoRun"
+    },
+    {
+      "$ref": "#/$defs/PromoKindsRun"
     }
   ]
 }

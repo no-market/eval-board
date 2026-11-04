@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import { renderCompare } from '../src/compare.js';
 import { FLOWS } from '../src/flows.js';
 import { renderPromoCompare } from '../src/promo-compare.js';
+import { renderPromoKindsCompare } from '../src/promo-kinds-compare.js';
+import { renderPromoKindsRun } from '../src/promo-kinds-run.js';
+import { renderPromoKindsTab } from '../src/promo-kinds-tab.js';
 import { renderPromoRun } from '../src/promo-run.js';
 import { renderPromoTab } from '../src/promo-tab.js';
 import { renderRun } from '../src/run.js';
@@ -32,4 +35,8 @@ test('promo runs open the promo run page', () => {
 
 test('promo runs open the promo comparison', () => {
   assert.equal(viewsOf('promo-extraction').compare, renderPromoCompare);
+});
+
+test('promo kinds runs open the promo kinds views', () => {
+  assert.deepEqual(viewsOf('promo-kinds'), { tab: renderPromoKindsTab, run: renderPromoKindsRun, compare: renderPromoKindsCompare });
 });

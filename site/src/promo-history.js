@@ -1,6 +1,6 @@
-// The history of the promos tab: every run not of the current eval set (see
-// eval-sets.js), folded below the table in one table, newest first, each with
-// its eval set named. A run with verdicts shows its error and warning rates;
+// The history of the promos tab, and the fold every tab with eval sets shares:
+// every run not of the current eval set (see eval-sets.js), folded below the
+// table in one table, newest first, each with its eval set named. A run with verdicts shows its error and warning rates;
 // a run scored before them (schema_version 3) its matched, missed and made-up
 // promos, recall, precision and failed pages; each `—` where the other kind's
 // numbers are. History runs are neither ticked nor set as the baseline, and
@@ -12,7 +12,7 @@ import { MATCHING_COLUMNS, modelsLine, shareOf, strategiesLine } from './promo-r
 import { runAddress } from './route.js';
 
 // The numbers of a run with verdicts, as [heading, cell of its totals].
-const VERDICT_COLUMNS = [
+export const VERDICT_COLUMNS = [
   ['Error rate', (totals) => shareOf(totals, 'errors')],
   ['Warning rate', (totals) => shareOf(totals, 'warnings')],
 ];
@@ -24,9 +24,16 @@ const BEFORE_COLUMNS = [...MATCHING_COLUMNS, ['Failed pages', (totals) => totals
 // there is none); nothing when every run is of it.
 export function historySection(flow, runs, evalSet) {
   const past = history(runs, evalSet);
+  return historyFold(past, [...VERDICT_COLUMNS, ...BEFORE_COLUMNS], (run) => row(flow, run), 'pages');
+}
+
+// The fold of the runs `past`, a row of `rowOf(run)` under the headings of
+// `columns`, each [heading, …]; nothing without runs. `items` names what an
+// eval set selects.
+export function historyFold(past, columns, rowOf, items) {
   if (!past.length) return '';
   return html`<details class="block-fold history">
-    <summary>Runs on other eval sets · ${past.length} <span class="muted">— another dataset revision, scorer or pages, so their numbers don’t compare with the table above</span></summary>
+    <summary>Runs on other eval sets · ${past.length} <span class="muted">— another dataset revision, scorer or ${items}, so their numbers don’t compare with the table above</span></summary>
     <div class="table-wrap">
       <table>
         <thead>
@@ -35,10 +42,10 @@ export function historySection(flow, runs, evalSet) {
             <th scope="col">Prompt</th>
             <th scope="col">Model</th>
             <th scope="col">Eval set</th>
-            ${[...VERDICT_COLUMNS, ...BEFORE_COLUMNS].map(([heading]) => html`<th scope="col" class="num">${heading}</th>`)}
+            ${columns.map(([heading]) => html`<th scope="col" class="num">${heading}</th>`)}
           </tr>
         </thead>
-        <tbody>${past.map((run) => row(flow, run))}
+        <tbody>${past.map(rowOf)}
         </tbody>
       </table>
     </div>

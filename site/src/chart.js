@@ -1,4 +1,4 @@
-// A tab's chart of error rate against cost per receipt (or per page), drawn
+// A tab's chart of error rate against cost per receipt (or page, or promo), drawn
 // as SVG by the site's own code: cost across, error rate up, both from 0, a
 // point per run in the flow's colour. A point is a button: hover or focus
 // shows its date and models, a click ticks its run (main.js), and a ticked

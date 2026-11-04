@@ -111,7 +111,6 @@ test('a promo run with verdicts is indexed with what the promos tab needs', asyn
   assert.equal(entry.file, `${PROMO_4}.json`);
   assert.equal(entry.date, '2026-10-31T13:26:16.405937Z');
   assert.equal(entry.commit, '6457199dd8883b622c64854a39d2f1c5af817f6f');
-  assert.equal(entry.schemaVersion, 4);
   assert.equal(entry.prompt, 'promo-v4');
   assert.deepEqual(entry.evalSet, {
     dataset: 'baseline-10-reviewed-v2-context',
@@ -172,7 +171,6 @@ test('a promo run without verdicts is indexed with no promos, errors or warnings
   const { runs, out } = await runsDir(['schema.json', `${PROMO}.json`]);
   await build({ runsDir: runs, outDir: out });
   const [entry] = (await readJson(join(out, 'index.json'))).runs;
-  assert.equal(entry.schemaVersion, 3);
   assert.equal(entry.evalSet.scorer, 'promo-identity-exact-v2');
   assert.equal(entry.evalSet.selection.length, 10);
   assert.equal(entry.totals.pages, 10);
@@ -225,4 +223,29 @@ test('runs without a schema fail, naming the missing schema', async () => {
     assert.doesNotMatch(error.message, /ENOENT/);
     return true;
   });
+});
+
+const KINDS = '20261104T160000000000-promo-kinds';
+
+test('a promo kinds run is indexed with the numbers its tab needs', async () => {
+  const { runs, out } = await runsDir(['schema.json', `${KINDS}.json`]);
+  await build({ runsDir: runs, outDir: out });
+  const index = await readJson(join(out, 'index.json'));
+  const [entry] = index.runs;
+  assert.equal(entry.run, KINDS);
+  assert.equal(entry.flow, 'promo-kinds');
+  assert.equal(entry.model, 'anthropic/claude-haiku-5.5');
+  assert.equal(entry.prompt, 'promo-kinds-v1');
+  assert.equal(entry.evalSet.selection.length, 9);
+  assert.deepEqual(entry.totals.errors, { count: 6, share: 6 / 9 });
+  assert.deepEqual(entry.byGroup['new-kind'].warnings, { count: 1, share: 0.5 });
+  assert.deepEqual(await readJson(join(out, 'runs', `${KINDS}.json`)), await readJson(join(fixtures, `${KINDS}.json`)));
+});
+
+test('a promo kinds run that does not fit the schema fails the build, naming the file', async () => {
+  const { runs, out } = await runsDir(['schema.json', `${KINDS}.json`]);
+  const path = join(runs, `${KINDS}.json`);
+  const { by_group, ...broken } = await readJson(path);
+  await writeFile(path, JSON.stringify(broken));
+  await assert.rejects(build({ runsDir: runs, outDir: out }), new RegExp(`${KINDS}\\.json doesn't fit schema\\.json`));
 });

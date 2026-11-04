@@ -48,3 +48,8 @@ export function shortModel(model) {
 export function pagesCount(n) {
   return n === 1 ? '1 page' : `${n} pages`;
 }
+
+// `22 promos`, `1 promo`.
+export function promosCount(n) {
+  return n === 1 ? '1 promo' : `${n} promos`;
+}

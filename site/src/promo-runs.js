@@ -7,8 +7,8 @@ import { centsDifference } from './differences.js';
 import { formatCents, formatShare, shortModel } from './format.js';
 import { dash, html, orDash } from './html.js';
 
-// A run file as the views read it: { date, commit, schemaVersion, evalSet,
-// prompt, configs, totals, byChain }. A run scored before verdicts
+// A run file as the views read it: { date, commit, evalSet, prompt, configs,
+// totals, byChain }. A run scored before verdicts
 // (schema_version 3) has no promos, errors or warnings: those are null.
 export function promoRun(runFile) {
   const chains = Object.keys(runFile.by_chain).sort();
@@ -17,7 +17,6 @@ export function promoRun(runFile) {
   return {
     date: runFile.date,
     commit: runFile.commit,
-    schemaVersion: runFile.schema_version,
     // The run's eval set: its selection taken as a set, so sorted.
     evalSet: {
       dataset: runFile.dataset_revision,
@@ -94,29 +93,42 @@ export function shareOf(numbers, of = 'errors') {
   return html`${formatShare(found.share)} <span class="muted">(${found.count} of ${numbers.promos})</span>`;
 }
 
-// Cost per page in US dollars, from numbers in total or of a chain:
+// A run's cost over `units` (its pages, or its promos), in US dollars:
 // { usd, priced }, `priced` false when some calls weren't priced and `usd`
-// is the priced part only; null without pages.
-export function costPerPage({ costUsd, knownCostUsd, pages }) {
-  if (!pages) return null;
-  if (costUsd !== null && costUsd !== undefined) return { usd: costUsd / pages, priced: true };
-  return { usd: knownCostUsd / pages, priced: false };
+// is the priced part only; null without units.
+export function costPer({ costUsd, knownCostUsd }, units) {
+  if (!units) return null;
+  if (costUsd !== null && costUsd !== undefined) return { usd: costUsd / units, priced: true };
+  return { usd: knownCostUsd / units, priced: false };
+}
+
+// `0.15¢`, or `≥ 0.08¢` for the priced part, of a cost from costPer.
+export function costWritten(cost) {
+  if (!cost) return dash;
+  if (cost.priced) return formatCents(cost.usd);
+  return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(cost.usd)}</span>`;
+}
+
+// The difference between two costs from costPer (see differences.js), only
+// when both are known in full; else null.
+export function costChange(a, b) {
+  if (!a?.priced || !b?.priced) return null;
+  return centsDifference(a.usd, b.usd);
+}
+
+// Cost per page, from numbers in total or of a chain.
+export function costPerPage(numbers) {
+  return costPer(numbers, numbers.pages);
 }
 
 // `0.15¢`, or `≥ 0.08¢` for the priced part, of numbers in total or of a chain.
 export function costCell(numbers) {
-  const perPage = costPerPage(numbers);
-  if (!perPage) return dash;
-  if (perPage.priced) return formatCents(perPage.usd);
-  return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(perPage.usd)}</span>`;
+  return costWritten(costPerPage(numbers));
 }
 
-// The difference in cost per page from numbers `a` to `b` (see
-// differences.js), only when both costs are known in full; else null.
+// The difference in cost per page from numbers `a` to `b`, or null.
 export function costDifference(a, b) {
-  const [costA, costB] = [costPerPage(a), costPerPage(b)];
-  if (!costA?.priced || !costB?.priced) return null;
-  return centsDifference(costA.usd, costB.usd);
+  return costChange(costPerPage(a), costPerPage(b));
 }
 
 // The numbers of a run scored before verdicts, as [heading, cell of numbers]:

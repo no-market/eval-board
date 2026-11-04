@@ -10,7 +10,7 @@ const OTHER_SET = { ...SET, scorer: 'promo-core-text-v5' };
 
 // An index entry of a promo run: with verdicts unless `errors` is null.
 function entry(run, date, evalSet = SET, errors = { count: 1, share: 0.5 }) {
-  return { run, flow: FLOW, date, evalSet, schemaVersion: errors ? 4 : 3, totals: { errors } };
+  return { run, flow: FLOW, date, evalSet, totals: { errors } };
 }
 const route = (a, b) => ({ view: 'compare', flow: FLOW, a, b });
 
@@ -228,4 +228,18 @@ test('with no promo changed, the section says so and names the unchanged promos'
   const section = text(changedOf(compare(A, B)));
   assert.equal(section.startsWith('Changed promos · worse 0 · better 0 · other fields 0 22 promos unchanged'), true, section);
   assert.match(section, /No promo’s verdict or fields changed\./);
+});
+
+test('routing: promo kinds runs of different eval sets are not compared, and the message counts in promos', () => {
+  const kinds = (run, date, evalSet) => ({ run, flow: 'promo-kinds', date, evalSet, totals: { errors: { count: 1, share: 0.5 } } });
+  const set = { dataset: 'reviewed-v1', scorer: 'promo-kinds-v1', selection: ['kinds-001', 'kinds-002'], unit: 'promo' };
+  const a = kinds('a', '2026-11-04T10:00:00Z', set);
+  const b = kinds('b', '2026-11-04T11:00:00Z', { ...set, scorer: 'promo-kinds-v2' });
+  const c = kinds('c', '2026-11-04T12:00:00Z', set);
+  const compared = (x, y) => comparedRuns({ view: 'compare', flow: 'promo-kinds', a: x, b: y }, { runs: [a, b, c] });
+  assert.deepEqual(compared('a', 'b'), {
+    message:
+      'The runs of 4 Nov 2026, 10:00 and 4 Nov 2026, 11:00 are on different eval sets, reviewed-v1 · promo-kinds-v1 · 2 promos and reviewed-v1 · promo-kinds-v2 · 2 promos; only two runs of one eval set compare.',
+  });
+  assert.deepEqual(compared('c', 'a'), { a, b: c });
 });
