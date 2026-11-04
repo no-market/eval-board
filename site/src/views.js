@@ -4,6 +4,7 @@
 import { renderCompare } from './compare.js';
 import { renderNotFound } from './not-found.js';
 import { renderPromoCompare } from './promo-compare.js';
+import { renderPromoKindsRun } from './promo-kinds-run.js';
 import { renderPromoKindsTab } from './promo-kinds-tab.js';
 import { renderPromoRun } from './promo-run.js';
 import { renderPromoTab } from './promo-tab.js';
@@ -15,7 +16,7 @@ const notBuilt = ({ flow }) => renderNotFound('This page isn’t built yet.', fl
 const VIEWS = {
   'receipt-lines': { tab: renderTab, run: renderRun, compare: renderCompare },
   'promo-extraction': { tab: renderPromoTab, run: renderPromoRun, compare: renderPromoCompare },
-  'promo-kinds': { tab: renderPromoKindsTab, run: notBuilt, compare: notBuilt },
+  'promo-kinds': { tab: renderPromoKindsTab, run: renderPromoKindsRun, compare: notBuilt },
 };
 
 // The views of the flow `flowId`: { tab, run, compare }, each taking what
