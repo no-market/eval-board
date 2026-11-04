@@ -1,5 +1,14 @@
 {
   "$defs": {
+    "AnswerOutcome": {
+      "enum": [
+        "kinds",
+        "out_of_scope",
+        "unknown",
+        "failed"
+      ],
+      "type": "string"
+    },
     "CallMetrics": {
       "properties": {
         "calls": {
@@ -489,6 +498,51 @@
       ],
       "type": "string"
     },
+    "ErrorReason": {
+      "enum": [
+        "missed_kind",
+        "extra_kind",
+        "scope",
+        "new_instead_of_stored",
+        "unknown",
+        "failed"
+      ],
+      "type": "string"
+    },
+    "Expected": {
+      "properties": {
+        "outcome": {
+          "enum": [
+            "kinds",
+            "out_of_scope",
+            "unclear"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "certain": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Certain",
+          "type": "array"
+        },
+        "possible": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Possible",
+          "type": "array"
+        }
+      },
+      "required": [
+        "outcome",
+        "certain",
+        "possible"
+      ],
+      "title": "Expected",
+      "type": "object"
+    },
     "ExpectedOutcome": {
       "enum": [
         "existing",
@@ -647,6 +701,35 @@
       "type": "string"
     },
     "JsonValue": {},
+    "KindAnswer": {
+      "description": "What the model answered, as production would read it: stored names under `kinds`, with\na new name that exists in another case or spacing among them, and names on neither list\ndropped.",
+      "properties": {
+        "outcome": {
+          "$ref": "#/$defs/AnswerOutcome"
+        },
+        "kinds": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Kinds",
+          "type": "array"
+        },
+        "new_kinds": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "New Kinds",
+          "type": "array"
+        }
+      },
+      "required": [
+        "outcome"
+      ],
+      "title": "KindAnswer",
+      "type": "object"
+    },
     "KindChoiceMetrics": {
       "properties": {
         "lines": {
@@ -701,6 +784,85 @@
         "names_differ"
       ],
       "title": "KindChoiceMetrics",
+      "type": "object"
+    },
+    "KindFailureReason": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFailureReason"
+        },
+        {
+          "enum": [
+            "storage_failed",
+            "no_answer",
+            "no_valid_kind",
+            "review_log_failed"
+          ],
+          "type": "string"
+        }
+      ]
+    },
+    "KindTotals": {
+      "properties": {
+        "promos": {
+          "title": "Promos",
+          "type": "integer"
+        },
+        "errors": {
+          "$ref": "#/$defs/Count"
+        },
+        "warnings": {
+          "$ref": "#/$defs/Count"
+        },
+        "failed": {
+          "title": "Failed",
+          "type": "integer"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Usd"
+        },
+        "known_cost_usd": {
+          "title": "Known Cost Usd",
+          "type": "number"
+        },
+        "accounting_complete": {
+          "title": "Accounting Complete",
+          "type": "boolean"
+        },
+        "seconds": {
+          "title": "Seconds",
+          "type": "number"
+        },
+        "p50_seconds": {
+          "title": "P50 Seconds",
+          "type": "number"
+        },
+        "p95_seconds": {
+          "title": "P95 Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "promos",
+        "errors",
+        "warnings",
+        "failed",
+        "cost_usd",
+        "known_cost_usd",
+        "accounting_complete",
+        "seconds",
+        "p50_seconds",
+        "p95_seconds"
+      ],
+      "title": "KindTotals",
       "type": "object"
     },
     "Label": {
@@ -888,6 +1050,16 @@
       ],
       "title": "Metrics",
       "type": "object"
+    },
+    "ModelFailureReason": {
+      "enum": [
+        "rate_limited",
+        "timeout",
+        "output_truncated",
+        "invalid_output",
+        "request_failed"
+      ],
+      "type": "string"
     },
     "NameDiff": {
       "description": "A new kind made for a label and named otherwise.",
@@ -1345,6 +1517,203 @@
         "predictions"
       ],
       "title": "PromoCase",
+      "type": "object"
+    },
+    "PromoKindsCase": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "group": {
+          "title": "Group",
+          "type": "string"
+        },
+        "chain": {
+          "title": "Chain",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "expected": {
+          "$ref": "#/$defs/Expected"
+        },
+        "answer": {
+          "$ref": "#/$defs/KindAnswer"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/ErrorReason"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/WarningReason"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "renamed": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Renamed"
+          },
+          "title": "Renamed",
+          "type": "array"
+        },
+        "failed": {
+          "title": "Failed",
+          "type": "boolean"
+        },
+        "failure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KindFailureReason"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Usd"
+        },
+        "seconds": {
+          "title": "Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "group",
+        "chain",
+        "name",
+        "expected",
+        "answer",
+        "verdict",
+        "errors",
+        "warnings",
+        "failed",
+        "cost_usd",
+        "seconds"
+      ],
+      "title": "PromoKindsCase",
+      "type": "object"
+    },
+    "PromoKindsRun": {
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "flow": {
+          "const": "promo-kinds",
+          "default": "promo-kinds",
+          "title": "Flow",
+          "type": "string"
+        },
+        "date": {
+          "format": "date-time",
+          "title": "Date",
+          "type": "string"
+        },
+        "commit": {
+          "title": "Commit",
+          "type": "string"
+        },
+        "dataset_revision": {
+          "title": "Dataset Revision",
+          "type": "string"
+        },
+        "scorer_version": {
+          "default": "promo-kinds-v1",
+          "title": "Scorer Version",
+          "type": "string"
+        },
+        "prompt_version": {
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "options": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Options",
+          "type": "object"
+        },
+        "selection": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Selection",
+          "type": "array"
+        },
+        "eligible": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Eligible",
+          "type": "array"
+        },
+        "full": {
+          "title": "Full",
+          "type": "boolean"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/PromoKindsCase"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "totals": {
+          "$ref": "#/$defs/KindTotals"
+        },
+        "by_group": {
+          "additionalProperties": {
+            "$ref": "#/$defs/KindTotals"
+          },
+          "title": "By Group",
+          "type": "object"
+        }
+      },
+      "required": [
+        "date",
+        "commit",
+        "dataset_revision",
+        "prompt_version",
+        "model",
+        "options",
+        "selection",
+        "eligible",
+        "full",
+        "cases",
+        "totals",
+        "by_group"
+      ],
+      "title": "PromoKindsRun",
       "type": "object"
     },
     "PromoRun": {
@@ -2020,6 +2389,25 @@
       "title": "ReferencePrice",
       "type": "object"
     },
+    "Renamed": {
+      "description": "A new kind that is due, under a name other than the truth's.",
+      "properties": {
+        "truth": {
+          "title": "Truth",
+          "type": "string"
+        },
+        "created": {
+          "title": "Created",
+          "type": "string"
+        }
+      },
+      "required": [
+        "truth",
+        "created"
+      ],
+      "title": "Renamed",
+      "type": "object"
+    },
     "RunResult": {
       "properties": {
         "schema_version": {
@@ -2097,6 +2485,30 @@
           },
           "title": "Duplicates",
           "type": "array"
+        },
+        "stored_kinds_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stored Kinds Count"
+        },
+        "stored_kinds_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stored Kinds Sha256"
         }
       },
       "required": [
@@ -2518,6 +2930,10 @@
       ],
       "type": "string"
     },
+    "WarningReason": {
+      "const": "new_kind_name",
+      "type": "string"
+    },
     "WriteMetrics": {
       "properties": {
         "kind_conflicts": {
@@ -2689,6 +3105,7 @@
   "discriminator": {
     "mapping": {
       "promo-extraction": "#/$defs/PromoRun",
+      "promo-kinds": "#/$defs/PromoKindsRun",
       "receipt-lines": "#/$defs/RunResult"
     },
     "propertyName": "flow"
@@ -2699,6 +3116,9 @@
     },
     {
       "$ref": "#/$defs/PromoRun"
+    },
+    {
+      "$ref": "#/$defs/PromoKindsRun"
     }
   ]
 }
