@@ -24,9 +24,16 @@ const BEFORE_COLUMNS = [...MATCHING_COLUMNS, ['Failed pages', (totals) => totals
 // there is none); nothing when every run is of it.
 export function historySection(flow, runs, evalSet) {
   const past = history(runs, evalSet);
+  return historyFold(past, [...VERDICT_COLUMNS, ...BEFORE_COLUMNS], (run) => row(flow, run), 'pages');
+}
+
+// The fold of the runs `past`, a row of `rowOf(run)` under the headings of
+// `columns`, each [heading, …]; nothing without runs. `selection` names what
+// an eval set selects.
+export function historyFold(past, columns, rowOf, selection) {
   if (!past.length) return '';
   return html`<details class="block-fold history">
-    <summary>Runs on other eval sets · ${past.length} <span class="muted">— another dataset revision, scorer or pages, so their numbers don’t compare with the table above</span></summary>
+    <summary>Runs on other eval sets · ${past.length} <span class="muted">— another dataset revision, scorer or ${selection}, so their numbers don’t compare with the table above</span></summary>
     <div class="table-wrap">
       <table>
         <thead>
@@ -35,10 +42,10 @@ export function historySection(flow, runs, evalSet) {
             <th scope="col">Prompt</th>
             <th scope="col">Model</th>
             <th scope="col">Eval set</th>
-            ${[...VERDICT_COLUMNS, ...BEFORE_COLUMNS].map(([heading]) => html`<th scope="col" class="num">${heading}</th>`)}
+            ${columns.map(([heading]) => html`<th scope="col" class="num">${heading}</th>`)}
           </tr>
         </thead>
-        <tbody>${past.map((run) => row(flow, run))}
+        <tbody>${past.map(rowOf)}
         </tbody>
       </table>
     </div>

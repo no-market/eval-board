@@ -2,17 +2,33 @@
 // heading, and the table of its runs, a row per index entry in the order
 // given (the index is newest first). `base`, the run named as the baseline by
 // the address: when it is of the current eval set, every other row shows its
-// difference from it. `ticked`, the run ids ticked for comparing.
+// difference from it. `ticked`, the run ids ticked for comparing. Above the
+// table, the chart with errors by group beside it; below it, folded, the
+// history of runs on other eval sets. A point on the chart, and a column of
+// errors by group, is a run, so a new prompt on one eval set stands beside
+// the old one.
+import { chart } from './chart.js';
 import { promosDifference, secondsDifference } from './differences.js';
-import { currentEvalSet, evalSetName, inEvalSet } from './eval-sets.js';
+import { currentEvalSet, evalSetName, history, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
 import { formatDate, formatSeconds, shortModel } from './format.js';
-import { html } from './html.js';
+import { dash, html } from './html.js';
 import { header } from './layout.js';
-import { costCell, costDifference, hardCases } from './promo-kinds-runs.js';
+import { historyFold } from './promo-history.js';
+import { costCell, costDifference, costPerPromo, hardCases } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
+
+// The chart's points (see chart.js): a run's cost per promo, the priced part
+// when some calls weren't priced, and its error rate over promos.
+const promos = {
+  unit: 'promo',
+  cost: (run) => costPerPromo(run.totals),
+  share: (run) => run.totals.errors.share,
+  models: (run) => `${run.prompt} · ${shortModel(run.model)}`,
+  foot: 'Cost per promo, the run’s cost over its promos; the priced part when some calls weren’t priced',
+};
 
 export function renderPromoKindsTab({ flow: flowId, runs: allRuns, base: baseId = null, ticked = [] }) {
   const flow = flowById(flowId);
@@ -29,9 +45,56 @@ export function renderPromoKindsTab({ flow: flowId, runs: allRuns, base: baseId 
     ${evalSet ? compareButton(flow, runs, ticked) : ''}
   </div>
   ${evalSet
-    ? table(flow, runs, base, ticked)
+    ? html`<div class="beside">
+    ${chart(runs, ticked, promos)}
+    ${errorsByGroup(runs)}
+  </div>
+  ${table(flow, runs, base, ticked)}`
     : html`<p class="empty">No promo kinds eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>`}
+  ${historyFold(history(allRuns, evalSet), PAST_COLUMNS, (run) => pastRow(flow, run), 'promos')}
 </main>`);
+}
+
+// Errors of `runs` by group: a row per group of any of them, in alphabetical
+// order, and a column per run; `—` for a group a run lacks.
+function errorsByGroup(runs) {
+  const groups = [...new Set(runs.flatMap((run) => Object.keys(run.byGroup)))].sort();
+  return html`<section aria-labelledby="groups-h" class="groups">
+    <h2 id="groups-h">Errors by group</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Group</th>
+            ${runs.map((run) => html`<th scope="col" class="num"><div>${shortModel(run.model)}</div> <div class="small nowrap">${formatDate(run.date)}</div></th>`)}
+          </tr>
+        </thead>
+        <tbody>${groups.map((group) => html`
+          <tr>
+            <th scope="row">${group}</th>
+            ${runs.map((run) => html`<td class="num nowrap">${run.byGroup[group] ? shareOf(run.byGroup[group]) : dash}</td>`)}
+          </tr>`)}
+        </tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+// The numbers of a run in the history, as [heading, cell of its totals].
+const PAST_COLUMNS = [
+  ['Error rate', (totals) => shareOf(totals, 'errors')],
+  ['Warning rate', (totals) => shareOf(totals, 'warnings')],
+];
+
+function pastRow(flow, run) {
+  return html`
+          <tr>
+            <td class="nowrap"><a href="${runAddress(flow.id, run.run)}">${formatDate(run.date)}</a></td>
+            <td>${run.prompt}</td>
+            <td>${shortModel(run.model)}</td>
+            <td><span title="${run.evalSet.selection.join(', ')}">${evalSetName(run.evalSet)}</span></td>
+            ${PAST_COLUMNS.map(([, cell]) => html`<td class="num nowrap">${cell(run.totals)}</td>`)}
+          </tr>`;
 }
 
 function table(flow, runs, base, ticked) {
