@@ -121,10 +121,12 @@ export function costPerPage(numbers) {
   return costPer(numbers, numbers.pages);
 }
 
+// `0.15¢`, or `≥ 0.08¢` for the priced part, of numbers in total or of a chain.
 export function costCell(numbers) {
   return costWritten(costPerPage(numbers));
 }
 
+// The difference in cost per page from numbers `a` to `b`, or null.
 export function costDifference(a, b) {
   return costChange(costPerPage(a), costPerPage(b));
 }

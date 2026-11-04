@@ -8,9 +8,9 @@ import { flowById } from './flows.js';
 import { formatDate, formatSeconds, promosCount, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
-import { badness } from './promo-changes.js';
+import { changedVerdicts } from './promo-changes.js';
 import { cells, promoVerdict } from './promo-compare.js';
-import { answeredKinds, costCell, costDifference, expectedKinds, promoCell, promoKindsRun } from './promo-kinds-runs.js';
+import { answeredKinds, costCell, costDifference, expectedKinds, groupsInRuns, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 
@@ -22,6 +22,7 @@ export function renderPromoKindsCompare({ flow: flowId, a, b }) {
 <main class="compare" style="--flow: ${flow.colour}">
   ${heading(flow, runA, runB)}
   ${summary(runA.read, runB.read)}
+  ${hardCases}
   ${changed(runA.file, runB.file)}
 </main>`);
 }
@@ -59,7 +60,7 @@ const NUMBERS = [
 // from each run's own numbers: A, B and B − A for every number. A group one
 // run lacks is `—`.
 function summary(a, b) {
-  const groups = [...new Set([...Object.keys(a.byGroup), ...Object.keys(b.byGroup)])].sort();
+  const groups = groupsInRuns([a, b]);
   const row = (name, numbersA, numbersB, total) => html`
           <tr>
             <th scope="row"${total ? html` class="total"` : ''}>${name}</th>${NUMBERS.map((number) => cells(number, numbersA, numbersB, total))}
@@ -86,14 +87,10 @@ function summary(a, b) {
   </section>`;
 }
 
-// The promos of A that B also has, worse then better in B by their verdicts,
-// in A's order, each counted, and how many are unchanged.
+// The promos that changed verdict (see `changedVerdicts`), worse then better
+// in B, each counted, and how many are unchanged.
 function changed(a, b) {
-  const inB = new Map(b.cases.map((promo) => [promo.id, promo]));
-  const pairs = a.cases.filter((promo) => inB.has(promo.id)).map((promo) => ({ a: promo, b: inB.get(promo.id) }));
-  const worse = pairs.filter((pair) => badness(pair.b) > badness(pair.a));
-  const better = pairs.filter((pair) => badness(pair.b) < badness(pair.a));
-  const unchanged = pairs.length - worse.length - better.length;
+  const { worse, better, unchanged } = changedVerdicts(a, b);
   const group = (mark, title, found) =>
     found.length === 0
       ? ''

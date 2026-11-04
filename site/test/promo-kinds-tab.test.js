@@ -190,6 +190,10 @@ test('errors by group: a group one run lacks is a dash, and runs of other eval s
   assert.deepEqual(groupRows(html).at(-1), ['unclear', '0 of 1', '—']);
 });
 
+test('errors by group: a column names its run’s prompt on hover', () => {
+  assert.match(groups(tab()), /<th scope="col" class="num" title="promo-kinds-v1">/);
+});
+
 test('the chart and errors by group sit side by side, and the groups scroll inside their table', () => {
   const html = tab();
   assert.match(html, /<div class="beside">\s*<section aria-labelledby="chart-h"[\s\S]*<section aria-labelledby="groups-h"[^>]*>[\s\S]*class="table-wrap"/);

@@ -8,7 +8,18 @@
 // How bad a verdict is. A promo one run doesn't have counts as right there: a
 // made-up promo, an error, is worse in the run it appears in.
 const BADNESS = { right: 0, warning: 1, error: 2 };
-export const badness = (promo) => (promo ? BADNESS[promo.verdict] ?? 0 : 0);
+const badness = (promo) => (promo ? BADNESS[promo.verdict] ?? 0 : 0);
+
+// Promo kinds runs pair by `id`: { worse, better, unchanged }, over the promos
+// both runs have, worse and better in B by verdict, each a list of { a, b } in
+// A's order, and the number of promos unchanged.
+export function changedVerdicts(a, b) {
+  const inB = new Map(b.cases.map((promo) => [promo.id, promo]));
+  const pairs = a.cases.filter((promo) => inB.has(promo.id)).map((promo) => ({ a: promo, b: inB.get(promo.id) }));
+  const worse = pairs.filter((pair) => badness(pair.b) > badness(pair.a));
+  const better = pairs.filter((pair) => badness(pair.b) < badness(pair.a));
+  return { worse, better, unchanged: pairs.length - worse.length - better.length };
+}
 
 // { worse, better, otherFields, unchanged }: over the pages both runs have,
 // the promos worse in B (a made-up promo appearing among them), better in B (a

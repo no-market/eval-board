@@ -106,7 +106,7 @@ test('an answer with stored and new kinds names both', () => {
 test('warnings are folded, each as the truth’s kind to the created name', () => {
   const html = page().match(/<details class="block-fold">[\s\S]*?<\/details>/)[0];
   assert.match(text(html), /Warnings · 1/);
-  assert.deepEqual(rows(html), [['Sery tarte Mlekovita new-kind · Biedronka', 'new_kind_name', 'Ser tarty', 'Sery tarte']]);
+  assert.deepEqual(rows(html), [['Sery tarte Mlekovita new-kind · Biedronka', 'new_kind_name', 'certain Ser tarty', 'new Sery tarte']]);
 });
 
 test('a run with no errors and no warnings says so, with no empty tables', () => {

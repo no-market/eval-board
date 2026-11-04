@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { summarise } from '../build/summarise.js';
+import { comparedRuns } from '../src/compare.js';
 import { viewsOf } from '../src/views.js';
 
 const FLOW = 'promo-kinds';
@@ -111,6 +113,23 @@ test('runs with no changed verdict say so', () => {
   assert.match(text(html), /No promo’s verdict changed/);
   assert.match(text(html), /9 promos unchanged/);
   assert.doesNotMatch(html, /<table/);
+});
+
+test('the comparison says the eval set is made of hard cases', () => {
+  assert.match(text(compare()), /made of hard cases/);
+});
+
+test('a pair across eval sets is refused, and two runs of one eval set are compared', () => {
+  const index = {
+    runs: [
+      summarise(`${ID}.json`, fixture),
+      summarise('older.json', older),
+      summarise('other-set.json', { ...fixture, date: '2026-11-03T10:00:00.000000Z', scorer_version: 'promo-kinds-v0' }),
+    ],
+  };
+  const route = (a, b) => ({ view: 'compare', flow: FLOW, a, b });
+  assert.equal(comparedRuns(route(ID, 'older'), index).a.run, 'older');
+  assert.match(comparedRuns(route(ID, 'other-set'), index).message, /different eval sets, .* 9 promos and .* 9 promos; only two runs of one eval set compare/);
 });
 
 test('wording from a run file is escaped', () => {

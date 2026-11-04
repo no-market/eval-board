@@ -40,15 +40,22 @@ function numbers(totals) {
   };
 }
 
+// The groups of any of `runs`, each once, in alphabetical order.
+export function groupsInRuns(runs) {
+  return [...new Set(runs.flatMap((run) => Object.keys(run.byGroup)))].sort();
+}
+
 // Cost per promo, from numbers in total or of a group.
 export function costPerPromo(numbers) {
   return costPer(numbers, numbers.promos);
 }
 
+// `0.15¢`, or `≥ 0.08¢` for the priced part, of numbers in total or of a group.
 export function costCell(numbers) {
   return costWritten(costPerPromo(numbers));
 }
 
+// The difference in cost per promo from numbers `a` to `b`, or null.
 export function costDifference(a, b) {
   return costChange(costPerPromo(a), costPerPromo(b));
 }

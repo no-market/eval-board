@@ -10,7 +10,7 @@ import { formatDate, formatSeconds, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
 import { renderNotFound } from './not-found.js';
-import { answeredKinds, costCell, expectedKinds, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
+import { answeredKinds, costCell, expectedKinds, groupsInRuns, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runFileOnGitHub } from './runs.js';
 
@@ -77,7 +77,7 @@ function byGroup({ byGroup: groups }) {
     <div class="table-wrap">
       <table class="receipts">
         <thead><tr><th scope="col">Group</th><th scope="col">Promos</th><th scope="col">Errors</th><th scope="col">Warnings</th></tr></thead>
-        <tbody>${Object.keys(groups).sort().map((group) => html`
+        <tbody>${groupsInRuns([{ byGroup: groups }]).map((group) => html`
           <tr><th scope="row">${group}</th><td>${groups[group].promos}</td><td>${shareOf(groups[group])}</td><td>${shareOf(groups[group], 'warnings')}</td></tr>`)}
         </tbody>
       </table>
@@ -102,9 +102,9 @@ function errors(promos) {
 }
 
 // Each warning as the truth's kinds to the names the run created, for the
-// founder to read: what a range may cover when it names nothing certain.
+// founder to read. The run file doesn't say which of the truth's kinds was
+// due, so all of them show.
 function warnings(promos) {
-  const truth = ({ certain, possible }) => (certain.length ? certain : possible).join(', ');
   return html`<details class="block-fold">
     <summary>Warnings · ${promos.length}</summary>
     ${promos.length === 0
@@ -113,7 +113,7 @@ function warnings(promos) {
       <table class="lines">
         <thead><tr><th scope="col">Promo</th><th scope="col">Reasons</th><th scope="col">Truth</th><th scope="col">Created</th></tr></thead>
         <tbody>${promos.map((promo) => html`
-          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.warnings.join(', ')}</td><td>${truth(promo.expected)}</td><td>${promo.answer.new_kinds.join(', ')}</td></tr>`)}
+          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.warnings.join(', ')}</td><td>${expectedKinds(promo.expected)}</td><td>${answeredKinds(promo)}</td></tr>`)}
         </tbody>
       </table>
     </div>`}

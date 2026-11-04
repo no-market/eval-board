@@ -14,8 +14,8 @@ import { flowById } from './flows.js';
 import { formatDate, formatSeconds, formatShare, shortModel } from './format.js';
 import { dash, html } from './html.js';
 import { header } from './layout.js';
-import { historyFold } from './promo-history.js';
-import { costCell, costDifference, costPerPromo, hardCases } from './promo-kinds-runs.js';
+import { historyFold, VERDICT_COLUMNS } from './promo-history.js';
+import { costCell, costDifference, costPerPromo, groupsInRuns, hardCases } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
@@ -51,14 +51,13 @@ export function renderPromoKindsTab({ flow: flowId, runs: allRuns, base: baseId 
   </div>
   ${table(flow, runs, base, ticked)}`
     : html`<p class="empty">No promo kinds eval runs yet. A run appears here once the backend publishes it to <code>runs/</code>.</p>`}
-  ${historyFold(history(allRuns, evalSet), PAST_COLUMNS, (run) => pastRow(flow, run), 'promos')}
+  ${historyFold(history(allRuns, evalSet), VERDICT_COLUMNS, (run) => pastRow(flow, run), 'promos')}
 </main>`);
 }
 
 // Errors of `runs` by group: a row per group of any of them, in alphabetical
 // order, and a column per run; `—` for a group a run lacks.
 function errorsByGroup(runs) {
-  const groups = [...new Set(runs.flatMap((run) => Object.keys(run.byGroup)))].sort();
   return html`<section aria-labelledby="groups-h" class="groups">
     <h2 id="groups-h">Errors by group</h2>
     <div class="table-wrap">
@@ -66,10 +65,10 @@ function errorsByGroup(runs) {
         <thead>
           <tr>
             <th scope="col">Group</th>
-            ${runs.map((run) => html`<th scope="col" class="num"><div>${shortModel(run.model)}</div> <div class="small nowrap">${formatDate(run.date)}</div></th>`)}
+            ${runs.map((run) => html`<th scope="col" class="num" title="${run.prompt}"><div>${shortModel(run.model)}</div> <div class="small nowrap">${formatDate(run.date)}</div></th>`)}
           </tr>
         </thead>
-        <tbody>${groups.map((group) => html`
+        <tbody>${groupsInRuns(runs).map((group) => html`
           <tr>
             <th scope="row">${group}</th>
             ${runs.map((run) => html`<td class="num nowrap">${errorsIn(run.byGroup[group])}</td>`)}
@@ -87,12 +86,6 @@ function errorsIn(group) {
   return html`<span title="${formatShare(group.errors.share)}">${group.errors.count} of ${group.promos}</span>`;
 }
 
-// The numbers of a run in the history, as [heading, cell of its totals].
-const PAST_COLUMNS = [
-  ['Error rate', (totals) => shareOf(totals, 'errors')],
-  ['Warning rate', (totals) => shareOf(totals, 'warnings')],
-];
-
 function pastRow(flow, run) {
   return html`
           <tr>
@@ -100,7 +93,7 @@ function pastRow(flow, run) {
             <td>${run.prompt}</td>
             <td>${shortModel(run.model)}</td>
             <td><span title="${run.evalSet.selection.join(', ')}">${evalSetName(run.evalSet)}</span></td>
-            ${PAST_COLUMNS.map(([, cell]) => html`<td class="num nowrap">${cell(run.totals)}</td>`)}
+            ${VERDICT_COLUMNS.map(([, cell]) => html`<td class="num nowrap">${cell(run.totals)}</td>`)}
           </tr>`;
 }
 
