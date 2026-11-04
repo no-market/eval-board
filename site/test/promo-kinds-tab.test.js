@@ -172,13 +172,13 @@ test('errors by group: a row per group and a column per run, counted in promos',
   const html = tab({ runs: [entry] });
   assert.deepEqual(groupHeaders(html), ['Group', 'claude-haiku-5.5 4 Nov 2026, 16:00']);
   assert.deepEqual(groupRows(html), [
-    ['kind-boundaries', '100.0% (1 of 1)'],
-    ['new-kind', '50.0% (1 of 2)'],
-    ['one-kind', '50.0% (1 of 2)'],
-    ['out-of-scope', '100.0% (1 of 1)'],
-    ['pet-household', '100.0% (1 of 1)'],
-    ['range-many-kinds', '100.0% (1 of 1)'],
-    ['unclear', '0.0% (0 of 1)'],
+    ['kind-boundaries', '1 of 1'],
+    ['new-kind', '1 of 2'],
+    ['one-kind', '1 of 2'],
+    ['out-of-scope', '1 of 1'],
+    ['pet-household', '1 of 1'],
+    ['range-many-kinds', '1 of 1'],
+    ['unclear', '0 of 1'],
   ]);
 });
 
@@ -187,7 +187,7 @@ test('errors by group: a group one run lacks is a dash, and runs of other eval s
   const lacking = { ...older, byGroup: others };
   const html = tab({ runs: [entry, lacking, otherSet] });
   assert.equal(groupHeaders(html).length, 3);
-  assert.deepEqual(groupRows(html).at(-1), ['unclear', '0.0% (0 of 1)', '—']);
+  assert.deepEqual(groupRows(html).at(-1), ['unclear', '0 of 1', '—']);
 });
 
 test('the chart and errors by group sit side by side, and the groups scroll inside their table', () => {

@@ -76,7 +76,7 @@ function summary(a, b) {
             <th scope="col" rowspan="2"></th>
             ${NUMBERS.map(({ name }) => html`<th scope="colgroup" colspan="3" class="group">${name}</th>`)}
           </tr>
-          <tr>${NUMBERS.map(() => html`<th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num">B − A</th>`)}</tr>
+          <tr>${NUMBERS.map(() => html`<th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num nowrap">B − A</th>`)}</tr>
         </thead>
         <tbody>${row('Total', a.totals, b.totals, ' total')}${groups.map((group) => row(group, a.byGroup[group], b.byGroup[group], ''))}
         </tbody>
@@ -109,7 +109,7 @@ function changed(a, b) {
     ${worse.length + better.length === 0
       ? html`<p class="muted">No promo’s verdict changed.</p>`
       : html`<div class="table-wrap">
-      <table class="changed-lines changed-promos">
+      <table class="changed-lines changed-promos changed-kinds">
         <thead><tr><th scope="col">Promo</th><th scope="col">Expected</th><th scope="col">A</th><th scope="col">B</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}
       </table>
     </div>`}

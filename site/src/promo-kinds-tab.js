@@ -11,7 +11,7 @@ import { chart } from './chart.js';
 import { promosDifference, secondsDifference } from './differences.js';
 import { currentEvalSet, evalSetName, history, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatDate, formatSeconds, shortModel } from './format.js';
+import { formatDate, formatSeconds, formatShare, shortModel } from './format.js';
 import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { historyFold } from './promo-history.js';
@@ -72,12 +72,19 @@ function errorsByGroup(runs) {
         <tbody>${groups.map((group) => html`
           <tr>
             <th scope="row">${group}</th>
-            ${runs.map((run) => html`<td class="num nowrap">${run.byGroup[group] ? shareOf(run.byGroup[group]) : dash}</td>`)}
+            ${runs.map((run) => html`<td class="num nowrap">${errorsIn(run.byGroup[group])}</td>`)}
           </tr>`)}
         </tbody>
       </table>
     </div>
   </section>`;
+}
+
+// `1 of 2`: a group's errors, its share on hover; a group is one size in every
+// run of an eval set, so counts read across, and three runs fit beside the chart.
+function errorsIn(group) {
+  if (!group) return dash;
+  return html`<span title="${formatShare(group.errors.share)}">${group.errors.count} of ${group.promos}</span>`;
 }
 
 // The numbers of a run in the history, as [heading, cell of its totals].
