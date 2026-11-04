@@ -8,7 +8,7 @@
 // How bad a verdict is. A promo one run doesn't have counts as right there: a
 // made-up promo, an error, is worse in the run it appears in.
 const BADNESS = { right: 0, warning: 1, error: 2 };
-const badness = (promo) => (promo ? BADNESS[promo.verdict] ?? 0 : 0);
+export const badness = (promo) => (promo ? BADNESS[promo.verdict] ?? 0 : 0);
 
 // { worse, better, otherFields, unchanged }: over the pages both runs have,
 // the promos worse in B (a made-up promo appearing among them), better in B (a
