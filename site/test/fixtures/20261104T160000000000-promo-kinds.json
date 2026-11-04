@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "flow": "promo-kinds",
+  "date": "2026-11-04T16:00:00.000000Z",
+  "commit": "a6dd3320000000000000000000000000000000ab",
+  "dataset_revision": "promo-kinds-reviewed-v1",
+  "scorer_version": "promo-kinds-v1",
+  "prompt_version": "promo-kinds-v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "options": {},
+  "selection": [
+    "kinds-001",
+    "kinds-002",
+    "kinds-003",
+    "kinds-004",
+    "kinds-005",
+    "kinds-006",
+    "kinds-007",
+    "kinds-008",
+    "kinds-009"
+  ],
+  "eligible": [
+    "kinds-001",
+    "kinds-002",
+    "kinds-003",
+    "kinds-004",
+    "kinds-005",
+    "kinds-006",
+    "kinds-007",
+    "kinds-008",
+    "kinds-009"
+  ],
+  "full": true,
+  "cases": [
+    {
+      "id": "kinds-001",
+      "group": "one-kind",
+      "chain": "biedronka",
+      "name": "Milka Czekolada",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Czekolada"
+        ],
+        "possible": [
+          "Czekolada"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Czekolada"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-002",
+      "group": "range-many-kinds",
+      "chain": "kaufland",
+      "name": "Wszystkie przyprawy Bolinero",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pieprz"
+        ],
+        "possible": [
+          "Pieprz",
+          "Papryka mielona",
+          "Bazylia"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Papryka mielona"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "missed_kind"
+      ],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 3.0
+    },
+    {
+      "id": "kinds-003",
+      "group": "kind-boundaries",
+      "chain": "lidl",
+      "name": "Parówki Tarczyński",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Parówki"
+        ],
+        "possible": [
+          "Parówki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Parówki",
+          "Kiełbasa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-004",
+      "group": "out-of-scope",
+      "chain": "aldi",
+      "name": "Wiertarka Parkside",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Wiertarka"
+        ]
+      },
+      "verdict": "error",
+      "errors": [
+        "scope"
+      ],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-005",
+      "group": "new-kind",
+      "chain": "biedronka",
+      "name": "Sery tarte Mlekovita",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Ser tarty"
+        ],
+        "possible": [
+          "Ser tarty"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Sery tarte"
+        ]
+      },
+      "verdict": "warning",
+      "errors": [],
+      "warnings": [
+        "new_kind_name"
+      ],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-006",
+      "group": "new-kind",
+      "chain": "lidl",
+      "name": "Kefir Bakoma",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kefir"
+        ],
+        "possible": [
+          "Kefir"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Kefir naturalny"
+        ]
+      },
+      "verdict": "error",
+      "errors": [
+        "new_instead_of_stored"
+      ],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-007",
+      "group": "pet-household",
+      "chain": "aldi",
+      "name": "Karma dla kota Whiskas",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Karma dla kota"
+        ],
+        "possible": [
+          "Karma dla kota"
+        ]
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "unknown"
+      ],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-008",
+      "group": "unclear",
+      "chain": "kaufland",
+      "name": "Wybrane produkty marki Pilos",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": [
+          "Mleko",
+          "Jogurt"
+        ]
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0009,
+      "seconds": 2.0
+    },
+    {
+      "id": "kinds-009",
+      "group": "one-kind",
+      "chain": "aldi",
+      "name": "Masło Mleczna Dolina",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Masło"
+        ],
+        "possible": [
+          "Masło"
+        ]
+      },
+      "answer": null,
+      "verdict": "error",
+      "errors": [
+        "failed"
+      ],
+      "warnings": [],
+      "failed": true,
+      "failure": "truncated",
+      "cost_usd": null,
+      "seconds": null
+    }
+  ],
+  "totals": {
+    "promos": 9,
+    "errors": {
+      "count": 6,
+      "share": 0.6666666666666666
+    },
+    "warnings": {
+      "count": 1,
+      "share": 0.1111111111111111
+    },
+    "failed": 1,
+    "cost_usd": 0.0072,
+    "known_cost_usd": 0.0072,
+    "accounting_complete": true,
+    "seconds": 17.0,
+    "p50_seconds": 2.0,
+    "p95_seconds": 3.0
+  },
+  "by_group": {
+    "one-kind": {
+      "promos": 2,
+      "errors": {
+        "count": 1,
+        "share": 0.5
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 1,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 2.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "range-many-kinds": {
+      "promos": 1,
+      "errors": {
+        "count": 1,
+        "share": 1.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 3.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "kind-boundaries": {
+      "promos": 1,
+      "errors": {
+        "count": 1,
+        "share": 1.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 2.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "out-of-scope": {
+      "promos": 1,
+      "errors": {
+        "count": 1,
+        "share": 1.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 2.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "new-kind": {
+      "promos": 2,
+      "errors": {
+        "count": 1,
+        "share": 0.5
+      },
+      "warnings": {
+        "count": 1,
+        "share": 0.5
+      },
+      "failed": 0,
+      "cost_usd": 0.0018,
+      "known_cost_usd": 0.0018,
+      "accounting_complete": true,
+      "seconds": 4.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "pet-household": {
+      "promos": 1,
+      "errors": {
+        "count": 1,
+        "share": 1.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 2.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    },
+    "unclear": {
+      "promos": 1,
+      "errors": {
+        "count": 0,
+        "share": 0.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0009,
+      "known_cost_usd": 0.0009,
+      "accounting_complete": true,
+      "seconds": 2.0,
+      "p50_seconds": 2.0,
+      "p95_seconds": 2.0
+    }
+  }
+}

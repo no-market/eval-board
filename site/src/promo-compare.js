@@ -7,7 +7,7 @@ import { wrappable } from './compare.js';
 import { promosDifference, secondsDifference } from './differences.js';
 import { evalSetName } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatDate, formatSeconds, pagesCount } from './format.js';
+import { formatDate, formatSeconds, pagesCount, promosCount } from './format.js';
 import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { changedPromos } from './promo-changes.js';
@@ -116,11 +116,6 @@ function promoVerdict(promo) {
   const warnings = promo.warnings.map((name, i) => html`${i > 0 ? ', ' : ''}${field(name)}`);
   const separator = errors.length > 0 && warnings.length > 0 ? ' · ' : '';
   return html`<span class="verdict ${promo.verdict}">${promo.verdict}</span> <span class="small">${errors}${separator}${warnings}</span>`;
-}
-
-// `22 promos`, `1 promo`.
-function promosCount(n) {
-  return n === 1 ? '1 promo' : `${n} promos`;
 }
 
 // The sections of the comparison, in order, after its heading.

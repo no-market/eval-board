@@ -1,4 +1,5 @@
 import { summarisePromoRun } from './summarise-promo.js';
+import { summarisePromoKindsRun } from './summarise-promo-kinds.js';
 import { summariseReceiptRun } from './summarise-receipts.js';
 
 // Each flow's summariser: a run as one entry of the index, what its views
@@ -6,6 +7,7 @@ import { summariseReceiptRun } from './summarise-receipts.js';
 const SUMMARISERS = {
   'receipt-lines': summariseReceiptRun,
   'promo-extraction': summarisePromoRun,
+  'promo-kinds': summarisePromoKindsRun,
 };
 
 export function summarise(file, run) {

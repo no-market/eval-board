@@ -2,15 +2,20 @@
 // flow so that each view knows only its own flow's runs. main.js opens the
 // view an address names through viewsOf; every flow in FLOWS has all three.
 import { renderCompare } from './compare.js';
+import { renderNotFound } from './not-found.js';
 import { renderPromoCompare } from './promo-compare.js';
+import { renderPromoKindsTab } from './promo-kinds-tab.js';
 import { renderPromoRun } from './promo-run.js';
 import { renderPromoTab } from './promo-tab.js';
 import { renderRun } from './run.js';
 import { renderTab } from './tab.js';
 
+const notBuilt = ({ flow }) => renderNotFound('This page isn’t built yet.', flow);
+
 const VIEWS = {
   'receipt-lines': { tab: renderTab, run: renderRun, compare: renderCompare },
   'promo-extraction': { tab: renderPromoTab, run: renderPromoRun, compare: renderPromoCompare },
+  'promo-kinds': { tab: renderPromoKindsTab, run: notBuilt, compare: notBuilt },
 };
 
 // The views of the flow `flowId`: { tab, run, compare }, each taking what
