@@ -1,0 +1,3584 @@
+{
+  "schema_version": 1,
+  "flow": "promo-kinds",
+  "date": "2026-11-04T23:39:08.993405Z",
+  "commit": "ffe47a8add5b91a257ce9e351871fa5453f0b6d5",
+  "dataset_revision": "reviewed-1",
+  "scorer_version": "promo-kinds-v1",
+  "prompt_version": "promo-kinds-v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "options": {
+    "output": "json_schema"
+  },
+  "selection": [
+    "kaufland-milka-czekolada",
+    "lidl-pilos-maslo",
+    "lidl-mlekovita-mleko-uht",
+    "lidl-zlota-nioska-jaja",
+    "biedronka-ser-zolty-salami",
+    "biedronka-napoj-proteinowy-go-active",
+    "netto-olej-rzepakowy-ollineo",
+    "netto-ogorek-dlugi",
+    "netto-ketchup-kotlin",
+    "netto-gofry-tresors",
+    "netto-cukierki-luz",
+    "kaufland-namyslow-pils",
+    "kaufland-fasolka-szparagowa-zolta",
+    "aldi-daylicious-salata",
+    "aldi-borowka-amerykanska",
+    "netto-sery-tarte",
+    "biedronka-czekolady-milka",
+    "lidl-lody-grycan",
+    "kaufland-masla-w-kostkach",
+    "aldi-pierogi-chlodzone",
+    "biedronka-kawy-rozpuszczalne-cafe-dor",
+    "kaufland-hummusy-chlodzone",
+    "biedronka-serki-wiejskie-piatnica",
+    "lidl-piwa-w-butelce",
+    "biedronka-jablka-na-wage",
+    "netto-przyprawy-bolinero",
+    "kaufland-vizir-pranie",
+    "netto-szampony-odzywki",
+    "netto-bakalie-bakalland",
+    "netto-sok-dawtona",
+    "biedronka-kasze-plony-natury",
+    "kaufland-sosy-pesto-barilla",
+    "kaufland-kremy-smarowidla",
+    "lidl-soki-smoothie-lemoniady-solevita",
+    "kaufland-pasztety-pasztetowe",
+    "aldi-warzywa-owoce-konserwowe",
+    "kaufland-herbaty-teekanne",
+    "biedronka-kosmetyki-do-wlosow-pantene",
+    "kaufland-dodatki-do-zmywarki-somat",
+    "biedronka-coca-cola-fanta-sprite",
+    "kaufland-parowki-pakowane",
+    "netto-twarogi-klinki",
+    "kaufland-oliwki-bez-chlodzonych",
+    "kaufland-kielbasy-krakowskie",
+    "aldi-zele-pod-prysznic",
+    "kaufland-warzywa-mrozone-hortex",
+    "kaufland-karmy-w-puszkach",
+    "lidl-artykuly-dzieciece",
+    "lidl-napoj-wysokobialkowy-pilos",
+    "biedronka-awokado-hass",
+    "aldi-poke-bowl",
+    "kaufland-pigwa",
+    "lidl-balsam-do-ust",
+    "kaufland-krem-do-twarzy-loreal",
+    "biedronka-plyn-micelarny-be-beauty",
+    "aldi-rozmaryn-w-doniczce",
+    "aldi-pinsa-cucina",
+    "netto-onigiri-sushi-tokyo",
+    "biedronka-posilek-pelnowartosciowy-aktiplus",
+    "biedronka-kaszka-proteinowa-go-active",
+    "netto-kawa-zbozowa-inka",
+    "lidl-rzeznik-schab",
+    "lidl-rzeznik-mieso-mielone",
+    "lidl-seler-naciowy",
+    "kaufland-seler-korzen",
+    "netto-pomidory-krojone-mutti",
+    "biedronka-napoj-owsiany-alpro",
+    "netto-twarozek-piatnica",
+    "aldi-parowki-dolina-dobra",
+    "aldi-kabanosy-tarczynski",
+    "aldi-zeberka-paski",
+    "kaufland-lopatka-wieprzowa",
+    "aldi-kawa-instant-nescafe",
+    "aldi-kawa-ziarnista-lavazza",
+    "lidl-wszystkie-kawy",
+    "netto-karma-bobik",
+    "netto-plyn-silan",
+    "kaufland-pampers-pieluchy",
+    "netto-papier-toaletowy-regina",
+    "netto-mydlo-dove",
+    "lidl-zwirek-benek",
+    "lidl-dentastix-pedigree",
+    "aldi-karmy-dla-kota",
+    "aldi-domestos-zel-do-wc",
+    "biedronka-sucha-karma-kitty",
+    "netto-suplement-vita-fizz",
+    "aldi-zestaw-kluczy-workzone",
+    "kaufland-zestaw-nozy",
+    "lidl-kurtka-narciarska",
+    "aldi-odziez-i-obuwie",
+    "kaufland-wszystkie-zabawki",
+    "aldi-produkty-spozywcze-zabawkowe",
+    "kaufland-kalendarz-adwentowy-lego",
+    "kaufland-witaminy-olimp",
+    "biedronka-wszystkie-znicze",
+    "netto-smakowita-de-luxe",
+    "biedronka-produkty-madero",
+    "aldi-artykuly-mullermilch",
+    "lidl-produkty-regionalne-szlaki",
+    "kaufland-pomysl-na-winiary"
+  ],
+  "eligible": [
+    "kaufland-milka-czekolada",
+    "lidl-pilos-maslo",
+    "lidl-mlekovita-mleko-uht",
+    "lidl-zlota-nioska-jaja",
+    "biedronka-ser-zolty-salami",
+    "biedronka-napoj-proteinowy-go-active",
+    "netto-olej-rzepakowy-ollineo",
+    "netto-ogorek-dlugi",
+    "netto-ketchup-kotlin",
+    "netto-gofry-tresors",
+    "netto-cukierki-luz",
+    "kaufland-namyslow-pils",
+    "kaufland-fasolka-szparagowa-zolta",
+    "aldi-daylicious-salata",
+    "aldi-borowka-amerykanska",
+    "netto-sery-tarte",
+    "biedronka-czekolady-milka",
+    "lidl-lody-grycan",
+    "kaufland-masla-w-kostkach",
+    "aldi-pierogi-chlodzone",
+    "biedronka-kawy-rozpuszczalne-cafe-dor",
+    "kaufland-hummusy-chlodzone",
+    "biedronka-serki-wiejskie-piatnica",
+    "lidl-piwa-w-butelce",
+    "biedronka-jablka-na-wage",
+    "netto-przyprawy-bolinero",
+    "kaufland-vizir-pranie",
+    "netto-szampony-odzywki",
+    "netto-bakalie-bakalland",
+    "netto-sok-dawtona",
+    "biedronka-kasze-plony-natury",
+    "kaufland-sosy-pesto-barilla",
+    "kaufland-kremy-smarowidla",
+    "lidl-soki-smoothie-lemoniady-solevita",
+    "kaufland-pasztety-pasztetowe",
+    "aldi-warzywa-owoce-konserwowe",
+    "kaufland-herbaty-teekanne",
+    "biedronka-kosmetyki-do-wlosow-pantene",
+    "kaufland-dodatki-do-zmywarki-somat",
+    "biedronka-coca-cola-fanta-sprite",
+    "kaufland-parowki-pakowane",
+    "netto-twarogi-klinki",
+    "kaufland-oliwki-bez-chlodzonych",
+    "kaufland-kielbasy-krakowskie",
+    "aldi-zele-pod-prysznic",
+    "kaufland-warzywa-mrozone-hortex",
+    "kaufland-karmy-w-puszkach",
+    "lidl-artykuly-dzieciece",
+    "lidl-napoj-wysokobialkowy-pilos",
+    "biedronka-awokado-hass",
+    "aldi-poke-bowl",
+    "kaufland-pigwa",
+    "lidl-balsam-do-ust",
+    "kaufland-krem-do-twarzy-loreal",
+    "biedronka-plyn-micelarny-be-beauty",
+    "aldi-rozmaryn-w-doniczce",
+    "aldi-pinsa-cucina",
+    "netto-onigiri-sushi-tokyo",
+    "biedronka-posilek-pelnowartosciowy-aktiplus",
+    "biedronka-kaszka-proteinowa-go-active",
+    "netto-kawa-zbozowa-inka",
+    "lidl-rzeznik-schab",
+    "lidl-rzeznik-mieso-mielone",
+    "lidl-seler-naciowy",
+    "kaufland-seler-korzen",
+    "netto-pomidory-krojone-mutti",
+    "biedronka-napoj-owsiany-alpro",
+    "netto-twarozek-piatnica",
+    "aldi-parowki-dolina-dobra",
+    "aldi-kabanosy-tarczynski",
+    "aldi-zeberka-paski",
+    "kaufland-lopatka-wieprzowa",
+    "aldi-kawa-instant-nescafe",
+    "aldi-kawa-ziarnista-lavazza",
+    "lidl-wszystkie-kawy",
+    "netto-karma-bobik",
+    "netto-plyn-silan",
+    "kaufland-pampers-pieluchy",
+    "netto-papier-toaletowy-regina",
+    "netto-mydlo-dove",
+    "lidl-zwirek-benek",
+    "lidl-dentastix-pedigree",
+    "aldi-karmy-dla-kota",
+    "aldi-domestos-zel-do-wc",
+    "biedronka-sucha-karma-kitty",
+    "netto-suplement-vita-fizz",
+    "aldi-zestaw-kluczy-workzone",
+    "kaufland-zestaw-nozy",
+    "lidl-kurtka-narciarska",
+    "aldi-odziez-i-obuwie",
+    "kaufland-wszystkie-zabawki",
+    "aldi-produkty-spozywcze-zabawkowe",
+    "kaufland-kalendarz-adwentowy-lego",
+    "kaufland-witaminy-olimp",
+    "biedronka-wszystkie-znicze",
+    "netto-smakowita-de-luxe",
+    "biedronka-produkty-madero",
+    "aldi-artykuly-mullermilch",
+    "lidl-produkty-regionalne-szlaki",
+    "kaufland-pomysl-na-winiary"
+  ],
+  "full": true,
+  "cases": [
+    {
+      "id": "kaufland-milka-czekolada",
+      "group": "one-kind",
+      "chain": "Kaufland",
+      "name": "MILKA Czekolada różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Czekolada"
+        ],
+        "possible": [
+          "Czekolada"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Czekolada"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "lidl-pilos-maslo",
+      "group": "one-kind",
+      "chain": "Lidl",
+      "name": "PILOS Masło ekstra 83%",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Masło"
+        ],
+        "possible": [
+          "Masło"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Masło"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-mlekovita-mleko-uht",
+      "group": "one-kind",
+      "chain": "Lidl",
+      "name": "MLEKOVITA Mleko UHT 3,2% I Love Milk",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Mleko"
+        ],
+        "possible": [
+          "Mleko"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Mleko"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-zlota-nioska-jaja",
+      "group": "one-kind",
+      "chain": "Lidl",
+      "name": "ZŁOTA NIOSKA Polskie świeże jaja z chowu ściółkowego, wielkość M, klasa A",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Jaja"
+        ],
+        "possible": [
+          "Jaja"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Jaja"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "biedronka-ser-zolty-salami",
+      "group": "one-kind",
+      "chain": "Biedronka",
+      "name": "Ser żółty Salami w plastrach Światowid",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Ser"
+        ],
+        "possible": [
+          "Ser"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Ser"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "biedronka-napoj-proteinowy-go-active",
+      "group": "one-kind",
+      "chain": "Biedronka",
+      "name": "Napój proteinowy Go Active, różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Napój proteinowy"
+        ],
+        "possible": [
+          "Napój proteinowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Napój proteinowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-olej-rzepakowy-ollineo",
+      "group": "one-kind",
+      "chain": "Netto",
+      "name": "Olej rzepakowy Ollineo",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Olej rzepakowy"
+        ],
+        "possible": [
+          "Olej rzepakowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Olej rzepakowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-ogorek-dlugi",
+      "group": "one-kind",
+      "chain": "Netto",
+      "name": "Ogórek długi",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Ogórki"
+        ],
+        "possible": [
+          "Ogórki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Ogórki"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-ketchup-kotlin",
+      "group": "one-kind",
+      "chain": "Netto",
+      "name": "Ketchup Kotlin (różne rodzaje)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Ketchup"
+        ],
+        "possible": [
+          "Ketchup"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Ketchup"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-gofry-tresors",
+      "group": "one-kind",
+      "chain": "Netto",
+      "name": "Gofry Trésors",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Gofry"
+        ],
+        "possible": [
+          "Gofry"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Gofry"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-cukierki-luz",
+      "group": "one-kind",
+      "chain": "Netto",
+      "name": "Cukierki (różne rodzaje) luz",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Cukierki"
+        ],
+        "possible": [
+          "Cukierki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Cukierki"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "kaufland-namyslow-pils",
+      "group": "one-kind",
+      "chain": "Kaufland",
+      "name": "NAMYSŁÓW PILS Piwo 5,8% alk.",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Piwo"
+        ],
+        "possible": [
+          "Piwo"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Piwo"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "kaufland-fasolka-szparagowa-zolta",
+      "group": "one-kind",
+      "chain": "Kaufland",
+      "name": "Polska fasolka szparagowa żółta luzem",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Fasolka szparagowa"
+        ],
+        "possible": [
+          "Fasolka szparagowa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Fasolka szparagowa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-daylicious-salata",
+      "group": "one-kind",
+      "chain": "Aldi",
+      "name": "DAYLICIOUS Sałata cięta, różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Sałata"
+        ],
+        "possible": [
+          "Sałata"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Sałata"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-borowka-amerykanska",
+      "group": "one-kind",
+      "chain": "Aldi",
+      "name": "Borówka amerykańska XL",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Borówki amerykańskie"
+        ],
+        "possible": [
+          "Borówki amerykańskie"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Borówki amerykańskie"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "netto-sery-tarte",
+      "group": "range-one-kind",
+      "chain": "Netto",
+      "name": "Wszystkie sery tarte",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Ser"
+        ],
+        "possible": [
+          "Ser"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Ser"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "biedronka-czekolady-milka",
+      "group": "range-one-kind",
+      "chain": "Biedronka",
+      "name": "WSZYSTKIE CZEKOLADY MILKA, 80-100 g",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Czekolada"
+        ],
+        "possible": [
+          "Czekolada"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Czekolada"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "lidl-lody-grycan",
+      "group": "range-one-kind",
+      "chain": "Lidl",
+      "name": "Wszystkie lody Grycan",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Lody"
+        ],
+        "possible": [
+          "Lody"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Lody"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "kaufland-masla-w-kostkach",
+      "group": "range-one-kind",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE MASŁA W KOSTKACH do 250 g",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Masło"
+        ],
+        "possible": [
+          "Masło"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Masło"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-pierogi-chlodzone",
+      "group": "range-one-kind",
+      "chain": "Aldi",
+      "name": "WSZYSTKIE PIEROGI CHŁODZONE DRUGI TAŃSZY PRODUKT 30 % TANIEJ MIESZAJ DOWOLNIE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pierogi"
+        ],
+        "possible": [
+          "Pierogi"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Pierogi"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "biedronka-kawy-rozpuszczalne-cafe-dor",
+      "group": "range-one-kind",
+      "chain": "Biedronka",
+      "name": "Wszystkie kawy rozpuszczalne",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kawa rozpuszczalna"
+        ],
+        "possible": [
+          "Kawa rozpuszczalna"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kawa rozpuszczalna"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "kaufland-hummusy-chlodzone",
+      "group": "range-one-kind",
+      "chain": "Kaufland",
+      "name": "HUMMUSY CHŁODZONE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Hummus"
+        ],
+        "possible": [
+          "Hummus"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Hummus"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "biedronka-serki-wiejskie-piatnica",
+      "group": "range-one-kind",
+      "chain": "Biedronka",
+      "name": "Wszystkie serki wiejskie Piątnica",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Serek wiejski"
+        ],
+        "possible": [
+          "Serek wiejski"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Serek wiejski"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "lidl-piwa-w-butelce",
+      "group": "range-one-kind",
+      "chain": "Lidl",
+      "name": "Wszystkie piwa w butelce",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Piwo"
+        ],
+        "possible": [
+          "Piwo",
+          "Piwo bezalkoholowe",
+          "Radler"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Piwo",
+          "Piwo bezalkoholowe"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "biedronka-jablka-na-wage",
+      "group": "range-one-kind",
+      "chain": "Biedronka",
+      "name": "Wszystkie polskie jabłka na wagę",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Jabłka"
+        ],
+        "possible": [
+          "Jabłka"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Jabłka"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-przyprawy-bolinero",
+      "group": "range-many-kinds",
+      "chain": "Netto",
+      "name": "Wszystkie przyprawy Bolinero",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Bazylia suszona",
+          "Cynamon",
+          "Czosnek granulowany",
+          "Gałka muszkatołowa",
+          "Goździki",
+          "Imbir mielony",
+          "Kminek",
+          "Kurkuma",
+          "Liść laurowy",
+          "Majeranek",
+          "Mieszanka przypraw",
+          "Oregano",
+          "Papryka mielona",
+          "Pieprz",
+          "Przyprawa curry",
+          "Tymianek",
+          "Ziele angielskie",
+          "Zioła prowansalskie"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Bazylia suszona",
+          "Cebula granulowana",
+          "Cynamon",
+          "Cząber",
+          "Czosnek granulowany",
+          "Estragon",
+          "Gałka muszkatołowa",
+          "Goździki",
+          "Gorczyca",
+          "Imbir mielony",
+          "Jałowiec",
+          "Kardamon",
+          "Kmin rzymski",
+          "Kminek",
+          "Kolendra",
+          "Kurkuma",
+          "Liść laurowy",
+          "Majeranek",
+          "Mieszanka przypraw",
+          "Oregano",
+          "Papryka mielona",
+          "Pieprz",
+          "Pietruszka suszona",
+          "Przyprawa curry",
+          "Przyprawa w płynie",
+          "Rozmaryn suszony",
+          "Szafran",
+          "Szałwia",
+          "Tymianek",
+          "Zioła prowansalskie",
+          "Ziele angielskie"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "kaufland-vizir-pranie",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "VIZIR Kapsułki lub Proszek do prania różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Proszek/płyn/kapsułki do prania"
+        ],
+        "possible": [
+          "Proszek/płyn/kapsułki do prania"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Proszek/płyn/kapsułki do prania"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "netto-szampony-odzywki",
+      "group": "range-many-kinds",
+      "chain": "Netto",
+      "name": "Wszystkie szampony i odżywki do włosów Ziaja, Nivea, Pantene, Gliss oraz Barwa Naturalna",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Szampon",
+          "Odżywka do włosów"
+        ],
+        "possible": [
+          "Szampon",
+          "Odżywka do włosów"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Szampon",
+          "Odżywka do włosów"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-bakalie-bakalland",
+      "group": "range-many-kinds",
+      "chain": "Netto",
+      "name": "Wszystkie bakalie Bakalland",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Daktyle",
+          "Figi suszone",
+          "Jabłka suszone",
+          "Jagody goji",
+          "Mak",
+          "Mango suszone",
+          "Migdały",
+          "Mieszanka nasion",
+          "Mieszanka orzechów",
+          "Mieszanka owoców suszonych",
+          "Mieszanka studencka",
+          "Morele suszone",
+          "Orzechy brazylijskie",
+          "Orzechy laskowe",
+          "Orzechy makadamia",
+          "Orzechy nerkowca",
+          "Orzechy pekan",
+          "Orzechy włoskie",
+          "Orzeszki piniowe",
+          "Orzeszki ziemne",
+          "Owoce kandyzowane",
+          "Pestki dyni",
+          "Pestki słonecznika",
+          "Pistacje",
+          "Rodzynki",
+          "Sezam",
+          "Siemię lniane",
+          "Śliwki suszone",
+          "Wiórki kokosowe",
+          "Żurawina suszona"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Bakalie w czekoladzie",
+          "Daktyle",
+          "Figi suszone",
+          "Jabłka suszone",
+          "Morele suszone",
+          "Mieszanka owoców suszonych",
+          "Mango suszone",
+          "Migdały",
+          "Mieszanka orzechów",
+          "Orzechy brazylijskie",
+          "Orzechy laskowe",
+          "Orzechy makadamia",
+          "Orzechy nerkowca",
+          "Orzechy pekan",
+          "Orzechy włoskie",
+          "Orzeszki piniowe",
+          "Orzeszki ziemne",
+          "Pestki dyni",
+          "Pestki słonecznika",
+          "Pistacje",
+          "Rodzynki",
+          "Śliwki suszone",
+          "Żurawina suszona",
+          "Mieszanka studencka",
+          "Owoce kandyzowane"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-sok-dawtona",
+      "group": "range-many-kinds",
+      "chain": "Netto",
+      "name": "Sok Dawtona (z pomidora klasyczny / z buraka z jabłkiem)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Sok pomidorowy",
+          "Sok warzywny"
+        ],
+        "possible": [
+          "Sok pomidorowy",
+          "Sok warzywny"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Sok pomidorowy",
+          "Sok warzywny"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "biedronka-kasze-plony-natury",
+      "group": "range-many-kinds",
+      "chain": "Biedronka",
+      "name": "Wszystkie kasze",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Kasza bulgur",
+          "Kasza gryczana",
+          "Kasza jaglana",
+          "Kasza jęczmienna",
+          "Kasza kukurydziana",
+          "Kasza kuskus",
+          "Kasza manna",
+          "Kasza pszenna"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kasza bulgur",
+          "Kasza gryczana",
+          "Kasza jaglana",
+          "Kasza jęczmienna",
+          "Kasza kukurydziana",
+          "Kasza kuskus",
+          "Kasza manna",
+          "Kasza pszenna"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "kaufland-sosy-pesto-barilla",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "Wszystkie SOSY i PESTO",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pesto"
+        ],
+        "possible": [
+          "Pesto",
+          "Sos barbecue",
+          "Sos curry",
+          "Sos czosnkowy",
+          "Sos deserowy",
+          "Sos do makaronu",
+          "Sos do pizzy",
+          "Sos hoisin",
+          "Sos ostry",
+          "Sos ostrygowy",
+          "Sos pieczeniowy",
+          "Sos rybny",
+          "Sos sałatkowy",
+          "Sos sojowy",
+          "Sos słodko-kwaśny",
+          "Sos tatarski",
+          "Sos teriyaki",
+          "Sos w proszku",
+          "Sos worcestershire",
+          "Sos żurawinowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Sos barbecue",
+          "Sos curry",
+          "Sos czosnkowy",
+          "Sos deserowy",
+          "Sos do makaronu",
+          "Sos do pizzy",
+          "Sos hoisin",
+          "Sos ostry",
+          "Sos ostrygowy",
+          "Sos pieczeniowy",
+          "Sos rybny",
+          "Sos sałatkowy",
+          "Sos sojowy",
+          "Sos słodko-kwaśny",
+          "Sos tatarski",
+          "Sos teriyaki",
+          "Sos w proszku",
+          "Sos worcestershire",
+          "Sos żurawinowy",
+          "Pesto"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "kaufland-kremy-smarowidla",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "Wszystkie KREMY i SMAROWIDŁA CZEKOLADOWE i ORZECHOWE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Krem czekoladowy"
+        ],
+        "possible": [
+          "Krem czekoladowy",
+          "Masło orzechowe"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Krem czekoladowy",
+          "Masło orzechowe"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "lidl-soki-smoothie-lemoniady-solevita",
+      "group": "range-many-kinds",
+      "chain": "Lidl",
+      "name": "Wszystkie chłodzone soki, smoothie i lemoniady Solevita",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Sok owocowy",
+          "Smoothie",
+          "Lemoniada"
+        ],
+        "possible": [
+          "Sok owocowy",
+          "Smoothie",
+          "Lemoniada",
+          "Sok pomidorowy",
+          "Sok warzywny"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Sok owocowy",
+          "Sok pomidorowy",
+          "Sok warzywny",
+          "Sok z cytryny",
+          "Smoothie",
+          "Lemoniada"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "kaufland-pasztety-pasztetowe",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE PASZTETY i PASZTETOWE PAKOWANE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pasztet",
+          "Pasztetowa"
+        ],
+        "possible": [
+          "Pasztet",
+          "Pasztetowa",
+          "Pasztet roślinny"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Pasztet",
+          "Pasztet roślinny",
+          "Pasztetowa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-warzywa-owoce-konserwowe",
+      "group": "range-many-kinds",
+      "chain": "Aldi",
+      "name": "WSZYSTKIE WARZYWA I OWOCE KONSERWOWE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Ananas w puszce",
+          "Brzoskwinie w puszce",
+          "Buraczki marynowane",
+          "Cebulka marynowana",
+          "Ciecierzyca w puszce",
+          "Fasola w puszce",
+          "Fasolka szparagowa konserwowa",
+          "Groszek konserwowy",
+          "Grzyby marynowane",
+          "Kapusta kiszona",
+          "Karczochy w zalewie",
+          "Kukurydza w puszce",
+          "Mieszanka owoców w puszce",
+          "Ogórki kiszone",
+          "Ogórki konserwowe",
+          "Oliwki",
+          "Papryka marynowana",
+          "Pomidory w puszce",
+          "Soczewica w puszce",
+          "Szparagi konserwowe"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Ananas w puszce",
+          "Brzoskwinie w puszce",
+          "Ciecierzyca w puszce",
+          "Fasola w puszce",
+          "Fasolka szparagowa konserwowa",
+          "Groszek konserwowy",
+          "Kukurydza w puszce",
+          "Mieszanka owoców w puszce",
+          "Pomidory w puszce",
+          "Szparagi konserwowe",
+          "Ogórki konserwowe",
+          "Soczewica w puszce"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-herbaty-teekanne",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "DRUGI TAŃSZY PRODUKT",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Herbata czarna",
+          "Herbata mrożona",
+          "Herbata owocowa",
+          "Herbata zielona",
+          "Herbata ziołowa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Herbata czarna",
+          "Herbata mrożona",
+          "Herbata owocowa",
+          "Herbata zielona",
+          "Herbata ziołowa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "biedronka-kosmetyki-do-wlosow-pantene",
+      "group": "range-many-kinds",
+      "chain": "Biedronka",
+      "name": "WSZYSTKIE KOSMETYKI DO WŁOSÓW PANTENE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Odżywka do włosów",
+          "Szampon"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Szampon",
+          "Odżywka do włosów"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "kaufland-dodatki-do-zmywarki-somat",
+      "group": "range-many-kinds",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE DODATKI DO ZMYWARKI MARKI SOMAT",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Nabłyszczacz do zmywarki",
+          "Sól do zmywarki",
+          "Tabletki/żel do zmywarki",
+          "Środek do czyszczenia zmywarki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Nabłyszczacz do zmywarki",
+          "Sól do zmywarki",
+          "Środek do czyszczenia zmywarki"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "biedronka-coca-cola-fanta-sprite",
+      "group": "range-many-kinds",
+      "chain": "Biedronka",
+      "name": "WSZYSTKIE COCA-COLA, FANTA, SPRITE**, 1 l",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Napój gazowany"
+        ],
+        "possible": [
+          "Napój gazowany",
+          "Napój owocowy",
+          "Sok owocowy",
+          "Tonik"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Napój gazowany"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "kaufland-parowki-pakowane",
+      "group": "exclusions",
+      "chain": "Kaufland",
+      "name": "Wszystkie parówki pakowane",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Parówki"
+        ],
+        "possible": [
+          "Parówki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Parówki",
+          "Parówki roślinne"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "netto-twarogi-klinki",
+      "group": "exclusions",
+      "chain": "Netto",
+      "name": "Wybrane twarogi Klinki",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Twaróg"
+        ],
+        "possible": [
+          "Twaróg"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Twaróg"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "kaufland-oliwki-bez-chlodzonych",
+      "group": "exclusions",
+      "chain": "Kaufland",
+      "name": "OLIWKI",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Oliwki"
+        ],
+        "possible": [
+          "Oliwki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Oliwki"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "kaufland-kielbasy-krakowskie",
+      "group": "exclusions",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE KIEŁBASY KRAKOWSKIE PAKOWANE",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kiełbasa"
+        ],
+        "possible": [
+          "Kiełbasa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kiełbasa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-zele-pod-prysznic",
+      "group": "exclusions",
+      "chain": "Aldi",
+      "name": "WSZYSTKIE ŻELE POD PRYSZNIC*",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Żel pod prysznic"
+        ],
+        "possible": [
+          "Żel pod prysznic"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Żel pod prysznic"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-warzywa-mrozone-hortex",
+      "group": "exclusions",
+      "chain": "Kaufland",
+      "name": "Wszystkie warzywa mrożone jednoskładnikowe",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [],
+        "possible": [
+          "Brokuły mrożone",
+          "Brukselka mrożona",
+          "Bób mrożony",
+          "Fasolka szparagowa mrożona",
+          "Groszek mrożony",
+          "Kalafior mrożony",
+          "Kukurydza mrożona",
+          "Marchew mrożona",
+          "Szpinak mrożony",
+          "Ziemniaki mrożone"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Bób mrożony",
+          "Brokuły mrożone",
+          "Brukselka mrożona",
+          "Fasolka szparagowa mrożona",
+          "Groszek mrożony",
+          "Kalafior mrożony",
+          "Kukurydza mrożona",
+          "Marchew mrożona",
+          "Szpinak mrożony",
+          "Ziemniaki mrożone"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "kaufland-karmy-w-puszkach",
+      "group": "exclusions",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE KARMY W PUSZKACH DLA PSÓW i KOTÓW",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Karma mokra dla kota",
+          "Karma mokra dla psa"
+        ],
+        "possible": [
+          "Karma mokra dla kota",
+          "Karma mokra dla psa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Karma mokra dla kota",
+          "Karma mokra dla psa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "lidl-artykuly-dzieciece",
+      "group": "exclusions",
+      "chain": "Lidl",
+      "name": "Artykuły wybranych marek dostępnych w Lidlu",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kaszka dla dzieci",
+          "Mleko modyfikowane",
+          "Obiadki dla dzieci"
+        ],
+        "possible": [
+          "Kaszka dla dzieci",
+          "Mleko modyfikowane",
+          "Obiadki dla dzieci",
+          "Deserki mleczne dla dzieci",
+          "Mus owocowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kaszka dla dzieci",
+          "Obiadki dla dzieci",
+          "Mleko modyfikowane"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-napoj-wysokobialkowy-pilos",
+      "group": "exclusions",
+      "chain": "Lidl",
+      "name": "Napój wysokobiałkowy czekoladowy lub waniliowy",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Napój proteinowy"
+        ],
+        "possible": [
+          "Napój proteinowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Napój proteinowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "biedronka-awokado-hass",
+      "group": "exclusions",
+      "chain": "Biedronka",
+      "name": "Awokado Hass",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Awokado"
+        ],
+        "possible": [
+          "Awokado"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Awokado"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "aldi-poke-bowl",
+      "group": "new-kind",
+      "chain": "Aldi",
+      "name": "Poke Bowl (z krewetkami, z łososiem, z kurczakiem)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Poke Bowl"
+        ],
+        "possible": [
+          "Poke Bowl"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Danie gotowe"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "missed_kind",
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-pigwa",
+      "group": "new-kind",
+      "chain": "Kaufland",
+      "name": "Pigwa",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pigwa"
+        ],
+        "possible": [
+          "Pigwa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Pigwa"
+        ]
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "lidl-balsam-do-ust",
+      "group": "out-of-scope",
+      "chain": "Lidl",
+      "name": "Balsam do ust",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "kaufland-krem-do-twarzy-loreal",
+      "group": "out-of-scope",
+      "chain": "Kaufland",
+      "name": "L’ORÉAL EKSPERT WIEKU Krem do twarzy różne rodzaje",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "biedronka-plyn-micelarny-be-beauty",
+      "group": "out-of-scope",
+      "chain": "Biedronka",
+      "name": "Płyn micelarny do demakijażu Be Beauty, 400 ml",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "aldi-rozmaryn-w-doniczce",
+      "group": "new-kind",
+      "chain": "Aldi",
+      "name": "Rozmaryn w doniczce XL",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Rozmaryn"
+        ],
+        "possible": [
+          "Rozmaryn"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Rozmaryn w doniczce"
+        ]
+      },
+      "verdict": "warning",
+      "errors": [],
+      "warnings": [
+        "new_kind_name"
+      ],
+      "renamed": [
+        {
+          "truth": "Rozmaryn",
+          "created": "Rozmaryn w doniczce"
+        }
+      ],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-pinsa-cucina",
+      "group": "new-kind",
+      "chain": "Aldi",
+      "name": "Pinsa",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pinsa"
+        ],
+        "possible": [
+          "Pinsa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Pizza"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "netto-onigiri-sushi-tokyo",
+      "group": "new-kind",
+      "chain": "Netto",
+      "name": "Onigiri Sushi Tokyo (łosoś teriyaki / tuńczyk mayo / krewetka)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Onigiri"
+        ],
+        "possible": [
+          "Onigiri"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Sushi"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "biedronka-posilek-pelnowartosciowy-aktiplus",
+      "group": "new-kind",
+      "chain": "Biedronka",
+      "name": "Posiłek pełnowartościowy Aktiplus, banan, słony karmel, wanilia",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Posiłek pełnowartościowy"
+        ],
+        "possible": [
+          "Posiłek pełnowartościowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Posiłek pełnowartościowy"
+        ]
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "biedronka-kaszka-proteinowa-go-active",
+      "group": "new-kind",
+      "chain": "Biedronka",
+      "name": "Kaszka proteinowa Go Active, karmelowa, mleczna, cynamonowa",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kaszka proteinowa"
+        ],
+        "possible": [
+          "Kaszka proteinowa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Owsianka"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "missed_kind",
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-kawa-zbozowa-inka",
+      "group": "kind-boundaries",
+      "chain": "Netto",
+      "name": "Kawa zbożowa Inka",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kawa zbożowa"
+        ],
+        "possible": [
+          "Kawa zbożowa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kawa zbożowa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "lidl-rzeznik-schab",
+      "group": "kind-boundaries",
+      "chain": "Lidl",
+      "name": "RZEŹNIK Schab wieprzowy, XXL",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Schab"
+        ],
+        "possible": [
+          "Schab"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Schab"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-rzeznik-mieso-mielone",
+      "group": "kind-boundaries",
+      "chain": "Lidl",
+      "name": "RZEŹNIK Mięso mielone z łopatki wieprzowej",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Mięso mielone"
+        ],
+        "possible": [
+          "Mięso mielone"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Mięso mielone"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-seler-naciowy",
+      "group": "kind-boundaries",
+      "chain": "Lidl",
+      "name": "Polski seler naciowy",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Seler naciowy"
+        ],
+        "possible": [
+          "Seler naciowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Seler naciowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "kaufland-seler-korzen",
+      "group": "kind-boundaries",
+      "chain": "Kaufland",
+      "name": "Polski seler korzeń, luzem",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Seler"
+        ],
+        "possible": [
+          "Seler"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Seler"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "netto-pomidory-krojone-mutti",
+      "group": "kind-boundaries",
+      "chain": "Netto",
+      "name": "Pomidory drobno krojone Mutti",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pomidory w puszce"
+        ],
+        "possible": [
+          "Pomidory w puszce"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Pomidory w puszce"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "biedronka-napoj-owsiany-alpro",
+      "group": "kind-boundaries",
+      "chain": "Biedronka",
+      "name": "Napój owsiany Alpro Barista",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Napój roślinny"
+        ],
+        "possible": [
+          "Napój roślinny"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Napój roślinny"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-twarozek-piatnica",
+      "group": "kind-boundaries",
+      "chain": "Netto",
+      "name": "Twarożek naturalny Piątnica",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Twaróg"
+        ],
+        "possible": [
+          "Twaróg"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Serek wiejski"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "missed_kind",
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "aldi-parowki-dolina-dobra",
+      "group": "kind-boundaries",
+      "chain": "Aldi",
+      "name": "Parówki 100% mięsa z szynki wieprzowej",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Parówki"
+        ],
+        "possible": [
+          "Parówki"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Parówki"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-kabanosy-tarczynski",
+      "group": "new-kind",
+      "chain": "Aldi",
+      "name": "Kabanosy exclusive",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kiełbasa"
+        ],
+        "possible": [
+          "Kiełbasa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kiełbasa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-zeberka-paski",
+      "group": "kind-boundaries",
+      "chain": "Aldi",
+      "name": "Żeberka wieprzowe paski",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Żeberka"
+        ],
+        "possible": [
+          "Żeberka"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Żeberka"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-lopatka-wieprzowa",
+      "group": "kind-boundaries",
+      "chain": "Kaufland",
+      "name": "Łopatka wieprzowa bez kości",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Wieprzowina"
+        ],
+        "possible": [
+          "Wieprzowina"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Wieprzowina"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-kawa-instant-nescafe",
+      "group": "kind-boundaries",
+      "chain": "Aldi",
+      "name": "Kawa Instant Classic",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kawa rozpuszczalna"
+        ],
+        "possible": [
+          "Kawa rozpuszczalna"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kawa rozpuszczalna"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-kawa-ziarnista-lavazza",
+      "group": "kind-boundaries",
+      "chain": "Aldi",
+      "name": "Kawa ziarnista",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kawa mielona"
+        ],
+        "possible": [
+          "Kawa mielona"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [],
+        "new_kinds": [
+          "Kawa ziarnista"
+        ]
+      },
+      "verdict": "error",
+      "errors": [
+        "new_instead_of_stored"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "lidl-wszystkie-kawy",
+      "group": "kind-boundaries",
+      "chain": "Lidl",
+      "name": "Wszystkie kawy",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Kawa mielona",
+          "Kawa rozpuszczalna",
+          "Kawa w kapsułkach"
+        ],
+        "possible": [
+          "Kawa mielona",
+          "Kawa rozpuszczalna",
+          "Kawa w kapsułkach"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kawa mielona",
+          "Kawa mrożona",
+          "Kawa rozpuszczalna",
+          "Kawa w kapsułkach",
+          "Kawa zbożowa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "extra_kind"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "netto-karma-bobik",
+      "group": "pet-household",
+      "chain": "Netto",
+      "name": "Karma mokra dla psów Bobik (różne rodzaje)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Karma mokra dla psa"
+        ],
+        "possible": [
+          "Karma mokra dla psa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Karma mokra dla psa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-plyn-silan",
+      "group": "pet-household",
+      "chain": "Netto",
+      "name": "Płyn do płukania Silan (różne rodzaje)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Płyn do płukania"
+        ],
+        "possible": [
+          "Płyn do płukania"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Płyn do płukania"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "kaufland-pampers-pieluchy",
+      "group": "pet-household",
+      "chain": "Kaufland",
+      "name": "PAMPERS PREMIUM CARE Pieluchy lub Pieluchomajtki dla dzieci różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Pieluchy"
+        ],
+        "possible": [
+          "Pieluchy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Pieluchy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "netto-papier-toaletowy-regina",
+      "group": "pet-household",
+      "chain": "Netto",
+      "name": "Papier toaletowy rumiankowy Regina",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Papier toaletowy"
+        ],
+        "possible": [
+          "Papier toaletowy"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Papier toaletowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "netto-mydlo-dove",
+      "group": "pet-household",
+      "chain": "Netto",
+      "name": "Mydło w kostce Dove (różne rodzaje)",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Mydło"
+        ],
+        "possible": [
+          "Mydło"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Mydło"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "lidl-zwirek-benek",
+      "group": "pet-household",
+      "chain": "Lidl",
+      "name": "Żwirek kukurydziany dla kota",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Żwirek dla kota"
+        ],
+        "possible": [
+          "Żwirek dla kota"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Żwirek dla kota"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "lidl-dentastix-pedigree",
+      "group": "pet-household",
+      "chain": "Lidl",
+      "name": "Dentastix, przysmak dla psa różne rodzaje",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Przysmaki dla psa"
+        ],
+        "possible": [
+          "Przysmaki dla psa"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Przysmaki dla psa"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "aldi-karmy-dla-kota",
+      "group": "pet-household",
+      "chain": "Aldi",
+      "name": "WSZYSTKIE KARMY DLA KOTA",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Karma mokra dla kota",
+          "Karma sucha dla kota"
+        ],
+        "possible": [
+          "Karma mokra dla kota",
+          "Karma sucha dla kota"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Karma mokra dla kota",
+          "Karma sucha dla kota"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "aldi-domestos-zel-do-wc",
+      "group": "pet-household",
+      "chain": "Aldi",
+      "name": "DOMESTOS Żel do WC",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Płyn do WC"
+        ],
+        "possible": [
+          "Płyn do WC"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Płyn do WC"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "biedronka-sucha-karma-kitty",
+      "group": "pet-household",
+      "chain": "Biedronka",
+      "name": "Sucha karma dla kota bez dodatku zbóż Kitty, 1 kg",
+      "expected": {
+        "outcome": "kinds",
+        "certain": [
+          "Karma sucha dla kota"
+        ],
+        "possible": [
+          "Karma sucha dla kota"
+        ]
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Karma sucha dla kota"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-suplement-vita-fizz",
+      "group": "out-of-scope",
+      "chain": "Netto",
+      "name": "Suplement diety w tabletkach musujących Vita Fizz Forte (magnez / witamina C / elektrolity / multiwitamina / wapno)",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "aldi-zestaw-kluczy-workzone",
+      "group": "out-of-scope",
+      "chain": "Aldi",
+      "name": "Zestaw kluczy z grzechotką",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-zestaw-nozy",
+      "group": "out-of-scope",
+      "chain": "Kaufland",
+      "name": "Zestaw noży ze stali nierdzewnej",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "lidl-kurtka-narciarska",
+      "group": "out-of-scope",
+      "chain": "Lidl",
+      "name": "Kurtka narciarska freeride męska",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "aldi-odziez-i-obuwie",
+      "group": "out-of-scope",
+      "chain": "Aldi",
+      "name": "ODZIEŻ I OBUWIE DAMSKIE I MĘSKIE",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-wszystkie-zabawki",
+      "group": "out-of-scope",
+      "chain": "Kaufland",
+      "name": "WSZYSTKIE ZABAWKI",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "aldi-produkty-spozywcze-zabawkowe",
+      "group": "out-of-scope",
+      "chain": "Aldi",
+      "name": "Produkty spożywcze zabawkowe",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "kaufland-kalendarz-adwentowy-lego",
+      "group": "out-of-scope",
+      "chain": "Kaufland",
+      "name": "Kalendarz adwentowy",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "kinds",
+        "kinds": [
+          "Kalendarz adwentowy"
+        ],
+        "new_kinds": []
+      },
+      "verdict": "error",
+      "errors": [
+        "scope"
+      ],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "kaufland-witaminy-olimp",
+      "group": "out-of-scope",
+      "chain": "Kaufland",
+      "name": "Vita-min One witaminy",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    },
+    {
+      "id": "biedronka-wszystkie-znicze",
+      "group": "out-of-scope",
+      "chain": "Biedronka",
+      "name": "Wszystkie znicze",
+      "expected": {
+        "outcome": "out_of_scope",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "out_of_scope",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "netto-smakowita-de-luxe",
+      "group": "unclear",
+      "chain": "Netto",
+      "name": "Smakowita de Luxe",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": [
+          "Margaryna"
+        ]
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00015362857142857143,
+      "seconds": 0.8797814430952383
+    },
+    {
+      "id": "biedronka-produkty-madero",
+      "group": "unclear",
+      "chain": "Biedronka",
+      "name": "Wszystkie produkty Madero",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014879411764705881,
+      "seconds": 0.883159170411765
+    },
+    {
+      "id": "aldi-artykuly-mullermilch",
+      "group": "unclear",
+      "chain": "Aldi",
+      "name": "WSZYSTKIE ARTYKUŁY",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": [
+          "Mleko smakowe"
+        ]
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.0001553736842105263,
+      "seconds": 0.9207324107894739
+    },
+    {
+      "id": "lidl-produkty-regionalne-szlaki",
+      "group": "unclear",
+      "chain": "Lidl",
+      "name": "Wszystkie produkty Regionalne Szlaki i Regionalne Polskie Szlaki",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": []
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00013168235294117647,
+      "seconds": 0.7131038395294119
+    },
+    {
+      "id": "kaufland-pomysl-na-winiary",
+      "group": "unclear",
+      "chain": "Kaufland",
+      "name": "ART. POMYSŁ NA...",
+      "expected": {
+        "outcome": "unclear",
+        "certain": [],
+        "possible": [
+          "Mieszanka przypraw"
+        ]
+      },
+      "answer": {
+        "outcome": "unknown",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "verdict": "right",
+      "errors": [],
+      "warnings": [],
+      "renamed": [],
+      "failed": false,
+      "failure": null,
+      "cost_usd": 0.00014779615384615384,
+      "seconds": 0.8926432763846154
+    }
+  ],
+  "totals": {
+    "promos": 100,
+    "errors": {
+      "count": 10,
+      "share": 0.1
+    },
+    "warnings": {
+      "count": 1,
+      "share": 0.01
+    },
+    "failed": 0,
+    "cost_usd": 0.0147891,
+    "known_cost_usd": 0.0147891,
+    "accounting_complete": true,
+    "seconds": 86.31452246500001,
+    "p50_seconds": 0.883159170411765,
+    "p95_seconds": 0.9207324107894739
+  },
+  "by_group": {
+    "one-kind": {
+      "promos": 15,
+      "errors": {
+        "count": 0,
+        "share": 0.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.002214913981220018,
+      "known_cost_usd": 0.002214913981220018,
+      "accounting_complete": true,
+      "seconds": 12.823931725620751,
+      "p50_seconds": 0.8797814430952383,
+      "p95_seconds": 0.9207324107894739
+    },
+    "range-one-kind": {
+      "promos": 10,
+      "errors": {
+        "count": 0,
+        "share": 0.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0014631357398019935,
+      "known_cost_usd": 0.0014631357398019935,
+      "accounting_complete": true,
+      "seconds": 8.544644767359827,
+      "p50_seconds": 0.883159170411765,
+      "p95_seconds": 0.9207324107894739
+    },
+    "range-many-kinds": {
+      "promos": 15,
+      "errors": {
+        "count": 3,
+        "share": 0.2
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.002234729598884088,
+      "known_cost_usd": 0.002234729598884088,
+      "accounting_complete": true,
+      "seconds": 13.158299192242826,
+      "p50_seconds": 0.883159170411765,
+      "p95_seconds": 0.9207324107894739
+    },
+    "exclusions": {
+      "promos": 10,
+      "errors": {
+        "count": 1,
+        "share": 0.1
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0014601418483992787,
+      "known_cost_usd": 0.0014601418483992787,
+      "accounting_complete": true,
+      "seconds": 8.573097085278377,
+      "p50_seconds": 0.8926432763846154,
+      "p95_seconds": 0.9207324107894739
+    },
+    "new-kind": {
+      "promos": 8,
+      "errors": {
+        "count": 2,
+        "share": 0.25
+      },
+      "warnings": {
+        "count": 1,
+        "share": 0.125
+      },
+      "failed": 0,
+      "cost_usd": 0.001220507697410948,
+      "known_cost_usd": 0.001220507697410948,
+      "accounting_complete": true,
+      "seconds": 7.221672703461279,
+      "p50_seconds": 0.8926432763846154,
+      "p95_seconds": 0.9207324107894739
+    },
+    "kind-boundaries": {
+      "promos": 14,
+      "errors": {
+        "count": 3,
+        "share": 0.21428571428571427
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.002053496288231892,
+      "known_cost_usd": 0.002053496288231892,
+      "accounting_complete": true,
+      "seconds": 11.843135053742254,
+      "p50_seconds": 0.8797814430952383,
+      "p95_seconds": 0.9207324107894739
+    },
+    "pet-household": {
+      "promos": 10,
+      "errors": {
+        "count": 0,
+        "share": 0.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0014852166315109038,
+      "known_cost_usd": 0.0014852166315109038,
+      "accounting_complete": true,
+      "seconds": 8.562600719815105,
+      "p50_seconds": 0.8797814430952383,
+      "p95_seconds": 0.9207324107894739
+    },
+    "out-of-scope": {
+      "promos": 13,
+      "errors": {
+        "count": 1,
+        "share": 0.07692307692307693
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0019196833344673901,
+      "known_cost_usd": 0.0019196833344673901,
+      "accounting_complete": true,
+      "seconds": 11.29772107726909,
+      "p50_seconds": 0.8926432763846154,
+      "p95_seconds": 0.9207324107894739
+    },
+    "unclear": {
+      "promos": 5,
+      "errors": {
+        "count": 0,
+        "share": 0.0
+      },
+      "warnings": {
+        "count": 0,
+        "share": 0.0
+      },
+      "failed": 0,
+      "cost_usd": 0.0007372748800734869,
+      "known_cost_usd": 0.0007372748800734869,
+      "accounting_complete": true,
+      "seconds": 4.289420140210504,
+      "p50_seconds": 0.883159170411765,
+      "p95_seconds": 0.9207324107894739
+    }
+  }
+}
