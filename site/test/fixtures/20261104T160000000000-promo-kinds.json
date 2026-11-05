@@ -53,6 +53,7 @@
         ],
         "new_kinds": []
       },
+      "renamed": [],
       "verdict": "right",
       "errors": [],
       "warnings": [],
@@ -84,6 +85,7 @@
         ],
         "new_kinds": []
       },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "missed_kind"
@@ -116,6 +118,7 @@
         ],
         "new_kinds": []
       },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "extra_kind"
@@ -143,6 +146,7 @@
           "Wiertarka"
         ]
       },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "scope"
@@ -174,6 +178,12 @@
           "Sery tarte"
         ]
       },
+      "renamed": [
+        {
+          "truth": "Ser tarty",
+          "created": "Sery tarte"
+        }
+      ],
       "verdict": "warning",
       "errors": [],
       "warnings": [
@@ -205,6 +215,7 @@
           "Kefir naturalny"
         ]
       },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "new_instead_of_stored"
@@ -234,6 +245,7 @@
         "kinds": [],
         "new_kinds": []
       },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "unknown"
@@ -262,6 +274,7 @@
         "kinds": [],
         "new_kinds": []
       },
+      "renamed": [],
       "verdict": "right",
       "errors": [],
       "warnings": [],
@@ -284,16 +297,21 @@
           "Masło"
         ]
       },
-      "answer": null,
+      "answer": {
+        "outcome": "failed",
+        "kinds": [],
+        "new_kinds": []
+      },
+      "renamed": [],
       "verdict": "error",
       "errors": [
         "failed"
       ],
       "warnings": [],
       "failed": true,
-      "failure": "truncated",
+      "failure": "no_valid_kind",
       "cost_usd": null,
-      "seconds": null
+      "seconds": 2.0
     }
   ],
   "totals": {
@@ -310,7 +328,7 @@
     "cost_usd": 0.0072,
     "known_cost_usd": 0.0072,
     "accounting_complete": true,
-    "seconds": 17.0,
+    "seconds": 19.0,
     "p50_seconds": 2.0,
     "p95_seconds": 3.0
   },
@@ -329,7 +347,7 @@
       "cost_usd": 0.0009,
       "known_cost_usd": 0.0009,
       "accounting_complete": true,
-      "seconds": 2.0,
+      "seconds": 4.0,
       "p50_seconds": 2.0,
       "p95_seconds": 2.0
     },

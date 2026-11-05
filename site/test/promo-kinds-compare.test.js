@@ -49,18 +49,18 @@ test('the numbers: A, B and B − A for the total, in promos and points, seconds
   const [total] = rows(section(compare(), 'summary-h'));
   assert.deepEqual(total, [
     'Total',
-    '77.8% (7 of 9)',
-    '66.7% (6 of 9)',
+    '7 of 9',
+    '6 of 9',
     '▼ −1 promo · −11.1 pts',
-    '11.1% (1 of 9)',
-    '11.1% (1 of 9)',
+    '1 of 9',
+    '1 of 9',
     '±0',
     '3.0 s',
     '2.0 s',
     '▼ −1.0 s · −33%',
-    '0.10¢',
-    '0.08¢',
-    '▼ −0.02¢ · −20%',
+    '0.100¢',
+    '0.080¢',
+    '▼ −0.020¢ · −20%',
   ]);
 });
 
@@ -75,19 +75,19 @@ test('the numbers: a row per group, from each run’s own', () => {
     'range-many-kinds',
     'unclear',
   ]);
-  assert.deepEqual(groups.at(-1).slice(1, 4), ['100.0% (1 of 1)', '0.0% (0 of 1)', '▼ −1 promo · −100.0 pts']);
+  assert.deepEqual(groups.at(-1).slice(1, 4), ['1 of 1', '0 of 1', '▼ −1 promo · −100.0 pts']);
 });
 
 test('a group one run lacks is a dash, with no difference', () => {
   const { unclear, ...others } = older.by_group;
   const row = rows(section(compare({ ...older, by_group: others }), 'summary-h')).at(-1);
-  assert.deepEqual(row.slice(0, 4), ['unclear', '—', '0.0% (0 of 1)', '']);
+  assert.deepEqual(row.slice(0, 4), ['unclear', '—', '0 of 1', '']);
 });
 
 test('cost shows no difference when either run’s cost is not known in full', () => {
   const unpriced = { ...older, totals: { ...older.totals, cost_usd: null } };
   const [total] = rows(section(compare(unpriced), 'summary-h'));
-  assert.deepEqual(total.slice(-3), ['≥ 0.10¢', '0.08¢', '']);
+  assert.deepEqual(total.slice(-3), ['≥ 0.100¢', '0.080¢', '']);
 });
 
 test('the promos that changed verdict, worse then better, paired by id', () => {
@@ -96,11 +96,15 @@ test('the promos that changed verdict, worse then better, paired by id', () => {
   assert.match(text(html), /6 promos unchanged/);
   assert.deepEqual(rows(html), [
     ['▲ Worse in B · 2 promos'],
-    ['Wszystkie przyprawy Bolinero range-many-kinds · Kaufland', 'certain Pieprz may cover Papryka mielona, Bazylia', 'right Pieprz', 'error missed_kind Papryka mielona'],
+    ['Wszystkie przyprawy Bolinero range-many-kinds · Kaufland', 'certain Pieprz may cover Papryka mielona, Bazylia', 'right Pieprz', 'error missed_kind missed Pieprz Papryka mielona'],
     ['Sery tarte Mlekovita new-kind · Biedronka', 'certain Ser tarty', 'right Ser tarty', 'warning new_kind_name new Sery tarte'],
     ['▼ Better in B · 1 promo'],
-    ['Wybrane produkty marki Pilos unclear · Kaufland', 'Unclear may cover Mleko, Jogurt', 'error extra_kind Ser', 'right I don’t know'],
+    ['Wybrane produkty marki Pilos unclear · Kaufland', 'Unclear may cover Mleko, Jogurt', 'error extra_kind extra Ser Ser', 'right I don’t know'],
   ]);
+});
+
+test('the page says a difference may hold an accepted alternative', () => {
+  assert.match(text(section(compare(), 'changed-h')), /accepted alternative/);
 });
 
 test('promos pair by id, whatever their order in the run file', () => {

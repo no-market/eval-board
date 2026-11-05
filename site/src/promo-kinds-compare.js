@@ -10,8 +10,7 @@ import { html } from './html.js';
 import { header } from './layout.js';
 import { changedVerdicts } from './promo-changes.js';
 import { cells, promoVerdict } from './promo-compare.js';
-import { answeredKinds, costCell, costDifference, expectedKinds, groupsInRuns, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
-import { shareOf } from './promo-runs.js';
+import { answeredKinds, costCell, costDifference, countOf, differenceNote, expectedKinds, groupsInRuns, hardCases, kindsDifference, promoCell, promoKindsRun } from './promo-kinds-runs.js';
 import { runAddress } from './route.js';
 
 // The page of the comparison of runs `a` and `b`, each { id, run }, A the older.
@@ -50,8 +49,8 @@ function runCard(flow, letter, age, { id, read: run }) {
 
 // The numbers: how each is written, and the difference of two, or null for none.
 const NUMBERS = [
-  { name: 'Errors', format: (n) => shareOf(n), difference: (a, b) => promosDifference(a.errors, b.errors) },
-  { name: 'Warnings', format: (n) => shareOf(n, 'warnings'), difference: (a, b) => promosDifference(a.warnings, b.warnings) },
+  { name: 'Errors', format: (n) => countOf(n), difference: (a, b) => promosDifference(a.errors, b.errors) },
+  { name: 'Warnings', format: (n) => countOf(n, 'warnings'), difference: (a, b) => promosDifference(a.warnings, b.warnings) },
   { name: 's / promo, median', format: (n) => formatSeconds(n.seconds.median), difference: (a, b) => secondsDifference(a.seconds.median, b.seconds.median) },
   { name: 'Cost / promo', format: costCell, difference: costDifference },
 ];
@@ -109,12 +108,13 @@ function changed(a, b) {
       <table class="changed-lines changed-promos changed-kinds">
         <thead><tr><th scope="col">Promo</th><th scope="col">Expected</th><th scope="col">A</th><th scope="col">B</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}
       </table>
-    </div>`}
+    </div>
+    ${differenceNote}`}
   </section>`;
 }
 
 function changedRow({ a, b }) {
-  const answer = (promo) => html`${promoVerdict(promo)}${answeredKinds(promo)}`;
+  const answer = (promo) => html`${promoVerdict(promo)}${kindsDifference(promo)}${answeredKinds(promo)}`;
   return html`
           <tr><td>${promoCell(b)}</td><td>${expectedKinds(b.expected)}</td><td>${answer(a)}</td><td>${answer(b)}</td></tr>`;
 }

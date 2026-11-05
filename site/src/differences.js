@@ -34,10 +34,11 @@ export function secondsDifference(a, b) {
   return difference(Math.sign(seconds), [`${signed(seconds, 1)} s`, change].filter(Boolean));
 }
 
-// Cost per receipt, each in US dollars, written in cents: `▼ −0.11¢ · −17%`.
-export function centsDifference(aUsd, bUsd) {
-  const cents = round((bUsd - aUsd) * 100, 2);
-  return difference(Math.sign(cents), [`${signed(cents, 2)}¢`, perCent(aUsd, bUsd)].filter(Boolean));
+// Cost per receipt, each in US dollars, written in cents to `digits` places:
+// `▼ −0.11¢ · −17%`.
+export function centsDifference(aUsd, bUsd, digits = 2) {
+  const cents = round((bUsd - aUsd) * 100, digits);
+  return difference(Math.sign(cents), [`${signed(cents, digits)}¢`, perCent(aUsd, bUsd)].filter(Boolean));
 }
 
 // Cost per 100 receipts, from each run's cost per receipt in US dollars,

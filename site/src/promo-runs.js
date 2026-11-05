@@ -102,18 +102,19 @@ export function costPer({ costUsd, knownCostUsd }, units) {
   return { usd: knownCostUsd / units, priced: false };
 }
 
-// `0.15¢`, or `≥ 0.08¢` for the priced part, of a cost from costPer.
-export function costWritten(cost) {
+// `0.15¢`, or `≥ 0.08¢` for the priced part, of a cost from costPer, written
+// to `digits` places of a cent.
+export function costWritten(cost, digits) {
   if (!cost) return dash;
-  if (cost.priced) return formatCents(cost.usd);
-  return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(cost.usd)}</span>`;
+  if (cost.priced) return formatCents(cost.usd, digits);
+  return html`<span title="Some calls were not priced: this is the priced part">≥ ${formatCents(cost.usd, digits)}</span>`;
 }
 
 // The difference between two costs from costPer (see differences.js), only
-// when both are known in full; else null.
-export function costChange(a, b) {
+// when both are known in full, to `digits` places of a cent; else null.
+export function costChange(a, b, digits) {
   if (!a?.priced || !b?.priced) return null;
-  return centsDifference(a.usd, b.usd);
+  return centsDifference(a.usd, b.usd, digits);
 }
 
 // Cost per page, from numbers in total or of a chain.

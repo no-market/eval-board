@@ -10,7 +10,7 @@ import { formatDate, formatSeconds, shortModel } from './format.js';
 import { html } from './html.js';
 import { header } from './layout.js';
 import { renderNotFound } from './not-found.js';
-import { answeredKinds, costCell, expectedKinds, groupsInRuns, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
+import { answeredKinds, costCell, differenceNote, expectedKinds, groupsInRuns, hardCases, kindsDifference, promoCell, promoKindsRun } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runFileOnGitHub } from './runs.js';
 
@@ -92,18 +92,18 @@ function errors(promos) {
       ? html`<p class="muted">No promo has an error.</p>`
       : html`<div class="table-wrap">
       <table class="lines">
-        <thead><tr><th scope="col">Promo</th><th scope="col">Reasons</th><th scope="col">Expected</th><th scope="col">Answered</th></tr></thead>
+        <thead><tr><th scope="col">Promo</th><th scope="col">Reasons</th><th scope="col">Difference</th><th scope="col">Expected</th><th scope="col">Answered</th></tr></thead>
         <tbody>${promos.map((promo) => html`
-          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.errors.join(', ')}</td><td>${expectedKinds(promo.expected)}</td><td>${answeredKinds(promo)}</td></tr>`)}
+          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.errors.join(', ')}</td><td>${kindsDifference(promo)}</td><td>${expectedKinds(promo.expected)}</td><td>${answeredKinds(promo)}</td></tr>`)}
         </tbody>
       </table>
-    </div>`}
+    </div>
+    ${differenceNote}`}
   </section>`;
 }
 
-// Each warning as the truth's kinds to the names the run created, for the
-// founder to read. The run file doesn't say which of the truth's kinds was
-// due, so all of them show.
+// Each warning as the truth's names to the names the run created, for the
+// founder to read.
 function warnings(promos) {
   return html`<details class="block-fold">
     <summary>Warnings · ${promos.length}</summary>
@@ -113,7 +113,7 @@ function warnings(promos) {
       <table class="lines">
         <thead><tr><th scope="col">Promo</th><th scope="col">Reasons</th><th scope="col">Truth</th><th scope="col">Created</th></tr></thead>
         <tbody>${promos.map((promo) => html`
-          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.warnings.join(', ')}</td><td>${expectedKinds(promo.expected)}</td><td>${answeredKinds(promo)}</td></tr>`)}
+          <tr><td>${promoCell(promo)}</td><td class="mono">${promo.warnings.join(', ')}</td><td>${promo.renamed.map(({ truth }) => html`<div>${truth}</div>`)}</td><td>${promo.renamed.map(({ created }) => html`<div>${created}</div>`)}</td></tr>`)}
         </tbody>
       </table>
     </div>`}
