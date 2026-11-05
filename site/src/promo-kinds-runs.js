@@ -3,7 +3,7 @@
 // run's index entry (see build/summarise-promo-kinds.js): its model, its eval
 // set, and its numbers in total and by group, each over its own promos. The
 // run file is the one stated in the spec, as the board can't read the backend.
-import { formatCents } from './format.js';
+import { formatCents, formatShare } from './format.js';
 import { dash, html } from './html.js';
 import { identity } from './promo-changes.js';
 import { chainName, costChange, costPer, costWritten } from './promo-runs.js';
@@ -43,6 +43,13 @@ function numbers(totals) {
   };
 }
 
+// `1 of 2`: the errors (or warnings) of numbers, its share on hover; for a
+// table of many numbers, where a group is one size in both runs.
+export function countOf(numbers, of = 'errors') {
+  const found = numbers[of];
+  return html`<span title="${formatShare(found.share)}">${found.count} of ${numbers.promos}</span>`;
+}
+
 // The groups of any of `runs`, each once, in alphabetical order.
 export function groupsInRuns(runs) {
   return [...new Set(runs.flatMap((run) => Object.keys(run.byGroup)))].sort();
@@ -78,15 +85,18 @@ export const hardCases = html`<p class="muted small">This eval set is made of ha
 // More kinds than this fold, as a range can list 30.
 const FOLDED_FROM = 9;
 
-// `certain Pieprz`: named kinds under a muted label, or nothing without kinds;
-// `may cover 30 kinds`, opening to them, for a long list.
+// `Muted label `, or nothing without one.
+const labelled = (label) => (label ? html`<span class="muted">${label}</span> ` : '');
+
+// `certain Pieprz`: named kinds under a muted label, or nothing without kinds.
 function kindsLine(label, kinds) {
-  if (!kinds.length) return '';
-  const name = label ? html`<span class="muted">${label}</span> ` : '';
-  if (kinds.length >= FOLDED_FROM) {
-    return html`<details class="kinds"><summary>${name}${kinds.length} kinds</summary>${kinds.join(', ')}</details>`;
-  }
-  return html`<div>${name}${kinds.join(', ')}</div>`;
+  return kinds.length ? html`<div>${labelled(label)}${kinds.join(', ')}</div>` : '';
+}
+
+// The same, as `may cover 30 kinds`, opening to them, for a long list.
+function foldedKinds(label, kinds) {
+  if (kinds.length < FOLDED_FROM) return kindsLine(label, kinds);
+  return html`<details class="kinds"><summary>${labelled(label)}${kinds.length} kinds</summary>${kinds.join(', ')}</details>`;
 }
 
 // What the truth expects of a promo, from a case's `expected`: out of scope,
@@ -95,7 +105,7 @@ function kindsLine(label, kinds) {
 export function expectedKinds({ outcome, certain, possible }) {
   if (outcome === 'out_of_scope') return html`<div>Out of scope</div>`;
   const others = possible.filter((kind) => !certain.includes(kind));
-  return html`${outcome === 'unclear' ? html`<div>Unclear</div>` : ''}${kindsLine('certain', certain)}${kindsLine('may cover', others)}`;
+  return html`${outcome === 'unclear' ? html`<div>Unclear</div>` : ''}${foldedKinds('certain', certain)}${foldedKinds('may cover', others)}`;
 }
 
 // What a case's answer was: its stored and new kinds, out of scope, "I don't
@@ -105,7 +115,7 @@ export function answeredKinds({ answer, failed, failure }) {
   if (answer.outcome === 'out_of_scope') return html`<div>Out of scope</div>`;
   if (answer.outcome === 'unknown') return html`<div>I don’t know</div>`;
   if (!answer.kinds.length && !answer.new_kinds.length) return dash;
-  return html`${kindsLine(null, answer.kinds)}${kindsLine('new', answer.new_kinds)}`;
+  return html`${foldedKinds(null, answer.kinds)}${foldedKinds('new', answer.new_kinds)}`;
 }
 
 // The kinds a case in error missed and those extra, each only under its

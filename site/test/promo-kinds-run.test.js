@@ -132,6 +132,13 @@ test('a long list folds, with its count, and its difference stays plain', () => 
   assert.match(html, /<details class="kinds"><summary>30 kinds<\/summary>/);
 });
 
+test('a difference never folds, however long, as it says what is wrong', () => {
+  const salts = Array.from({ length: 13 }, (_, i) => `Sól ${i + 1}`);
+  const answer = { outcome: 'kinds', kinds: [...spices, ...salts], new_kinds: [] };
+  const cases = runFile.cases.map((c) => (c.id === 'kinds-002' ? { ...c, ...range, answer } : c));
+  assert.equal(rows(section(page({ ...runFile, cases }), 'errors-h'))[0][2], `extra ${salts.join(', ')}`);
+});
+
 test('warnings are folded, each as the truth’s name to the created name', () => {
   const html = page().match(/<details class="block-fold">[\s\S]*?<\/details>/)[0];
   assert.match(text(html), /Warnings · 1/);

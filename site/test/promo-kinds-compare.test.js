@@ -49,11 +49,11 @@ test('the numbers: A, B and B − A for the total, in promos and points, seconds
   const [total] = rows(section(compare(), 'summary-h'));
   assert.deepEqual(total, [
     'Total',
-    '77.8% (7 of 9)',
-    '66.7% (6 of 9)',
+    '7 of 9',
+    '6 of 9',
     '▼ −1 promo · −11.1 pts',
-    '11.1% (1 of 9)',
-    '11.1% (1 of 9)',
+    '1 of 9',
+    '1 of 9',
     '±0',
     '3.0 s',
     '2.0 s',
@@ -75,13 +75,13 @@ test('the numbers: a row per group, from each run’s own', () => {
     'range-many-kinds',
     'unclear',
   ]);
-  assert.deepEqual(groups.at(-1).slice(1, 4), ['100.0% (1 of 1)', '0.0% (0 of 1)', '▼ −1 promo · −100.0 pts']);
+  assert.deepEqual(groups.at(-1).slice(1, 4), ['1 of 1', '0 of 1', '▼ −1 promo · −100.0 pts']);
 });
 
 test('a group one run lacks is a dash, with no difference', () => {
   const { unclear, ...others } = older.by_group;
   const row = rows(section(compare({ ...older, by_group: others }), 'summary-h')).at(-1);
-  assert.deepEqual(row.slice(0, 4), ['unclear', '—', '0.0% (0 of 1)', '']);
+  assert.deepEqual(row.slice(0, 4), ['unclear', '—', '0 of 1', '']);
 });
 
 test('cost shows no difference when either run’s cost is not known in full', () => {

@@ -11,11 +11,11 @@ import { chart } from './chart.js';
 import { promosDifference, secondsDifference } from './differences.js';
 import { currentEvalSet, evalSetName, history, inEvalSet } from './eval-sets.js';
 import { flowById } from './flows.js';
-import { formatDate, formatSeconds, formatShare, shortModel } from './format.js';
+import { formatDate, formatSeconds, shortModel } from './format.js';
 import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { historyFold, VERDICT_COLUMNS } from './promo-history.js';
-import { costCell, costDifference, costPerPromo, groupsInRuns, hardCases, promoCents } from './promo-kinds-runs.js';
+import { costCell, costDifference, costPerPromo, countOf, groupsInRuns, hardCases, promoCents } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
@@ -73,19 +73,12 @@ function errorsByGroup(runs) {
         <tbody>${groupsInRuns(runs).map((group) => html`
           <tr>
             <th scope="row">${group}</th>
-            ${runs.map((run) => html`<td class="num nowrap">${errorsIn(run.byGroup[group])}</td>`)}
+            ${runs.map((run) => html`<td class="num nowrap">${run.byGroup[group] ? countOf(run.byGroup[group]) : dash}</td>`)}
           </tr>`)}
         </tbody>
       </table>
     </div>
   </section>`;
-}
-
-// `1 of 2`: a group's errors, its share on hover; a group is one size in every
-// run of an eval set, so counts read across, and three runs fit beside the chart.
-function errorsIn(group) {
-  if (!group) return dash;
-  return html`<span title="${formatShare(group.errors.share)}">${group.errors.count} of ${group.promos}</span>`;
 }
 
 function pastRow(flow, run) {
