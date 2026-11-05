@@ -33,7 +33,8 @@ const promos = {
 
 export function renderPromoKindsTab({ flow: flowId, runs: allRuns, base: baseId = null, ticked = [] }) {
   const flow = flowById(flowId);
-  const evalSet = currentEvalSet(allRuns);
+  // A run of part of the set doesn't take the tab from a full one.
+  const evalSet = currentEvalSet(allRuns.filter((run) => run.full)) ?? currentEvalSet(allRuns);
   const runs = evalSet ? inEvalSet(allRuns, evalSet) : [];
   const base = runs.find((run) => run.run === baseId) ?? null;
   return String(html`${header(flow.id)}

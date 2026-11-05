@@ -10,7 +10,7 @@ import { html } from './html.js';
 import { header } from './layout.js';
 import { changedVerdicts } from './promo-changes.js';
 import { cells, promoVerdict } from './promo-compare.js';
-import { answeredKinds, costCell, costDifference, expectedKinds, groupsInRuns, hardCases, promoCell, promoKindsRun } from './promo-kinds-runs.js';
+import { answeredKinds, costCell, costDifference, differenceNote, expectedKinds, groupsInRuns, hardCases, kindsDifference, promoCell, promoKindsRun } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 
@@ -109,12 +109,13 @@ function changed(a, b) {
       <table class="changed-lines changed-promos changed-kinds">
         <thead><tr><th scope="col">Promo</th><th scope="col">Expected</th><th scope="col">A</th><th scope="col">B</th></tr></thead>${group('worse', '▲ Worse in B', worse)}${group('better', '▼ Better in B', better)}
       </table>
-    </div>`}
+    </div>
+    ${differenceNote}`}
   </section>`;
 }
 
 function changedRow({ a, b }) {
-  const answer = (promo) => html`${promoVerdict(promo)}${answeredKinds(promo)}`;
+  const answer = (promo) => html`${promoVerdict(promo)}${kindsDifference(promo)}${answeredKinds(promo)}`;
   return html`
           <tr><td>${promoCell(b)}</td><td>${expectedKinds(b.expected)}</td><td>${answer(a)}</td><td>${answer(b)}</td></tr>`;
 }

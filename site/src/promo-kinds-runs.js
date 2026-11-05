@@ -5,10 +5,11 @@
 // run file is the one stated in the spec, as the board can't read the backend.
 import { formatCents } from './format.js';
 import { dash, html } from './html.js';
+import { identity } from './promo-changes.js';
 import { chainName, costChange, costPer, costWritten } from './promo-runs.js';
 
 // A run file as the views read it: { date, commit, evalSet, prompt, model,
-// totals, byGroup }. Its selection is of promos.
+// full, totals, byGroup }. Its selection is of promos.
 export function promoKindsRun(runFile) {
   return {
     date: runFile.date,
@@ -21,6 +22,7 @@ export function promoKindsRun(runFile) {
     },
     prompt: runFile.prompt_version,
     model: runFile.model,
+    full: runFile.full,
     totals: numbers(runFile.totals),
     byGroup: Object.fromEntries(Object.entries(runFile.by_group).map(([group, totals]) => [group, numbers(totals)])),
   };
@@ -73,10 +75,18 @@ export function costDifference(a, b) {
 // What the eval set's error rate says, and what it doesn't.
 export const hardCases = html`<p class="muted small">This eval set is made of hard cases, a group for each trap, so its error rate compares configurations only; it isn’t how the live stream fares.</p>`;
 
-// `certain Pieprz`: named kinds under a muted label, or nothing without kinds.
+// More kinds than this fold, as a range can list 30.
+const FOLDED_FROM = 9;
+
+// `certain Pieprz`: named kinds under a muted label, or nothing without kinds;
+// `may cover 30 kinds`, opening to them, for a long list.
 function kindsLine(label, kinds) {
   if (!kinds.length) return '';
-  return html`<div>${label ? html`<span class="muted">${label}</span> ` : ''}${kinds.join(', ')}</div>`;
+  const name = label ? html`<span class="muted">${label}</span> ` : '';
+  if (kinds.length >= FOLDED_FROM) {
+    return html`<details class="kinds"><summary>${name}${kinds.length} kinds</summary>${kinds.join(', ')}</details>`;
+  }
+  return html`<div>${name}${kinds.join(', ')}</div>`;
 }
 
 // What the truth expects of a promo, from a case's `expected`: out of scope,
@@ -92,12 +102,27 @@ export function expectedKinds({ outcome, certain, possible }) {
 // know", or why there is none.
 export function answeredKinds({ answer, failed, failure }) {
   if (failed) return html`<div><strong>Failed:</strong> ${failure}</div>`;
-  if (!answer) return dash;
   if (answer.outcome === 'out_of_scope') return html`<div>Out of scope</div>`;
   if (answer.outcome === 'unknown') return html`<div>I don’t know</div>`;
   if (!answer.kinds.length && !answer.new_kinds.length) return dash;
   return html`${kindsLine(null, answer.kinds)}${kindsLine('new', answer.new_kinds)}`;
 }
+
+// The kinds a case in error missed and those extra, each only under its
+// reason: without one, the names differing may be an accepted alternative,
+// which the run file doesn't hold. Names compare as the scorer's do, ignoring
+// case and diacritics.
+export function kindsDifference({ errors, expected, answer }) {
+  const answered = [...answer.kinds, ...answer.new_kinds];
+  const given = new Set(answered.map(identity));
+  const covered = new Set(expected.possible.map(identity));
+  const missed = errors.includes('missed_kind') ? expected.certain.filter((kind) => !given.has(identity(kind))) : [];
+  const extra = errors.includes('extra_kind') ? answered.filter((kind) => !covered.has(identity(kind))) : [];
+  return html`${kindsLine('missed', missed)}${kindsLine('extra', extra)}`;
+}
+
+// What the board can't tell of a difference.
+export const differenceNote = html`<p class="muted small">Missed and extra kinds are worked out here from the names in the run file, which doesn’t hold the truth’s accepted alternatives, so an accepted alternative may show among them.</p>`;
 
 // The promo of a case: its wording, then its group and chain.
 export function promoCell(promo) {

@@ -101,6 +101,30 @@ test('a baseline shows differences in promos and points, seconds and cents', () 
   assert.equal(row[8], '0.100¢▲ +0.020¢ · +25%');
 });
 
+test('a newer partial run stays in the history while a full run exists', () => {
+  const partial = {
+    ...entry,
+    run: 'partial',
+    date: '2026-11-04T20:00:00Z',
+    full: false,
+    evalSet: { ...entry.evalSet, selection: entry.evalSet.selection.slice(0, 2) },
+  };
+  const html = tab({ runs: [partial, entry] });
+  assert.deepEqual(bodyRows(html).map((row) => row[1]), ['4 Nov 2026, 16:00']);
+  assert.match(html, /Runs on other eval sets · 1/);
+});
+
+test('a newer full run on another eval set takes the tab', () => {
+  const newer = { ...otherSet, run: 'newer', date: '2026-11-04T20:00:00Z' };
+  assert.deepEqual(bodyRows(tab({ runs: [newer, entry] })).map((row) => row[1]), ['4 Nov 2026, 20:00']);
+});
+
+test('with only partial runs, the tab shows the newest one’s eval set', () => {
+  const part = (run, date, scorer) => ({ ...entry, run, date, full: false, evalSet: { ...entry.evalSet, scorer } });
+  const html = tab({ runs: [part('b', '2026-11-04T20:00:00Z', 'v2'), part('a', '2026-11-04T19:00:00Z', 'v1')] });
+  assert.deepEqual(bodyRows(html).map((row) => row[1]), ['4 Nov 2026, 20:00']);
+});
+
 test('ticking two runs opens their comparison, A the older', () => {
   const html = tab({ runs: [entry, older], ticked: [entry.run, 'older'] });
   assert.ok(html.includes(`href="#/promo-kinds/compare/older/${ID}"`));

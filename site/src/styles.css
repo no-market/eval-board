@@ -104,6 +104,7 @@ details.block-fold summary { cursor: pointer; padding: 14px 16px; min-height: 44
 details.block-fold summary .muted { font-weight: 500; }
 details.block-fold .table-wrap { border: 0; border-top: 1px solid var(--rule); border-radius: 0 0 12px 12px; }
 details.block-fold > p { padding: 0 16px 14px; }
+details.kinds summary { cursor: pointer; }
 main.run h2 .muted { font-weight: 500; }
 .runs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
 .better { color: var(--better); font-weight: 700; }

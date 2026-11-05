@@ -96,11 +96,15 @@ test('the promos that changed verdict, worse then better, paired by id', () => {
   assert.match(text(html), /6 promos unchanged/);
   assert.deepEqual(rows(html), [
     ['▲ Worse in B · 2 promos'],
-    ['Wszystkie przyprawy Bolinero range-many-kinds · Kaufland', 'certain Pieprz may cover Papryka mielona, Bazylia', 'right Pieprz', 'error missed_kind Papryka mielona'],
+    ['Wszystkie przyprawy Bolinero range-many-kinds · Kaufland', 'certain Pieprz may cover Papryka mielona, Bazylia', 'right Pieprz', 'error missed_kind missed Pieprz Papryka mielona'],
     ['Sery tarte Mlekovita new-kind · Biedronka', 'certain Ser tarty', 'right Ser tarty', 'warning new_kind_name new Sery tarte'],
     ['▼ Better in B · 1 promo'],
-    ['Wybrane produkty marki Pilos unclear · Kaufland', 'Unclear may cover Mleko, Jogurt', 'error extra_kind Ser', 'right I don’t know'],
+    ['Wybrane produkty marki Pilos unclear · Kaufland', 'Unclear may cover Mleko, Jogurt', 'error extra_kind extra Ser Ser', 'right I don’t know'],
   ]);
+});
+
+test('the page says a difference may hold an accepted alternative', () => {
+  assert.match(text(section(compare(), 'changed-h')), /accepted alternative/);
 });
 
 test('promos pair by id, whatever their order in the run file', () => {
