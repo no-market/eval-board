@@ -15,7 +15,8 @@ const LABEL_CHAR = 6.8; // the rough width of a character of a 12px label
 // over lines, and its two models. Another tab gives its own: `unit`, what
 // cost is per; `cost(run)`, { usd, priced }, `priced` false when `usd` is
 // the priced part only; `share(run)`, the error rate; `models(run)`, the
-// text after the date; `foot`, how cost is counted.
+// text after the date; `foot`, how cost is counted; `cents(usd)`, how a cost
+// is written, when not to the two places of a cent every other cost has.
 const receipts = {
   unit: 'receipt',
   cost: (run) => ({ usd: run.costUsd, priced: true }),
@@ -60,7 +61,7 @@ function point(run, of, isTicked, x, y) {
   const width = Math.round(text.length * LABEL_CHAR + 12);
   const left = x > 60;
   return html`
-        <g class="point" data-point="${run.run}" tabindex="0" role="button" aria-pressed="${isTicked ? 'true' : 'false'}" aria-label="Tick the run of ${date}: ${models}, error rate ${formatShare(of.share(run))}, ${priced ? '' : 'at least '}${formatCents(usd)} per ${of.unit}">
+        <g class="point" data-point="${run.run}" tabindex="0" role="button" aria-pressed="${isTicked ? 'true' : 'false'}" aria-label="Tick the run of ${date}: ${models}, error rate ${formatShare(of.share(run))}, ${priced ? '' : 'at least '}${(of.cents ?? formatCents)(usd)} per ${of.unit}">
           <svg x="${x}%" y="${y}" overflow="visible">
             <circle class="target" r="22"></circle>
             ${isTicked ? html`<circle class="ring" r="12"></circle>` : ''}

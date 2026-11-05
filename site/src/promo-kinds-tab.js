@@ -15,7 +15,7 @@ import { formatDate, formatSeconds, formatShare, shortModel } from './format.js'
 import { dash, html } from './html.js';
 import { header } from './layout.js';
 import { historyFold, VERDICT_COLUMNS } from './promo-history.js';
-import { costCell, costDifference, costPerPromo, groupsInRuns, hardCases } from './promo-kinds-runs.js';
+import { costCell, costDifference, costPerPromo, groupsInRuns, hardCases, promoCents } from './promo-kinds-runs.js';
 import { shareOf } from './promo-runs.js';
 import { runAddress } from './route.js';
 import { baseButton, baselineHint, compareButton, fromBase, rowClasses, runsLine, tickBox } from './tab-parts.js';
@@ -28,6 +28,7 @@ const promos = {
   share: (run) => run.totals.errors.share,
   models: (run) => `${run.prompt} · ${shortModel(run.model)}`,
   foot: 'Cost per promo, the run’s cost over its promos; the priced part when some calls weren’t priced',
+  cents: promoCents,
 };
 
 export function renderPromoKindsTab({ flow: flowId, runs: allRuns, base: baseId = null, ticked = [] }) {

@@ -20,9 +20,9 @@ export function formatSeconds(seconds) {
   return `${seconds.toFixed(1)} s`;
 }
 
-// `0.55¢`: a cost in US dollars, written in cents.
-export function formatCents(usd) {
-  return `${(usd * 100).toFixed(2)}¢`;
+// `0.55¢`: a cost in US dollars, written in cents to `digits` places.
+export function formatCents(usd, digits = 2) {
+  return `${(usd * 100).toFixed(digits)}¢`;
 }
 
 // `Aldi, 23 Sep 2026` for the photo `aldi/2026-09-23 12.50.png`: the chain

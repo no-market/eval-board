@@ -3,6 +3,7 @@
 // run's index entry (see build/summarise-promo-kinds.js): its model, its eval
 // set, and its numbers in total and by group, each over its own promos. The
 // run file is the one stated in the spec, as the board can't read the backend.
+import { formatCents } from './format.js';
 import { dash, html } from './html.js';
 import { chainName, costChange, costPer, costWritten } from './promo-runs.js';
 
@@ -45,19 +46,28 @@ export function groupsInRuns(runs) {
   return [...new Set(runs.flatMap((run) => Object.keys(run.byGroup)))].sort();
 }
 
+// A promo costs thousandths of a cent, so cost has a place more than the
+// other flows': at two, $0.00004 reads as nothing.
+const CENT_PLACES = 3;
+
+// `0.015¢`: a cost per promo in US dollars.
+export function promoCents(usd) {
+  return formatCents(usd, CENT_PLACES);
+}
+
 // Cost per promo, from numbers in total or of a group.
 export function costPerPromo(numbers) {
   return costPer(numbers, numbers.promos);
 }
 
-// `0.15¢`, or `≥ 0.08¢` for the priced part, of numbers in total or of a group.
+// `0.015¢`, or `≥ 0.008¢` for the priced part, of numbers in total or of a group.
 export function costCell(numbers) {
-  return costWritten(costPerPromo(numbers));
+  return costWritten(costPerPromo(numbers), CENT_PLACES);
 }
 
 // The difference in cost per promo from numbers `a` to `b`, or null.
 export function costDifference(a, b) {
-  return costChange(costPerPromo(a), costPerPromo(b));
+  return costChange(costPerPromo(a), costPerPromo(b), CENT_PLACES);
 }
 
 // What the eval set's error rate says, and what it doesn't.

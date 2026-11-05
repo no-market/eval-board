@@ -45,13 +45,13 @@ test('the table of errors, warnings, seconds and cost', () => {
     ['Errors', '66.7% (6 of 9)'],
     ['Warnings', '11.1% (1 of 9)'],
     ['Seconds per promo, median (p95)', '2.0 s (3.0 s)'],
-    ['Cost per promo', '0.08¢'],
+    ['Cost per promo', '0.080¢'],
   ]);
 });
 
 test('cost per promo is marked ≥ when some calls were not priced', () => {
   const unpriced = { ...runFile, totals: { ...runFile.totals, cost_usd: null } };
-  assert.equal(rows(section(page(unpriced), 'summary-h')).at(-1)[1], '≥ 0.08¢');
+  assert.equal(rows(section(page(unpriced), 'summary-h')).at(-1)[1], '≥ 0.080¢');
 });
 
 test('the note on hard cases comes after the table', () => {
@@ -81,7 +81,7 @@ test('errors: each promo in error, with its group and chain, reasons, expected a
     ['Wiertarka Parkside out-of-scope · Aldi', 'scope', 'Out of scope', 'new Wiertarka'],
     ['Kefir Bakoma new-kind · Lidl', 'new_instead_of_stored', 'certain Kefir', 'new Kefir naturalny'],
     ['Karma dla kota Whiskas pet-household · Aldi', 'unknown', 'certain Karma dla kota', 'I don’t know'],
-    ['Masło Mleczna Dolina one-kind · Aldi', 'failed', 'certain Masło', 'Failed: truncated'],
+    ['Masło Mleczna Dolina one-kind · Aldi', 'failed', 'certain Masło', 'Failed: no_valid_kind'],
   ]);
 });
 

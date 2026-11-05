@@ -74,7 +74,7 @@ test('the table shows the cells of the fixture run', () => {
       '66.7% (6 of 9)',
       '11.1% (1 of 9)',
       '2.0 s',
-      '0.08¢',
+      '0.080¢',
       'Set as baseline',
     ],
   ]);
@@ -98,7 +98,7 @@ test('a baseline shows differences in promos and points, seconds and cents', () 
   const [row] = bodyRows(tab({ runs: [older, entry], base: entry.run }));
   assert.equal(row[5], '77.8% (7 of 9)▲ +1 promo · +11.1 pts');
   assert.equal(row[7], '3.0 s▲ +1.0 s · +50%');
-  assert.equal(row[8], '0.10¢▲ +0.02¢ · +25%');
+  assert.equal(row[8], '0.100¢▲ +0.020¢ · +25%');
 });
 
 test('ticking two runs opens their comparison, A the older', () => {
@@ -108,7 +108,17 @@ test('ticking two runs opens their comparison, A the older', () => {
 
 test('cost per promo is the priced part, marked ≥, when some calls were not priced', () => {
   const unpriced = { ...entry, totals: { ...entry.totals, costUsd: null } };
-  assert.equal(bodyRows(tab({ runs: [unpriced] }))[0][8], '≥ 0.08¢');
+  assert.equal(bodyRows(tab({ runs: [unpriced] }))[0][8], '≥ 0.080¢');
+});
+
+test('a cost of a few thousandths of a cent is written, not rounded away', () => {
+  const lite = { ...entry, totals: { ...entry.totals, promos: 100, costUsd: 0.0043466 } };
+  const haiku = { ...older, totals: { ...older.totals, promos: 100, costUsd: 0.0147891 } };
+  const flash = { ...entry, run: 'flash', totals: { ...entry.totals, promos: 100, costUsd: 0.01661671 } };
+  const rows = bodyRows(tab({ runs: [flash, haiku, lite], base: 'flash' }));
+  assert.equal(rows[0][8], '0.017¢');
+  assert.equal(rows[1][8], '0.015¢▼ −0.002¢ · −11%');
+  assert.equal(rows[2][8], '0.004¢▼ −0.012¢ · −74%');
 });
 
 test('the tab says the eval set is made of hard cases, for comparing configurations only', () => {
@@ -148,7 +158,7 @@ test('a point is labelled with its prompt and model, and ticks its run', () => {
   const html = tab({ ticked: [entry.run] });
   assert.match(chart(html), /promo-kinds-v1 · claude-haiku-5\.5/);
   assert.match(chart(html), /aria-pressed="true"/);
-  assert.match(chart(html), /per promo/);
+  assert.match(chart(html), /0\.080¢ per promo/);
 });
 
 test('a run with unpriced calls stands at its priced part, as the chart says below it', () => {

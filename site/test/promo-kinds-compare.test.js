@@ -58,9 +58,9 @@ test('the numbers: A, B and B − A for the total, in promos and points, seconds
     '3.0 s',
     '2.0 s',
     '▼ −1.0 s · −33%',
-    '0.10¢',
-    '0.08¢',
-    '▼ −0.02¢ · −20%',
+    '0.100¢',
+    '0.080¢',
+    '▼ −0.020¢ · −20%',
   ]);
 });
 
@@ -87,7 +87,7 @@ test('a group one run lacks is a dash, with no difference', () => {
 test('cost shows no difference when either run’s cost is not known in full', () => {
   const unpriced = { ...older, totals: { ...older.totals, cost_usd: null } };
   const [total] = rows(section(compare(unpriced), 'summary-h'));
-  assert.deepEqual(total.slice(-3), ['≥ 0.10¢', '0.08¢', '']);
+  assert.deepEqual(total.slice(-3), ['≥ 0.100¢', '0.080¢', '']);
 });
 
 test('the promos that changed verdict, worse then better, paired by id', () => {
