@@ -134,3 +134,45 @@ test('warnings: the same table, folded', () => {
     ['Aldi, 23 Oct 2026', 'reading', '—', 'OPUST JAJA 10L ŚCIÓŁKOWE', '— (noise)', '—'],
   ]);
 });
+
+// A run with foreign receipts: the spec's example, one rejected and one not.
+const foreignRun = JSON.parse(
+  await readFile(new URL('./fixtures/foreign-receipts.json', import.meta.url), 'utf8'),
+);
+const foreignCopy = () => structuredClone(foreignRun);
+
+// The pill in the heading whose text starts with `start`, as [classes, text].
+function pill(html, start) {
+  const found = [...html.matchAll(/<span class="(pill[^"]*)">([\s\S]*?)<\/span>/g)]
+    .map(([, classes, inner]) => [classes, text(inner)])
+    .find(([, inner]) => inner.startsWith(start));
+  return found ?? null;
+}
+
+test('foreign receipts: a pill beside Failed with rejected foreign and Polish receipts', () => {
+  assert.deepEqual(pill(page(foreignRun), 'Foreign'), ['pill failed', 'Foreign: rejected 1 of 2 · Polish rejected 0 of 3']);
+});
+
+test('the foreign pill is plain when every foreign receipt is rejected and no Polish one', () => {
+  const data = foreignCopy();
+  data.foreign[1].rejected = true;
+  assert.deepEqual(pill(page(data), 'Foreign'), ['pill', 'Foreign: rejected 2 of 2 · Polish rejected 0 of 3']);
+});
+
+test('a Polish receipt rejected shows the foreign pill, failed, even with no foreign receipt', () => {
+  const data = foreignCopy();
+  data.foreign = [];
+  data.metrics.reading.counts.polish_rejected = 1;
+  assert.deepEqual(pill(page(data), 'Foreign'), ['pill failed', 'Foreign: rejected 0 of 0 · Polish rejected 1 of 3']);
+});
+
+test('a run without foreign receipts or Polish ones rejected shows no foreign pill', () => {
+  assert.equal(pill(page(), 'Foreign'), null);
+  const data = foreignCopy();
+  data.foreign = [];
+  assert.equal(pill(page(data), 'Foreign'), null);
+});
+
+test('foreign receipts do not count in Failed', () => {
+  assert.deepEqual(pill(page(foreignRun), 'Failed'), ['pill', 'Failed: 0 of 3 receipts']);
+});

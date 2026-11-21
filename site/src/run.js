@@ -37,9 +37,23 @@ function heading(flow, runFile) {
     </div>
     <div class="pills">
       <span class="pill">${numbers.receipts} receipts · ${numbers.lines} lines</span>
-      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>
+      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>${foreignPill(runFile)}
     </div>
   </div>`;
+}
+
+// Foreign receipts, rejected or let through, and Polish receipts rejected as
+// foreign: a pill when the run has either, styled as failed when a foreign
+// receipt was let through or a Polish one rejected. Older run files have
+// neither field, and get no pill.
+function foreignPill(runFile) {
+  const foreign = runFile.foreign ?? [];
+  const polishRejected = runFile.metrics?.reading?.counts?.polish_rejected ?? 0;
+  if (foreign.length === 0 && polishRejected === 0) return '';
+  const rejected = foreign.filter((f) => f.rejected).length;
+  const wrong = rejected < foreign.length || polishRejected > 0;
+  return html`
+      <span class="pill${wrong ? ' failed' : ''}">Foreign: rejected ${rejected} of ${foreign.length} · Polish rejected ${polishRejected} of ${runFile.numbers.receipts}</span>`;
 }
 
 function summary(numbers) {
