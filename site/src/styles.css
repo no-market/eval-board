@@ -98,7 +98,7 @@ table.receipts tr.failed td { text-align: left; color: var(--worse); }
 table.foreign { min-width: 560px; }
 table.foreign tbody th { text-align: left; font-weight: 500; }
 table.foreign td:nth-child(n+3), table.foreign thead th:nth-child(n+3) { text-align: right; }
-table.foreign tr.failed td:nth-child(2) { color: var(--worse); }
+table.foreign tr.failed td { color: var(--worse); }
 table.lines { min-width: 960px; font-size: 14px; }
 table.lines tbody tr { vertical-align: top; }
 .new {

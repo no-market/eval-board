@@ -24,13 +24,17 @@ test('the heading gives the date, short commit, flow version, models and receipt
   assert.match(all, /Failed: 0 of 3 receipts/);
 });
 
+// The body of the table in the section headed `heading`.
+function tbodyOf(html, heading) {
+  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
+  assert.ok(start >= 0, `a section headed ${heading}`);
+  return html.slice(start).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+}
+
 // The text of each row of the table in the section headed `heading`: its row
 // header and cells, tags stripped.
 function rows(html, heading) {
-  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
-  assert.ok(start >= 0, `a section headed ${heading}`);
-  const tbody = html.slice(start).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
-  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+  return [...tbodyOf(html, heading).matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
     [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
   );
 }
@@ -183,8 +187,7 @@ test('foreign receipts: a table of their own, a row each, the one let through as
     ['Kaufland, 14 Aug 2026', 'Rejected: CZ', '6.1', '0.19¢'],
     ['Kaufland, 14 Aug 2026', 'Not rejected: read —', '14.8', '0.41¢'],
   ]);
-  const tbody = html.slice(html.search(/<h2[^>]*>Foreign receipts/)).match(/<tbody>([\s\S]*?)<\/tbody>/)[1];
-  const classes = [...tbody.matchAll(/<tr( class="[^"]*")?>/g)].map(([, c]) => c ?? '');
+  const classes = [...tbodyOf(html, 'Foreign receipts').matchAll(/<tr( class="[^"]*")?>/g)].map(([, c]) => c ?? '');
   assert.deepEqual(classes, ['', ' class="failed"']);
   assert.ok(html.indexOf('Foreign receipts') > html.indexOf('Per receipt'), 'below the receipts table');
 });

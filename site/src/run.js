@@ -38,7 +38,7 @@ function heading(flow, runFile) {
     </div>
     <div class="pills">
       <span class="pill">${numbers.receipts} receipts · ${numbers.lines} lines</span>
-      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>${foreignPill(runFile)}
+      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>${foreignPill(runFile.foreign ?? [], runFile.metrics?.reading?.counts?.polish_rejected ?? 0, numbers.receipts)}
     </div>
   </div>`;
 }
@@ -47,14 +47,12 @@ function heading(flow, runFile) {
 // foreign: a pill when the run has either, styled as failed when a foreign
 // receipt was let through or a Polish one rejected. Older run files have
 // neither field, and get no pill.
-function foreignPill(runFile) {
-  const foreign = runFile.foreign ?? [];
-  const polishRejected = runFile.metrics?.reading?.counts?.polish_rejected ?? 0;
+function foreignPill(foreign, polishRejected, receipts) {
   if (foreign.length === 0 && polishRejected === 0) return '';
   const rejected = foreign.filter((f) => f.rejected).length;
-  const wrong = rejected < foreign.length || polishRejected > 0;
+  const anyFailed = rejected < foreign.length || polishRejected > 0;
   return html`
-      <span class="pill${wrong ? ' failed' : ''}">Foreign: rejected ${rejected} of ${foreign.length} · Polish rejected ${polishRejected} of ${runFile.numbers.receipts}</span>`;
+      <span class="pill${anyFailed ? ' failed' : ''}">Foreign: rejected ${rejected} of ${foreign.length} · Polish rejected ${polishRejected} of ${receipts}</span>`;
 }
 
 function summary(numbers) {
@@ -94,8 +92,13 @@ function perReceipt(cases) {
   </section>`;
 }
 
+// A receipt's row header: its name, with its photo as the title.
+function receiptHeader(receipt) {
+  return html`<th scope="row" title="${receipt}">${receiptName(receipt)}</th>`;
+}
+
 function receiptRow(receiptCase) {
-  const name = html`<th scope="row" title="${receiptCase.receipt}">${receiptName(receiptCase.receipt)}</th>`;
+  const name = receiptHeader(receiptCase.receipt);
   if (failed(receiptCase)) {
     return html`
           <tr class="failed">${name}<td colspan="5"><strong>Failed:</strong> ${receiptCase.error}</td></tr>`;
@@ -131,7 +134,7 @@ function foreignRow(foreignCase) {
     ? html`<td>Rejected: ${foreignCase.country}</td>`
     : html`<td><strong>Not rejected:</strong> read ${foreignCase.country_read ?? dash}${foreignCase.error ? ` · ${foreignCase.error}` : ''}</td>`;
   return html`
-          <tr${foreignCase.rejected ? '' : html` class="failed"`}><th scope="row" title="${foreignCase.receipt}">${receiptName(foreignCase.receipt)}</th>${outcome}<td>${orDash(foreignCase.seconds, (s) => s.toFixed(1))}</td><td>${orDash(foreignCase.cost_usd, formatCents)}</td></tr>`;
+          <tr${foreignCase.rejected ? '' : html` class="failed"`}>${receiptHeader(foreignCase.receipt)}${outcome}<td>${orDash(foreignCase.seconds, (s) => s.toFixed(1))}</td><td>${orDash(foreignCase.cost_usd, formatCents)}</td></tr>`;
 }
 
 // Why a purchase was lost: what the flow recorded instead of a kind.
