@@ -1,0 +1,6906 @@
+{
+  "schema_version": 3,
+  "flow": "receipt-lines",
+  "date": "2026-11-21T19:54:49.173834Z",
+  "commit": "bc32a3916908c1ec721b6026e87c4ed30ee19cf6",
+  "flow_version": "V1",
+  "steps": {
+    "read": {
+      "model": "anthropic/claude-haiku-5.5",
+      "options": {
+        "output": "tool",
+        "max_side": null
+      }
+    },
+    "choose_kinds": {
+      "model": "openai/gpt-6-luna",
+      "options": {
+        "output": "json_schema"
+      }
+    }
+  },
+  "receipts": null,
+  "reviewed": 9,
+  "numbers": {
+    "receipts": 9,
+    "failed": 0,
+    "lines": 144,
+    "errors": {
+      "count": 30,
+      "share": 0.20833333333333334
+    },
+    "warnings": {
+      "count": 22,
+      "share": 0.1527777777777778
+    },
+    "seconds": {
+      "median_s": 23.084391783,
+      "p95_s": 38.73845651100001
+    },
+    "cost_usd": 0.00308502,
+    "steps": [
+      {
+        "step": "read",
+        "errors": {
+          "count": 28,
+          "share": 0.19444444444444445
+        },
+        "warnings": {
+          "count": 22,
+          "share": 0.1527777777777778
+        },
+        "seconds": {
+          "median_s": 15.638901000000004,
+          "p95_s": 27.846355519000014
+        },
+        "cost_usd": 0.0021488444444444444
+      },
+      {
+        "step": "choose_kinds",
+        "errors": {
+          "count": 2,
+          "share": 0.013888888888888888
+        },
+        "warnings": {
+          "count": 0,
+          "share": 0.0
+        },
+        "seconds": {
+          "median_s": 7.975467027000036,
+          "p95_s": 16.08732596499999
+        },
+        "cost_usd": 0.0009361755555555556
+      },
+      {
+        "step": "database",
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 0,
+          "share": 0.0
+        },
+        "seconds": {
+          "median_s": 0.6173930359999957,
+          "p95_s": 0.8456340899999191
+        },
+        "cost_usd": null
+      }
+    ]
+  },
+  "metrics": {
+    "f1": 0.875968992248062,
+    "kind_f1": 0.8837209302325582,
+    "purchases": {
+      "true_positives": 113,
+      "false_positives": 3,
+      "false_negatives": 29
+    },
+    "kinds": {
+      "true_positives": 114,
+      "false_positives": 2,
+      "false_negatives": 28
+    },
+    "choose_kinds": {
+      "lines": 128,
+      "errors": {
+        "wrong_existing": 2,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 2,
+        "not_unknown": 0,
+        "no_result": 24,
+        "pack_size": 1
+      },
+      "noise_recognised": null,
+      "unknown_rate": 0.015625,
+      "names_differ": []
+    },
+    "catalog": {
+      "lines": 142,
+      "hits": 14,
+      "hit_rate": 0.09859154929577464,
+      "carried_errors": {
+        "wrong_existing": 0,
+        "new_instead_of_existing": 0,
+        "existing_instead_of_new": 0,
+        "duplicate": 0,
+        "wrong_fit": 0,
+        "name_differs": 0,
+        "noise": 0,
+        "not_noise": 0,
+        "unknown": 0,
+        "not_unknown": 0,
+        "no_result": 0,
+        "pack_size": 0
+      }
+    },
+    "write": {
+      "kind_conflicts": 0,
+      "quantities_checked": 114,
+      "purchase_quantity": 0.9912280701754386
+    },
+    "calls": {
+      "calls": 17,
+      "input_tokens": 81191,
+      "output_tokens": 40114,
+      "cost_usd": 0.02776518,
+      "unpriced_calls": 0,
+      "latency_p50_s": 10.717267686,
+      "latency_p95_s": 27.842184709999998
+    },
+    "calls_by_step": {
+      "read": {
+        "calls": 9,
+        "input_tokens": 30821,
+        "output_tokens": 32515,
+        "cost_usd": 0.0193396,
+        "unpriced_calls": 0,
+        "latency_p50_s": 15.634771959999995,
+        "latency_p95_s": 27.842184709999998
+      },
+      "choose_kinds": {
+        "calls": 8,
+        "input_tokens": 50370,
+        "output_tokens": 7599,
+        "cost_usd": 0.00842558,
+        "unpriced_calls": 0,
+        "latency_p50_s": 7.609101084000031,
+        "latency_p95_s": 15.722577615000006
+      }
+    },
+    "reading": {
+      "counts": {
+        "receipts": 9,
+        "truth_lines": 142,
+        "read_lines": 120,
+        "aligned": 118,
+        "missed": 24,
+        "extra": 2,
+        "text_right": 99,
+        "quantity_right": 116,
+        "price_right": 114,
+        "discounts": 41,
+        "discounts_right": 18,
+        "discounts_extra": 1,
+        "chain_right": 9,
+        "date_right": 9,
+        "self_checked": 9,
+        "self_check_passed": 6
+      },
+      "line_text": 0.8389830508474576,
+      "quantity": 0.9830508474576272,
+      "price": 0.9661016949152542,
+      "discount_pairing": 0.43902439024390244,
+      "chain": 1.0,
+      "date": 1.0,
+      "self_check_pass_rate": 0.6666666666666666,
+      "missed_lines": 0.16901408450704225,
+      "extra_lines": 0.016666666666666666
+    }
+  },
+  "skipped": [],
+  "cases": [
+    {
+      "receipt": "aldi/2026-09-23 12.50.png",
+      "lines": [
+        {
+          "text": "SOK POMIDOR 1L",
+          "read": {
+            "text": "SOK POMIDOR 1L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.99,
+            "total": 2.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Sok pomidorowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Sok pomidorowy",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G",
+          "read": {
+            "text": "RITTER SPORT CZEK.100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG",
+          "read": {
+            "text": "GOLONKA Z INDYKA KG",
+            "quantity": {
+              "amount": 0.864,
+              "unit": "kg"
+            },
+            "unit_price": 13.99,
+            "total": 12.09,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.864,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Indyk",
+            "quantity": {
+              "amount": 0.864,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG",
+          "read": {
+            "text": "GOLONKA Z INDYKA KG",
+            "quantity": {
+              "amount": 0.86,
+              "unit": "kg"
+            },
+            "unit_price": 13.99,
+            "total": 12.03,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.86,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Indyk",
+            "quantity": {
+              "amount": 0.86,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MAKRELA WEDZONA KG",
+          "read": {
+            "text": "MAKRELA WĘDZONA KG",
+            "quantity": {
+              "amount": 0.299,
+              "unit": "kg"
+            },
+            "unit_price": 49.9,
+            "total": 14.92,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ryba wędzona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.299,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ryba wędzona",
+            "quantity": {
+              "amount": 0.299,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 5,
+          "read_lines": 5,
+          "aligned": 5,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 5,
+          "quantity_right": 5,
+          "price_right": 5,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": []
+      },
+      "numbers": {
+        "lines": 5,
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 0,
+          "share": 0.0
+        },
+        "seconds": 19.262404919000012,
+        "cost_usd": 0.0018872,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 10.227326777000002,
+            "cost_usd": 0.0008544
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 8.424687287000005,
+            "cost_usd": 0.0010328
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.6103908550000057,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 10.039766491000002,
+          "input_tokens": 2949,
+          "output_tokens": 1119,
+          "cost_usd": 0.0008544
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 8.059168863000004,
+          "input_tokens": 6007,
+          "output_tokens": 564,
+          "cost_usd": 0.0010328
+        }
+      ],
+      "times": {
+        "read_s": 10.227326777000002,
+        "choose_kinds_s": 8.424687287000005,
+        "database_s": 0.6103908550000057
+      },
+      "error": null
+    },
+    {
+      "receipt": "aldi/2026-10-23 15.55.26.jpg",
+      "lines": [
+        {
+          "text": "CHUSTECZKI KOSM 150SZT",
+          "read": {
+            "text": "CHUSTECZKI KOSM 150SZT",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 3.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Chusteczki higieniczne",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": {
+            "text": "JAJA 10L ŚCIÓŁKOWE",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.49,
+            "total": 11.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": {
+            "text": "JAJA 10L ŚCIÓŁKOWE",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.49,
+            "total": 11.49,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST JAJA 10L ŚCIÓŁKOWE",
+                "amount": 5.8
+              }
+            ]
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWARÓG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.59,
+            "total": 3.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWARÓG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.59,
+            "total": 3.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "CHAŁKA Z KRUSZONKĄ 165G",
+          "read": {
+            "text": "CHAŁKA Z KRUSZONKĄ 165G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.99,
+            "total": 2.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Chałka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Chałka",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "KAKI",
+          "read": {
+            "text": "KAKI",
+            "quantity": {
+              "amount": 5.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 19.95,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 5.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kaki",
+            "quantity": {
+              "amount": 5.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 7,
+          "read_lines": 7,
+          "aligned": 7,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 7,
+          "quantity_right": 7,
+          "price_right": 7,
+          "discounts": 1,
+          "discounts_right": 1,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": []
+      },
+      "numbers": {
+        "lines": 7,
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 0,
+          "share": 0.0
+        },
+        "seconds": 18.378410384999995,
+        "cost_usd": 0.0019178149999999998,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 10.721552291999998,
+            "cost_usd": 0.0011499
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 7.051997009000004,
+            "cost_usd": 0.000767915
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.6048610839999924,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 10.717267686,
+          "input_tokens": 3484,
+          "output_tokens": 1603,
+          "cost_usd": 0.0011499
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 6.687730102000003,
+          "input_tokens": 6076,
+          "output_tokens": 494,
+          "cost_usd": 0.000767915
+        }
+      ],
+      "times": {
+        "read_s": 10.721552291999998,
+        "choose_kinds_s": 7.051997009000004,
+        "database_s": 0.6048610839999924
+      },
+      "error": null
+    },
+    {
+      "receipt": "biedronka/2026-10-24 17.15.13.jpg",
+      "lines": [
+        {
+          "text": "ChustQueeClassicX150",
+          "read": {
+            "text": "ChustQueeClassicX150",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 3.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Chusteczki higieniczne",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "LodyMarAlmPat6x120ml",
+          "read": {
+            "text": "LodyMarAlmPat6x120ml",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 19.99,
+            "total": 19.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Lody",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Lody",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MlekoWiejPiąt2 1l",
+          "read": {
+            "text": "MlekoWiejPiąt2 1l",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.39,
+            "total": 4.39,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Mleko",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Mleko",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PatyczBeBeaut300sz",
+          "read": {
+            "text": "PatyczBeBeaut300sz",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.79,
+            "total": 4.79,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Patyczki kosmetyczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Patyczki kosmetyczne",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PrzyCzosKamis16-20g",
+          "read": {
+            "text": "PrzyCzosKamis16-20g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.49,
+            "total": 4.98,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czosnek granulowany",
+            "alternatives": [
+              "Mieszanka przypraw"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Mieszanka przypraw",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "DoveŻelHydrate450",
+          "read": {
+            "text": "DoveZelHydrate450",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 18.95,
+            "total": 18.95,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Żel pod prysznic",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Żel pod prysznic",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ĆwKurChoB Anty kg",
+          "read": {
+            "text": "ĆuKurChoB Anty kg",
+            "quantity": {
+              "amount": 0.805,
+              "unit": "kg"
+            },
+            "unit_price": 15.99,
+            "total": 12.87,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kurczak",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.805,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kurczak",
+            "quantity": {
+              "amount": 0.805,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "ĆwKurChoB Anty kg",
+              "read": "ĆuKurChoB Anty kg"
+            }
+          ]
+        },
+        {
+          "text": "Krewetki całe 400g",
+          "read": {
+            "text": "Krewetki całe 400g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 24.99,
+            "total": 49.98,
+            "vat": "A",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 10.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Krewetki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Krewetki",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TortillaPszenn306g",
+          "read": {
+            "text": "TortillaPszenn306g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 3.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Tortille",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Tortille",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SalamiKraWedMix300g",
+          "read": {
+            "text": "SalamiKraWedMix300g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 10.99,
+            "total": 10.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kiełbasa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kiełbasa",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TicTacTwoRaspberr39g",
+          "read": {
+            "text": "TicTacTwoRaspberr39g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.99,
+            "total": 6.99,
+            "vat": "B",
+            "discounts": []
+          },
+          "label": {
+            "name": "Cukierki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Cukierki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SerWłoszczowski400g",
+          "read": {
+            "text": "SerWłoszczowski400g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 14.99,
+            "total": 14.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ser",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Mandarynka luz",
+          "read": {
+            "text": "Mandarynka luz",
+            "quantity": {
+              "amount": 1.258,
+              "unit": "kg"
+            },
+            "unit_price": 8.99,
+            "total": 11.31,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 2.52
+              }
+            ]
+          },
+          "label": {
+            "name": "Mandarynki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.258,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Mandarynki",
+            "quantity": {
+              "amount": 1.258,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "BurakiGotowane500 g",
+          "read": {
+            "text": "BurakiGotowane500g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.79,
+            "total": 4.79,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Buraki gotowane",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Buraki gotowane",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "BurakiGotowane500 g",
+              "read": "BurakiGotowane500g"
+            }
+          ]
+        },
+        {
+          "text": "JogurtTypuGreck 1kg",
+          "read": {
+            "text": "JogurtTypuGreck 1kg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 7.99,
+            "total": 7.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŚmietMlDol 12 400g",
+          "read": {
+            "text": "ŚmietMiDol 12 400g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.44,
+            "total": 3.44,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Śmietana",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Śmietana",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "ŚmietMlDol 12 400g",
+              "read": "ŚmietMiDol 12 400g"
+            }
+          ]
+        },
+        {
+          "text": "Kaki szt",
+          "read": {
+            "text": "Kaki szt",
+            "quantity": {
+              "amount": 3.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.99,
+            "total": 20.97,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 3.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kaki",
+            "quantity": {
+              "amount": 3.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PopcornSłodki250g",
+          "read": {
+            "text": "PopcornSłodki250g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 13.99,
+            "total": 13.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Popcorn",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Popcorn",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PapQueenPremi10rol",
+          "read": {
+            "text": "PapQueenPreni10rol",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 17.99,
+            "total": 17.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Papier toaletowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Papier toaletowy",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "PapQueenPremi10rol",
+              "read": "PapQueenPreni10rol"
+            }
+          ]
+        },
+        {
+          "text": "WorkiNŚmieci35lx15sz",
+          "read": {
+            "text": "WorkiNSmieci35l x15sz",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.49,
+            "total": 10.98,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Worki na śmieci",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Worki na śmieci",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "WorkiNŚmieci35lx15sz",
+              "read": "WorkiNSmieci35l x15sz"
+            }
+          ]
+        },
+        {
+          "text": "PizSupCiagForm0,424g",
+          "read": {
+            "text": "PizSupCingForm0,424g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 21.99,
+            "total": 21.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Pizza mrożona",
+            "alternatives": [
+              "Pizza"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Pizza",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "PizSupCiagForm0,424g",
+              "read": "PizSupCingForm0,424g"
+            }
+          ]
+        },
+        {
+          "text": "Cebula 1kg opak",
+          "read": {
+            "text": "Cebula 1kg opak",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Cebula",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Cebula",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Jabł Jonagold luz",
+          "read": {
+            "text": "Jabł Jonagold luz",
+            "quantity": {
+              "amount": 0.568,
+              "unit": "kg"
+            },
+            "unit_price": 4.99,
+            "total": 2.83,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jabłka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.568,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jabłka",
+            "quantity": {
+              "amount": 0.568,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Granat szt",
+          "read": {
+            "text": "Granat szt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.99,
+            "total": 11.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Granaty",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Granaty",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Twaróg Półtł 250g",
+          "read": {
+            "text": "Twaróg Półtł 250g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.95,
+            "total": 7.9,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SerdelkizIndyk300g",
+          "read": {
+            "text": "SerdelkizIndyk300g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 7.99,
+            "total": 7.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Parówki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PreDurexClassic12szt",
+          "read": {
+            "text": "PreDurexClassic12szt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 34.99,
+            "total": 34.99,
+            "vat": "B",
+            "discounts": []
+          },
+          "label": {
+            "name": "Prezerwatywy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Prezerwatywy",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŚledźPoKołobrz800g",
+          "read": {
+            "text": "SledzPoKolobrz800g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 17.99,
+            "total": 17.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Śledzie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Śledzie",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ActimelOwLeśn12x100g",
+          "read": {
+            "text": "ActimelOwLeśn12x100g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 15.99,
+            "total": 15.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt pitny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 29,
+          "read_lines": 29,
+          "aligned": 29,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 23,
+          "quantity_right": 29,
+          "price_right": 29,
+          "discounts": 2,
+          "discounts_right": 2,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "ĆwKurChoB Anty kg",
+            "read": "ĆuKurChoB Anty kg"
+          },
+          {
+            "truth": "BurakiGotowane500 g",
+            "read": "BurakiGotowane500g"
+          },
+          {
+            "truth": "ŚmietMlDol 12 400g",
+            "read": "ŚmietMiDol 12 400g"
+          },
+          {
+            "truth": "PapQueenPremi10rol",
+            "read": "PapQueenPreni10rol"
+          },
+          {
+            "truth": "WorkiNŚmieci35lx15sz",
+            "read": "WorkiNSmieci35l x15sz"
+          },
+          {
+            "truth": "PizSupCiagForm0,424g",
+            "read": "PizSupCingForm0,424g"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 29,
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 6,
+          "share": 0.20689655172413793
+        },
+        "seconds": 37.31046622799998,
+        "cost_usd": 0.00473819,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 6,
+              "share": 0.20689655172413793
+            },
+            "seconds": 20.605747226999995,
+            "cost_usd": 0.0031524
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 16.08732596499999,
+            "cost_usd": 0.00158579
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.6173930359999957,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 20.601673401,
+          "input_tokens": 3484,
+          "output_tokens": 5608,
+          "cost_usd": 0.0031524
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 15.722577615000006,
+          "input_tokens": 6651,
+          "output_tokens": 1986,
+          "cost_usd": 0.00158579
+        }
+      ],
+      "times": {
+        "read_s": 20.605747226999995,
+        "choose_kinds_s": 16.08732596499999,
+        "database_s": 0.6173930359999957
+      },
+      "error": null
+    },
+    {
+      "receipt": "aldi/2026-11-04 13.35.33.jpg",
+      "lines": [
+        {
+          "text": "ZIEMNIAKI 2,5 KG",
+          "read": {
+            "text": "ZIEMNIAKI 2,5 KG",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.99,
+            "total": 8.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ziemniaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ziemniaki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "unit_price",
+              "printed": "8.99",
+              "read": "6.99"
+            }
+          ]
+        },
+        {
+          "text": "ŻEBERKA PASKI KG",
+          "read": {
+            "text": "ŻEBERKA PASKI KG",
+            "quantity": {
+              "amount": 0.685,
+              "unit": "kg"
+            },
+            "unit_price": 23.99,
+            "total": 16.43,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Żeberka",
+            "alternatives": [
+              "Wieprzowina"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.685,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Żeberka",
+            "quantity": {
+              "amount": 0.685,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŻEBERKA PASKI KG",
+          "read": {
+            "text": "ŻEBERKA PASKI KG",
+            "quantity": {
+              "amount": 0.719,
+              "unit": "kg"
+            },
+            "unit_price": 23.99,
+            "total": 17.25,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Żeberka",
+            "alternatives": [
+              "Wieprzowina"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.719,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Żeberka",
+            "quantity": {
+              "amount": 0.719,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŻEBERKA PASKI KG",
+          "read": {
+            "text": "ŻEBERKA PASKI KG",
+            "quantity": {
+              "amount": 0.683,
+              "unit": "kg"
+            },
+            "unit_price": 23.99,
+            "total": 16.39,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Żeberka",
+            "alternatives": [
+              "Wieprzowina"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.683,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Żeberka",
+            "quantity": {
+              "amount": 0.683,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWARÓG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.59,
+            "total": 3.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWARÓG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.99,
+            "total": 5.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "unit_price",
+              "printed": "3.59",
+              "read": "5.99"
+            },
+            {
+              "detail": "total",
+              "printed": "3.59",
+              "read": "5.99"
+            }
+          ]
+        },
+        {
+          "text": "POL.JABŁ.CZER.PAK.1,5KG",
+          "read": {
+            "text": "POL.JABŁ.CZER.PAK.1,5KG",
+            "quantity": {
+              "amount": 0.645,
+              "unit": "kg"
+            },
+            "unit_price": 29.99,
+            "total": 19.34,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jabłka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jabłka",
+            "quantity": {
+              "amount": 0.645,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": "pack_size",
+          "misread": [
+            {
+              "detail": "quantity",
+              "printed": "1 szt",
+              "read": "0.645 kg"
+            },
+            {
+              "detail": "unit_price",
+              "printed": "5.99",
+              "read": "29.99"
+            },
+            {
+              "detail": "total",
+              "printed": "5.99",
+              "read": "19.34"
+            }
+          ]
+        },
+        {
+          "text": "POLĘDWICZKA WIEPRZ. KG",
+          "read": {
+            "text": "POLEWECZKA WIEPRZ. KG",
+            "quantity": {
+              "amount": 0.906,
+              "unit": "kg"
+            },
+            "unit_price": 3.8,
+            "total": 3.44,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Polędwiczka wieprzowa",
+            "alternatives": [
+              "Wieprzowina"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.645,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "unknown",
+            "kind": null,
+            "quantity": null,
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "read",
+          "mistake": "unknown",
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "POLĘDWICZKA WIEPRZ. KG",
+              "read": "POLEWECZKA WIEPRZ. KG"
+            },
+            {
+              "detail": "quantity",
+              "printed": "0.645 kg",
+              "read": "0.906 kg"
+            },
+            {
+              "detail": "unit_price",
+              "printed": "29.99",
+              "read": "3.80"
+            },
+            {
+              "detail": "total",
+              "printed": "19.34",
+              "read": "3.44"
+            }
+          ]
+        },
+        {
+          "text": "CHUSTECZKI KOSM 150SZT",
+          "read": {
+            "text": "CHUSTECZKI KOSM 150SZT",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 3.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Chusteczki higieniczne",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "CHUSTECZKI KOSM 150SZT",
+          "read": null,
+          "label": {
+            "name": "Chusteczki higieniczne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "BANANY - KG",
+          "read": null,
+          "label": {
+            "name": "Banany",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.986,
+            "unit": "kg"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "FROSTA PAL RYBN 360G",
+          "read": null,
+          "label": {
+            "name": "Paluszki rybne",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "ACTIMEL 12X100G",
+          "read": null,
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": {
+            "text": "JAJA 10L ŚCIÓŁKOWE",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.49,
+            "total": 11.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": null,
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "KAKI",
+          "read": null,
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": null,
+          "read": {
+            "text": "BANANY - KG",
+            "quantity": {
+              "amount": 0.906,
+              "unit": "kg"
+            },
+            "unit_price": 3.49,
+            "total": 3.16,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": null,
+          "expected": null,
+          "expected_quantity": null,
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Banany",
+            "quantity": {
+              "amount": 0.906,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "read",
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "KAKI",
+          "read": {
+            "text": "KAKI",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.99,
+            "total": 3.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kaki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": null,
+          "read": {
+            "text": "FROSTA PAL RYBN 360G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 14.99,
+            "total": 14.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": null,
+          "expected": null,
+          "expected_quantity": null,
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Paluszki rybne",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "read",
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŚMIETANKA UHT 18% 500ML",
+          "read": {
+            "text": "ŚMIETANKA UHT 18% 500ML",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.49,
+            "total": 6.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Śmietanka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Śmietanka",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "POLSKA ŚLIWKA - KG",
+          "read": {
+            "text": "POLSKA ŚLIWKA - KG",
+            "quantity": {
+              "amount": 0.636,
+              "unit": "kg"
+            },
+            "unit_price": 4.99,
+            "total": 3.17,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Śliwki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.636,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Śliwki",
+            "quantity": {
+              "amount": 0.636,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "KAPUSTA KISZONA 500G",
+          "read": {
+            "text": "KAPUSTA KISZONA 500G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.49,
+            "total": 3.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kapusta kiszona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kapusta kiszona",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G",
+          "read": {
+            "text": "RITTER SPORT CZEK.100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G",
+          "read": {
+            "text": "RITTER SPORT CZEK.100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": [
+              {
+                "text": "OPUST RITTER SPORT CZEK.100G A",
+                "amount": 6.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "BOCZEK WĘDZ.PARZ. KG",
+          "read": {
+            "text": "BOCZEK WĘDZ.PARZ. KG",
+            "quantity": {
+              "amount": 0.183,
+              "unit": "kg"
+            },
+            "unit_price": 28.2,
+            "total": 5.16,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Boczek",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.183,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Boczek",
+            "quantity": {
+              "amount": 0.183,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 23,
+          "read_lines": 19,
+          "aligned": 17,
+          "missed": 6,
+          "extra": 2,
+          "text_right": 16,
+          "quantity_right": 15,
+          "price_right": 13,
+          "discounts": 1,
+          "discounts_right": 1,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            null
+          ],
+          [
+            10,
+            null
+          ],
+          [
+            11,
+            null
+          ],
+          [
+            12,
+            null
+          ],
+          [
+            13,
+            9
+          ],
+          [
+            14,
+            null
+          ],
+          [
+            15,
+            null
+          ],
+          [
+            null,
+            10
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            null,
+            12
+          ],
+          [
+            17,
+            13
+          ],
+          [
+            18,
+            14
+          ],
+          [
+            19,
+            15
+          ],
+          [
+            20,
+            16
+          ],
+          [
+            21,
+            17
+          ],
+          [
+            22,
+            18
+          ]
+        ],
+        "missed": [
+          "CHUSTECZKI KOSM 150SZT",
+          "BANANY - KG",
+          "FROSTA PAL RYBN 360G",
+          "ACTIMEL 12X100G",
+          "JAJA 10L ŚCIÓŁKOWE",
+          "KAKI"
+        ],
+        "extra": [
+          "BANANY - KG",
+          "FROSTA PAL RYBN 360G"
+        ],
+        "misread": [
+          {
+            "truth": "POLĘDWICZKA WIEPRZ. KG",
+            "read": "POLEWECZKA WIEPRZ. KG"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 25,
+        "errors": {
+          "count": 9,
+          "share": 0.36
+        },
+        "warnings": {
+          "count": 3,
+          "share": 0.12
+        },
+        "seconds": 32.79934194799999,
+        "cost_usd": 0.00401794,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 9,
+              "share": 0.36
+            },
+            "warnings": {
+              "count": 3,
+              "share": 0.12
+            },
+            "seconds": 23.40590037599999,
+            "cost_usd": 0.0029534
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 8.668395263999997,
+            "cost_usd": 0.00106454
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.7250463080000031,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 23.40158810300001,
+          "input_tokens": 3484,
+          "output_tokens": 5210,
+          "cost_usd": 0.0029534
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 8.303845779,
+          "input_tokens": 6473,
+          "output_tokens": 988,
+          "cost_usd": 0.00106454
+        }
+      ],
+      "times": {
+        "read_s": 23.40590037599999,
+        "choose_kinds_s": 8.668395263999997,
+        "database_s": 0.7250463080000031
+      },
+      "error": null
+    },
+    {
+      "receipt": "aldi/2026-11-04 13.35.39.jpg",
+      "lines": [
+        {
+          "text": "KAPUSTA KISZONA 500G",
+          "read": {
+            "text": "KAPUSTA KISZONA 500G",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.49,
+            "total": 4.98,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kapusta kiszona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kapusta kiszona",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ŻEBERKA PASKI KG",
+          "read": {
+            "text": "ŻEBERKA PASKI KG",
+            "quantity": {
+              "amount": 0.763,
+              "unit": "kg"
+            },
+            "unit_price": 17.99,
+            "total": 13.73,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Żeberka",
+            "alternatives": [
+              "Wieprzowina"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.763,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Żeberka",
+            "quantity": {
+              "amount": 0.763,
+              "unit": "kg"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 2,
+          "read_lines": 2,
+          "aligned": 2,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 2,
+          "quantity_right": 2,
+          "price_right": 2,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": []
+      },
+      "numbers": {
+        "lines": 2,
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 0,
+          "share": 0.0
+        },
+        "seconds": 9.263516183999997,
+        "cost_usd": 0.0006969,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 8.41855080100001,
+            "cost_usd": 0.0006969
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.3615569019999896,
+            "cost_usd": 0.0
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.4834084809999979,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 8.414425628000004,
+          "input_tokens": 3484,
+          "output_tokens": 697,
+          "cost_usd": 0.0006969
+        }
+      ],
+      "times": {
+        "read_s": 8.41855080100001,
+        "choose_kinds_s": 0.3615569019999896,
+        "database_s": 0.4834084809999979
+      },
+      "error": null
+    },
+    {
+      "receipt": "biedronka/2026-11-05 16.21.22.jpg",
+      "lines": [
+        {
+          "text": "Banan Luz",
+          "read": {
+            "text": "Banan Luz",
+            "quantity": {
+              "amount": 1.248,
+              "unit": "kg"
+            },
+            "unit_price": 6.99,
+            "total": 8.72,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Banany",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.248,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Banany",
+            "quantity": {
+              "amount": 1.248,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "KapKiszona520 450g",
+          "read": {
+            "text": "KapKiszona520 450g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.29,
+            "total": 3.29,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kapusta kiszona",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kapusta kiszona",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PizzaProsciutto400g",
+          "read": {
+            "text": "PizzaProsciutto400g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 16.99,
+            "total": 33.98,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Pizza mrożona",
+            "alternatives": [
+              "Pizza"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Pizza",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ParóSzynNatTarcz200g",
+          "read": {
+            "text": "ParóSzynNatTarcz200g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 7.79,
+            "total": 15.58,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Parówki",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Awokado Hass szt",
+          "read": {
+            "text": "Awokado Hass szt",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.99,
+            "total": 13.98,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 7.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Awokado",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Awokado",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SernikKróleZwiśn650g",
+          "read": {
+            "text": "SernikKróleZwiśń650g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 17.99,
+            "total": 17.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ciasto",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ciasto",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RyżDoRisottoGB1kg",
+          "read": {
+            "text": "RyżDoRisottoGB1kg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.99,
+            "total": 11.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ryż",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ryż",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "FasolaNS400 240g",
+          "read": {
+            "text": "FasolaNS400 240g",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.99,
+            "total": 5.98,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 2.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Fasola w puszce",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Fasola w puszce",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "KefirKrasnyst420g",
+          "read": {
+            "text": "KefirKrasnyst420g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.89,
+            "total": 2.89,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kefir",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kefir",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "Chałk z krusz 320g",
+          "read": {
+            "text": "Chałk z krusz 320g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.29,
+            "total": 5.29,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Chałka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Chałka",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JogBrzosJogob175g",
+          "read": {
+            "text": "JogBrzosJogob175g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.29,
+            "total": 2.29,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 0.5
+              }
+            ]
+          },
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JogTruskawkJogob175g",
+          "read": {
+            "text": "JogTruskaukJogob175g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.29,
+            "total": 2.29,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 0.5
+              }
+            ]
+          },
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "JogTruskawkJogob175g",
+              "read": "JogTruskaukJogob175g"
+            }
+          ]
+        },
+        {
+          "text": "Jaja W Wyb L 10szt",
+          "read": {
+            "text": "Jaja W Wyb L 10szt",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 12.99,
+            "total": 25.98,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 3.93
+              }
+            ]
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MasłExtraMlDol200g",
+          "read": {
+            "text": "MaslExtraMlDol200g",
+            "quantity": {
+              "amount": 3.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 14.97,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 6.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Masło",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 3.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Masło",
+            "quantity": {
+              "amount": 3.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "BoczWędzKraWęd kg",
+          "read": {
+            "text": "BoczWędzKrakWęd kg",
+            "quantity": {
+              "amount": 0.246,
+              "unit": "kg"
+            },
+            "unit_price": 28.2,
+            "total": 6.94,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 2.04
+              }
+            ]
+          },
+          "label": {
+            "name": "Boczek",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.246,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Boczek",
+            "quantity": {
+              "amount": 0.246,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "BoczWędzKraWęd kg",
+              "read": "BoczWędzKrakWęd kg"
+            }
+          ]
+        },
+        {
+          "text": "JogobelExotic 175g",
+          "read": {
+            "text": "JogobelExotic 175g",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.29,
+            "total": 2.29,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST",
+                "amount": 0.5
+              }
+            ]
+          },
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 16,
+          "read_lines": 16,
+          "aligned": 16,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 14,
+          "quantity_right": 16,
+          "price_right": 16,
+          "discounts": 8,
+          "discounts_right": 8,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "JogTruskawkJogob175g",
+            "read": "JogTruskaukJogob175g"
+          },
+          {
+            "truth": "BoczWędzKraWęd kg",
+            "read": "BoczWędzKrakWęd kg"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 16,
+        "errors": {
+          "count": 0,
+          "share": 0.0
+        },
+        "warnings": {
+          "count": 2,
+          "share": 0.125
+        },
+        "seconds": 23.084391783,
+        "cost_usd": 0.002799065,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 2,
+              "share": 0.125
+            },
+            "seconds": 15.638901000000004,
+            "cost_usd": 0.0018679
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 6.718445634999995,
+            "cost_usd": 0.000931165
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.727045148000002,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 15.634771959999995,
+          "input_tokens": 3484,
+          "output_tokens": 3039,
+          "cost_usd": 0.0018679
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 6.354166891999995,
+          "input_tokens": 6298,
+          "output_tokens": 765,
+          "cost_usd": 0.000931165
+        }
+      ],
+      "times": {
+        "read_s": 15.638901000000004,
+        "choose_kinds_s": 6.718445634999995,
+        "database_s": 0.727045148000002
+      },
+      "error": null
+    },
+    {
+      "receipt": "kaufland/2026-11-07 15.49.17.jpg",
+      "lines": [
+        {
+          "text": "BudweiserPiwo0,5l",
+          "read": {
+            "text": "BudweiserPiwo0,51",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.29,
+            "total": 10.58,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Piwo",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Piwo",
+            "quantity": {
+              "amount": 2.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "BudweiserPiwo0,5l",
+              "read": "BudweiserPiwo0,51"
+            },
+            {
+              "detail": "discounts",
+              "printed": "-0.70",
+              "read": "none"
+            }
+          ]
+        },
+        {
+          "text": "GrimbergBlanche0,3l",
+          "read": {
+            "text": "GrimbergBlBlanche0,31",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Piwo",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Piwo",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "GrimbergBlanche0,3l",
+              "read": "GrimbergBlBlanche0,31"
+            },
+            {
+              "detail": "discounts",
+              "printed": "-0.33",
+              "read": "none"
+            }
+          ]
+        },
+        {
+          "text": "LukMydłoJaśmin500ml",
+          "read": null,
+          "label": {
+            "name": "Mydło",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "AlwaysPodpaski14szt",
+          "read": null,
+          "label": {
+            "name": "Podpaski",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "ArielProszekDoPrania3,456kg",
+          "read": {
+            "text": "ArielProszekDoPrania3,456kg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 84.99,
+            "total": 84.99,
+            "vat": "H",
+            "discounts": [
+              {
+                "text": "OPUST Kupon XTRA",
+                "amount": 5.67
+              }
+            ]
+          },
+          "label": {
+            "name": "Proszek/płyn/kapsułki do prania",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Proszek/płyn/kapsułki do prania",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "DorszAtlFiletBezSkór",
+          "read": null,
+          "label": {
+            "name": "Ryba świeża",
+            "alternatives": [
+              "Ryby mrożone"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.46,
+            "unit": "kg"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "DorszAtlFiletBezSkór",
+          "read": null,
+          "label": {
+            "name": "Ryba świeża",
+            "alternatives": [
+              "Ryby mrożone"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.55,
+            "unit": "kg"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "K-SMMieloneZNogKurcz400g",
+          "read": null,
+          "label": {
+            "name": "Mięso mielone",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "K-SMKarkówkaPlas560g",
+          "read": null,
+          "label": {
+            "name": "Karkówka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "BigMilkBigRożek140ml",
+          "read": null,
+          "label": {
+            "name": "Lody",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "STD.SerekWiejski200g",
+          "read": null,
+          "label": {
+            "name": "Serek wiejski",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "MlekoŚwieżePolsk3,2%",
+          "read": null,
+          "label": {
+            "name": "Mleko",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "SerduszkoJogurt125g",
+          "read": null,
+          "label": {
+            "name": "Jogurt",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "Pomarańcze siatka 1kg",
+          "read": null,
+          "label": {
+            "name": "Pomarańcze",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "Pomidory kg",
+          "read": {
+            "text": "Pomidory kg",
+            "quantity": {
+              "amount": 0.42,
+              "unit": "kg"
+            },
+            "unit_price": 7.99,
+            "total": 3.36,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Pomidory",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.42,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Pomidory",
+            "quantity": {
+              "amount": 0.42,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "discounts",
+              "printed": "-0.22",
+              "read": "none"
+            }
+          ]
+        },
+        {
+          "text": "Kapusta biała kg",
+          "read": {
+            "text": "Kapusta biała kg",
+            "quantity": {
+              "amount": 2.774,
+              "unit": "kg"
+            },
+            "unit_price": 1.99,
+            "total": 5.52,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST Kupon XTRA",
+                "amount": 0.27
+              }
+            ]
+          },
+          "label": {
+            "name": "Kapusta biała",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 2.774,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kapusta biała",
+            "quantity": {
+              "amount": 2.774,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "discounts",
+              "printed": "-0.37",
+              "read": "-0.27"
+            }
+          ]
+        },
+        {
+          "text": "Kalafior szt",
+          "read": null,
+          "label": {
+            "name": "Kalafior",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "Chleb wiejski 500g",
+          "read": null,
+          "label": {
+            "name": "Chleb",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "DelisanaBiszBezg110g",
+          "read": null,
+          "label": {
+            "name": "Biszkopty",
+            "alternatives": [
+              "Ciastka"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "KitKat Mikołaj Czekolad 85g",
+          "read": null,
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "Kinder Chocolate 150g",
+          "read": null,
+          "label": {
+            "name": "Czekolada",
+            "alternatives": [
+              "Batony czekoladowe"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "TarczyńskiParówkiZSzynki220g",
+          "read": null,
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 3.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        },
+        {
+          "text": "KabanoskiDrobiowe90g",
+          "read": null,
+          "label": {
+            "name": "Kabanosy",
+            "alternatives": [
+              "Kiełbasa"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": null,
+          "verdict": "error",
+          "step": "read",
+          "mistake": "no_result",
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 23,
+          "read_lines": 5,
+          "aligned": 5,
+          "missed": 18,
+          "extra": 0,
+          "text_right": 3,
+          "quantity_right": 5,
+          "price_right": 5,
+          "discounts": 24,
+          "discounts_right": 1,
+          "discounts_extra": 1,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            null
+          ],
+          [
+            3,
+            null
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            null
+          ],
+          [
+            6,
+            null
+          ],
+          [
+            7,
+            null
+          ],
+          [
+            8,
+            null
+          ],
+          [
+            9,
+            null
+          ],
+          [
+            10,
+            null
+          ],
+          [
+            11,
+            null
+          ],
+          [
+            12,
+            null
+          ],
+          [
+            13,
+            null
+          ],
+          [
+            14,
+            3
+          ],
+          [
+            15,
+            4
+          ],
+          [
+            16,
+            null
+          ],
+          [
+            17,
+            null
+          ],
+          [
+            18,
+            null
+          ],
+          [
+            19,
+            null
+          ],
+          [
+            20,
+            null
+          ],
+          [
+            21,
+            null
+          ],
+          [
+            22,
+            null
+          ]
+        ],
+        "missed": [
+          "LukMydłoJaśmin500ml",
+          "AlwaysPodpaski14szt",
+          "DorszAtlFiletBezSkór",
+          "DorszAtlFiletBezSkór",
+          "K-SMMieloneZNogKurcz400g",
+          "K-SMKarkówkaPlas560g",
+          "BigMilkBigRożek140ml",
+          "STD.SerekWiejski200g",
+          "MlekoŚwieżePolsk3,2%",
+          "SerduszkoJogurt125g",
+          "Pomarańcze siatka 1kg",
+          "Kalafior szt",
+          "Chleb wiejski 500g",
+          "DelisanaBiszBezg110g",
+          "KitKat Mikołaj Czekolad 85g",
+          "Kinder Chocolate 150g",
+          "TarczyńskiParówkiZSzynki220g",
+          "KabanoskiDrobiowe90g"
+        ],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "BudweiserPiwo0,5l",
+            "read": "BudweiserPiwo0,51"
+          },
+          {
+            "truth": "GrimbergBlanche0,3l",
+            "read": "GrimbergBlBlanche0,31"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 23,
+        "errors": {
+          "count": 18,
+          "share": 0.782608695652174
+        },
+        "warnings": {
+          "count": 4,
+          "share": 0.17391304347826086
+        },
+        "seconds": 19.227664430000004,
+        "cost_usd": 0.001974315,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 18,
+              "share": 0.782608695652174
+            },
+            "warnings": {
+              "count": 4,
+              "share": 0.17391304347826086
+            },
+            "seconds": 14.843110050000007,
+            "cost_usd": 0.0013639
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 3.7759386049999932,
+            "cost_usd": 0.000610415
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.6086157750000041,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 14.838975659999988,
+          "input_tokens": 3484,
+          "output_tokens": 2031,
+          "cost_usd": 0.0013639
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 3.4109125900000095,
+          "input_tokens": 6000,
+          "output_tokens": 198,
+          "cost_usd": 0.000610415
+        }
+      ],
+      "times": {
+        "read_s": 14.843110050000007,
+        "choose_kinds_s": 3.7759386049999932,
+        "database_s": 0.6086157750000041
+      },
+      "error": null
+    },
+    {
+      "receipt": "aldi/2026-11-16 21.06.06.jpg",
+      "lines": [
+        {
+          "text": "ZIEMNIAKI 2,5 KG",
+          "read": {
+            "text": "ZIEMNIAKI 2.5 KG",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ziemniaki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ziemniaki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "ZIEMNIAKI 2,5 KG",
+              "read": "ZIEMNIAKI 2.5 KG"
+            }
+          ]
+        },
+        {
+          "text": "CEBULA ŻÓŁTA 1KG SIAT.",
+          "read": {
+            "text": "CEBULA ŻÓŁTA 1KG SIAT.",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.99,
+            "total": 2.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Cebula",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Cebula",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TARCZYN.PAR Z SZYN 440G",
+          "read": {
+            "text": "TARCZYN.PAR Z SZYN 440G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 12.99,
+            "total": 12.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Parówki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Parówki",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MARCHEW KG",
+          "read": {
+            "text": "MARCHEW KG",
+            "quantity": {
+              "amount": 0.986,
+              "unit": "kg"
+            },
+            "unit_price": 2.99,
+            "total": 2.95,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Marchew",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.986,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Marchew",
+            "quantity": {
+              "amount": 0.986,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PIWO CESKY CERNY 0,5L",
+          "read": {
+            "text": "PIWO CESKY CERNY 0,5L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.49,
+            "total": 4.49,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Piwo",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Piwo",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PIWO PAULANER 0,5L",
+          "read": {
+            "text": "PIWO PAULANER 0,5L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 7.29,
+            "total": 7.29,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Piwo",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Piwo",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "GOLONKA Z INDYKA KG",
+          "read": {
+            "text": "GOLONKA Z INDYKA KG",
+            "quantity": {
+              "amount": 0.905,
+              "unit": "kg"
+            },
+            "unit_price": 16.99,
+            "total": 15.38,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Indyk",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.905,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Indyk",
+            "quantity": {
+              "amount": 0.905,
+              "unit": "kg"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "OLEJ SŁONECZ.1L",
+          "read": {
+            "text": "OLEJ SONECZ.1L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 7.99,
+            "total": 7.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Olej słonecznikowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Olej słonecznikowy",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "OLEJ SŁONECZ.1L",
+              "read": "OLEJ SONECZ.1L"
+            }
+          ]
+        },
+        {
+          "text": "ACTIVIA JOG.PITN.280G",
+          "read": {
+            "text": "ACTIVIA JOG.PITN.280G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt pitny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ACTIVIA JOG.PITN.280G",
+          "read": {
+            "text": "ACTIVIA JOG.PITN.280G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt pitny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWAROG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.59,
+            "total": 3.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "TWARÓG PÓŁTŁUSTY 250G",
+          "read": {
+            "text": "TWAROG PÓŁTŁUSTY 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.59,
+            "total": 3.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ACTIVIA JOG.PITN.280G",
+          "read": {
+            "text": "ACTIVIA JOG.PITN.280G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt pitny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "ACTIVIA JOG.PITN.280G",
+          "read": {
+            "text": "ACTIVIA JOG.PITN.280G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 4.99,
+            "total": 4.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jogurt pitny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jogurt pitny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SOKOŁ.WĘDL.U DZIAD.100G",
+          "read": {
+            "text": "SOKOŁ WĘDL. DZIAO. 100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.99,
+            "total": 6.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Szynka",
+            "alternatives": [
+              "Kiełbasa"
+            ]
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "unknown",
+            "kind": null,
+            "quantity": null,
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "read",
+          "mistake": "unknown",
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "SOKOŁ.WĘDL.U DZIAD.100G",
+              "read": "SOKOŁ WĘDL. DZIAO. 100G"
+            }
+          ]
+        },
+        {
+          "text": "SALAMI CLASSIC 100G",
+          "read": {
+            "text": "SALAMI CLASSIC 100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.25,
+            "total": 5.25,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kiełbasa",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kiełbasa",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RIT SPO CZEKOL ZIM 100G",
+          "read": {
+            "text": "RIT SPO CZEKOL ZIM 100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "RIT SPO CZEKOL ZIM 100G",
+          "read": {
+            "text": "RIT SPO CZEKOL ZIM 100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SER SIERPC MARKIZ 400G",
+          "read": {
+            "text": "SER SIERPC MARKIZ 400G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 13.49,
+            "total": 13.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ser",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": {
+            "text": "JAJA 10L ŚCIÓKOWE",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.49,
+            "total": 11.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "JAJA 10L ŚCIÓŁKOWE",
+              "read": "JAJA 10L ŚCIÓKOWE"
+            }
+          ]
+        },
+        {
+          "text": "JAJA 10L ŚCIÓŁKOWE",
+          "read": {
+            "text": "JAJA 10L ŚCIÓKOWE",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.49,
+            "total": 11.49,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "JAJA 10L ŚCIÓŁKOWE",
+              "read": "JAJA 10L ŚCIÓKOWE"
+            }
+          ]
+        },
+        {
+          "text": "BURAKI GOT.CAŁE 500GVAC",
+          "read": {
+            "text": "BURAKI GOT.CAKE 500G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 2.59,
+            "total": 2.59,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Buraki gotowane",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Buraki gotowane",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "BURAKI GOT.CAŁE 500GVAC",
+              "read": "BURAKI GOT.CAKE 500G"
+            }
+          ]
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 22,
+          "read_lines": 22,
+          "aligned": 22,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 16,
+          "quantity_right": 22,
+          "price_right": 22,
+          "discounts": 0,
+          "discounts_right": 0,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 1
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "ZIEMNIAKI 2,5 KG",
+            "read": "ZIEMNIAKI 2.5 KG"
+          },
+          {
+            "truth": "OLEJ SŁONECZ.1L",
+            "read": "OLEJ SONECZ.1L"
+          },
+          {
+            "truth": "SOKOŁ.WĘDL.U DZIAD.100G",
+            "read": "SOKOŁ WĘDL. DZIAO. 100G"
+          },
+          {
+            "truth": "JAJA 10L ŚCIÓŁKOWE",
+            "read": "JAJA 10L ŚCIÓKOWE"
+          },
+          {
+            "truth": "JAJA 10L ŚCIÓŁKOWE",
+            "read": "JAJA 10L ŚCIÓKOWE"
+          },
+          {
+            "truth": "BURAKI GOT.CAŁE 500GVAC",
+            "read": "BURAKI GOT.CAKE 500G"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 22,
+        "errors": {
+          "count": 1,
+          "share": 0.045454545454545456
+        },
+        "warnings": {
+          "count": 5,
+          "share": 0.22727272727272727
+        },
+        "seconds": 38.73845651100001,
+        "cost_usd": 0.00487794,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 1,
+              "share": 0.045454545454545456
+            },
+            "warnings": {
+              "count": 5,
+              "share": 0.22727272727272727
+            },
+            "seconds": 22.652081487000004,
+            "cost_usd": 0.0033729
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 15.358032578000007,
+            "cost_usd": 0.00150504
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.7283424459999992,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 22.647902926,
+          "input_tokens": 3484,
+          "output_tokens": 6049,
+          "cost_usd": 0.0033729
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 14.992622745000006,
+          "input_tokens": 6537,
+          "output_tokens": 1853,
+          "cost_usd": 0.00150504
+        }
+      ],
+      "times": {
+        "read_s": 22.652081487000004,
+        "choose_kinds_s": 15.358032578000007,
+        "database_s": 0.7283424459999992
+      },
+      "error": null
+    },
+    {
+      "receipt": "aldi/photo_2026-11-16 21.14.24.jpeg",
+      "lines": [
+        {
+          "text": "JAJA WOLNY WYB.L 10SZT",
+          "read": {
+            "text": "JAJA WOLNY WYB.L 10SZT",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 12.99,
+            "total": 12.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "JAJA WOLNY WYB.L 10SZT",
+          "read": {
+            "text": "JAJA WOLNY WYB.L 10SZT",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 12.99,
+            "total": 12.99,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST JAJA WOLNY WYB.L 10SZT",
+                "amount": 6.5
+              }
+            ]
+          },
+          "label": {
+            "name": "Jaja",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jaja",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "K. KWAS CHLEBOWY OBO 1L",
+          "read": {
+            "text": "K. KWAS CHLEBOWY OBO 1L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 6.49,
+            "total": 6.49,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Kwas chlebowy",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Kwas chlebowy",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MLEK ŚW. B.LA.2% 1L",
+          "read": {
+            "text": "MLEK ŚW.B.LA.2% 1L",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 3.69,
+            "total": 3.69,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Mleko",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Mleko",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "MLEK ŚW. B.LA.2% 1L",
+              "read": "MLEK ŚW.B.LA.2% 1L"
+            }
+          ]
+        },
+        {
+          "text": "POLSKIE JABŁKA GALA KG",
+          "read": {
+            "text": "POLSKIE JABŁKA GALA KG",
+            "quantity": {
+              "amount": 1.336,
+              "unit": "kg"
+            },
+            "unit_price": 4.99,
+            "total": 6.67,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Jabłka",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.336,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Jabłka",
+            "quantity": {
+              "amount": 1.336,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PIĄTNICA TWAR KLIN 250G",
+          "read": {
+            "text": "PIĄTNICA TWAR KLIN 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.79,
+            "total": 5.79,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "PIĄTNICA TWAR KLIN 250G",
+          "read": {
+            "text": "PIĄTNICA TWAR KLIN 250G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 5.79,
+            "total": 5.79,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST PIĄTNICA TWAR KLIN 250G",
+                "amount": 3.6
+              }
+            ]
+          },
+          "label": {
+            "name": "Twaróg",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Twaróg",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "SER SIERPC MARKIZ 400G",
+          "read": {
+            "text": "SER SIERPC MARKIZ 400G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 13.49,
+            "total": 13.49,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST SER SIERPC MARKIZ 400G",
+                "amount": 4.05
+              }
+            ]
+          },
+          "label": {
+            "name": "Ser",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Ser",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "POLĘD.Z PIER KUR.400G",
+          "read": {
+            "text": "POLĘD.Z PIER KUR.400G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.99,
+            "total": 11.99,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST POLĘD.Z PIER KUR.400G",
+                "amount": 3.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Kurczak",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Szynka",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "choose_kinds",
+          "mistake": "wrong_existing",
+          "misread": []
+        },
+        {
+          "text": "POMIDOR MALINOWY KG",
+          "read": {
+            "text": "POMIDOR MALINOWY KG",
+            "quantity": {
+              "amount": 0.998,
+              "unit": "kg"
+            },
+            "unit_price": 11.99,
+            "total": 11.97,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Pomidory",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.998,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Pomidory",
+            "quantity": {
+              "amount": 0.998,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "POLĘD.Z PIER KUR.400G",
+          "read": {
+            "text": "POLĘD.Z PIER KUR.400G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 11.99,
+            "total": 11.99,
+            "vat": "C",
+            "discounts": [
+              {
+                "text": "OPUST POLĘD.Z PIER KUR.400G",
+                "amount": 3.0
+              }
+            ]
+          },
+          "label": {
+            "name": "Kurczak",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Szynka",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "error",
+          "step": "choose_kinds",
+          "mistake": "wrong_existing",
+          "misread": []
+        },
+        {
+          "text": "MANDARYNKI - KG",
+          "read": {
+            "text": "MANDARYNKI - KG",
+            "quantity": {
+              "amount": 0.84,
+              "unit": "kg"
+            },
+            "unit_price": 6.99,
+            "total": 5.87,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Mandarynki",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 0.84,
+            "unit": "kg"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Mandarynki",
+            "quantity": {
+              "amount": 0.84,
+              "unit": "kg"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "MALINY 125G",
+          "read": {
+            "text": "MALINY 125G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Maliny",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Maliny",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        },
+        {
+          "text": "BORÓWKA AMERYKAŃSKA300G",
+          "read": {
+            "text": "BORÓWKA AMERYKAŃSKA 300G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 14.99,
+            "total": 14.99,
+            "vat": "C",
+            "discounts": []
+          },
+          "label": {
+            "name": "Borówki amerykańskie",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Borówki amerykańskie",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "model"
+          },
+          "verdict": "warning",
+          "step": "read",
+          "mistake": null,
+          "misread": [
+            {
+              "detail": "text",
+              "printed": "BORÓWKA AMERYKAŃSKA300G",
+              "read": "BORÓWKA AMERYKAŃSKA 300G"
+            }
+          ]
+        },
+        {
+          "text": "RITTER SPORT CZEK.100G",
+          "read": {
+            "text": "RITTER SPORT CZEK.100G",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "unit_price": 8.99,
+            "total": 8.99,
+            "vat": "A",
+            "discounts": []
+          },
+          "label": {
+            "name": "Czekolada",
+            "alternatives": []
+          },
+          "expected": "existing",
+          "expected_quantity": {
+            "amount": 1.0,
+            "unit": "szt"
+          },
+          "recorded": {
+            "outcome": "existing",
+            "kind": "Czekolada",
+            "quantity": {
+              "amount": 1.0,
+              "unit": "szt"
+            },
+            "source": "catalog"
+          },
+          "verdict": "right",
+          "step": null,
+          "mistake": null,
+          "misread": []
+        }
+      ],
+      "reading": {
+        "counts": {
+          "receipts": 1,
+          "truth_lines": 15,
+          "read_lines": 15,
+          "aligned": 15,
+          "missed": 0,
+          "extra": 0,
+          "text_right": 13,
+          "quantity_right": 15,
+          "price_right": 15,
+          "discounts": 5,
+          "discounts_right": 5,
+          "discounts_extra": 0,
+          "chain_right": 1,
+          "date_right": 1,
+          "self_checked": 1,
+          "self_check_passed": 0
+        },
+        "pairs": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ]
+        ],
+        "missed": [],
+        "extra": [],
+        "misread": [
+          {
+            "truth": "MLEK ŚW. B.LA.2% 1L",
+            "read": "MLEK ŚW.B.LA.2% 1L"
+          },
+          {
+            "truth": "BORÓWKA AMERYKAŃSKA300G",
+            "read": "BORÓWKA AMERYKAŃSKA 300G"
+          }
+        ]
+      },
+      "numbers": {
+        "lines": 15,
+        "errors": {
+          "count": 2,
+          "share": 0.13333333333333333
+        },
+        "warnings": {
+          "count": 2,
+          "share": 0.13333333333333333
+        },
+        "seconds": 36.66745663599997,
+        "cost_usd": 0.0048558149999999994,
+        "steps": [
+          {
+            "step": "read",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 2,
+              "share": 0.13333333333333333
+            },
+            "seconds": 27.846355519000014,
+            "cost_usd": 0.0039279
+          },
+          {
+            "step": "choose_kinds",
+            "errors": {
+              "count": 2,
+              "share": 0.13333333333333333
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 7.975467027000036,
+            "cost_usd": 0.000927915
+          },
+          {
+            "step": "database",
+            "errors": {
+              "count": 0,
+              "share": 0.0
+            },
+            "warnings": {
+              "count": 0,
+              "share": 0.0
+            },
+            "seconds": 0.8456340899999191,
+            "cost_usd": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "step": "read",
+          "model": "anthropic/claude-haiku-5.5",
+          "latency_s": 27.842184709999998,
+          "input_tokens": 3484,
+          "output_tokens": 7159,
+          "cost_usd": 0.0039279
+        },
+        {
+          "step": "choose_kinds",
+          "model": "openai/gpt-6-luna",
+          "latency_s": 7.609101084000031,
+          "input_tokens": 6328,
+          "output_tokens": 751,
+          "cost_usd": 0.000927915
+        }
+      ],
+      "times": {
+        "read_s": 27.846355519000014,
+        "choose_kinds_s": 7.975467027000036,
+        "database_s": 0.8456340899999191
+      },
+      "error": null
+    }
+  ],
+  "duplicates": [],
+  "stored_kinds_count": null,
+  "stored_kinds_sha256": null
+}
