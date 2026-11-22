@@ -83,6 +83,7 @@ main.run .pill {
   padding: 6px 12px; border-radius: 999px; font-size: 14px;
   background: var(--surface); border: 1px solid var(--border);
 }
+main.run .pill.failed { color: var(--worse); }
 .block { display: flex; flex-direction: column; gap: 10px; }
 main.run tbody th { color: var(--text); font-size: 15px; padding: 10px 8px; border-top: 1px solid var(--rule); }
 table.summary, table.receipts { min-width: 720px; }
@@ -94,6 +95,10 @@ table.summary .total { color: var(--text); font-weight: 700; }
 table.summary td.total { background: #F7FAFA; font-weight: normal; }
 table.receipts tbody th { font-weight: 500; }
 table.receipts tr.failed td { text-align: left; color: var(--worse); }
+table.foreign { min-width: 560px; }
+table.foreign tbody th { text-align: left; font-weight: 500; }
+table.foreign td:nth-child(n+3), table.foreign thead th:nth-child(n+3) { text-align: right; }
+table.foreign tr.failed td { color: var(--worse); }
 table.lines { min-width: 960px; font-size: 14px; }
 table.lines tbody tr { vertical-align: top; }
 .new {

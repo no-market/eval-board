@@ -16,6 +16,7 @@ export function renderRun({ flow: flowId, id, runFile }) {
   ${heading(flow, runFile)}
   ${summary(runFile.numbers)}
   ${perReceipt(runFile.cases)}
+  ${foreignReceipts(runFile.foreign ?? [])}
   ${errors(linesOf(runFile.cases, 'error'))}
   ${warnings(linesOf(runFile.cases, 'warning'))}
   <p><a href="${runFileOnGitHub(id)}">Run file on GitHub</a></p>
@@ -37,9 +38,21 @@ function heading(flow, runFile) {
     </div>
     <div class="pills">
       <span class="pill">${numbers.receipts} receipts · ${numbers.lines} lines</span>
-      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>
+      <span class="pill">Failed: ${numbers.failed} of ${numbers.receipts} receipts</span>${foreignPill(runFile.foreign ?? [], runFile.metrics?.reading?.counts?.polish_rejected ?? 0, numbers.receipts)}
     </div>
   </div>`;
+}
+
+// Foreign receipts, rejected or let through, and Polish receipts rejected as
+// foreign: a pill when the run has either, styled as failed when a foreign
+// receipt was let through or a Polish one rejected. Older run files have
+// neither field, and get no pill.
+function foreignPill(foreign, polishRejected, receipts) {
+  if (foreign.length === 0 && polishRejected === 0) return '';
+  const rejected = foreign.filter((f) => f.rejected).length;
+  const anyFailed = rejected < foreign.length || polishRejected > 0;
+  return html`
+      <span class="pill${anyFailed ? ' failed' : ''}">Foreign: rejected ${rejected} of ${foreign.length} · Polish rejected ${polishRejected} of ${receipts}</span>`;
 }
 
 function summary(numbers) {
@@ -79,8 +92,13 @@ function perReceipt(cases) {
   </section>`;
 }
 
+// A receipt's row header: its name, with its photo as the title.
+function receiptHeader(receipt) {
+  return html`<th scope="row" title="${receipt}">${receiptName(receipt)}</th>`;
+}
+
 function receiptRow(receiptCase) {
-  const name = html`<th scope="row" title="${receiptCase.receipt}">${receiptName(receiptCase.receipt)}</th>`;
+  const name = receiptHeader(receiptCase.receipt);
   if (failed(receiptCase)) {
     return html`
           <tr class="failed">${name}<td colspan="5"><strong>Failed:</strong> ${receiptCase.error}</td></tr>`;
@@ -92,6 +110,31 @@ function receiptRow(receiptCase) {
   }).join(' · ');
   return html`
           <tr>${name}<td>${numbers.lines}</td><td>${byStep((s) => s.errors.count)}</td><td>${byStep((s) => s.warnings.count)}</td><td>${byStep((s) => (s.seconds === null ? '—' : s.seconds.toFixed(1)))}</td><td>${orDash(numbers.cost_usd, formatCents)}</td></tr>`;
+}
+
+// The foreign receipts, a row each, below the receipts and apart from them:
+// rejected with the country, or let through, as a failed row, with the country
+// read and any other failure. None for a run without them.
+function foreignReceipts(foreign) {
+  if (foreign.length === 0) return '';
+  return html`<section aria-labelledby="foreign-h" class="block">
+    <h2 id="foreign-h">Foreign receipts</h2>
+    <div class="table-wrap">
+      <table class="foreign">
+        <thead><tr><th scope="col">Receipt</th><th scope="col">Outcome</th><th scope="col">Seconds</th><th scope="col">Cost</th></tr></thead>
+        <tbody>${foreign.map(foreignRow)}
+        </tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+function foreignRow(foreignCase) {
+  const outcome = foreignCase.rejected
+    ? html`<td>Rejected: ${foreignCase.country}</td>`
+    : html`<td><strong>Not rejected:</strong> read ${foreignCase.country_read ?? dash}${foreignCase.error ? ` · ${foreignCase.error}` : ''}</td>`;
+  return html`
+          <tr${foreignCase.rejected ? '' : html` class="failed"`}>${receiptHeader(foreignCase.receipt)}${outcome}<td>${orDash(foreignCase.seconds, (s) => s.toFixed(1))}</td><td>${orDash(foreignCase.cost_usd, formatCents)}</td></tr>`;
 }
 
 // Why a purchase was lost: what the flow recorded instead of a kind.

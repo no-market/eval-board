@@ -24,13 +24,17 @@ test('the heading gives the date, short commit, flow version, models and receipt
   assert.match(all, /Failed: 0 of 3 receipts/);
 });
 
+// The body of the table in the section headed `heading`.
+function tbodyOf(html, heading) {
+  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
+  assert.ok(start >= 0, `a section headed ${heading}`);
+  return html.slice(start).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
+}
+
 // The text of each row of the table in the section headed `heading`: its row
 // header and cells, tags stripped.
 function rows(html, heading) {
-  const start = html.search(new RegExp(`<(h2|summary)[^>]*>${heading}`));
-  assert.ok(start >= 0, `a section headed ${heading}`);
-  const tbody = html.slice(start).match(/<tbody>([\s\S]*?)<\/tbody>/)?.[1] ?? '';
-  return [...tbody.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
+  return [...tbodyOf(html, heading).matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map(([, row]) =>
     [...row.matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map(([, cell]) => text(cell)),
   );
 }
@@ -133,4 +137,80 @@ test('warnings: the same table, folded', () => {
     ['Aldi, 23 Oct 2026', 'reading', 'JAJA 10L ŚCIÓŁKOWE', 'JAJA 10L ŚCIÓŁKOWE · discounts none, printed -5.80', 'Jaja', 'Jaja'],
     ['Aldi, 23 Oct 2026', 'reading', '—', 'OPUST JAJA 10L ŚCIÓŁKOWE', '— (noise)', '—'],
   ]);
+});
+
+// A run with foreign receipts: the spec's example, one rejected and one not.
+const foreignRun = JSON.parse(
+  await readFile(new URL('./fixtures/foreign-receipts.json', import.meta.url), 'utf8'),
+);
+const foreignCopy = () => structuredClone(foreignRun);
+
+// The pill in the heading whose text starts with `start`, as [classes, text].
+function pill(html, start) {
+  const found = [...html.matchAll(/<span class="(pill[^"]*)">([\s\S]*?)<\/span>/g)]
+    .map(([, classes, inner]) => [classes, text(inner)])
+    .find(([, inner]) => inner.startsWith(start));
+  return found ?? null;
+}
+
+test('foreign receipts: a pill beside Failed with rejected foreign and Polish receipts', () => {
+  assert.deepEqual(pill(page(foreignRun), 'Foreign'), ['pill failed', 'Foreign: rejected 1 of 2 · Polish rejected 0 of 3']);
+});
+
+test('the foreign pill is plain when every foreign receipt is rejected and no Polish one', () => {
+  const data = foreignCopy();
+  data.foreign[1].rejected = true;
+  assert.deepEqual(pill(page(data), 'Foreign'), ['pill', 'Foreign: rejected 2 of 2 · Polish rejected 0 of 3']);
+});
+
+test('a Polish receipt rejected shows the foreign pill, failed, even with no foreign receipt', () => {
+  const data = foreignCopy();
+  data.foreign = [];
+  data.metrics.reading.counts.polish_rejected = 1;
+  assert.deepEqual(pill(page(data), 'Foreign'), ['pill failed', 'Foreign: rejected 0 of 0 · Polish rejected 1 of 3']);
+});
+
+test('a run without foreign receipts or Polish ones rejected shows no foreign pill', () => {
+  assert.equal(pill(page(), 'Foreign'), null);
+  const data = foreignCopy();
+  data.foreign = [];
+  assert.equal(pill(page(data), 'Foreign'), null);
+});
+
+test('foreign receipts do not count in Failed', () => {
+  assert.deepEqual(pill(page(foreignRun), 'Failed'), ['pill', 'Failed: 0 of 3 receipts']);
+});
+
+test('foreign receipts: a table of their own, a row each, the one let through as failed', () => {
+  const html = page(foreignRun);
+  assert.deepEqual(rows(html, 'Foreign receipts'), [
+    ['Kaufland, 14 Aug 2026', 'Rejected: CZ', '6.1', '0.19¢'],
+    ['Kaufland, 14 Aug 2026', 'Not rejected: read —', '14.8', '0.41¢'],
+  ]);
+  const classes = [...tbodyOf(html, 'Foreign receipts').matchAll(/<tr( class="[^"]*")?>/g)].map(([, c]) => c ?? '');
+  assert.deepEqual(classes, ['', ' class="failed"']);
+  assert.ok(html.indexOf('Foreign receipts') > html.indexOf('Per receipt'), 'below the receipts table');
+});
+
+test('a foreign receipt let through with another failure gives its error after the country read', () => {
+  const data = foreignCopy();
+  Object.assign(data.foreign[1], { country_read: 'PL', error: 'ModelError: the model returned no lines', seconds: null, cost_usd: null });
+  assert.deepEqual(rows(page(data), 'Foreign receipts')[1], [
+    'Kaufland, 14 Aug 2026', 'Not rejected: read PL · ModelError: the model returned no lines', '—', '—',
+  ]);
+});
+
+test('foreign receipts stay out of the receipts table, the summary, errors and warnings', () => {
+  const plain = page();
+  const withForeign = page(foreignRun);
+  for (const heading of ['Per receipt', 'Summary by step', 'Errors', 'Warnings']) {
+    assert.deepEqual(rows(withForeign, heading), rows(plain, heading), heading);
+  }
+});
+
+test('a run without foreign receipts has no foreign receipts table', () => {
+  assert.doesNotMatch(page(), /Foreign receipts/);
+  const data = foreignCopy();
+  data.foreign = [];
+  assert.doesNotMatch(page(data), /Foreign receipts/);
 });
