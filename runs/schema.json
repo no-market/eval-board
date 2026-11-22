@@ -700,6 +700,78 @@
       ],
       "type": "string"
     },
+    "ForeignCase": {
+      "description": "A foreign truth, a receipt from outside Poland: right when the flow rejected it.\nLeft out of `cases` and the numbers; its model calls count in `metrics.calls`.",
+      "properties": {
+        "receipt": {
+          "title": "Receipt",
+          "type": "string"
+        },
+        "country": {
+          "title": "Country",
+          "type": "string"
+        },
+        "country_read": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Country Read"
+        },
+        "rejected": {
+          "title": "Rejected",
+          "type": "boolean"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error"
+        },
+        "seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Seconds"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Usd"
+        }
+      },
+      "required": [
+        "receipt",
+        "country",
+        "country_read",
+        "rejected",
+        "error",
+        "seconds",
+        "cost_usd"
+      ],
+      "title": "ForeignCase",
+      "type": "object"
+    },
     "JsonValue": {},
     "KindAnswer": {
       "description": "What the model answered, as production would read it: stored names under `kinds`, with\na new name that exists in another case or spacing among them, and names on neither list\ndropped.",
@@ -2034,6 +2106,11 @@
           "default": 0,
           "title": "Self Check Passed",
           "type": "integer"
+        },
+        "polish_rejected": {
+          "default": 0,
+          "title": "Polish Rejected",
+          "type": "integer"
         }
       },
       "title": "ReadingCounts",
@@ -2484,6 +2561,14 @@
             "$ref": "#/$defs/DuplicateReceipt"
           },
           "title": "Duplicates",
+          "type": "array"
+        },
+        "foreign": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ForeignCase"
+          },
+          "title": "Foreign",
           "type": "array"
         },
         "stored_kinds_count": {
